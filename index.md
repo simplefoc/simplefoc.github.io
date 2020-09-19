@@ -7,7 +7,7 @@ permalink: /
 ---
 # Arduino Simple Field Oriented Control (FOC) project
 
-![Library Compile](https://github.com/askuric/Arduino-FOC/workflows/Library%20Compile/badge.svg)
+![Library Compile](https://github.com/simplefoc/Arduino-FOC/workflows/Library%20Compile/badge.svg)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![arduino-library-badge](https://www.ardu-badge.com/badge/Simple%20FOC.svg?)
 
@@ -17,7 +17,7 @@ Therefore this is an attempt to:
 - Demystify FOC algorithm and make a robust but simple Arduino library: [Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> ](#arduino-simplefoclibrary)
 - Develop a modular BLDC driver board: [Arduino <span class="simple">Simple<span class="foc">FOC</span>Shiled</span> ](arduino_simplefoc_shield_showcase).
 
-<blockquote class="info"> <p class="heading">NEWS 📢</p> New version of the Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> is out! (<a href="https://github.com/askuric/Arduino-FOC/releases">version 1.5.0 <i class="fa fa-tag"></i></a>)
+<blockquote class="info"> <p class="heading">NEWS 📢</p> New version of the Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> is out! (<a href="https://github.com/simplefoc/Arduino-FOC/releases">version 1.5.0 <i class="fa fa-tag"></i></a>)
 <br>
 <b>New features</b>:
 <ul>

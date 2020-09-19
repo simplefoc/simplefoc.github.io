@@ -9,7 +9,7 @@ grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>lib
 ---
 
 # Position sensors
-The library currently supports ([releases <i class="fa fa-tag"></i>](https://github.com/askuric/Arduino-FOC/releases)) types of position sensors: 
+The library currently supports ([releases <i class="fa fa-tag"></i>](https://github.com/simplefoc/Arduino-FOC/releases)) types of position sensors: 
 - [Encoder](#encoders) 
 - [Magnetic sensor](#magnetic-sensors).
 - [Hall sensors](#hall-sensors)

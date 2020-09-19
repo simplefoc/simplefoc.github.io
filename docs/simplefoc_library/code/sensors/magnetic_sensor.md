@@ -16,7 +16,7 @@ permalink: /magnetic_sensor
 </div>
 
 
-Magnetic sensors implementation in this library ([version 1.4.1 <i class="fa fa-tag"></i>](https://github.com/askuric/Arduino-FOC/releases)) support communications:
+Magnetic sensors implementation in this library ([version 1.4.1 <i class="fa fa-tag"></i>](https://github.com/simplefoc/Arduino-FOC/releases)) support communications:
 - **SPI** - [MagneticSensorSPI](#spi-communication-magneticsensorspi)
 - **I2C** - [MagneticSensorI2C](#i2c-communication-magneticsensori2c)
 - **Analog** - [MagneticSensorAnalog](#analog-output-magneticsensoranalog)

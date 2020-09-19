@@ -21,7 +21,7 @@ This library supports *off-the-shelf* these types of position sensors:
 - [Magnetic sensor](magnetic_sensor): 
     - Sensor that uses precise magnetic field measurement to estimate the position.
         - They come with multitude of different communication standards such as: SPI, SSI, I2C, ABI, UVW, PWM...
-        - **Supported communications:** ([releases <i class="fa fa-tag"></i>](https://github.com/askuric/Arduino-FOC/releases)) 
+        - **Supported communications:** ([releases <i class="fa fa-tag"></i>](https://github.com/simplefoc/Arduino-FOC/releases)) 
             - SPI, I2C, Analog
             - UVW (*using the hall sensor interface*)
             - ABI (*using the encoder interface*)

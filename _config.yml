@@ -36,12 +36,12 @@ heading_anchors: true
 # Aux links for the upper right navigation
 aux_links:
   "Arduino SimpleFOC on GitHub":
-    - "https://github.com/askuric/Arduino-FOC"
+    - "https://github.com/simplefoc"
   "Order Arduino SimpleFOC Shield":
     - "https://simplefoc.com/simplefoc_shield_product"
 
 # Footer content appears at the bottom of every page's main content
-footer_content: "Copyright &copy; 2020. Distributed by an <a href=\"https://github.com/askuric/Arduino-FOC/tree/master/LICENSE\">MIT license.</a>"
+footer_content: "Copyright &copy; 2020. Distributed by an <a href=\"https://github.com/simplefoc/Arduino-FOC/tree/master/LICENSE\">MIT license.</a>"
 
 # Color scheme currently only supports "dark" or nil (default)
 color_scheme: nil

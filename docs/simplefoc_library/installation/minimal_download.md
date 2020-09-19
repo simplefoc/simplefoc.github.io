@@ -10,13 +10,13 @@ grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>lib
 
 # <span class="simple">Simple<span class="foc">FOC</span>library</span> minimal code
 
-For those willing to experiment and to modify the code I suggest using the [<i class="fa fa-code-fork"></i> minimal](https://github.com/askuric/Arduino-FOC/tree/minimal) code version. 
+For those willing to experiment and to modify the code I suggest using the [<i class="fa fa-code-fork"></i> minimal](https://github.com/simplefoc/Arduino-FOC/tree/minimal) code version. 
 <blockquote class="info"><p class="heading">Note</p>This code is completely independent and you can run it as any other Arduino Sketch without the need for any libraries.</blockquote> 
 
 ## <i class="fa fa-github"></i>  Installation
 This version of the code you can access directly using github interface.
 ### <i class="fa fa-download"></i> ZIP download 
-- Go to [<i class="fa fa-code-fork"></i> minimal](https://github.com/askuric/Arduino-FOC/tree/minimal) branch. 
+- Go to [<i class="fa fa-code-fork"></i> minimal](https://github.com/simplefoc/Arduino-FOC/tree/minimal) branch. 
 - Download the code by clicking on the `Clone or Download > Download ZIP`.
 - Unzip it and open the sketch in Arduino IDE. 
 
@@ -24,7 +24,7 @@ This version of the code you can access directly using github interface.
 - Open the terminal:
   ```sh
   cd *to you desired directory*
-  git clone -b minimal https://github.com/askuric/Arduino-FOC.git
+  git clone -b minimal https://github.com/simplefoc/Arduino-FOC.git
   ```
 - Open it with the Arduino IDE and run it.
 

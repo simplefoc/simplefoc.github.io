@@ -11,9 +11,9 @@ grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>lib
 
 # Reaction Wheel Inverted Pendulum project<br>using <span class="simple">Simple<span class="foc">FOC</span>Shield</span>
 
-This is a project of designing and controlling the reaction wheel inverted pendulum based entirely on Arduino [SimpleFOC library and SimpleFOC shield](https://github.com/askuric/Arduino-FOC). 
+This is a project of designing and controlling the reaction wheel inverted pendulum based entirely on Arduino [SimpleFOC library and SimpleFOC shield](https://github.com/simplefoc/Arduino-FOC). 
 
-<p><img src="https://github.com/askuric/Arduino-FOC-reaction-wheel-inverted-pendulum/raw/master/images/swing-up.gif" class="width40">   <img src="https://github.com/askuric/Arduino-FOC-reaction-wheel-inverted-pendulum/raw/master/images/stabilization.gif" class="width40"></p>
+<p><img src="https://github.com/simplefoc/Arduino-FOC-reaction-wheel-inverted-pendulum/raw/master/images/swing-up.gif" class="width40">   <img src="https://github.com/simplefoc/Arduino-FOC-reaction-wheel-inverted-pendulum/raw/master/images/stabilization.gif" class="width40"></p>
 
 This is a very fun project in many ways, and it is intended:
 - Students in search for a good testing platform for their advanced algorithms
@@ -35,13 +35,13 @@ But for me, the most exciting part of this project was the ability to use the Fi
 So far, FOC has been restricted to high-end applications due to the complexity and the cost of the hardware mostly, but also due to the lack of user-friendly, well documented software. Therefore I am very happy to show you the projects like this one, which directly benefit the FOC algorithm and BLDC motors and encourage you to use these techniques in your projects as well.
 
 ## What are the necessary components?
-<img src="https://github.com/askuric/Arduino-FOC-reaction-wheel-inverted-pendulum/raw/master/images/img1.png" class="width60">
+<img src="https://github.com/simplefoc/Arduino-FOC-reaction-wheel-inverted-pendulum/raw/master/images/img1.png" class="width60">
 
 Due to the using of the brushless motor and the <span class="simple">Simple<span class="foc">FOC</span>Shield</span>, this might be one of the simplest hardware setups of the reaction wheel inverted pendulum there is.
 
-<img src="https://github.com/askuric/Arduino-FOC-reaction-wheel-inverted-pendulum/raw/master/images/components.gif" class="width60">
+<img src="https://github.com/simplefocArduino-FOC-reaction-wheel-inverted-pendulum/raw/master/images/components.gif" class="width60">
 
-Please check the [github repository](https://github.com/askuric/Arduino-FOC-reaction-wheel-inverted-pendulum) of this project for more details about the 3d printed components and hardware.
+Please check the [github repository](https://github.com/simplefoc/Arduino-FOC-reaction-wheel-inverted-pendulum) of this project for more details about the 3d printed components and hardware.
 
 ## Connecting all the components
 Apart from few 3d printed components, few screws and bearings for this project you will need these components:
