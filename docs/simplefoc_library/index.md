@@ -15,21 +15,31 @@ has_toc: False
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![arduino-library-badge](https://www.ardu-badge.com/badge/Simple%20FOC.svg?)
 
-This Arduino library implements Field Oriented Control (FOC) algorithm for BLDC motors. FOC algorithm produces incomparably smooth operation and high degree of torque, velocity and position control.
+This Arduino library implements Field Oriented Control (FOC) algorithm for BLDC and Stepper motors. FOC algorithm produces incomparably smooth operation and high degree of torque, velocity and position control.
 The library is intended both for: 
-- Beginners searching for a simple and *user-friendly* way to learn how to control BLDC motors 
+- Beginners searching for a simple and *user-friendly* way to learn how to control BLDC and Stepper motors 
 - Advanced users ready to dig deeper into the FOC algorithm and optimize the code for their particular application/hardware.
 
+
 ## Features
-- **Arduino compatible**: Arduino library code version 
+- **Arduino compatible**: 
+   - Arduino library code
   - Arduino Library Manager integration
 - **Open-Source**: Full code and documentation available on github
 - **Easy to setup and configure**: 
-  - Easy hardware configuration ([sensors](sensors), [BLDC motors](motor_initialization))
+  - Easy hardware configuration
   - Easy [tuning the control loops](motion_control)
 - **Modular**:
-  - Supports as many [sensors ,  BLDC motors  and  driver boards](supported_hardware) as possible
-- **Plug & play**: Especially in combination with the Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span>
+  - Supports multiple motors:
+     - BLDC motors
+     - Stepper motors
+  - Support as many [sensors and  driver boards](supported_hardware) as possible
+  - Supports multiple [MCU architectures](microcontrollers):
+     - Arduino: UNO, MEGA, any board with ATMega328 chips
+     - STM32 boards: [Nucleo](https://www.st.com/en/evaluation-tools/stm32-nucleo-boards.html), [Bluepill](https://stm32-base.org/boards/STM32F103C8T6-Blue-Pill.html) ...
+     - ESP32
+     - Teensy boards
+- **Plug & play**: Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> 
 
 <blockquote class="info">📢 Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> will support any BLDC motor driver which can be driven with 3 PWM signals.</blockquote>
 <blockquote class="warning">📢

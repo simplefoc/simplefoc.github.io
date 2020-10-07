@@ -2,7 +2,7 @@
 layout: default
 title: Writing the code
 parent: Getting Started
-description: "Arduino Simple Field Oriented Control (FOC) library ."
+description: "Writing the Arduino program for your SimpleFOCShield."
 nav_order: 3
 permalink: /foc_shield_code
 grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span>
@@ -97,6 +97,3 @@ motion_control >
                        - hall_sensors
 ```
 For more information about the possible <span class="simple">Simple<span class="foc">FOC</span>Shield</span> projects visit [example projects](examples)
-
-<blockquote class="info"> <p class="heading">Thank you for your patience </p> The full documentation will be available soon! <br>
-At the moment this is just a brief overview of how to start. </blockquote>

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Getting Started
-description: "Arduino Simple Field Oriented Control (FOC) library ."
+description: "Getting started with Arduino SimpleFOCShield"
 parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span>
 nav_order: 1
 permalink: /arduino_simplefoc_shield_getting_started

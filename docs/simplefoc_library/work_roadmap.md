@@ -13,6 +13,7 @@ For more info about the features of library releases visit the [github releases 
 ## Motion Control and FOC algorithm
 - [ ] Motor control: Support for current control
 - [ ] Motor control: FOC using IMU - camera gimbal and similar applications
+- [x] **Motor control: Support for stepper motors**
 - [x] Motor control: Support for Hall sensor commutation 
 - [x] Motor control: Support for fully open-loop operation (no sensor)
 - [x] Add support for acceleration ramping
@@ -23,10 +24,11 @@ For more info about the features of library releases visit the [github releases 
 - [x] Implement Space Vector Modulation method : PWM SVM
 
 ## MCU support
-- [x] Device specific code separation: Easier porting in between devices
+- [x] Hardware specific code separation : easier porting in between devices `hardware_utils.cpp/.h`
+- [x] Teensy support
 - [x] ESP32 support
-- [x] Device specific: STM32 Nucleo support
-- [x] Device specific: STM32 BLuepill support
+- [x] STM32 Nucleo support
+- [x] STM32 BLuepill support
 
 ## Driver support
 - [ ] Driver support: Implement support for MOSFET control low and high pairs
@@ -34,6 +36,7 @@ For more info about the features of library releases visit the [github releases 
 
 ## Sensor support
 - [ ] IMU as position sensor
+- [ ] Back-EMF support
 - [ ] Make support for magnetic encoder  SSI
 - [ ] Make support for magnetic encoder  PWM
 - [x] Make support for magnetic encoder  Analog

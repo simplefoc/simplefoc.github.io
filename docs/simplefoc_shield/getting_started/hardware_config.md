@@ -2,7 +2,7 @@
 layout: default
 title: Soldering pads
 parent: Getting Started
-description: "Arduino Simple Field Oriented Control (FOC) library ."
+description: "Configuring your SimpleFOCShield by soldering the pads."
 nav_order: 1
 permalink: /pads_soldering
 grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span>
@@ -18,12 +18,26 @@ Each board has a set of solder pads on the bottom side which are used for config
 - Enable / Disable pull-up resistors for encoder A,B and Index channel
 - Configure BLDC driver pinout (PWM pins A,B,C and enable pin)
 
-## Enabling pull-up resistors
+<blockquote class="info"> <p class="heading">BEWARE 📢: Conductive ink </p>
+All the Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> boards will be initially tested and they will be shipped with initial configuration. The testing configuration will be done with use of conductive ink instead of soldering connections. Therefore once you have the board, if you wish to change configuration all you need to do is remove the ink with some wet paper wipe.
+</blockquote>
+
+## Enabling encoder/hall sensor pull-up resistors
 
 <img src="extras/Images/shield_bot_v131_pullup_enable.png" class="width30">
 
 Each board has integrated set of three 3.3KOhm pull-up resistors for encoder channels A,B and Index (or Hall sensor U, V, W). The picture above shows how solder the pads in order to enable the Pull-up resistors.
 Not all encoders need the pull-up resistors, or better said, in general, most of them don't need them.  For those of us who are looking for price optimization :slight_smile: , a lot of cheap Ebay/Aliexpress encoders will need them such as [600P ebay encoder <i class="fa fa-external-link"></i>](https://www.ebay.com/itm/360-600P-R-Photoelectric-Incremental-Rotary-Encoder-5V-24V-AB-Two-Phases-Shaft/254214673272?hash=item3b30601378:g:AZsAAOSwu~lcxosc) and similar.
+
+## Enabling I2C pull-up resistors
+
+<img src="extras/Images/shield_bot_v132_i2c_pullup_enable.png" class="width30">
+
+From the shield [<i class="fa fa-tag"></i>version 1.3.2](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases) the boards come with with 4.7KOhm pull-up resistors for I2C communication pins. The picture above shows how solder the pads in order to enable the Pull-up resistors.
+Not all I2C devices (especially Magnetic sensors) need the pull-up resistors, or better said, in general, most of them don't need them, especially with Arduino UNO. But it is very common to have problems interfacing these sensors with STM32 boards such as Nucleo-64. There you will need to enable the pullups or provide them yourself externally.  
+<blockquote class="warning"><p class="heading">BEWARE: Stacking</p>
+If you are stacking the shields make and you wish to use the I2C pull-ups, make sure you enable them on one board at a time!
+</blockquote>
 
 ## Customizing pinout
 
@@ -41,7 +55,7 @@ Encoder A | 3, A2, A3
 Encoder B | 2, A1 
 Encoder I | 4, A0
 
-<small>*From <span class="simple">Simple<span class="foc">FOC</span>Shield</span> version <i>v1.3.1</i></small>
+<small>*From <span class="simple">Simple<span class="foc">FOC</span>Shield</span> <a href="https://github.com/simplefoc/Arduino-SimpleFOCShield/releases">version <i>v1.3.1</i></a></small>
 
 Now, there is a lot of possible pin configurations and not all of them are possible depending on the microcontroller and sensor you are using. 
 For example, Arduino UNO only has 2 external interrupt pins, and they are pin  `2` and `3`. Therefore when using the board with Arduino UNO and Encoder we will try to use pin `3` for encoder channel A and not for pwm A. 
