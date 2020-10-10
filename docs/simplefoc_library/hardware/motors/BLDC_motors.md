@@ -2,30 +2,18 @@
 layout: default
 title: BLDC motors
 nav_order: 1
-parent: Supported Hardware
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 permalink: /bldc_motors
-grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+parent: Motors
+grand_parent: Supported Hardware
+grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 ---
 
 # BLDC motors 
 
-The Field Oriented Control algorithm doesn't really change too much in between low KV (higher resistance ~10Ω) gimbal motors and high KV (lower resistance <1Ω ) high performance motors. Therefore in general this library can be used with any 3 phase BLDC motor there is.
-
-
-## Choice of motors  
-Before running any BLDC motor with the <span class="simple">Simple<span class="foc">FOC</span>library</span> please make sure your hardware can handle the currents your motor requires. 
-
-The simplest way to do it is by checking the motor phase resistance `R`. Either check the datasheet of your motor and search for the resistance value or measure it yourself using a multimeter. Then check the value of your power supply voltage `V_dc` and once when you have the values you can find the maximum current `I_max` value by calculating:
-```cpp
-I_max = V_dc/R
-```
-Finally check the value of the maximum current `I_max` with the datasheet of your driver board. If the `I_max` is too high you can lower the power supply voltage `V_dc` in order prevent too high peaks of the current. If you are not able to change your power supply voltage you can limit the voltage set to motor in software. 
-<blockquote class="warning">
-    <p class="heading">NOTE</p>
-    The equation above calculates the worst case maximum current <code class="highlighter-rouge">I_max</code> and in most cases calculated <code class="highlighter-rouge">I_max</code> is higher than the actual value. Maximum current depends both of the motor hardware such as winding configuration and the control algorithm.  
-</blockquote>
-
+Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> supports most of the common 3 phase BLDC motors, both 
+- [Gimbal motors](#gimbal-motors) - low KV (higher resistance ~10Ω) 
+- [High performance BLDC motors](#high-performance-motors) - high KV ( low resistance <1Ω ). 
 
 ## Gimbal motors
 

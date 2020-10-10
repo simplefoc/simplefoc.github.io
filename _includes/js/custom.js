@@ -5,6 +5,7 @@ var libraires =[
     "Encoder.h",
     "FOCutils.h",
     "BLDCMotor.h",
+    "StepperMotor.h",
     "HallSensor.h",
     "MagneticSensor.h",
     "MagneticSensorSPI.h",
@@ -36,6 +37,7 @@ var defines =[
 
 var classNames = [
     "BLDCMotor",
+    "StepperMotor",
     "Encoder",
     "MagneticSensor",
     "MagneticSensorSPI",

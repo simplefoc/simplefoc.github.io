@@ -109,6 +109,6 @@ Examples  | Description | Link | Price
 [<img src="extras/Images/hallw.png"  style="height:100px">](https://fr.aliexpress.com/item/4000242695485.html?spm=a2g0o.productlist.0.0.338073065g29WW&algo_pvid=e2271fc5-6c48-4ca9-9961-ed620ada16d6&algo_expid=e2271fc5-6c48-4ca9-9961-ed620ada16d6-17&btsid=0b8b034515993741819075226e8e8e&ws_ab_test=searchweb0_0,searchweb201602_,searchweb201603_) |  BLDC motor <br> hall sensors integrated <br> 30W |  [Aliexpress](https://fr.aliexpress.com/item/4000242695485.html?spm=a2g0o.productlist.0.0.338073065g29WW&algo_pvid=e2271fc5-6c48-4ca9-9961-ed620ada16d6&algo_expid=e2271fc5-6c48-4ca9-9961-ed620ada16d6-17&btsid=0b8b034515993741819075226e8e8e&ws_ab_test=searchweb0_0,searchweb201602_,searchweb201603_) | 25$
 
 <blockquote class="warning"><p class="heading">Motor choice</p>
-Make sure to read <a href="bldc_motors">BLDC motor docs</a> before you buy your BLDC motor.
+Make sure to read <a href="motors">supported motor docs</a> before you buy your BLDC motor.
 </blockquote>
       

@@ -1,15 +1,16 @@
 ---
 layout: default
 title: BLDC drivers
-parent: Supported Hardware
-nav_order: 2
+nav_order: 1
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 permalink: /bldc_drivers
-grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+parent: Drivers
+grand_parent: Supported Hardware
+grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 ---
 
 # BLDC motor drivers
-This library will be compatible with the most of the 3 phase BLDC motor drivers. Such as [<i class="fa fa-file"></i> L6234](https://www.st.com/en/motor-drivers/l6234.html), [<i class="fa fa-file"></i> DRV8305](https://www.ti.com/product/DRV8305), [<i class="fa fa-file"></i> DRV8313](https://www.ti.com/product/DRV8313)  or even [<i class="fa fa-file"></i> L293](http://www.ti.com/lit/ds/symlink/l293.pdf). 
+This library will be compatible with the most of 3 phase BLDC motor drivers. Such as [<i class="fa fa-file"></i> L6234](https://www.st.com/en/motor-drivers/l6234.html), [<i class="fa fa-file"></i> DRV8305](https://www.ti.com/product/DRV8305), [<i class="fa fa-file"></i> DRV8313](https://www.ti.com/product/DRV8313)  or even [<i class="fa fa-file"></i> L293](http://www.ti.com/lit/ds/symlink/l293.pdf). **In order for BLDC driver board to work with the library it needs to be controllable using 3 pwm signals.**
 
 At this moment, a low-cost BLDC driver board is still reasonably hard to find making our choice of hardware is quiet restricted. This is the one of the motivations to develop the <span class="simple">Simple<span class="foc">FOC</span>Shield</span>, a versatile and simple BLDC driver. Fortunately, the community is starting to gain momentum in this direction and it is probably a matter of time before BLDC motors become a standard in the hobby community as well, what is really exciting! 😃
 
@@ -22,7 +23,7 @@ Here are some BLDC driver boards that are designed for gimbal motors and work wi
 
 Examples | Description | Specifications | Link | Price
 ---- | ---- | ---- | ---
-[<img src="extras/Images/hor_cad_shield.jpg" style="height:100px">](https://simplefoc.com/simplefoc_shield_product)| Arduino<br> <span class="simple">Simple<span class="foc">FOC</span>Shield</span>| - L6234 chip <br> - 1 motor <br>- Arduino Shield <br> - Encoder Pullups | [More info](https://simplefoc.com/simplefoc_shield_product) | 15€
+[<img src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/master/images/top.png" style="height:100px">](https://simplefoc.com/simplefoc_shield_product)| Arduino<br> <span class="simple">Simple<span class="foc">FOC</span>Shield</span>| - L6234 chip <br> - 1 motor <br>- Arduino Shield <br> - Encoder Pullups | [More info](https://simplefoc.com/simplefoc_shield_product) | 15€
 [<img src="extras/Images/l6234.jpg" style="height:100px">](https://www.ebay.com/itm/L6234-Breakout-Board/153204519965?hash=item23abb3741d:g:LE4AAOSwe35bctgg) | Drotek L6234<br> breakout board | - L6234 chip <br> - 1 motor <br> - 25x25mm | [Drotek](https://store-drotek.com/212-brushless-gimbal-controller-l6234.html)<br> [Ebay](https://www.ebay.fr/itm/L6234-Breakout-Board-/153204519965) | 30€
 
 Alternatively, you can find gimbal controller boards with integrated BLDC drivers and microcontroller chips such as HMBGC V2.2 and BGC 3.0 similar boards.

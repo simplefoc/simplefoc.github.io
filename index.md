@@ -16,7 +16,7 @@ Proper low-cost and low-power FOC supporting boards are very hard to find today 
 Therefore this is an attempt to: 
 - Demystify FOC algorithm and make a robust but simple Arduino library: [Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> ](#arduino-simplefoclibrary-v160)
 - Develop a modular BLDC driver board: [Arduino <span class="simple">Simple<span class="foc">FOC</span>Shiled</span> ](arduino_simplefoc_shield_showcase).
-- ***New 📢:** Develop a modular Stepper motor board for FOC control:* <b>Arduino <span class="simple">Stepper<span class="foc">FOC</span>Shield</span></b>
+- ***New 📢:** Develop a modular Stepper motor board for FOC control:* <b>Arduino <span class="simple">Stepper<span class="foc">FOC</span>Shield</span>?</b>
 
 <blockquote class="info"><p><strong><em>SimpleFOClibrary</em> v1.6.0📢</strong><br></p>
 <ul>
@@ -26,7 +26,7 @@ Therefore this is an attempt to:
       <li>Backdrivable</li>
       <li>Better dynamics than open-loop</li>
       <li>Smoother than open-loop</li>
-      <li>No loosing steps</li>
+      <li>No losing steps</li>
       <li>short demo <a href="https://youtu.be/w_yIY0eXM5E">youtube video</a></li>
     </ul>
 </li>

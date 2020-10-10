@@ -10,7 +10,7 @@ grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>lib
 
 # Monitoring functionality
 
-`BLDCMotor` class supports monitoring using `Serial` port which is enabled by:
+Both `BLDCMotor` and `StepperMotor` classes support monitoring using `Serial` port which is enabled by:
 ```cpp
 motor.useMonitoring(Serial);
 ```

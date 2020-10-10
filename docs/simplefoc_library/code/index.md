@@ -101,13 +101,19 @@ Sensor is initialized hardware pins by running `sensor.init()`.
 For full documentation of the setup and all configuration parameters please visit the <a href="sensors"> position sensors docs</a>.
 
 
-## Step 2. <a href="motor_initialization" class="remove_dec"> BLDC motor setup</a>
-After the position sensor we proceed to initializing and configuring the BLDC motor handled by `BLDCMotor` class and it is defined by setting:
-- phase `A`, `B` and `C` pin number: `9`,`5` and `6`
-- `pole_pairs` number of the motor: `11`
-- `enable` pin number *(optional)*: `8`
+## Step 2. <a href="motor_initialization" class="remove_dec"> Motor setup</a>
+After the position sensor we proceed to initializing and configuring the motor. The library supports BLDC motors handled by `BLDCMotor` class and stepper motors handled by `StepperMotor` class. `BLDCMotor` class instantiated by providing:
+- phase `A`, `B` and `C` pin number
+- `pole_pairs` number of the motor
+- `enable` pin number *(optional)*
 
-Here is a how it looks in code:
+And `StepperMotor` it is defined by setting:
+- phase `1A`, `1B` pin number
+- phase `2A`, `2B` pin number
+- `pole_pairs` number of the motor
+- `enable1` and `enable2` pin numbers *(optional)*
+
+In this example we will use BLDC motor:
 ```cpp
 #include <SimpleFOC.h>
 
@@ -189,7 +195,7 @@ For full documentation of the setup and all configuration parameters please visi
 
 ## Step 4. <a href="monitoring" class="remove_dec"> Monitoring</a>
 
-`BLDCMotor` class enables optional monitoring functionality. For enabling the monitoring feature make sure you call `motor.useMonitoring()` with the `Serial` port instance you want to output to. It uses `Serial` class to output motor initialization status during the `motor.init()` function, as well as in `motor.initFOC()` function.
+`BLDCMotor` and `StepperMotor` classes provide monitoring functionality. For enabling the monitoring feature make sure you call `motor.useMonitoring()` with the `Serial` port instance you want to output to. It uses `Serial` class to output motor initialization status during the `motor.init()` function, as well as in `motor.initFOC()` function.
 
 If you are interested to output motors state variables in real-time (even though it will impact the performance - writing the Serial port is slow!) add the `motor.monitor()` function call to the Arduino `loop()` function. 
 
@@ -249,7 +255,7 @@ void setup() {
   // link motor and sensor
   // configure motor
 
-  // use monitoring with the BLDCMotor
+  // use monitoring
   Serial.begin(115200);
   // monitoring port
   motor.useMonitoring(Serial);

@@ -1,28 +1,29 @@
 ---
 layout: default
-title: BLDC Motor
+title: Motor & Driver
 nav_order: 2
 parent: Using the Code
 permalink: /motor_initialization
 grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 ---
 
-# Motor setup
+# Motor & Driver configuration
 
 <div class="width60">
-<img src="extras/Images/mot2.jpg" style="width:24%;display:inline"><img src="extras/Images/bigger.jpg" style="width:24%;display:inline"><img src="extras/Images/big.jpg" style="width:24%;display:inline"><img src="extras/Images/mot.jpg" style="width:24%;display:inline">
+<img src="extras/Images/mot2.jpg" style="width:20%;display:inline"><img src="extras/Images/bigger.jpg" style="width:20%;display:inline"><img src="extras/Images/mot.jpg" style="width:20%;display:inline"><img src="extras/Images/nema17_2.jpg" style="width:20%;display:inline"><img src="extras/Images/nema17_1.jpg" style="width:20%;display:inline">
 </div>
 
-All BLDC motors are handled with the `BLDCMotor` class. This class is the heart ❤️ of the  Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>. <br>
-It implements:
-- BLDC motor & BLDC driver hardware support 
+All BLDC motors are handled with the `BLDCMotor` class and stepper motor are handled by `StepperMotor` class. These classes are the heart ❤️ of the Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>. <br>
+They implement:
+- BLDC/Stepper motor configuration 
+- BLDC/Stepper driver hardware support 
 - FOC algorithm
 - Motion control loops
 - Monitoring
 - User communication interface
 
 ## Step 1. Hardware setup
-To initialize the hardware of the BLDC motor and BLDC driver you need to specify the `pwm` pin numbers, number of `pole pairs` of the motor and optionally `enable` pin.
+To configure the BLDC motor and define the interface to the BLDC driver you need to specify the 3 `pwm` pin numbers for each motor phase, number of `pole pairs` of the motor and optionally `enable` pin.
 ```cpp
 //  BLDCMotor( int phA, int phB, int phC, int pp, int en)
 //  - phA, phB, phC - motor A,B,C phase pwm pins
@@ -30,11 +31,22 @@ To initialize the hardware of the BLDC motor and BLDC driver you need to specify
 //  - enable pin    - (optional input)
 BLDCMotor motor = BLDCMotor(9, 10, 11, 11, 8);
 ```
+
+For the stepper motor and stepper driver you need to specify the 4 `pwm` pin numbers (2 for each phase), number of `pole pairs` of the motor and optionally `enable1` and `enable2` pin numbers.
+```cpp
+// StepperMotor( int phA, int phB, int phC, int pp, int cpr, int en)
+// - ph1A, ph1B    - motor phase 1 pwm pins
+// - ph2A, ph2B    - motor phase 2 pwm pins
+// - pp            - pole pair number
+// - enable1 pin   - (optional input)
+// - enable2 pin   - (optional input)
+StepperMotor motor = StepperMotor(5,6, 9,10, 50, 7, 8);
+```
 <blockquote class="info"><p class="heading">Pole pair number </p>
-If you are not sure what your `pole_paris` number is I included an example code to estimate your <code class="highlighter-rouge">pole_paris</code> number in the examples <code class="highlighter-rouge">find_pole_pairs_number.ino</code>.
+If you are not sure what your <code class="highlighter-rouge">pole_paris</code> number is I included an example code to estimate your <code class="highlighter-rouge">pole_paris</code> number in the examples <code class="highlighter-rouge">find_pole_pairs_number.ino</code>.
  </blockquote>
 
-When you have your `motor` defined you can start the configuration. 
+The important thing to note is that the rest of the configuration explained in the following text does not depend which motor you are using. Therefore, once when you have your `motor` defined you can start the configuration. 
 
 ## Step 2. Linking the sensor 
 Once when you have the `motor` defined and the sensor initialized you need to link the `motor` and the `sensor` by executing:    
@@ -138,6 +150,29 @@ Finally the configuration is terminated by running `init()` function which prepa
 motor.init();
 ```
 
+### Step 3.3 PWM frequency configuration (optional)
+If you wish to change the PWM frequency provide the value in hertz to the `init()` function. For example, to set the pwm frequency of 30khz the code will look like:
+```cpp
+// Motor hardware init function 
+motor.init(30000);
+```
+<blockquote class="warning">
+⚠️ Arduino devices based on ATMega328 and ATMega2560 chips have fixed pwm frequency of 32kHz.
+</blockquote>
+
+Here is a list of different microcontrollers and their PWM frequency and resolution used with the  Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>.
+
+MCU | default frequency | MAX frequency | PWM resolution | configurable 
+--- | --- | --- | --- | ---
+Arduino UNO(Atmega328) | 32 kHz | 32 kHz | 8bit | no
+Arduino MEGA | 32kHz | 32kHz | 8bit | no
+STM32 | 50kHz | 50kHz | 14bit | yes
+ESP32 | 20kHz | 30kHz | 10bit | yes
+Teensy | 50kHz | 50kHz | 8bit | yes
+
+All of these settings are defined in the `hardware_utils.cpp/h` of the library source. 
+
+
 ## Step 4. Field Oriented Control initialization
 
 After the motor and sensor are initialized and configured, and before we can start the motion control we need to initialize the FOC algorithm. 
@@ -186,7 +221,7 @@ The faster you can run this function the better!
 Finally, when we can set the phase voltages to the motor using the FOC algorithm we can proceed to the motion control. And this is done with `motor.move()` function.
 
 ```cpp
-// Function executing the control loops configured by the motor.controller parameter of the BLDCMotor. 
+// Function executing the control loops configured by the motor.controller parameter of the motor. 
 // - This function doesn't need to be run upon each loop execution - depends of the use case
 //
 // target  Either voltage, angle or velocity based on the motor.controller

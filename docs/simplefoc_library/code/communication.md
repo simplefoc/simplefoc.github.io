@@ -144,7 +144,7 @@ motor.command(serialReceiveUserCommand());
 MagneticSensorSPI AS5x4x = MagneticSensorSPI(10, 14, 0x3FFF);
 
 // motor instance
-BLDCMotor motor = BLDCMotor(9, 5, 6, 11, 8);
+StepperMotor motor = StepperMotor(9, 10, 5, 6, 50);
 
 void setup() {
 
@@ -152,9 +152,6 @@ void setup() {
   AS5x4x.init();
   // link the motor to the sensor
   motor.linkSensor(&AS5x4x);
-
-  // choose FOC modulation
-  motor.foc_modulation = FOCModulationType::SpaceVectorPWM;
 
   // power supply voltage [V]
   motor.voltage_power_supply = 12;

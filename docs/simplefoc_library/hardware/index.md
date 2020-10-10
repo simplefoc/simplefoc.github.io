@@ -15,15 +15,26 @@ has_toc: false
 <img src="extras/Images/connection.gif" class="width60">
 </p>
 
-The components you need to have in order to run any Field Oriented Control algorithm as well as this library:
+Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> is made with a goal to enable using Field Oriented Control algorithm with hobby hardware. With that in mind, the library is in constant development to support as many motor + sensor + driver + microcontroller combinations out there.
 
-- [BLDC motor](bldc_motors)
-- [BLDC driver](bldc_drivers)
-- [Position sensor](position_sensors)
-- [Microcontroller](microcontrollers) 
-
-
-Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> is made modular and will support most of the motor + sensor combinations out there, as well as many low-cost bldc driver boards.
+Currently supported hardware is:
+- **[Motors <i class="fa fa-external-link"></i>](motors)**
+    - BLDC motors
+    - Stepper motors
+- **[Drivers <i class="fa fa-external-link"></i>](drivers)**
+    - BLDC drivers
+    - Gimbal drivers
+    - Stepper drivers
+- **[Position sensors <i class="fa fa-external-link"></i>](position_sensors)**
+    - Encoders
+    - Magnetic sensors
+    - Hall sensors
+    - Open-loop control
+- **[Microcontrollers <i class="fa fa-external-link"></i>](microcontrollers)** 
+    - Arduino
+    - STM32
+    - ESP32
+    - Teensy
 
 ## Setup examples
 For more information how to connect the BLDC motor, driver, microcontroller and the sensor please check the [setup examples](setup_examples) page.  
