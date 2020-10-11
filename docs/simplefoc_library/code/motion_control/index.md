@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Motion Control
-parent: Using the Code
+parent: Writing the Code
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 permalink: /motion_control
 nav_order: 3

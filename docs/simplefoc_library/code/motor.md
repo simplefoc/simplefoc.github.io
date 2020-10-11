@@ -2,7 +2,7 @@
 layout: default
 title: Motor & Driver
 nav_order: 2
-parent: Using the Code
+parent: Writing the Code
 permalink: /motor_initialization
 grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 ---
@@ -82,6 +82,7 @@ You can set them by changing the `motor.foc_modulation` variable:
 // FOCModulationType::SpaceVectorPWM;
 motor.foc_modulation = FOCModulationType::SpaceVectorPWM;
 ```
+<blockquote class="warning"> StepperMotor class has only Sinusoidal PWM modulation implemented for the moment <a href="https://github.com/simplefoc/Arduino-FOC/releases"> <i class="fa fa-tag">current version</i></a>. </blockquote>
 
 The voltage used for the motor and sensor alignment set the variable `motor.voltage_sensor_align`:
 ```cpp

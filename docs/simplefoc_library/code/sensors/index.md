@@ -4,7 +4,7 @@ title: Position Sensor
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 permalink: /sensors
 nav_order: 1
-parent: Using the Code
+parent: Writing the Code
 has_children: True
 has_toc: False
 grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>

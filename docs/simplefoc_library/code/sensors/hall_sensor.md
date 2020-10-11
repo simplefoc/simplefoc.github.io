@@ -5,7 +5,7 @@ description: "Arduino Simple Field Oriented Control (FOC) library ."
 permalink: /hall_sensors
 nav_order: 3
 parent: Position Sensor
-grand_parent: Using the Code
+grand_parent: Writing the Code
 grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 ---
 

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Using the Code
+title: Writing the Code
 nav_order: 6
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 permalink: /code

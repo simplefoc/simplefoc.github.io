@@ -2,7 +2,7 @@
 layout: default
 title: Magnetic sensor
 parent: Position Sensor
-grand_parent: Using the Code
+grand_parent: Writing the Code
 grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 nav_order: 2
@@ -38,12 +38,22 @@ The parameters of the class are
 - `bit_resolution` - resolution of your sensor (number of bits of the sensor internal counter register) and your
 - `angle register` - register number containing angle value. <br>The default `angle_register` number is set to `0x3FFF` as it is the angle register for most of the low cost AS5048/AS5047 sensors. 
 
-Finally after the initialization the only thing you need to do afterwards is to call the `init()` function. This function prepares the SPI interface and initializes the sensor hardware. So your magnetic sensor initialization code will look like:
+Additionally the library allows you to configure SPI communication clock speed and SPI mode by setting the variables:
+```cpp
+// spi mode (phase/polarity of read/writes) i.e one of SPI_MODE0 | SPI_MODE1 (default) | SPI_MODE2 | SPI_MODE3
+sensor.spi_mode = SPI_MODE0;
+// speed of the SPI clock signal - default 1MHz
+sensor.clock_speed = 500000;
+```
+
+Finally after the configuration the only thing you need to do is to call the `init()` function. This function prepares the SPI interface and initializes the sensor hardware. So your magnetic sensor initialization code will look like:
 ```cpp
 MagneticSensorSPI sensor = MagneticSensorSPI(10, 14, 0x3FFF);
 
 void loop(){
   ...
+  sensor.spi_mode = SPI_MODE0; // spi mode - OPTIONAL
+  sensor.clock_speed = 500000; // spi clock frequency - OPTIONAL
   sensor.init();
   ...
 }
@@ -62,7 +72,49 @@ void loop(){
 }
 ```
 
-Please check the `magnetic_sensor_spi_example.ino` example to see more about it.
+### Quick configuration for common sensors
+
+For the most common SPI magnetic sensors, the library provides the simplified configuration constructor. Namely for AS5047/AS5147 14-bit SPI sensors and MA70 14-bit SSI sensor.
+```cpp
+// instance of AS5047/AS5147 sensor
+MagneticSensorSPI sensor = MagneticSensorSPI(10, AS5147_SPI);
+// instance of MA730 sensor
+MagneticSensorSPI sensor = MagneticSensorSPI(10, MA730_SPI);
+```
+If wish to implement your own quick configuration structure, you will need to create an instance of the structure:
+```cpp
+struct MagneticSensorSPIConfig_s  {
+  int bit_resolution;
+  int angle_register;
+  int spi_mode; // default SPI_MODE0
+  long clock_speed;  // default 1MHz
+  int data_start_bit; // default 13
+  int command_rw_bit; // default 14
+  int command_parity_bit; // default 15
+};
+```
+and provide it to the constructor, here is an example:
+```cpp
+// 12 bit, 0x3FFF angle register, spi mode 1, 1MHz, default start bit, rw command, and parity bit 
+MagneticSensorSPIConfig_s MySensorConfig = {
+  .bit_resolution=12, 
+  .angle_register=0x3FFF, 
+  .spi_mode=SPI_MODE1, 
+  .clock_speed=1000000, 
+  .data_start_bit=13,
+  .command_rw_bit=14,
+  .command_parity_bit=15
+  }; 
+
+// the sensor class with desired sensor configuration
+MagneticSensorSPI sensor = MagneticSensorSPI(10, MySensorConfig);
+void setup(){
+  sensor.init();
+  ...
+}
+```
+
+Please check the `magnetic_sensor_spi_example.ino` example for a quick test of your sensor. All the features of SPI magnetic sensors are implemented in the `MagneticSensorSPI.cpp/h` files. 
 
 
 ## I2C communication `MagneticSensorI2C`
@@ -103,16 +155,33 @@ Example MSB/LSB division:
 </ul>
 </blockquote>
 
-Finally after the initialization the only thing you need to do afterwards is to call the `init()` function. This function prepares the SPI interface and initializes the sensor hardware. So your magnetic sensor initialization code will look like:
+Additionally, the library enables you to configure the I2C bus clock speed `clock_speed`, and change SDA `sda_pin` and SCL `scl_pin` pin locations. 
+```cpp
+// I2C bus clock frequency - default 400kHz
+sensor.clock_speed = 1000000;
+// the pin used for i2c data - default 14 (Arduino UNO,MEGA,STM32 NUCLEO)
+sensor.sda_pin = 10;
+// the pin used for i2c clock - default 15 (Arduino UNO,MEGA,STM32 NUCLEO)
+sensor.scl_pin = 11; 
+```
+
+Finally, after the configuration, you just call the `init()` function. This function prepares the SPI interface and configures the sensor hardware. So your magnetic sensor initialization code will look like:
 ```cpp
 MagneticSensorI2C sensor = MagneticSensorI2C(0x36, 12, 0x0E, 4);
 
 void loop(){
   ...
+  sensor.clock_speed = 1000000; // change I2C bus clock frequency - OPTIONAL
+  sensor.sda_pin = 10; // change i2c data pin - OPTIONAL
+  sensor.scl_pin = 11; // change i2c clock pin - OPTIONAL
   sensor.init();
   ...
 }
 ```
+<blockquote class="warning"><p class="heading">BEWARE: SDA ans SCL pin change</p>
+Arduino Devices based on ATMega328 and ATMega2560 chips do not support SDA and SCL pin change. For these devices you will need to use either pins 14,15 or A4,A5.<br>  STM32 devices and ESP32 boards fully support changing the pins location.
+</blockquote>
+
 
 If you wish to use more than one magnetic sensor using SPI interface, make sure your sensors have different addresses, here is a simple example:
 ```cpp
@@ -127,9 +196,45 @@ void loop(){
 }
 ```
 
-Please check the `magnetic_sensor_i2_example.ino` example to see more about it.
+###  Quick configuration for common sensors
 
+For the most common I2C magnetic sensors, the library provides the simplified configuration constructor. Namely for AS5600 12-bit sensor and AS5048 14-bit sensor.
+```cpp
+// instance of AS5600 sensor
+MagneticSensorI2C sensor2 = MagneticSensorI2C(AS5600_I2C);
+// instance of AS5048B sensor
+MagneticSensorI2C sensor2 = MagneticSensorI2C(AS5048_I2C);
+```
+If wish to implement your own quick configuration structure, you will need to create an instance of the structure:
+```cpp
+struct MagneticSensorI2CConfig_s  {
+  int chip_address;
+  int bit_resolution; 
+  int angle_register;
+  int data_start_bit; 
+  long clock_speed;  // default 400kHz
+};
+```
+and provide it to the constructor, here is an example:
+```cpp
+// configuration for AS5600 sensor
+MagneticSensorI2CConfig_s MySensorConfig = {
+  .chip_address = 0x36, 
+  .bit_resolution = 12, 
+  .angle_register=0x0E, 
+  .clock_speed=400000, 
+  .data_start_bit=11
+  }; 
 
+// the sensor class with desired sensor configuration
+MagneticSensorI2C sensor = MagneticSensorI2C(MySensorConfig);
+void setup(){
+  sensor.init();
+  ...
+}
+```
+
+Please check the `magnetic_sensor_i2_example.ino` example for a quick test of your sensor. All the features of I2C magnetic sensors are implemented in the `MagneticSensorI2C.cpp/h` files. 
 
 ## Analog output `MagneticSensorAnalog`
 In order to use your Analog output magnetic position sensor with <span class="simple">Simple<span class="foc">FOC</span>library</span> first create an instance of the `MagneticSensorAnalog` class:
@@ -205,6 +310,13 @@ class MagneticSensorI2C{
   	// shaft angle getter
     float getAngle();
 }
+class MagneticSensorAnalog{
+ public:
+    // shaft velocity getter
+    float getVelocity();
+  	// shaft angle getter
+    float getAngle();
+}
 ```
 
 Here is a quick example for the AS5047U magnetic sensor with SPI communication:
@@ -216,6 +328,8 @@ Here is a quick example for the AS5047U magnetic sensor with SPI communication:
 // bit_resolution  - sensor resolution
 // angle_register  - (optional) angle read register - default 0x3FFF
 MagneticSensorSPI as5047u = MagneticSensorSPI(10, 14, 0x3FFF);
+// or quick config
+MagneticSensorSPI as5047u = MagneticSensorSPI(10, AS4147_SPI);
 
 void setup() {
   // monitoring port
@@ -246,6 +360,8 @@ Here is a quick example for AS5600 magnetic sensor with I2C communication:
 //  angle_register_msb   - angle read register msb
 //  bits_used_msb        - number of used bits in msb register
 MagneticSensorI2C as5600 = MagneticSensorI2C(0x36, 12, 0x0E, 4);
+// or quick config
+MagneticSensorI2C as5047u = MagneticSensorI2C(AS5600_I2C);
 
 void setup() {
   // monitoring port

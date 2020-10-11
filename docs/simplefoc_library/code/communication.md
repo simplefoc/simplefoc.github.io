@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Motor commands
-parent: Using the Code
+parent: Writing the Code
 nav_order: 6
 permalink: /communication
 grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>

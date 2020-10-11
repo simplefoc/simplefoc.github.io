@@ -10,7 +10,7 @@ has_children: True
 has_toc: false
 ---
 
-# Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> source code
+# Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> source code [v1.5.0](https://github.com/simplefoc/Arduino-FOC/releases)
 The arduino library code is organized into the standard [Arduino library structure](https://github.com/arduino/Arduino/wiki/Library-Manager-FAQ). 
 The library contains main BLDC motor class `BLDCMotor` and  three sensor classes `Encoder`, `MagneticSensorSPI` and `MagneticSensorI2C` implementing the `Sensor` interface. Furthermore it has `FOCutils` file with all the necessary utility functions and `defaults.h` with all the default configuration variables.
 

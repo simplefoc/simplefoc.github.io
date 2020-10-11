@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Monitoring
-parent: Using the Code
+parent: Writing the Code
 nav_order: 5
 permalink: /monitoring
 grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> 

@@ -32,7 +32,8 @@ var defines =[
     "EN_GATE ",
     "M_PWM",
     "M_OC",
-    "OC_ADJ"
+    "OC_ADJ",
+    "SPI_MODE0"
 ]
 
 var classNames = [
@@ -121,7 +122,9 @@ var structNames = [
     "Pullup",
     "Quadrature",
     "ControlType",
-    "FOCModulationType"
+    "FOCModulationType",
+    "MagneticSensorSPIConfig_s",
+    "MagneticSensorI2CConfig_s"
 ];
 var structProps = [
     "EXTERN",

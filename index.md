@@ -16,17 +16,15 @@ Proper low-cost and low-power FOC supporting boards are very hard to find today 
 Therefore this is an attempt to: 
 - Demystify FOC algorithm and make a robust but simple Arduino library: [Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> ](#arduino-simplefoclibrary-v160)
 - Develop a modular BLDC driver board: [Arduino <span class="simple">Simple<span class="foc">FOC</span>Shiled</span> ](arduino_simplefoc_shield_showcase).
-- ***New 📢:** Develop a modular Stepper motor board for FOC control:* <b>Arduino <span class="simple">Stepper<span class="foc">FOC</span>Shield</span>?</b>
+- ***New 📢:** Develop a modular Stepper motor board for FOC control:* <b>Arduino <span class="simple">Stepper<span class="foc">FOC</span>Shield</span></b>
 
-<blockquote class="info"><p><strong><em>SimpleFOClibrary</em> v1.6.0📢</strong><br></p>
+<blockquote class="info"><p> <b>NEW RELEASE📢:</b> <i>Simple<b>FOC</b>library v1.6.0</i><br></p>
 <ul>
-<li><strong>Stepper motor FOC support 🎨🎉 🎊</strong>
+<li><strong>Stepper motor FOC support 🎨🎉 🎊 <a href="motors">See in docs!</a></strong>
     <ul>
-      <li>Very easy to use - Plug & play!</li>
-      <li>Backdrivable</li>
-      <li>Better dynamics than open-loop</li>
-      <li>Smoother than open-loop</li>
       <li>No losing steps</li>
+      <li>Backdrivable</li>
+      <li>Better dynamics than open-loop, Smoother than open-loop</li>
       <li>short demo <a href="https://youtu.be/w_yIY0eXM5E">youtube video</a></li>
     </ul>
 </li>
@@ -36,8 +34,8 @@ Therefore this is an attempt to:
   <li>pid + low pass filter refactoring</li>
   </ul>
 </li>
-<li>Extended configurability of the sensor classes <a href="https://github.com/owennewo">@owennewo</a></li>
-<li>configurable pwm frequency
+<li>Extended configurability of the sensor classes by <a href="https://github.com/owennewo">@owennewo</a> <b><a href="magnetic_sensor">See in docs!</a></b></li>
+<li>configurable pwm frequency <b><a href="motor_initialization#step-33-pwm-frequency-configuration-optional">See in docs!</a></b>
   <ul>
   <li>stm32,teensy,eps32 - not for Arduino</li>
   <li>stm32 added 12bit pwm resolution by <em>Jürgen Frisch</em></li>
@@ -45,7 +43,6 @@ Therefore this is an attempt to:
 </li>
 <li>Huge refactoring done in the library 😄</li>
 </ul>
-<p><strong><em>The release is practically complete and the new library release will be created as soon as the docs are updated!📚</em></strong></p>
 </blockquote>
 
 ## Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> <i><small>v1.3.2</small></i>

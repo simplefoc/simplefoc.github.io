@@ -138,7 +138,7 @@ Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> is
 
 [Find out more <i class="fa  fa-external-link"></i>](supported_hardware)
 
-## Using the code
+## Writing the Code
 This library code is written in a way to be as simple sa possible to use and to leave a lot of space for configuration and fine tuning for specific applications. 
 
 [Find out more <i class="fa  fa-external-link"></i>](code)
