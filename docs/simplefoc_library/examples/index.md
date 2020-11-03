@@ -52,3 +52,9 @@ parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</
         <i class="fa fa-external-link-square fa-2x"></i>
     </a>
 </div>
+<div class="image_icon">
+     <a href="stepper_control_nucleo">
+        <img src="extras/Images/stepper_example.png">
+        <i class="fa fa-external-link-square fa-2x"></i>
+    </a>
+</div>
