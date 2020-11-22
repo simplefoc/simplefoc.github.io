@@ -12,10 +12,15 @@ has_toc: false
 
 # Supported driver boards
 
+<div class="width60">
+<img src="extras/Images/drv8302.png" style="width:25%;display:inline"><img src="extras/Images/bgc_30.jpg" style="width:25%;display:inline"><img src="extras/Images/l6234.jpg" style="width:25%;display:inline"><img src="extras/Images/l298n.jpg" style="width:25%;display:inline">
+</div>
+
 Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> has a goal to support as many BLDC and stepper motor drivers as possible. Till this moment there are two kinds of motor drivers supported by this library:
 
 - [BLDC motor driver <i class="fa fa-external-link"></i>](bldc_drivers)
     - **3 PWM signals** ( 3 phase )
+    - **6 PWM signals** ( 3 phase )
     - gimbal motor drivers or high-performance boards
 - [Stepper drivers <i class="fa fa-external-link"></i>](stepper_drivers)
     - **4 PWM signals** ( 2 phase )

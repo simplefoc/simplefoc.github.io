@@ -19,7 +19,7 @@ There are two ways to install this Arduino library, depending of your plans with
     - Plug & play functionality 
     - Many examples
     - Easy to access through Arduino IDE
-- [Minimal sketch installation](minimal_download)
+- [Minimal project builder](minimal_download)
     - Arduino sketch with integrated complete library
     - Easier experimentation and interaction with the library source code directly
 
@@ -36,7 +36,7 @@ There are two ways to install this Arduino library, depending of your plans with
     <a href="minimal_download" >
         <img src="extras/Images/library_min_.png" >
         <i class="fa fa-external-link-square fa-2x"></i>
-        <p >Minimal sketch installation</p>
+        <p >Minimal project builder</p>
     </a>
 </div>
 

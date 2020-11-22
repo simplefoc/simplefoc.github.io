@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Position Sensor
+title: Position Sensors
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 permalink: /sensors
-nav_order: 1
+nav_order: 3
 parent: Writing the Code
 has_children: True
 has_toc: False
@@ -30,7 +30,7 @@ This library supports *off-the-shelf* these types of position sensors:
     - Sensor that estimates rotor position by reading magnet positions on the rotor.
     - Examples :  [49E Hall sonde <i class="fa fa-external-link"></i>](https://fr.aliexpress.com/item/32590021901.html?spm=a2g0o.productlist.0.0.6eec671cZA32JT&algo_pvid=5729f98b-72a0-4cf8-b80a-adac9ecbbd2a&algo_expid=5729f98b-72a0-4cf8-b80a-adac9ecbbd2a-58&btsid=0b8b035915993735716435630eb78b&ws_ab_test=searchweb0_0,searchweb201602_,searchweb201603_) ,   [105 Hall sensor <i class="fa fa-external-link"></i>](https://fr.aliexpress.com/item/32968973849.html?spm=a2g0o.productlist.0.0.2727671c1QF3Xc&algo_pvid=701cd77d-e484-49ca-8ee8-35a76ed246a1&algo_expid=701cd77d-e484-49ca-8ee8-35a76ed246a1-12&btsid=0b8b034e15993753711202685ed51b&ws_ab_test=searchweb0_0,searchweb201602_,searchweb201603_) 
 
-Both classes of sensors are implemented in generic way in order to support as many of their versions as possible.
+All classes of sensors are implemented in generic way in order to support as many of their versions as possible.
 
 <div class="image_icon width30" >
     <a href="encoder" class="text-center">

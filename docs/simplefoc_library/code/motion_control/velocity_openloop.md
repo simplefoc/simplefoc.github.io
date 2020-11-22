@@ -53,13 +53,15 @@ Here is one basic example of the velocity open-loop control with the complete co
 #include <SimpleFOC.h>
 
 // motor instance
-BLDCMotor motor = BLDCMotor(3, 10, 6, 11, 7);
+BLDCMotor motor = BLDCMotor( 11 );
+// driver instance
+BLDCDriver3PWM driver = BLDCDriver3PWM(3, 10, 6, 7);
 
 void setup() {
-  
-  // power supply voltage
-  // default 12V
-  motor.voltage_power_supply = 12;
+
+  // driver config
+  driver.init();
+  motor.linkDriver(&driver);
 
   // limiting motor movements
   motor.voltage_limit = 3;   // rad/s

@@ -87,6 +87,8 @@ float shaft_angle_sp;
 
 // current voltage u_q set to the motor
 float voltage_q;
+// current voltage u_d set to the motor
+float voltage_d;
 // phase voltages 
 float Ua, Ub, Uc;
 

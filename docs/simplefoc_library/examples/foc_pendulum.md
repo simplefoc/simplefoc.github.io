@@ -39,7 +39,7 @@ So far, FOC has been restricted to high-end applications due to the complexity a
 
 Due to the using of the brushless motor and the <span class="simple">Simple<span class="foc">FOC</span>Shield</span>, this might be one of the simplest hardware setups of the reaction wheel inverted pendulum there is.
 
-<img src="https://github.com/simplefocArduino-FOC-reaction-wheel-inverted-pendulum/raw/master/images/components.gif" class="width60">
+<img src="https://github.com/simplefoc/Arduino-FOC-reaction-wheel-inverted-pendulum/raw/master/images/components.gif" class="width60">
 
 Please check the [github repository](https://github.com/simplefoc/Arduino-FOC-reaction-wheel-inverted-pendulum) of this project for more details about the 3d printed components and hardware.
 
@@ -64,7 +64,6 @@ Arduino UNO doesn't have enough hardware interrupt pins for two encoders therefo
 - Motor phases `a`, `b` and `c` are connected directly the motor terminal connector `TB_M1`
 
 
-
 ## Arduino code 
 Let's go through the full code for this project and write it together.
 First thing you need to do is include the `SimpleFOC` library:
@@ -72,7 +71,7 @@ First thing you need to do is include the `SimpleFOC` library:
 ```cpp
 #include <SimpleFOC.h>
 ```
-Make sure you have the library installed. If you still don't have it please check the [get started page](getting_started).
+Make sure you have the library installed. If you still don't have it please check the [get started page](installation).
 
 Also in this case, we are using two encoders so we will need to have a software interrupt library.
 I would suggest using `PciManager` library. If you have not installed it yet, you can do it using the Arduino library manager directly. Please check the `Encoder` class [docs](encoder) for more info.
@@ -140,20 +139,26 @@ PciManager.registerListener(&listenerPB);
 And that is it the pendulum is ready, let's setup the motor.
 
 ### Motor code
-First we need to define the `BLDCMotor` class with the PWM pin numbers, number od pole pairs(`11`) of the motor and the driver enable pin.
-
+First we need to define the `BLDCMotor` class with the number od pole pairs(`11`).
 ```cpp
 // define BLDC motor
-BLDCMotor motor = BLDCMotor(9, 10, 11, 11, 8);
+BLDCMotor motor = BLDCMotor(11);
 ```
 
 <blockquote class="warning">If you are not sure what your pole pairs number is please check the  <code class="highlighter-rouge">find_pole_pairs.ino</code> example.</blockquote>
 
-Then in the `setup()` we configure first the voltage of the power supply if it is not `12` Volts.
+Next we need to define the `BLDCDriver3PWM` class with the PWM pin numbers and the driver enable pin.
+```cpp
+// define BLDC driver
+BLDCDriver3PWM motor = BLDCDriver3PWM(9, 10, 11, 8);
+```
+
+Then in the `setup()` we configure first the voltage of the power supply if it is not `12` Volts and intialise the driver.
 ```cpp
 // power supply voltage
 // default 12V
-motor.voltage_power_supply = 12;
+driver.voltage_power_supply = 12;
+driver.init();
 ```
 Then we tell the motor which control loop to run by specifying the `motor.controller` variable.
 ```cpp
@@ -162,10 +167,12 @@ motor.controller = ControlType::voltage;
 ```
 <blockquote class="info">For more information about the voltage control loop please check the  <a href="voltage_loop">doc</a>.</blockquote>
 
-Next we connect the encoder to the motor, do the hardware init and init of the Field Oriented Control.
+Next we connect the encoder and driver to the motor, do the hardware init and init of the Field Oriented Control.
 ```cpp  
 // link the motor to the sensor
 motor.linkSensor(&encoder);
+// link the motor to the driver
+motor.linkDriver(&driver);
 
 // initialize motor
 motor.init();
@@ -184,7 +191,7 @@ motor.move(target_voltage);
 }
 ```
 Now we are able to read the two encoders and set the voltage to the motor, now we need to write the stabilization algorithm.
-<blockquote class="info">For more configuration parameters and control loops please check the <code class="highlighter-rouge">BLDCMotor</code> class <a href="motor_initialization">doc</a>.</blockquote>
+<blockquote class="info">For more configuration parameters and control loops please check the <code class="highlighter-rouge">BLDCMotor</code> class <a href="motors_config">doc</a>.</blockquote>
 
 ### Control algorithm code
 
@@ -259,7 +266,9 @@ And that is it guys we can read our pendulum angle, we can control the motor, an
 
 
 // BLDC motor init
-BLDCMotor motor = BLDCMotor(9, 10, 11, 11, 8);
+BLDCMotor motor = BLDCMotor(11);
+// define BLDC driver
+BLDCDriver3PWM motor = BLDCDriver3PWM(9, 10, 11, 8);
 //Motor encoder init
 Encoder encoder = Encoder(2, 3, 500);
 // interrupt routine 
@@ -282,6 +291,10 @@ void setup() {
   encoder.init();
   encoder.enableInterrupts(doA,doB);
   
+  // driver config
+  driver.voltage_power_supply = 12;
+  driver.init();
+  
   // init the pendulum encoder
   pendulum.init();
   PciManager.registerListener(&listenerPA);
@@ -292,6 +305,8 @@ void setup() {
 
   // link the motor to the encoder
   motor.linkSensor(&encoder);
+  // link the motor to the driver
+  motor.linkDriver(&driver);
   
   // initialize motor
   motor.init();
@@ -317,7 +332,7 @@ void loop() {
       target_voltage = controllerLQR(pendulum_angle, pendulum.getVelocity(), motor.shaftVelocity());
     else // else do swing-up
       // sets 40% of the maximal voltage to the motor in order to swing up
-      target_voltage = -sign(pendulum.getVelocity())*motor.voltage_power_supply*0.4;
+      target_voltage = -sign(pendulum.getVelocity())*driver.voltage_power_supply*0.4;
 
     // set the target voltage to the motor
     motor.move(target_voltage);
@@ -348,7 +363,7 @@ float controllerLQR(float p_angle, float p_vel, float m_vel){
   float u =  40*p_angle + 7*p_vel + 0.3*m_vel;
   
   // limit the voltage set to the motor
-  if(abs(u) > motor.voltage_power_supply*0.7) u = sign(u)*motor.voltage_power_supply*0.7;
+  if(abs(u) > driver.voltage_power_supply*0.7) u = sign(u)*driver.voltage_power_supply*0.7;
   
   return u;
 }

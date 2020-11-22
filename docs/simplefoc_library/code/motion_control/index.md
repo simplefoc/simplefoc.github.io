@@ -4,7 +4,7 @@ title: Motion Control
 parent: Writing the Code
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 permalink: /motion_control
-nav_order: 3
+nav_order: 4
 has_children: True
 has_toc: False
 grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
@@ -27,7 +27,7 @@ You set it by changing the `motor.controller` variable. If you want to control t
 motor.controller = ControlType::angle;
 ```
 
-Additionally you can run the BLDC motor in the open-loop as well:
+Additionally you can run the motor in the open-loop as well:
 - [position open-loop control](angle_openloop)
 - [velocity open-loop control](velocity_openloop)
 

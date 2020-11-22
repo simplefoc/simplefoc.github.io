@@ -77,8 +77,8 @@ Pin number | 9 | 5 | 6 | 8 | 3 | 2 | A0
 
 On the image above you can see which soldering pads you would need to solder in order to obtain this configuration.
 ```cpp
-// motor instance configuration based on pinout above
-BLDCMotor motor = BLDCMotor(9, 5, 6, ... , 8);
+// driver instance configuration based on pinout above
+BLDCDriver3PWM driver = BLDCDriver3PWM(9, 5, 6, 8);
 ```
 
 ### Suggested pinout: Stacking with Arduino UNO
@@ -98,8 +98,8 @@ Board #2 | 3 | 5 | 6 | 7 | A3 | 2 | 4
 The figure above shows how to solder the pads on both boards to obtain the desired pinout.  
 ```cpp
 // motor instances configuration based on pinout above
-BLDCMotor motor1 = BLDCMotor(9, 10, 11, ... , 8);
-BLDCMotor motor2 = BLDCMotor(3, 5, 6, ... , 7);
+BLDCDriver3PWM driver1 = BLDCDriver3PWM(9, 10, 11, 8);
+BLDCDriver3PWM driver2 = BLDCDriver3PWM(3, 5, 6, 7);
 ```
 
 ### Suggested pinout: Stacking with Stm32 Nucleo
@@ -120,7 +120,7 @@ See the figure above to find how to solder the pads to obtain this configuration
 
 ```cpp
 // motor instances configuration based on pinout above
-BLDCMotor motor1 = BLDCMotor(9, 10, 6, ... , 8);
-BLDCMotor motor2 = BLDCMotor(3, 5, 13, ... , 7);
+BLDCDriver3PWM driver1 = BLDCDriver3PWM(9, 10, 6, 8);
+BLDCDriver3PWM driver2 = BLDCDriver3PWM(3, 5, 13, 7);
 ```
 

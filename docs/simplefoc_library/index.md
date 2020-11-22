@@ -41,7 +41,6 @@ The library is intended both for:
      - Teensy boards
 - **Plug & play**: Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> 
 
-<blockquote class="info">📢 Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> will support any BLDC motor driver which can be driven with 3 PWM signals.</blockquote>
 <blockquote class="warning">📢
 Up to this moment (<a href="https://github.com/simplefoc/Arduino-FOC/releases">current release <i class="fa fa-tag"></i></a>) the library doesn't implement the current control loop. The motor torque is controlled via voltage directly. <a href="voltage_torque_control"> More info.</a>
 </blockquote>
@@ -124,7 +123,7 @@ GBM4108-120T <a class="pull-right" href="https://www.robotshop.com/en/ipower-gbm
 ## Installation
 There are two ways to install this Arduino library, depending of your plans with the code and your particular application.
 - [Full library installation](library_download) - for plug & play functionality with many examples 
-- [Minimal sketch installation](minimal_download) - Arduino sketch with integrated complete library
+- [Minimal project builder](minimal_download) - Arduino sketch with integrated complete library
     - Easier experimentation and interaction with the library code directly
 
 <img src="extras/Images/alm.gif" class="width50">

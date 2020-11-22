@@ -140,12 +140,19 @@ MySensor my_sensor = MySensor(...);
 // instantiate the motor
 BLDCMotor motor = BLDCMotor(...)
 
+// driver
+BLDCDriver3PWM driver = BLDCDriver3PWM(...)
+
 void setup(){
     // init MySensor position tracking
     my_sensor.init();
 
     // link MySensor with the motor
     motor.linkSensor(&my_sensor);
+
+    // driver config
+    driver.init();
+    motor.linkDriver(&driver);
 
     // get ready for FOC
     motor.init();

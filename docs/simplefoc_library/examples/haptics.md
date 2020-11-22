@@ -46,7 +46,8 @@ And that is it, here is the full code of this example.
 #include <PciManager.h>
 #include <PciListenerImp.h>
 
-BLDCMotor motor1 = BLDCMotor(3, 10, 6, 11, 7);
+BLDCMotor motor1 = BLDCMotor(11);
+BLDCDriver3PWM driver1 = BLDCDriver3PWM(3, 10, 6, 7);
 Encoder encoder1 = Encoder(A2, 2, 500, A0);
 void doA1(){encoder1.handleA();}
 void doB1(){encoder1.handleB();}
@@ -57,7 +58,8 @@ PciListenerImp listenerA(encoder1.pinA, doA1);
 PciListenerImp listenerB(encoder1.pinB, doB1);
 PciListenerImp listenerI(encoder1.index_pin, doI1);
 
-BLDCMotor motor2 =  BLDCMotor(9, 11, 5, 11, 8);
+BLDCMotor motor2 =  BLDCMotor( 11);
+BLDCDriver3PWM driver2 = BLDCDriver3PWM(9, 11, 5, 8);
 MagneticSensorI2C sensor2 = MagneticSensorI2C(0x36, 12, 0x0E, 4);
 
 void setup() {
@@ -68,9 +70,14 @@ void setup() {
   PciManager.registerListener(&listenerA);
   PciManager.registerListener(&listenerB);
   PciManager.registerListener(&listenerI);
-  
   // link the motor to the sensor
   motor1.linkSensor(&encoder1);
+
+  // init driver
+  driver1.init();
+  // link driver
+  motor1.linkDriver(&driver1);
+
   // set control loop type to be used
   motor1.controller = ControlType::voltage;
   // initialise motor
@@ -82,6 +89,10 @@ void setup() {
   sensor2.init();
   // link the motor to the sensor
   motor2.linkSensor(&sensor2);
+  // init driver
+  driver2.init();
+  // link driver
+  motor2.linkDriver(&driver2);
   // set control loop type to be used
   motor2.controller = ControlType::voltage;
   // initialise motor
@@ -123,20 +134,21 @@ In this example we will be using the Nucleo-64 board and two BLDC motors with en
 
 We define two motors and two encoders and link them together. 
 ```cpp
-
-```cpp
 #include <SimpleFOC.h>
 
-BLDCMotor motor1 = BLDCMotor(9, 6, 5, 11, 7);
+BLDCMotor motor1 = BLDCMotor(11);
+BLDCDriver3PWM driver1 = BLDCDriver3PWM(9, 6, 5, 7);
 Encoder encoder1 = Encoder(A1, A2, 8192);
 void doA1(){encoder1.handleA();}
 void doB1(){encoder1.handleB();}
 
 
-BLDCMotor motor2 = BLDCMotor(3, 13, 10, 11, 8);
+BLDCMotor motor2 = BLDCMotor(11);
+BLDCDriver3PWM driver2 = BLDCDriver3PWM(3, 13, 10, 8);
 Encoder encoder2 = Encoder(A3, 2, 500);
 void doA2(){encoder2.handleA();}
 void doB2(){encoder2.handleB();}
+
 
 void setup() {
 
@@ -146,10 +158,17 @@ void setup() {
   
   encoder2.init();
   encoder2.enableInterrupts(doA2,doB2);
-    
   // link the motor to the sensor
   motor1.linkSensor(&encoder1);
   motor2.linkSensor(&encoder2);
+  
+  // config drivers
+  driver1.init();
+  driver2.init();
+
+  // link the motor to the driver
+  motor1.linkDriver(&driver1);
+  motor2.linkDriver(&driver2);
 }
 void loop(){}
 ```
@@ -190,13 +209,15 @@ Here is the full example code:
 ```cpp
 #include <SimpleFOC.h>
 
-BLDCMotor motor1 = BLDCMotor(9, 6, 5, 11, 7);
+BLDCMotor motor1 = BLDCMotor(11);
+BLDCDriver3PWM driver1 = BLDCDriver3PWM(9, 6, 5, 7);
 Encoder encoder1 = Encoder(A1, A2, 8192);
 void doA1(){encoder1.handleA();}
 void doB1(){encoder1.handleB();}
 
 
-BLDCMotor motor2 = BLDCMotor(3, 13, 10, 11, 8);
+BLDCMotor motor2 = BLDCMotor(11);
+BLDCDriver3PWM driver2 = BLDCDriver3PWM(3, 13, 10, 8);
 Encoder encoder2 = Encoder(A3, 2, 500);
 void doA2(){encoder2.handleA();}
 void doB2(){encoder2.handleB();}
@@ -209,11 +230,17 @@ void setup() {
   
   encoder2.init();
   encoder2.enableInterrupts(doA2,doB2);
-    
   // link the motor to the sensor
   motor1.linkSensor(&encoder1);
   motor2.linkSensor(&encoder2);
-
+  
+  // config drivers
+  driver1.init();
+  driver2.init();
+  // link the motor to the driver
+  motor1.linkDriver(&driver1);
+  motor2.linkDriver(&driver2);
+    
   // set control loop type to be used
   motor1.controller = ControlType::voltage;
   motor2.controller = ControlType::velocity;

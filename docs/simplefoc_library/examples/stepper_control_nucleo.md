@@ -33,7 +33,7 @@ Here is an example of the connection scheme using the L298N and Nucleo-64:
 - Index channel is not used in this example but you cqn easily modify this example to support it
 
 ## Motor
-- Motor phases `A1`, `A2`, `B1`and `B2` are connected directly the moto connectors of the L298N chip.
+- Motor phases `A1`, `A2`, `B1`and `B2` are connected directly the motor connectors of the L298N chip.
 
 
 
@@ -43,7 +43,9 @@ Here is an example of the connection scheme using the L298N and Nucleo-64:
 #include <SimpleFOC.h>
 
 // Stepper motor instance
-StepperMotor motor = StepperMotor(5, 6, 9, 10, 50, 8, 7);
+StepperMotor motor = StepperMotor(50);
+// Stepper driver instance
+StepperDriver4PWM driver = StepperDriver4PWM(5, 6, 9, 10,  8, 7);
 
 // encoder instance
 Encoder encoder = Encoder(A1, A2, 2048);
@@ -65,7 +67,10 @@ void setup() {
   motor.foc_modulation = FOCModulationType::SpaceVectorPWM;
 
   // power supply voltage [V]
-  motor.voltage_power_supply = 12;
+  driver.voltage_power_supply = 12;
+  driver.init();
+  // link the motor to the sensor
+  motor.linkDriver(&driver);
 
   // set control loop type to be used
   motor.controller = ControlType::voltage;

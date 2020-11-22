@@ -33,7 +33,9 @@ After the motor and the position senor have been aligned in `motor.initFOC()` by
 #include <SimpleFOC.h>
 
 // motor instance
-BLDCMotor motor = BLDCMotor(9, 10, 11, 11, 8);
+BLDCMotor motor = BLDCMotor(11);
+// driver instance
+BLDCDriver3PWM driver = BLDCDriver3PWM(9, 10, 11, 8);
 
 // encoder instance
 Encoder encoder = Encoder(2, 3, 8192, A0);
@@ -54,8 +56,9 @@ void setup() {
   // link the motor to the sensor
   motor.linkSensor(&encoder);
 
-  // power supply voltage [V]
-  motor.voltage_power_supply = 12;
+  // driver config
+  driver.init();
+  motor.linkDriver(&driver);
 
   // index search velocity [rad/s]
   motor.velocity_index_search = 3;

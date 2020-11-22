@@ -4,7 +4,7 @@ title: Encoder
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 permalink: /encoder
 nav_order: 1
-parent: Position Sensor
+parent: Position Sensors
 grand_parent: Writing the Code
 grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 ---

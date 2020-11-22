@@ -44,7 +44,7 @@ First thing you need to do is include the `SimpleFOC` library:
 ```cpp
 #include <SimpleFOC.h>
 ```
-Make sure you have the library installed. If you still don't have it please check the [get started page](getting_started).
+Make sure you have the library installed. If you still don't have it please check the [get started page](installation).
 
 Also in the case of the gimbal controllers like the HMBGC we do not have access to the hardware interrupt pins so you will need to have a software interrupt library.
 I would suggest using `PciManager` library. If you have not installed it yet, you can do it using the Arduino library manager directly. Please check the `Encoder` class [docs](encoder) for more info.
@@ -90,18 +90,26 @@ And that is it, let's setup the motor.
 
 
 ## Motor code
-First we need to define the `BLDCMotor` class with the PWM pins and number od pole pairs (`14`) of the motor.
+First we need to define the `BLDCMotor` class with the  number od pole pairs (`14`)
 ```cpp
 // define BLDC motor
-BLDCMotor motor = BLDCMotor(9, 10, 14, 11);
+BLDCMotor motor = BLDCMotor(14);
 ```
 <blockquote class="warning">If you are not sure what your pole pairs number is please check the  <code class="highlighter-rouge">find_pole_pairs.ino</code> example.</blockquote>
 
-Then in the `setup()` we configure first the voltage of the power supply if it is not `12` Volts.
+
+Next we need to define the `BLDCDriver3PWM` class with the PWM pin numbers of the motor
+```cpp
+// define BLDC driver
+BLDCDriver3PWM driver = BLDCDriver3PWM(9, 10, 11);
+```
+
+Then in the `setup()` we configure first the voltage of the power supply if it is not `12` Volts and init the driver.
 ```cpp
 // power supply voltage
 // default 12V
-motor.voltage_power_supply = 12;
+driver.voltage_power_supply = 12;
+driver.init();
 ```
 Then we tell the motor which control loop to run by specifying the `motor.controller` variable.
 ```cpp
@@ -133,10 +141,12 @@ motor.LPF_velocity.Tf = 0.01;
 ```
 <blockquote class="info">For more information about the velocity control loop parameters please check the <a href="velocity_loop">doc</a>.</blockquote>
 
-And finally we connect the encoder to the motor, do the hardware init  and init of the Field Oriented Control.
+And finally we connect the encoder and the driver to the motor, do the hardware init  and init of the Field Oriented Control.
 ```cpp  
 // link the motor to the sensor
 motor.linkSensor(&encoder);
+// link driver
+motor.linkDriver(&driver);
 
 // initialize motor
 motor.init();
@@ -155,7 +165,7 @@ motor.move(target_velocity);
 }
 ```
 That is it, let's see the full code now!
-<blockquote class="info">For more configuration parameters and control loops please check the <code class="highlighter-rouge">BLDCMotor</code> class <a href="motor_initialization">doc</a>.</blockquote>
+<blockquote class="info">For more configuration parameters and control loops please check the <code class="highlighter-rouge">BLDCMotor</code> class <a href="motors_config">doc</a>.</blockquote>
 
 ## Full Arduino code
 To the full code I have added a small serial communication code in the `serialEvent()` function,  to be able to change velocity target value in real time.
@@ -166,8 +176,10 @@ To the full code I have added a small serial communication code in the `serialEv
 #include <PciListenerImp.h>
 
 
-//  define BLDC motor
-BLDCMotor motor = BLDCMotor(9, 10, 14, 11);
+// define BLDC motor
+BLDCMotor motor = BLDCMotor( 14 );
+// define driver
+BLDCDriver3PWM driver = BLDCDriver3PWM(9, 10, 11);
 //  define Encoder
 Encoder encoder = Encoder(A0, A1, 8192);
 // interrupt routine initialization
@@ -189,7 +201,10 @@ void setup() {
 
   // power supply voltage
   // default 12V
-  motor.voltage_power_supply = 12;
+  driver.voltage_power_supply = 12;
+  driver.init();
+  // link the motor to the driver
+  motor.linkDriver(&driver);
 
   // set FOC loop to be used
   // ControlType::voltage

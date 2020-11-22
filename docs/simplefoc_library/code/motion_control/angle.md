@@ -74,7 +74,9 @@ This is a very basic example of the motion control program with the complete con
 #include <SimpleFOC.h>
 
 // motor instance
-BLDCMotor motor = BLDCMotor(9, 10, 11, 11, 8);
+BLDCMotor motor = BLDCMotor(11);
+// driver instance
+BLDCDriver3PWM driver = BLDCDriver3PWM(9, 10, 11, 8);
 
 // encoder instance
 Encoder encoder = Encoder(2, 3, 8192);
@@ -89,12 +91,12 @@ void setup() {
   // initialize encoder sensor hardware
   encoder.init();
   encoder.enableInterrupts(doA, doB); 
-
   // link the motor to the sensor
   motor.linkSensor(&encoder);
 
-  // power supply voltage [V]
-  motor.voltage_power_supply = 12;
+  // driver config
+  driver.init();
+  motor.linkDriver(&driver);
 
   // set motion control loop to be used
   motor.controller = ControlType::angle;

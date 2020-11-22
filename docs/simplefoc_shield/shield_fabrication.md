@@ -6,8 +6,8 @@ parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</s
 nav_order: 2
 permalink: /arduino_simplefoc_shield_fabrication
 ---
-# Fabrication guide for <span class="simple">Simple<span class="foc">FOC</span>Shield</span> <small><i>v1.3.2</i></small> 
-Here is a quick guide how to fabricate the Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> [version <i class="fa fa-tag"></i>V1.3.2](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases) 
+# Fabrication guide for <span class="simple">Simple<span class="foc">FOC</span>Shield</span> <small><i>v1.3.3</i></small> 
+Here is a quick guide how to fabricate the Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> [version <i class="fa fa-tag"></i>V1.3.3](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases) 
 
 
 <p align="">
@@ -22,6 +22,7 @@ Version  | link | Release date | Comment
 *Simple**FOC**Shield* v1.3 |[release v1.3](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases/tag/v1.3) | 04/20 | Inital release
 *Simple**FOC**Shield* v1.3.1 | [release v1.3.1](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases/tag/v1.3.1) | 07/20 | added Nucleo stacking support
 *Simple**FOC**Shield* v1.3.2 |[release v1.3.2](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases/tag/v1.3.2) | 09/20 | added I2C pullups
+*Simple**FOC**Shield* v1.3.3 |[release v1.3.3](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases/tag/v1.3.3) | 11/20 | addapted L6234 circuit + full Arduino header
 
 
 [<i class="fa fa-github"></i> Github](https://github.com/simplefoc/Arduino-SimpleFOCShield) repository contains: 
@@ -157,9 +158,9 @@ Here is a complete list of all the components you will need to make the board:
             <td colspan="4"><b>Header connectors</b></td>
          </tr>
          <tr>
-            <td>P1</td>
+            <td>P1, P4</td>
             <td>8 pin, female, long</td>
-            <td>1</td>
+            <td>2</td>
             <td><a href="https://www.mouser.fr/ProductDetail/872-920-0086-01">872-920-0086-01</a></td>
          </tr>
          <tr>
@@ -169,16 +170,16 @@ Here is a complete list of all the components you will need to make the board:
             <td><a href="https://www.mouser.fr/ProductDetail/872-920-0087-01">872-920-0087-01</a></td>
          </tr>
          <tr>
-            <td>P3, P4</td>
+            <td>P3</td>
             <td>6  pin, female, long</td>
-            <td>2</td>
+            <td>1</td>
             <td><a href="https://www.mouser.fr/ProductDetail/Gravitech/6fx1L-254mm?qs=%2Fha2pyFadugTMKIzmATdF3ycHTdv4fz%2FLeD9aI6nqeEU9o9FRZ5XDw%3D%3D">6fx1L-254mm</a></td>
          </tr>
          <tr>
             <td>P_ENC</td>
-            <td> 5 pin, male (optional)</td>
+            <td> 5 pin, male/female</td>
             <td>1</td>
-            <td><a href="https://www.mouser.fr/ProductDetail/649-1012937990501BLF   ">649-1012937990501BLF</a></td>
+            <td><a href="https://www.mouser.fr/ProductDetail/649-1012937990501BLF ">649-1012937990501BLF</a></td>
          </tr>
       </tbody>
    </table>

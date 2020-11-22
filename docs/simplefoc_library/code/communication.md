@@ -144,7 +144,9 @@ motor.command(serialReceiveUserCommand());
 MagneticSensorSPI AS5x4x = MagneticSensorSPI(10, 14, 0x3FFF);
 
 // motor instance
-StepperMotor motor = StepperMotor(9, 10, 5, 6, 50);
+StepperMotor motor = StepperMotor(50);
+// driver instance
+StepperDriver4PWM driver = StepperDriver4PWM(9, 10, 5, 6);
 
 void setup() {
 
@@ -154,7 +156,9 @@ void setup() {
   motor.linkSensor(&AS5x4x);
 
   // power supply voltage [V]
-  motor.voltage_power_supply = 12;
+  driver.voltage_power_supply = 12;
+  driver.init();
+  motor.linkDriver(&driver);
 
   // set control loop type to be used
   motor.controller = ControlType::voltage;

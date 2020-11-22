@@ -37,7 +37,7 @@ First thing you need to do is include the `SimpleFOC` library:
 ```cpp
 #include <SimpleFOC.h>
 ```
-Make sure you have the library installed. If you still don't have it please check the [get started page](getting_started)
+Make sure you have the library installed. If you still don't have it please check the [get started page](installation)
 
 
 ## Encoder code
@@ -66,20 +66,27 @@ And that is it, let's setup the motor.
 
 
 ## Motor code
-First we need to define the `BLDCMotor` class with the PWM pin numbers, number od pole pairs(`11`) of the motor and the driver enable pin.
-
+First we need to define the `BLDCMotor` class with the  number od pole pairs (`11`)
 ```cpp
 // define BLDC motor
-BLDCMotor motor = BLDCMotor(3, 10, 11, 11, 7);
+BLDCMotor motor = BLDCMotor(11);
 ```
-
 <blockquote class="warning">If you are not sure what your pole pairs number is please check the  <code class="highlighter-rouge">find_pole_pairs.ino</code> example.</blockquote>
 
-Then in the `setup()` we configure first the voltage of the power supply if it is not `12` Volts.
+
+Next we need to define the `BLDCDriver3PWM` class with the PWM pin numbers of the motor and the driver enable pin
+```cpp
+// define BLDC driver
+BLDCDriver3PWM driver = BLDCDriver3PWM(9, 10, 11, 8);
+```
+
+Then in the `setup()` we configure first the voltage of the power supply if it is not `12` Volts and init the driver.
 ```cpp
 // power supply voltage
 // default 12V
-motor.voltage_power_supply = 12;
+driver.voltage_power_supply = 12;
+driver.init();
+```oltage_power_supply = 12;
 ```
 Next thing we can change is the index search velocity:
 ```cpp
@@ -121,10 +128,12 @@ motor.velocity_limit = 20;
 ```
 <blockquote class="info">For more information about the angle control loop parameters please check the  <a href="angle_loop">doc</a>.</blockquote>
 
-Next we connect the encoder to the motor, do the hardware init and init of the Field Oriented Control.
+Next we connect the encoder and the driver to the motor, do the hardware init and init of the Field Oriented Control.
 ```cpp  
 // link the motor to the sensor
 motor.linkSensor(&encoder);
+// link the motor to the driver
+motor.linkDriver(&driver);
 
 // initialize motor
 motor.init();
@@ -146,7 +155,7 @@ motor.move();
 }
 ```
 That is it, that is the full code for the motor, FOC and motion control initialization and configuration. Let's enable user communication now.
-<blockquote class="info">For more configuration parameters and control loops please check the <code class="highlighter-rouge">BLDCMotor</code> class <a href="motor_initialization">doc</a>.</blockquote>
+<blockquote class="info">For more configuration parameters and control loops please check the <code class="highlighter-rouge">BLDCMotor</code> class <a href="motors_config">doc</a>.</blockquote>
 
 ## User communication
 At the end the Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> enables you to change all the configuration parameters in real-time as well as read the motor state variables, and set the target values by using [motor commands interface](communication).
@@ -200,8 +209,10 @@ For more info about the [monitoring](monitoring) and [motor commands](communicai
 ```cpp
 #include <SimpleFOC.h>
 
-//  init motor
-BLDCMotor motor = BLDCMotor(9, 10, 11, 11, 8);
+// init BLDC motor
+BLDCMotor motor = BLDCMotor( 11 );
+// init driver
+BLDCDriver3PWM driver = BLDCDriver3PWM(9, 10, 11, 8);
 //  init encoder
 Encoder encoder = Encoder(2, 3, 2048);
 // channel A and B callbacks
@@ -219,7 +230,11 @@ void setup() {
 
   // power supply voltage
   // default 12V
-  motor.voltage_power_supply = 12;
+  driver.voltage_power_supply = 12;
+  driver.init();
+  // link the motor to the driver
+  motor.linkDriver(&driver);
+
   // index search velocity
   // default 1 rad/s
   motor.velocity_index_search = 3;

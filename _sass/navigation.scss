@@ -56,6 +56,10 @@
     display: none;
     @include fs-3;
   }
+  .grand-grand-grand-child-list {
+    display: none;
+    @include fs-3;
+  }
   .child-list {
     display: bock;
     @include fs-4;
@@ -73,6 +77,12 @@
           &.active{
             .grand-grand-child-list{
               display: block;
+              
+              &.active{
+                .grand-grand-grand-child-list{
+                  display: block;
+                }
+              }
             }
           }
         }

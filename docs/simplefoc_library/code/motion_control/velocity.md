@@ -64,8 +64,10 @@ Here is one basic example of the velocity motion control with the complete confi
 ```cpp
 #include <SimpleFOC.h>
 
-// Motor instance
-BLDCMotor motor = BLDCMotor(pwmA, pwmB, pwmC, pp, enable);
+// motor instance
+BLDCMotor motor = BLDCMotor( pole_pairs );
+// driver instance
+BLDCDriver3PWM driver = BLDCDriver3PWM(pwmA, pwmB, pwmC, enable);
 
 // Magnetic sensor instance
 MagneticSensorSPI AS5x4x = MagneticSensorSPI(chip_select, 14, 0x3FFF);
@@ -77,9 +79,9 @@ void setup() {
   // link the motor to the sensor
   motor.linkSensor(&AS5x4x);
 
-  // power supply voltage
-  // default 12V
-  motor.voltage_power_supply = 12;
+  // driver config
+  driver.init();
+  motor.linkDriver(&driver);
 
   // set motion control loop to be used
   motor.controller = ControlType::velocity;

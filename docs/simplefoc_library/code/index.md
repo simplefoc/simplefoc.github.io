@@ -19,12 +19,6 @@ Let's start by including the library header file:
 ```cpp
 #include <SimpleFOC.h>
 ```
-Or if you have downloaded the [minimal example](minimal_download) you will include it this way:
-```cpp
-#include "SimpleFOC.h"
-```
-The quotation marks `" "` are used when the header files are in the same directory as the Arduino `.ino` file. 
-
 ## Step 1. <a href="sensors" class="remove_dec">Position sensor setup</a>
 
 First step when writing the code is initializing and configuring the position sensor.
@@ -98,27 +92,22 @@ Magnetic sensors using the SPI communication are implemented in the class <code 
 
 Sensor is initialized hardware pins by running `sensor.init()`.
 
-For full documentation of the setup and all configuration parameters please visit the <a href="sensors"> position sensors docs</a>.
+For full documentation of the setup and all configuration parameters please visit the <a href="sensors"> position sensors docs <i class="fa fa-external-link"></i></a>.
 
 
-## Step 2. <a href="motor_initialization" class="remove_dec"> Motor setup</a>
-After the position sensor we proceed to initializing and configuring the motor. The library supports BLDC motors handled by `BLDCMotor` class and stepper motors handled by `StepperMotor` class. `BLDCMotor` class instantiated by providing:
+## Step 2. <a href="drivers_config" class="remove_dec"> Driver setup</a>
+After the position sensor we proceed to initializing and configuring the driver. The library supports BLDC drivers handled by `BLDCDriver3PWM` and `BLDCDriver6PWM`  classes as well as the stepper drivers handled by `StepperDriver4PWM` class. 
+
+`BLDCDriver3PWM` class instantiated by providing:
 - phase `A`, `B` and `C` pin number
-- `pole_pairs` number of the motor
 - `enable` pin number *(optional)*
 
-And `StepperMotor` it is defined by setting:
-- phase `1A`, `1B` pin number
-- phase `2A`, `2B` pin number
-- `pole_pairs` number of the motor
-- `enable1` and `enable2` pin numbers *(optional)*
-
-In this example we will use BLDC motor:
+For example:
 ```cpp
 #include <SimpleFOC.h>
 
-//  BLDCMotor( pin_pwmA, pin_pwmB, pin_pwmC, pole_pairs, enable (optional))
-BLDCMotor motor = BLDCMotor(9, 5, 6, 11, 8);
+//  BLDCDriver3PWM( pin_pwmA, pin_pwmB, pin_pwmC, enable (optional))
+BLDCDriver3PWM driver = BLDCDriver3PWM(9, 5, 6, 8);
 
 // instantiate sensor 
 
@@ -126,8 +115,55 @@ void setup() {
 
   // init sensor
 
+  // power supply voltage
+  driver.voltage_power_supply = 12;
+  // driver init
+  driver.init();
+
+}
+
+void loop() {
+
+}
+```
+
+
+For full documentation of the setup and all configuration parameters please visit the <a href="drivers_config"> driver docs <i class="fa fa-external-link"></i></a>.
+
+
+
+## Step 2. <a href="motors_config" class="remove_dec"> Motor setup </a>
+After the position sensor and the driver we proceed to initializing and configuring the motor. The library supports BLDC motors handled by `BLDCMotor` class as well as the stepper motors handled by `StepperMotor` class. Both classes are instantiated by providing just the `pole_pairs` number of the motor
+
+```cpp
+// StepperMotor(int pole_pairs)
+StepperMotor motor = StepperMotor(50);
+```
+```cpp 
+// BLDCMotor(int pole_pairs)
+BLDCMotor motor = BLDCMotor(11);
+```
+
+
+In this example we will use BLDC motor:
+```cpp
+#include <SimpleFOC.h>
+
+//  BLDCMotor( int pole_pairs )
+BLDCMotor motor = BLDCMotor( 11);
+ 
+// instantiate driver
+
+// instantiate sensor   
+
+void setup() {  
+  // init sensor
   // link the motor to the sensor
   motor.linkSensor(&sensor);
+
+  // init driver
+  // link the motor to the driver
+  motor.linkDriver(&driver);
 
   // set control loop type to be used
   motor.controller = ControlType::velocity;
@@ -141,7 +177,7 @@ void loop() {
 }
 ```
 
-After the  `BLDCMotor` class instance `motor` has been created we need to link the motor with the sensor `motor.linkSensor()` which will read the motor position and velocity. <br>
+After the instance of the motor `motor` has been created we need to link the motor with the sensor `motor.linkSensor()` and link the motor class to the driver it is connected to `motor.linkDriver()`.  <br>
 The next step is the configuration step, for the sake of this example we will configure only the motion control loop we will be using:
 ```cpp
 // set control loop type to be used
@@ -149,12 +185,12 @@ motor.controller = ControlType::velocity;
 ```
 And to finish the `motor` setup we run the `motor.init()` function.
 
-For full documentation of the setup and all configuration parameters please visit the <a href="motor_initialization"> BLDC motor docs</a>.
+For full documentation of the setup and all configuration parameters please visit the <a href="motors_config"> motor docs <i class="fa fa-external-link"></i></a>.
 
 
-## Step 3.<a href="motor_initialization#step-4-field-oriented-control-initialization" class="remove_dec"> FOC routine and real-time motion control</a>
-Once when we have initialized the position sensor and the BLDC motor, and before we can run the FOC algorithm we need to align the motor and sensor. This is done by calling `motor.initFOC()`. 
-After this step we have a functional position sensor, we have configured BLDC motor and our FOC algorithm knows how to set the appropriate voltages based on position sensor measurements.
+## Step 3. FOC routine and real-time motion control
+Once when we have initialized the position sensor, driver and the motor, and before we can run the FOC algorithm we need to align the motor and sensor. This is done by calling `motor.initFOC()`. 
+After this step we have a functional position sensor, we have configured motor and our FOC algorithm knows how to set the appropriate voltages based on position sensor measurements.
 
 For the real-time routine of the FOC algorithm we need to add the `motor.loopFOC()` and `motor.move(target)` functions in the Arduino `loop()`.
 - `motor.loopFOC()`:  FOC algorithm execution - should be executed as fast as possible `> 1kHz`
@@ -166,13 +202,17 @@ Here is how it looks in code:
 #include <SimpleFOC.h>
 
 // instantiate motor
+// instantiate driver
 // instantiate senor
 
 void setup() {  
   
-  // init senor
-
+  // init sensor
   // link motor and sensor
+
+  // init driver
+  // link motor and driver
+
   // configure motor
   // init motor
 
@@ -190,7 +230,7 @@ void loop() {
 }
 ```
 
-For full documentation of the setup and all configuration parameters please visit the <a href="foc_routine"> FOC algorithm docs</a>.
+For full documentation of the setup and all configuration parameters for BLDC motors please visit the <a href="bldcmotor"> BLDCMotor docs  <i class="fa fa-external-link"></i></a>, and for Stepper motors please visit the <a href="steppermotor"> StepperMotor docs  <i class="fa fa-external-link"></i></a>
 
 
 ## Step 4. <a href="monitoring" class="remove_dec"> Monitoring</a>
@@ -203,20 +243,23 @@ If you are interested to output motors state variables in real-time (even though
 #include <SimpleFOC.h>
 
 // instantiate motor
+// instantiate driver
 // instantiate senor
 
 void setup() {  
   
-  // init senor
-
+  // init sensor
   // link motor and sensor
-  // configure motor
+
+  // init driver
+  // link motor and driver
 
   // use monitoring with the BLDCMotor
   Serial.begin(115200);
   // monitoring port
   motor.useMonitoring(Serial);
   
+  // configure motor
   // init motor
   
   // align encoder and start FOC
@@ -349,183 +392,108 @@ For full documentation of the setup and all configuration parameters please visi
 </script>
 
 
-## 🎨 Full interactive sketch example 
+## 🎨 Full Arduino code of the example 
 
-Now when you have learned what are all parts the parts of the Arduino program and what are they for check this interactive example to better understand how to integrate all these parts together.
+Now when you have learned what are all the parts of the Arduino program and what are they for, here is the full code example with some additional configuration. Please go through the code to better understand how to integrate all previously introduced parts together. This is the code of the library example `motor_full_control_serial_examples/magnetic_sensor/full_control_serial.ino`. 
 
-This is the code of the library example `motor_full_control_serial_examples/magnetic_sensor/full_control_serial.ino`. Here is a quick overview of all the library examples [link](library_examples)
+```cpp
+#include <SimpleFOC.h>
 
-### Toggle different parts of the code 
-<div style="width:100%;margin-bottom:0px">
-<a href ="javascript:show('mag_s');" id="mag_s" class="btn btn-primary">Magnetic sensor</a>
-<a href="javascript:show('mot_s');" id="mot_s" class="btn">BLDC Motor</a> 
-<a href="javascript:show('foc_s');" id="foc_s" class="btn">FOC routine</a> 
-<a href="javascript:show('mon_s');" id="mon_s" class="btn">Monitoring</a> 
-<a href="javascript:show('com_s');" id="com_s" class="btn">Communication</a> 
-<a href="javascript:show('conf_s');" id="conf_s" class="btn">Configuration</a> 
-<div>
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;SimpleFOC.h&gt;
-</span><span class="mag_s">
-<span class="c1">// magnetic sensor instance</span>
-<span class="n">MagneticSensorSPI</span> <span class="n">AS5x4x</span> <span class="o">=</span> <span class="n">MagneticSensorSPI</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mh">0x3FFF</span><span class="p">);</span></span>
-<span class="mot_s">
-<span class="c1">// motor instance</span>
-<span class="n">BLDCMotor</span> <span class="n">motor</span> <span class="o">=</span> <span class="n">BLDCMotor</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
-</span>
-<span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
-<span class="mag_s">
-  <span class="c1">// initialize magnetic sensor hardware</span>
-  <span class="n">AS5x4x</span><span class="p">.</span><span class="n">init</span><span class="p">();</span></span>
-  <span class="mot_s"><span class="c1">// link the motor to the sensor</span>
-  <span class="n">motor</span><span class="p">.</span><span class="n">linkSensor</span><span class="p">(</span><span class="o">&amp;</span><span class="n mag_s">AS5x4x</span><span class="n enc_s">encoder</span><span class="p">);</span></span>
-<span class="conf_s">
-  <span class="c1">// choose FOC modulation</span>
-  <span class="n">motor</span><span class="p">.</span><span class="n">foc_modulation</span> <span class="o">=</span> <span class="n">FOCModulationType</span><span class="o">::</span><span class="n">SpaceVectorPWM</span><span class="p">;</span>
+// magnetic sensor instance - SPI
+MagneticSensorSPI sensor = MagneticSensorSPI(AS5147_SPI, 10);
 
-  <span class="c1">// power supply voltage [V]</span>
-  <span class="n">motor</span><span class="p">.</span><span class="n">voltage_power_supply</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
-</span><span class="conf_s">
-  <span class="c1">// set control loop type to be used</span>
-  <span class="n">motor</span><span class="p">.</span><span class="n">controller</span> <span class="o">=</span> <span class="n">ControlType</span><span class="o">::</span><span class="n">voltage</span><span class="p">;</span>
+// BLDC motor & driver instance
+BLDCMotor motor = BLDCMotor(11);
+BLDCDriver3PWM driver = BLDCDriver3PWM(9, 5, 6, 8);
 
-  <span class="c1">// controller configuration based on the control type </span>
-  <span class="n">motor</span><span class="p">.</span><span class="n">PID_velocity</span><span class="p">.</span><span class="n">P</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">;</span>
-  <span class="n">motor</span><span class="p">.</span><span class="n">PID_velocity</span><span class="p">.</span><span class="n">I</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
-  <span class="n">motor</span><span class="p">.</span><span class="n">PID_velocity</span><span class="p">.</span><span class="n">D</span> <span class="o">=</span> <span class="mi">0.001</span><span class="p">;</span>
-  <span class="c1">// default voltage_power_supply</span>
-  <span class="n">motor</span><span class="p">.</span><span class="n">voltage_limit</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
+void setup() {
 
-  <span class="c1">// velocity low pass filtering time constant</span>
-  <span class="n">motor</span><span class="p">.</span><span class="n">LPF_velocity</span><span class="p">.</span><span class="n">Tf</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">;</span>
+  // initialise magnetic sensor hardware
+  sensor.init();
+  // link the motor to the sensor
+  motor.linkSensor(&sensor);
 
-  <span class="c1">// angle loop controller</span>
-  <span class="n">motor</span><span class="p">.</span><span class="n">P_angle</span><span class="p">.</span><span class="n">P</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
-  <span class="c1">// angle loop velocity limit</span>
-  <span class="n">motor</span><span class="p">.</span><span class="n">velocity_limit</span> <span class="o">=</span> <span class="mi">50</span><span class="p"></span>
-</span><span class="com_s mon_s">
-  <span class="c1">// use monitoring with serial for motor init</span>
-  <span class="c1">// monitoring port</span>
-  <span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">115200</span><span class="p">);</span>
-  <span class="c1">// comment out if not needed</span>
-  <span class="n">motor</span><span class="p">.</span><span class="n">useMonitoring</span><span class="p">(</span><span class="n">Serial</span><span class="p">);</span>
-</span><span class="mot_s">
-  <span class="c1">// initialize motor</span>
-  <span class="n">motor</span><span class="p">.</span><span class="n">init</span><span class="p">();</span></span>
-  <span class="foc_s"><span class="c1">// align encoder and start FOC</span>
-  <span class="n">motor</span><span class="p">.</span><span class="n">initFOC</span><span class="p">();</span></span>
-<span class="foc_s">
-  <span class="c1 ">// set the initial target value</span>
-  <span class="n">motor</span><span class="p">.</span><span class="n">target</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span></span>
+  // driver config
+  // power supply voltage [V]
+  driver.voltage_power_supply = 12;
+  driver.init();
+  // link driver
+  motor.linkDriver(&driver);
 
-<span class="com_s">
-  <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Full control example: "</span><span class="p">);</span>
-  <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Run user commands to configure and the motor (find the full command list in docs.simplefoc.com) </span><span class="se">\n</span><span class="s"> "</span><span class="p">);</span>
-  <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Initial motion control loop is voltage loop."</span><span class="p">);</span>
-  <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Initial target voltage 2V."</span><span class="p">);</span></span>
+
+
+  // motor config
+  // set control loop type to be used
+  motor.controller = ControlType::velocity;
+
+  // contoller configuration based on the control type 
+  motor.PID_velocity.P = 0.2;
+  motor.PID_velocity.I = 20;
+  motor.PID_velocity.D = 0;
+  // default voltage_power_supply
+  motor.voltage_limit = 12;
+
+  // velocity low pass filtering time constant
+  motor.LPF_velocity.Tf = 0.01;
+
+  // angle loop controller
+  motor.P_angle.P = 20;
+  // angle loop velocity limit
+  motor.velocity_limit = 50;
+
+  // use monitoring with serial for motor init
+  // monitoring port
+  Serial.begin(115200);
+  // comment out if not needed
+  motor.useMonitoring(Serial);
+
+  // motor init
+  motor.init();
+  // align encoder and start FOC
+  motor.initFOC();
+
+  // Run user commands to configure and the motor (find the full command list in docs.simplefoc.com)
+  Serial.println("Motor commands sketch | Initial motion control > velocity : target 0 rad/s.");
   
-  <span class="n">_delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
-<span class="p">}</span>
+  _delay(1000);
+}
 
 
-<span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
-  <span class="foc_s"><span class="c1">// iterative setting FOC phase voltage</span>
-  <span class="n">motor</span><span class="p">.</span><span class="n">loopFOC</span><span class="p">();</span></span>
+void loop() {
+  // iterative setting FOC phase voltage
+  motor.loopFOC();
 
-  <span class="foc_s"><span class="c1">// iterative function setting the outer loop target</span>
-  <span class="c1">// velocity, position or voltage</span>
-  <span class="c1">// if target not set in parameter uses motor.target variable</span>
-  <span class="n">motor</span><span class="p">.</span><span class="n">move</span><span class="p">();</span></span>
-
-  <span class="c1 mon_s com_s_hide">// output motor state variables to the monitoring port (Serial)</span>
-  <span class="mon_s com_s_hide"><span class="n">motor</span><span class="p">.</span><span class="n">monitor</span><span class="p">();</span></span> 
+  // iterative function setting the outer loop target
+  // velocity, position or voltage
+  // if tatget not set in parameter uses motor.target variable
+  motor.move();
   
-  <span class="com_s"><span class="c1">// user communication</span>
-  <span class="n">motor</span><span class="p">.</span><span class="n">command</span><span class="p">(</span><span class="n">serialReceiveUserCommand</span><span class="p">());</span></span>
-<span class="p">}</span>
-<span class="com_s">
-<span class="c1">// utility function enabling serial communication the user</span>
-<span class="n">String</span> <span class="nf">serialReceiveUserCommand</span><span class="p">()</span> <span class="p">{</span>
+  // user communication
+  motor.command(serialReceiveUserCommand());
+}
+
+// utility function enabling serial communication the user
+String serialReceiveUserCommand() {
   
-  <span class="c1">// a string to hold incoming data</span>
-  <span class="k">static</span> <span class="n">String</span> <span class="n">received_chars</span><span class="p">;</span>
-  
-  <span class="n">String</span> <span class="n">command</span> <span class="o">=</span> <span class="s">""</span><span class="p">;</span>
-
-  <span class="k">while</span> <span class="p">(</span><span class="n">Serial</span><span class="p">.</span><span class="n">available</span><span class="p">())</span> <span class="p">{</span>
-    <span class="c1">// get the new byte:</span>
-    <span class="kt">char</span> <span class="n">inChar</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="p">)</span><span class="n">Serial</span><span class="p">.</span><span class="n">read</span><span class="p">();</span>
-    <span class="c1">// add it to the string buffer:</span>
-    <span class="n">received_chars</span> <span class="o">+=</span> <span class="n">inChar</span><span class="p">;</span>
-
-    <span class="c1">// end of user input</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">inChar</span> <span class="o">==</span> <span class="sc">'\n'</span><span class="p">)</span> <span class="p">{</span>
-      
-      <span class="c1">// execute the user command</span>
-      <span class="n">command</span> <span class="o">=</span> <span class="n">received_chars</span><span class="p">;</span>
-
-      <span class="c1">// reset the command buffer </span>
-      <span class="n">received_chars</span> <span class="o">=</span> <span class="s">""</span><span class="p">;</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="n">command</span><span class="p">;</span>
-<span class="p">}</span>
-
-</span>
-
-</code></pre></div></div>
-
-
-<script type="text/javascript">
-    var elems = document.getElementsByClassName('com_s');
-    for (i = 0; i < elems.length; i++) {
-        elems[i].style.display = "none";
+  // a string to hold incoming data
+  static String received_chars;
+  String command = "";
+  while (Serial.available()) {
+    // get the new byte:
+    char inChar = (char)Serial.read();
+    // add it to the string buffer:
+    received_chars += inChar;
+    // end of user input
+    if (inChar == '\n') {
+      // execute the user command
+      command = received_chars;
+      // reset the command buffer 
+      received_chars = "";
     }
-    var elems = document.getElementsByClassName('mon_s');
-    for (i = 0; i < elems.length; i++) {
-        elems[i].style.display = "none";
-    }
-    var elems = document.getElementsByClassName('conf_s');
-    for (i = 0; i < elems.length; i++) {
-        elems[i].style.display = "none";
-    }
-    var elems = document.getElementsByClassName('foc_s');
-    for (i = 0; i < elems.length; i++) {
-        elems[i].style.display = "none";
-    }
-    var elems = document.getElementsByClassName('mot_s');
-    for (i = 0; i < elems.length; i++) {
-        elems[i].style.display = "none";
-    }
-    var elems = document.getElementsByClassName('enc_s');
-    for (i = 0; i < elems.length; i++) {
-        elems[i].style.display = "none";
-    }
-
-    function show(str){
-        var hide = document.getElementById(str).classList.contains("btn-primary");
-
-        if(hide){
-            document.getElementById(str).classList.remove("btn-primary");
-            var elems = document.getElementsByClassName(str);
-            for (i = 0; i < elems.length; i++) {
-                elems[i].style.display = "none";
-            }  
-        }else{
-            document.getElementById(str).classList.add("btn-primary");
-            var elems = document.getElementsByClassName(str);
-            for (i = 0; i < elems.length; i++) {
-                elems[i].style.display = "inline";
-            } 
-            var elems = document.getElementsByClassName(str+"_hide");
-            for (i = 0; i < elems.length; i++) {
-                elems[i].style.display = "none";
-            } 
-        }
-        return 0;
-    }
-</script>
-
-
+  }
+  return command;
+}
+```
 
 <h2> Library source code</h2>
 If you are interested in extending and adapting the <span class="simple">Simple<span class="foc">FOC</span>library</span> source code you can find full documentation on <a href="source_code">library source docs</a>

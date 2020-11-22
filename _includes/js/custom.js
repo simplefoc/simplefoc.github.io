@@ -39,6 +39,9 @@ var defines =[
 var classNames = [
     "BLDCMotor",
     "StepperMotor",
+    "BLDCDriver3PWM",
+    "BLDCDriver6PWM",
+    "StepperDriver4PWM",
     "Encoder",
     "MagneticSensor",
     "MagneticSensorSPI",
@@ -48,7 +51,9 @@ var classNames = [
     "PciListenerImp",
     "PciManager",
     "Serial",
-    "MySensor"
+    "MySensor",
+    "Wire",
+    "SPIClass"
 ];
 
 var classProps = [
@@ -79,6 +84,7 @@ var funcNames = [
     "handleC",
     "registerListener",
     "linkSensor",
+    "linkDriver",
     "useMonitoring",
     "monitor",
     "print",
@@ -137,7 +143,9 @@ var structProps = [
     "velocity_openloop",
     "voltage",
     "SpaceVectorPWM",
-    "SinePWM"
+    "SinePWM",
+    "Trapesoid_120",
+    "Trapesoid_150"
 ];
 jtd.onReady(function(){
     document.querySelectorAll('.n').forEach(function(e) {

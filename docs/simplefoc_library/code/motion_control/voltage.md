@@ -37,7 +37,9 @@ Here we provide an example of a toque/voltage control program with full motion c
 #include <SimpleFOC.h>
 
 // motor instance
-BLDCMotor motor = BLDCMotor(pwmA, pwmB, pwmC, pp, enable);
+BLDCMotor motor = BLDCMotor( pole_pairs );
+// driver instance
+BLDCDriver3PWM driver = BLDCDriver3PWM(pwmA, pwmB, pwmC, enable);
 
 // encoder instance
 Encoder encoder = Encoder(chA, chB, ppr);
@@ -54,10 +56,10 @@ void setup() {
   encoder.enableInterrupts(doA, doB); 
   // link the motor to the sensor
   motor.linkSensor(&encoder);
-
-  // power supply voltage
-  // default 12V
-  motor.voltage_power_supply = 12;
+  
+  // driver config
+  driver.init();
+  motor.linkDriver(&driver);
   
   // set motion control loop to be used
   motor.controller = ControlType::voltage;

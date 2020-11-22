@@ -29,7 +29,7 @@ If you prefer downloading the library directly from the [github repository](http
 ### <i class="fa fa-terminal"></i> Clone using terminal 
 - Open terminal and run
 ```sh  
-cd *arduino libraries folder*
+cd #arduino libraries folder
 git clone https://github.com/simplefoc/Arduino-FOC.git
 ```
 - Reopen Arduino IDE and you should have the library examples in `File > Examples > Simple FOC`.

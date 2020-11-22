@@ -4,7 +4,7 @@ title: Getting Started
 description: "Getting started with Arduino SimpleFOCShield"
 parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span>
 nav_order: 1
-permalink: /arduino_simplefoc_shield_getting_started
+permalink: /arduino_simplefoc_shield_installation
 has_children: true
 has_toc: false
 ---
