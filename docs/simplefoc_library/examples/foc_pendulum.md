@@ -150,7 +150,7 @@ BLDCMotor motor = BLDCMotor(11);
 Next we need to define the `BLDCDriver3PWM` class with the PWM pin numbers and the driver enable pin.
 ```cpp
 // define BLDC driver
-BLDCDriver3PWM motor = BLDCDriver3PWM(9, 10, 11, 8);
+BLDCDriver3PWM driver = BLDCDriver3PWM(9, 10, 11, 8);
 ```
 
 Then in the `setup()` we configure first the voltage of the power supply if it is not `12` Volts and intialise the driver.
@@ -222,7 +222,7 @@ The swingup implemented in this example is the simples one possible, that is alw
 
 This is hte code of the swing-up:
 ```cpp
-target_voltage = -sign(pendulum.getVelocity())*motor.voltage_power_supply*0.4;
+target_voltage = -_sign(pendulum.getVelocity())*motor.voltage_power_supply*0.4;
 ```
 What it does really is it checks which direction the pendulum is moving `sign(pendulum.getVelocity())` and sets the very high voltage value `motor.voltage_power_supply*0.4` in the opposite direction (`-`). 
 It means that the algorithm is going to try to accelerate the movement of the pendulum (because the pendulum acceleration is caused as the reaction of the motor acceleration, but inverse direction).
@@ -268,7 +268,7 @@ And that is it guys we can read our pendulum angle, we can control the motor, an
 // BLDC motor init
 BLDCMotor motor = BLDCMotor(11);
 // define BLDC driver
-BLDCDriver3PWM motor = BLDCDriver3PWM(9, 10, 11, 8);
+BLDCDriver3PWM driver = BLDCDriver3PWM(9, 10, 11, 8);
 //Motor encoder init
 Encoder encoder = Encoder(2, 3, 500);
 // interrupt routine 
@@ -332,7 +332,7 @@ void loop() {
       target_voltage = controllerLQR(pendulum_angle, pendulum.getVelocity(), motor.shaftVelocity());
     else // else do swing-up
       // sets 40% of the maximal voltage to the motor in order to swing up
-      target_voltage = -sign(pendulum.getVelocity())*driver.voltage_power_supply*0.4;
+      target_voltage = -_sign(pendulum.getVelocity())*driver.voltage_power_supply*0.4;
 
     // set the target voltage to the motor
     motor.move(target_voltage);
