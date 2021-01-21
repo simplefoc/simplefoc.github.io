@@ -40,7 +40,7 @@ Examples | Description | Specifications | Link | Price
 
 
 ## High-performance motors
-Gimbal motors are just a subset of all the BLDC motors there is. As suggested in previous chapters, when using high-torque ( currents > 5A), low-resistance (~1Ω) BLDC motors such as drone motors make sure your BLDC driver can support the currents necessary. <span class="simple">Simple<span class="foc">FOC</span>library</span> has been tested with several high performance BLDC drivers ([supported BLDC drivers list](BLDC_drivers)). 
+Gimbal motors are just a subset of all the BLDC motors there is. As suggested in previous chapters, when using high-torque ( currents > 5A), low-resistance (~1Ω) BLDC motors such as drone motors make sure your BLDC driver can support the currents necessary. <span class="simple">Simple<span class="foc">FOC</span>library</span> has been tested with several high performance BLDC drivers ([supported BLDC drivers list](drivers)). 
 
 For example, if we limit ourselves to the [Aliexpress DRV8302 board](https://bit.ly/2BZZ5fG) we will be searching for motors with the peak current lower than 27A and continuous current of 15A. Here are some motors that can fit in that category:
 

@@ -90,11 +90,16 @@ layout: table_wrappers
             {% if page.parent %}
               <nav class="breadcrumb-nav">
                 <ol class="breadcrumb-nav-list">
-                  {% if page.grand_grand_parent %}
+                  {% if page.grand_grand_grand_parent%}
+                    <li class="breadcrumb-nav-list-item"><a href="{{ first_level_url }}">{{ page.grand_grand_grand_parent }}</a></li>
+                    <li class="breadcrumb-nav-list-item"><a href="{{ second_level_url }}">{{ page.grand_grand_parent }}</a></li>
+                    <li class="breadcrumb-nav-list-item"><a href="{{ third_level_url }}">{{ page.grand_parent }}</a></li>
+                    <li class="breadcrumb-nav-list-item"><a href="{{ fourth_level_url }}">{{ page.parent }}</a></li>
+                  {% elsif page.grand_grand_parent %}
                     <li class="breadcrumb-nav-list-item"><a href="{{ first_level_url }}">{{ page.grand_grand_parent }}</a></li>
-                    <li class="breadcrumb-nav-list-item"><a href="{{ first_level_url }}">{{ page.grand_parent }}</a></li>
-                    <li class="breadcrumb-nav-list-item"><a href="{{ second_level_url }}">{{ page.parent }}</a></li>
-                  {% else if page.grand_parent %}
+                    <li class="breadcrumb-nav-list-item"><a href="{{ second_level_url }}">{{ page.grand_parent }}</a></li>
+                    <li class="breadcrumb-nav-list-item"><a href="{{ third_level_url }}">{{ page.parent }}</a></li>
+                  {% elsif page.grand_parent  %}
                     <li class="breadcrumb-nav-list-item"><a href="{{ first_level_url }}">{{ page.grand_parent }}</a></li>
                     <li class="breadcrumb-nav-list-item"><a href="{{ second_level_url }}">{{ page.parent }}</a></li>
                   {% else %}

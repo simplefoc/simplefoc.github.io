@@ -150,7 +150,7 @@ BLDCMotor motor = BLDCMotor(11);
 Next we need to define the `BLDCDriver3PWM` class with the PWM pin numbers and the driver enable pin.
 ```cpp
 // define BLDC driver
-BLDCDriver3PWM driver = BLDCDriver3PWM(9, 10, 11, 8);
+BLDCDriver3PWM driver  = BLDCDriver3PWM(9, 10, 11, 8);
 ```
 
 Then in the `setup()` we configure first the voltage of the power supply if it is not `12` Volts and intialise the driver.
