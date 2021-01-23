@@ -33,59 +33,80 @@ Where the <i>u(k)</i> is the control signal (voltage <i>U<sub>q</sub></i> in our
 
 
 ## Implementation details
-
-The `BLDMotor` class has implemented generic PI controller function called `controllerPID()`.
+The PID algorithm is implemented in the  <span class="simple">Simple<span class="foc">FOC</span>library</span> in the `PIDController` class. The class is instantiated by specifying the parameters:
 ```cpp
-// PI controller function
-float BLDCMotor::controllerPID(float tracking_error, PI_s& cont){
-  // calculate the time from the last call
-  unsigned long now_us = _micros();
-  float Ts = (now_us - cont.timestamp) * 1e-6;
-  // quick fix for strange cases (micros overflow)
-  if(Ts <= 0 || Ts > 0.5) Ts = 1e-3; 
+PIDController(float P, float I, float D, float ramp, float limit);
+```
+And the class has only one function:
+```cpp
+// PID controller function
+float PIDController::operator() (float error){
+    // calculate the time from the last call
+    unsigned long timestamp_now = _micros();
+    float Ts = (timestamp_now - timestamp_prev) * 1e-6;
+    // quick fix for strange cases (micros overflow)
+    if(Ts <= 0 || Ts > 0.5) Ts = 1e-3; 
 
-  // u(s) = (P + I/s + Ds)e(s)
-  // Discrete implementations
-  // proportional part 
-  // u_p  = P *e(k)
-  float proportional = cont.P * tracking_error;
-  // Tustin transform of the integral part
-  // u_ik = u_ik_1  + I*Ts/2*(ek + ek_1)
-  float integral = cont.integral_prev + cont.I*Ts*0.5*(tracking_error + cont.tracking_error_prev);
-  // antiwindup - limit the output voltage_q
-  integral = constrain(integral, -voltage_limit, voltage_limit);
-  // Discrete derivation
-  // u_dk = D(ek - ek_1)/Ts
-  float derivative = cont.D*(tracking_error - cont.tracking_error_prev)/Ts;
-  // sum all the components
-  float voltage = proportional + integral + derivative;
+    // u(s) = (P + I/s + Ds)e(s)
+    // Discrete implementations
+    // proportional part 
+    // u_p  = P *e(k)
+    float proportional = P * error;
+    // Tustin transform of the integral part
+    // u_ik = u_ik_1  + I*Ts/2*(ek + ek_1)
+    float integral = integral_prev + I*Ts*0.5*(error + error_prev);
+    // antiwindup - limit the output voltage_q
+    integral = _constrain(integral, -limit, limit);
+    // Discrete derivation
+    // u_dk = D(ek - ek_1)/Ts
+    float derivative = D*(error - error_prev)/Ts;
 
-  // antiwindup - limit the output voltage_q
-  voltage = constrain(voltage, -voltage_limit, voltage_limit);
+    // sum all the components
+    float output = proportional + integral + derivative;
+    // antiwindup - limit the output variable
+    output = _constrain(output, -limit, limit);
 
-  // limit the acceleration by ramping the the voltage
-  float d_voltage = voltage - cont.output_prev;
-  if (abs(d_voltage)/Ts > cont.output_ramp) voltage = d_voltage > 0 ? cont.output_prev + cont.output_ramp*Ts : cont.output_prev - cont.output_ramp*Ts;
+    // limit the acceleration by ramping the output
+    float output_rate = (output - output_prev)/Ts;
+    if (output_rate > output_ramp)
+        output = output_prev + output_ramp*Ts;
+    else if (output_rate < -output_ramp)
+        output = output_prev - output_ramp*Ts;
 
-  // saving for the next pass
-  cont.integral_prev = integral;
-  cont.output_prev = voltage;
-  cont.tracking_error_prev = tracking_error;
-  cont.timestamp = now_us;
-  return voltage;
+    // saving for the next pass
+    integral_prev = integral;
+    output_prev = output;
+    error_prev = error;
+    timestamp_prev = timestamp_now;
+    return output;
 }
 ```
-The PID controller is configured with `motor.PID_velocity` structure:
+Therefore you can integrate the PID into your code very easily by just calling:
+```cpp
+void setup(){
+  ...
+  PIDController some_pid = PIDController{.....};
+  ...
+}
+void loop(){
+  float control = some_pid(target-measurement);
+} 
+```
+
+This PID class is implemented in the `BLDCMotor` and `StepperMotor` class for handling the motion control velocity (`motor.PID_velocity`) and position (`motor.P_angle`). You can change the values parameters of these PID controllers by changing their public variables
 ```cpp
 // PID controller configuration structure
-struct PID_s{
+class PIDController
+{
+  .....
   float P; //!< Proportional gain 
   float I; //!< Integral gain 
   float D; //!< Derivative gain 
-  long timestamp;  //!< Last execution timestamp
-  float integral_prev;  //!< last integral component value
-  float output_prev;  //!< last pid output value
-  float output_ramp;  //!< Maximum speed of change of the output value
-  float tracking_error_prev;  //!< last tracking error value
+  ....
 };
+```
+For example: 
+```cpp
+motor.PID_velocity.P = 1;
+motor.P_angle.P = 10;
 ```

@@ -1,11 +1,12 @@
 ---
 layout: default
 title: v1.3.3
-description: "Arduino SimpleFOCShield board fabrication"
-parent: Board Fabrication
-grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span>
+parent: Soldering pads
+grand_parent: Getting Started
+description: "Configuring your SimpleFOCShield by soldering the pads."
 nav_order: 1
-permalink: /arduino_simplefoc_shield_fabrication_v1
+permalink: /pads_soldering_v1
+grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span>
 ---
 # Fabrication guide for <span class="simple">Simple<span class="foc">FOC</span>Shield</span> <small><i>v1.3.3</i></small> 
 Here is a quick guide how to fabricate the Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> [version <i class="fa fa-tag"></i>V1.3.3](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases) 

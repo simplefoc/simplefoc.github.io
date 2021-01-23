@@ -10,38 +10,35 @@ has_children: True
 has_toc: false
 ---
 
-# Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> source code [v1.5.0](https://github.com/simplefoc/Arduino-FOC/releases)
+# Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> source code [v2.0.2](https://github.com/simplefoc/Arduino-FOC/releases)
 The arduino library code is organized into the standard [Arduino library structure](https://github.com/arduino/Arduino/wiki/Library-Manager-FAQ). 
-The library contains main BLDC motor class `BLDCMotor` and  three sensor classes `Encoder`, `MagneticSensorSPI` and `MagneticSensorI2C` implementing the `Sensor` interface. Furthermore it has `FOCutils` file with all the necessary utility functions and `defaults.h` with all the default configuration variables.
-
+The library contains FOC implementation for two types of BLDC motors, standard three phase BLDC motor in the class `BLDCMotor` and 2 phase stepper motors `StepperMotor`. The library implements nu;erous position sensors and they are all placed in the `senors` directory as well as drivers which are in the `drivers` directory. Finally all the utility functions and classes are placed in the `common` folder. 
 ## Arduino library source structure
 ```sh
 | src
-| ├─ SimpleFOC.h               # SimpleFOC library include file
+| ├─ SimpleFOC.h               # Main include file
+| | 
+| ├─ BLDCMotor.cpp/h           # BLDC motor handling class  
+| ├─ StepperMotor.cpp/h        # Stepper motor handling class 
 | |
-| ├─ BLDCMotor.cpp/h           # BLDCMotor class implementing all the FOC operations
-│ │ 
-│ ├─ Sensor.h                     # Abstract Sensor class that all the sensors implement
-│ ├─ Encoder.cpp/h                # Encoder class implementing the Quadrature encoder operations
-│ ├─ MagneticSensorSPI.cpp/h      # class implementing SPI communication for Magnetic sensors
-│ ├─ MagneticSensorI2C.cpp/h      # class implementing I2C communication for Magnetic sensors
-│ ├─ MagneticSensorAnalog.cpp/h   # class implementing Analog output for Magnetic sensors
-│ ├─ HallSensor.cpp/h             # class implementing Hall sensor 
-| |
-| ├─ FOCutils.cpp/h            # Utility functions 
-| |
-  └─ defaults.h                # Default configuration values 
+│ ├─── common                  # Contains all the common utility classes and functions
+| ├─── drivers                 # PWM setting and driver handling specific code
+| ├─── sensors                 # Position sensor specific code
 ```
 
 <blockquote class="info">For more info visit <a href="http://source.simplefoc.com/" target="_blank"> full source code documentation <i class="fa fa-external-link fa-sm"></i></a></blockquote>
 
+## Motors
 ### `BLDCMotor.cpp/h`
 BLDCMotor class implementation
-- BLDC driver hardware configuration: `init()`, `pwmA,pwmB,pwmC,enable`
-- FOC algorithm functions and configuration: `loopFOC()`, `initFOC`,`foc_modulation`
-- PID controllers for the velocity and angle control: `PID_s`, `controllerPID()`,`velocityPID()`,`positionP`
-- Monitoring functions: `useMonitoring()`,`monitor()`,`monitor_port`
-- Communication interface with user in form of motor commands: `command()`  
+- FOC algorithm implementation
+- Motion control implementation
+
+### `StepperMotor.cpp/h`
+BLDCMotor class implementation
+- FOC algorithm implementation
+- Motion control implementation
+
 
 <blockquote class="info"><a href="foc_implementation"><i class="fa fa-copy"></i> FOC implementation details</a> - Documentation of the procedures and detailed explanations of the code implementing FOC algorithm 
 </blockquote>
@@ -51,9 +48,89 @@ BLDCMotor class implementation
      <a href="commands_source"><i class="fa fa-copy"></i> Motor commands implementation </a> - Documentation of the motor commands functionality
 </blockquote>
 
+## Drivers
+All the drivers that are supported in this library are placed in the drivers directory. 
+```sh
+| ├─── drivers  
+| | ├─ BLDCDriver3PWM.cpp/h         # Implementation of generic 3PWM bldc driver
+| | ├─ BLDCDriver6PWM.cpp/h         # Implementation of generic 6PWM bldc driver
+| | ├─ StepperDriver2PWM.cpp/h      # Implementation of generic 2PWM stepper driver
+| | ├─ StepperDriver4PWM.cpp/h      # Implementation of generic 4PWM stepper driver
+| | |      
+| | ├─ hardware_api.h               # common mcu specific api handling pwm setting and configuration
+| | |
+| | ├─── hardware_specific          # mcu specific hadrware_api.h implementations
+| | | ├─ atmega2560_mcu.cpp         # ATMega 2560 implementation
+| | | ├─ atmega328_mcu.cpp          # ATMega 328 (Arduino UNO) implementation
+| | | ├─ esp32_mcu.cpp              # esp32 implementation
+| | | ├─ stm32_mcu.cpp              # stm32 implementation
+| | | ├─ teensy_mcu.cpp             # teensy implementation
+| | | └─ generic_mcu./h             # generic implementation - if not nay of above (not complete)   
+```
+ALl BLDC drivers  implement the abstract class `BLDCDriver`. 
+```cpp
+class BLDCDriver{
+    public:
+        
+        /** Initialise hardware */
+        virtual int init();
+        /** Enable hardware */
+        virtual void enable();
+        /** Disable hardware */
+        virtual void disable();
 
-### `Sensor.h`
-Abstract sensor class that every sensor needs to implement in order to be connectable to the motor (`BLDCMotor` class). 
+        long pwm_frequency; //!< pwm frequency value in hertz
+        float voltage_power_supply; //!< power supply voltage 
+        float voltage_limit; //!< limiting voltage set to the motor
+            
+        /** 
+         * Set phase voltages to the harware 
+         * 
+         * @param Ua - phase A voltage
+         * @param Ub - phase B voltage
+         * @param Uc - phase C voltage
+        */
+        virtual void setPwm(float Ua, float Ub, float Uc);
+};
+```
+And all the stepper drivers implement the `StepperDriver` abstract class.
+```cpp
+class StepperDriver{
+    public:
+        
+        /** Initialise hardware */
+        virtual int init();
+        /** Enable hardware */
+        virtual void enable();
+        /** Disable hardware */
+        virtual void disable();
+
+        long pwm_frequency; //!< pwm frequency value in hertz
+        float voltage_power_supply; //!< power supply voltage 
+        float voltage_limit; //!< limiting voltage set to the motor
+            
+        /** 
+         * Set phase voltages to the harware 
+         * 
+         * @param Ua phase A voltage
+         * @param Ub phase B voltage
+        */
+        virtual void setPwm(float Ua, float Ub);
+};
+```
+
+Furthermore all the supported MCU architectures with the simplefoc library have to implement the header file `hardware_api.h`. The off-the-shelf supported architectures will have implementation of the `hardware_api.h` placed in the `hardware_specific` folder. If you wish to implement a new MCU please do create a new instance of the `my_new_mcu.cpp` and implement all the functions from the `hardware_api.h`, or at least the ones that you need.
+## Sensors
+
+```sh
+| ├─── sensors 
+| │ ├─ Encoder.cpp/h                # Encoder class implementing the Quadrature encoder operations
+| │ ├─ MagneticSensorSPI.cpp/h      # class implementing SPI communication for Magnetic sensors
+| │ ├─ MagneticSensorI2C.cpp/h      # class implementing I2C communication for Magnetic sensors
+| │ ├─ MagneticSensorAnalog.cpp/h   # class implementing Analog output for Magnetic sensors
+    └─ HallSensor.cpp/h             # class implementing Hall sensor
+```
+All position sensor classes implemented in this library are placed in this directory, and all of them will be implementing abstract sensor class `Sensor`. Every sensor needs to implement the `Sensor` class in order to be linkable to the motor (`BLDCMotor` and `StepperMotor` class). 
 If you want to implement your own version of the sensor, jut extend this class and implement the virtual functions and you will be able to run the FOC algorithm with it.
 You will be abele to link motor and the sensor by doing `motor.linkSensor(your sensor)`
 ```cpp
@@ -81,75 +158,24 @@ public:
 }
 ```
 
-### `Encoder.cpp/h`
-Quadrature Encoder class implementation  
-- Extends `Sensor` class
-- Encoder interrupt functions and configuration: `enableInterrupt()`, `handleA()`, `handleB()`, `handleIndex()`...
-- Calculates motor angle and velocity ( using the [Mixed Time Frequency Method](https://github.com/askuric/Arduino-Mixed-Time-Frequency-Method)). 
-- Support any type of optical and magnetic encoder. 
-
-### `MagneticSensorSPI.cpp/h` 
-Absolute Magnetic sensor(encoder) class implementation
-- Extends `Sensor` class
-- SPI communication 
-- Calculates motor angle and velocity
-- Supports magnetic position sensors such as AS5048A, AS5047 and similar. 
-
-### `MagneticSensorI2C.cpp/h`
-Absolute Magnetic sensor(encoder) class implementation
-- Extends `Sensor` class
-- I2C communication
-- Calculates motor angle and velocity
-- Supports magnetic position sensors such as AS5048B, AS5600 and similar 
-   
-### `MagneticSensorAnalog.cpp/h`
-Absolute Magnetic sensor(encoder) class implementation
-- Extends `Sensor` class
-- Analog value reading
-- Calculates motor angle and velocity
-- Supports magnetic position sensors such as AS5047, AS5600 and similar 
-
-### `HallSensor.cpp/h`
-Hall sensor class implementation  
-- Extends `Sensor` class
-- Hall sensor interrupt functions and configuration: `enableInterrupt()`, `handleA()`, `handleB()`, `handleC()`...
-- Calculates motor angle and velocity. 
-- Support any type of hall sensor - even magnetic sensor AS5047 (UVW interface). 
-
-
-### `FOCutils.cpp/h`
-This is implementation of all the necessary hardware specific and FOC utility functions.
-```cpp
-// High PWM frequency setting function
-// - hardware specific
-// pinA,pinB,pinC  hardware pin numbers
-void _setPwmFrequency(int pinA, int pinB, int pinC);
-
-// Function implementing delay() function in milliseconds 
-// - blocking function
-// - hardware specific
-void _delay(unsigned long ms);
-
-//Function implementing timestamp getting function in microseconds
-// hardware specific
-unsigned long _micros();
-
-//Function setting the duty cycle to the pwm pin (ex. analogWrite())
-// hardware specific
-// dc_a, dc_b, dc_c - duty cycle [0, 1]
-// pinA,pinB,pinC   - hardware pin number 
-void _writeDutyCycle(float dc_a,  float dc_b, float dc_c, int pinA, int pinB, int pinC );
-
-// Function approximating the sine calculation by using fixed size array
-// - execution time ~40us (Arduino UNO)
-float _sin(float a);
-// Function approximating cosine calculation by using fixed size array
-// - execution time ~50us (Arduino UNO)
-float _cos(float a);
+## Common
+```sh
+│ ├─── common                  # Contains all the common utility classes and functions
+| | |
+| | ├─ defaults.h              # default motion control parameters
+| | ├─ foc_utils.cpp./h        # utility functions of the FOC algorithm
+| | ├─ time_utils.cpp/h        # utility functions for dealing with time measurements and delays
+| | ├─ pid.cpp./h              # class implementing PID controller
+| | ├─ lowpass_filter.cpp./h   # class implementing Low pass filter
+| | |
+| | ├─── base_classes
+| | | ├─ FOCMotor.cpp./h        # common class for all implemented motors  
+| | | ├─ BLDCDriver.h           # common class for all BLDC drivers  
+| | | ├─ StepperDriver.h        # common class for all Stepper drivers
+| | | └─ Sensor./h              # common class for all implemented sensors
+| |
 ```
-
-
-### `defaults.h`
+The common directory contains all the definitions and common utility functions for the  <span class="simple">Simple<span class="foc">FOC</span>library</span>.  It contains the definitions of the abstract classes for motors, sensors and drivers in the `base_classes` directory. It has two libraries of utility functions for time management `time_utils.cpp/h` and FOC helpers `foc_utils.cpp/h`. Finally it has definition and implementation of the two signal processing classes: pid controller `pid.cpp/h` and low pass filter `lowpass_filter.cpp/h`. It also contains the default configuration parameters of the library in the `defaults.h` header file.
 Header file containing all the default configuration variables
 ```cpp
 // default configuration values
@@ -172,18 +198,6 @@ Header file containing all the default configuration variables
 #define DEF_VEL_FILTER_Tf 0.005 //!< default velocity filter time constant
 ```
 
-### `SimpleFOC.h`
-The main library include file, its contents is:
-```cpp
-#include "FOCutils.h"
-#include "Sensor.h"
-#include "Encoder.h"
-#include "MagneticSensorSPI.h"
-#include "MagneticSensorI2C.h"
-#include "MagneticSensorAnalog.h"
-#include "HallSensor.h"
-#include "BLDCMotor.h"
-```
 
 
 ## Digging deeper

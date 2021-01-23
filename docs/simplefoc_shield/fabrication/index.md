@@ -10,7 +10,7 @@ has_toc: false
 ---
 # Fabrication guide for <span class="simple">Simple<span class="foc">FOC</span>Shield</span> 
 Here is a quick guide how to fabricate the Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> check the most [recent versions <i class="fa fa-tag"></i>](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases). Here we will showcase the two most recent releases of <span class="simple">Simple<span class="foc">FOC</span>Shield</span> v1 and <span class="simple">Simple<span class="foc">FOC</span>Shield</span> v2.
-
+    
 <div class="image_icon width40" >
     <a href="arduino_simplefoc_shield_fabrication_v1" >
         <img style="width:50%;display:inline" src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/v1.3.3/images/top.png" > <img style="width:50%;display:inline" src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/v1.3.3/images/bottom.png" >

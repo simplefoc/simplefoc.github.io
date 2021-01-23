@@ -1,18 +1,18 @@
 ---
 layout: default
-title: v1.3.3
-description: "Arduino SimpleFOCShield board fabrication"
-parent: Board Fabrication
-grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span>
-nav_order: 1
-permalink: /arduino_simplefoc_shield_fabrication_v1
+title: v2.0.2
+parent: Soldering pads
+grand_parent: Getting Started
+description: "Configuring your SimpleFOCShield by soldering the pads."
+nav_order: 2
+permalink: /pads_soldering_v2
+grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span>
 ---
-# Fabrication guide for <span class="simple">Simple<span class="foc">FOC</span>Shield</span> <small><i>v1.3.3</i></small> 
-Here is a quick guide how to fabricate the Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> [version <i class="fa fa-tag"></i>V1.3.3](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases) 
-
+# Fabrication guide for <span class="simple">Simple<span class="foc">FOC</span>Shield</span> <small><i>v2.0.2</i></small> 
+Here is a quick guide how to fabricate the Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> [version <i class="fa fa-tag"></i>V2.0.2](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases) 
 
 <p align="">
-<img src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/v1.3.3/images/top.png"  class="width30"><img src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/v1.3.3/images/bottom.png"  class="width30">
+<img src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/v2.0.2/images/top.png"  class="width30"><img src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/v2.0.2/images/bottom.png"  class="width30">
 </p>
 
 ## Board releases
@@ -20,10 +20,11 @@ To check the release timeline, click [here](https://github.com/simplefoc/Arduino
 
 Version  | link | Release date | Comment
 ----- | ----- | ---- | ----
-*Simple**FOC**Shield* v1.3 |[release v1.3](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases/tag/v1.3) | 04/20 | Inital release
-*Simple**FOC**Shield* v1.3.1 | [release v1.3.1](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases/tag/v1.3.1) | 07/20 | added Nucleo stacking support
-*Simple**FOC**Shield* v1.3.2 |[release v1.3.2](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases/tag/v1.3.2) | 09/20 | added I2C pullups
-*Simple**FOC**Shield* v1.3.3 |[release v1.3.3](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases/tag/v1.3.3) | 12/20 | adapted L6234 circuit + full Arduino header
+*Simple**FOC**Shield* v2.0 |[release v2.0](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases/tag/v2.0) | 01/21 | - 3A in-line current sensing <br>- 5V regulator <br>- new pinout for hardware config 
+*Simple**FOC**Shield* v2.0.1 |[release v2.0.1](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases/tag/v2.0.1) | 01/21 | - reduced via size <br> - configurable range
+*Simple**FOC**Shield* v2.0.2 |[release v2.0.2](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases) | 01/21 | replaced 7805(connected to 5V) with 7808 (connected to VIN) to be compatible with stm32 Nucleo-64
+
+
 
 
 [<i class="fa fa-github"></i> Github](https://github.com/simplefoc/Arduino-SimpleFOCShield) repository contains: 
@@ -38,8 +39,8 @@ Version  | link | Release date | Comment
 The price of the fabrication will highly depend of the number of boards and the companies you decide to use both as PCB manufacturers and the component suppliers. Here are two nice articles explaining how to approach the problem choosing the PCB manufacturer form [electronics-notes.com](https://www.electronics-notes.com/articles/constructional_techniques/printed-circuit-board-pcb/how-to-choose-right-best-pcb-manufacturer.php) and component supplier from [pcbonline.com](https://www.pcbonline.com/blog/How_to_Choose_a_PCB_Component_Supplier_165.html). 
 But in most of cases it will always boil down to the price :)
 
-## PCB fabrication + Self assembly  - **preferred choice** 📢
-This is probably the proffered choice for making this board in lower quantities. You can order the PCBs from your manufacturer, buy the components from your supplier of choice and solder the boards yourself. The board has been designed to be relatively easy to solder.
+## PCB fabrication + Self assembly
+Even though most of the components are big smd components and the board is intentionally made to me solderable by hand the curent sense amplifiers are going to be a bit more difficult. But if you are interested in this way of producing this board here is a quick guide how to make it.
 
 ### PCB fabrication
 Download the [<i class="fa fa-file"></i> gerber files](https://github.com/simplefoc/Arduino-SimpleFOCShield) and provide them to your PCB manufacturer of choice. So far I have used [seeedstrudio](https://www.seeedstudio.com/) and [JLCPCB](https://jlcpcb.com/). The price of 10 PCBs is around 5\$ but the shipping was around 20\$. 
@@ -141,6 +142,42 @@ Here is a complete list of all the components you will need to make the board:
             <td><a href="https://www.mouser.fr/ProductDetail/KOA-Speer/RN73H2ETTD6200F50?qs=%2Fha2pyFadugz1PN4m8q5QKhCzpicGijTcn6N2kk6lgXhcYi6JSLlrg%3D%3D">RN73H2ETTD6200F50</a></td>
          </tr>
          <tr>
+            <td colspan="4"><b>Linear regulator circuit</b></td>
+         </tr>
+         <tr>
+            <td>L1</td>
+            <td>L7808</td>
+            <td>1</td>
+            <td><a href="https://eu.mouser.com/ProductDetail/STMicroelectronics/L7808ABD2T-TR/?qs=%2Fha2pyFaduhJaWWi9Q0Ux5qBhxdStDSDVBKjt6TWzIYi2UHCV3ncDg%3D%3D">L7808ABD2T-TR</a></td>
+         </tr>
+         <tr>
+             <td>CAP2</td>
+            <td>10 uF (Electrolytic)</td>
+            <td>1</td>
+            <td><a href="https://eu.mouser.com/ProductDetail/Lelon/VZH-100M1HTR-0606/?qs=%2Fha2pyFadug9fpMd9zS1WVuLY1XOmrV1BVzFD1joM%252BDTbPmM%252BxSOHg%3D%3D">VZH100M1HTR-0606</a></td>
+         </tr>
+         <tr>
+            <td colspan="4"><b>Curent sense circuit</b></td>
+         </tr>
+         <tr>
+            <td>CBY1</td>
+            <td>0.1 uF</td>
+            <td>1</td>
+            <td><a href="https://www.mouser.fr/ProductDetail/KEMET/C1206C224J5RECAUTO7210?qs=%2Fha2pyFaduiFNVbEFQqG8g760vwSal6p%252BrMckdrZBQmtOlARWq3l2WWJv5HhNnqv">C1206C224J5RECAUTO7210</a></td>
+         </tr>
+         <tr>
+             <td>INA1, INA2</td>
+            <td>INA240A2 current sense amp</td>
+            <td>2</td>
+            <td><a href="https://eu.mouser.com/ProductDetail/Texas-Instruments/INA240A2QPWRQ1/?qs=Bho%2FbeBaDEy8f96mmgMD%2Fw%3D%3D">INA240A2</a></td>
+         </tr>
+         <tr>
+            <td>RCS1, RCS2</td>
+            <td>0.01Ohm 2512</td>
+            <td>2</td>
+            <td><a href="https://eu.mouser.com/ProductDetail/Vishay-Dale/WSLT2512R0100FEA/?qs=eFWhpKjIuGgySlBeZZzAWQ%3D%3D">WSLT2512R0100FEA</a></td>
+         </tr>
+         <tr>
             <td colspan="4"><b>Terminal connectors</b></td>
          </tr>
          <tr>
@@ -190,19 +227,18 @@ The same list ( a bit optimized for PCB manufacturers ) you can download on link
 The components with the manufacturers numbers I have chosen are not really set in stone, feel free to optimize them both in terms of prices and values if necessary. </blockquote>
 
 ### Board assembly and soldering
-Once when you have all the components and the PCBs the fun begins. All the components are relatively easy to solder. All the capacitors are `1206`, all the resistors are `1210`, the connectors are all through-hole and there is no real small SMD components. Therefore with some patience and you should have no problems soldering this board with a regular soldering iron and a bit of time. Therefore take a coffee and one deep breath and you are ready for 20 minutes of fun.
+Once when you have all the components and the PCBs the fun begins. All the components are relatively easy to solder. All the capacitors are `1206`, all the resistors are `1210`, the connectors are all through-hole and there is no real small SMD components. Therefore with some patience and you should have no problems soldering this board with a regular soldering iron and a bit of time. Therefore take a coffee and one deep breath and you are ready for 20 minutes of fun. The only non-fun part are two current sense amplifier INA240, but even they are not soooooo small 😊 .
 
 <blockquote class="info"> <p class="heading">Note</p>
 The board itself already has the descriptor names of the components on it so it should be easy to determine which component goes where. There is also an assembly drawing in the Pick and Place folder of the <a href="https://github.com/simplefoc/Arduino-SimpleFOCShield"><i class="fa fa-file"></i> gerber files</a> if you prefer to have a printed version. 
 </blockquote>
 
 
-## PCB fabrication and assembly service
+## PCB fabrication and assembly service - **preferred choice** 📢
 This option is a lot simpler and produces much better results. It is also even cheaper for larger quantities > 50pcs.
 To order the boards, download the [<i class="fa fa-file"></i> Gerber files](https://github.com/simplefoc/Arduino-SimpleFOCShield) and [<i class="fa fa-file"></i> Bill of Materials](https://github.com/simplefoc/Arduino-SimpleFOCShield) and supply it to your manufacturer of choice. In my case, I'm using the [JLCPCB](https://jlcpcb.com/).
 
 <iframe class="youtube"  src="https://www.youtube.com/embed/sax_9sUgBuk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
 
 ## Fully assembled versions
 Order your own fully tested and assembled Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span>  from our [shop](https://simplefoc.com/simplefoc_shield_product).

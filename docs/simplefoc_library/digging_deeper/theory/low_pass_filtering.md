@@ -38,33 +38,40 @@ Which means that your actual velocity measurement <i>v</i> will influence the fi
 
 ## Implementation details
 
-Low pass filtering function implemented in the <span class="simple">Simple<span class="foc">FOC</span>library</span>:
+Low pass filtering function implemented in the <span class="simple">Simple<span class="foc">FOC</span>library</span> as a class called `LowPassFilter`. 
+This class receives the time constant in the constructor:
 ```cpp
-// low pass filter function
-// - input  - signal to be filtered
-// - lpf    - LPF_s structure with filter parameters 
-float BLDCMotor::lowPassFilter(float input, LPF_s& lpf){
-  unsigned long now_us = _micros();
-  float Ts = (now_us - lpf.timestamp) * 1e-6;
+LowPassFilter filter = LowPassFilter(0.001); // Tf = 1ms
+```
+The filtering function is implemented as follows:
+```cpp
+// low pass filtering function
+float LowPassFilter::operator(float input){
+  unsigned long timestamp = _micros();
+  float dt = (timestamp - timestamp_prev)*1e-6f;
   // quick fix for strange cases (micros overflow)
-  if(Ts <= 0 || Ts > 0.5) Ts = 1e-3; 
+  if (dt < 0.0f || dt > 0.5f) dt = 1e-3f;
 
   // calculate the filtering 
-  float alpha = lpf.Tf/(lpf.Tf + Ts);
-  float out = alpha*lpf.prev + (1-alpha)*input;
+  float alpha = Tf/(Tf + dt);
+  float y = alpha*y_prev + (1.0f - alpha)*x;
 
   // save the variables
-  lpf.prev = out;
-  lpf.timestamp = now_us;
-  return out;
+  y_prev = y;
+  timestamp_prev = timestamp;
+  return y;
 }
 ```
-The low pass filter is configured with `motor.LPF_velocity`structure:
+You can use it in code just by calling:
 ```cpp
-// Low pass filter structure
-struct LPF_s{
-  float Tf; // Low pass filter time constant
-  long timestamp; // Last execution timestamp
-  float prev; // filtered value in previous execution step 
-};
+float signal_filtered = filter(signal);
 ```
+And you can change the filtering constant at any time with line:
+```cpp
+filter.Tf = 0.01; // changed to 10ms
+```
+This low pass filter is implemented in the motor class and its time constant can be changed by calling:
+```cpp
+motor.LPF_velocity.Tf = 0.01;// to set it to 10ms
+```
+

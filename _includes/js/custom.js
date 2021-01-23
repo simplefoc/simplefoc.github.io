@@ -56,7 +56,9 @@ var classNames = [
     "Serial",
     "MySensor",
     "Wire",
-    "SPIClass"
+    "SPIClass",
+    "LowPassFilter",
+    "PIDController"
 ];
 
 var classProps = [

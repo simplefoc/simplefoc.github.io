@@ -12,7 +12,7 @@ Here is a quick guide how to fabricate the Arduino <span class="simple">Simple<s
 
 
 <p align="">
-<img src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/v2.0.2/images/top.png"  class="width40"><img src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/v2.0.2/images/bottom.png"  class="width40">
+<img src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/v2.0.2/images/top.png"  class="width30"><img src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/v2.0.2/images/bottom.png"  class="width30">
 </p>
 
 ## Board releases
