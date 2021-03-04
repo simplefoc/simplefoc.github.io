@@ -28,7 +28,11 @@ span.incLib{
     color: #ffe3b4;
     font-style: italic;
 }
-
+.defines{
+    color: #c7a56f;
+    font-style: italic;
+    font-weight: bold;
+}
 // custom highlight color change
 .highlight{
     line-height: 1;
@@ -69,7 +73,9 @@ div.language-sh pre,  div.language-sh code ,div.language-shell pre,  div.languag
 .highlight .nl{
     color: #268bd2;
 }
-
+.highlight .nb{
+    color: #2aa198;
+}
 
 .head-custom{ 
     font-family: 'Roboto', sans-serif;
@@ -85,6 +91,9 @@ div.language-sh pre,  div.language-sh code ,div.language-shell pre,  div.languag
 }
 .foc{
     color: #44a8fa;
+}
+.power{
+    font-weight: bold;
 }
 .site-title {
     padding-left: 0.5rem;
@@ -152,6 +161,9 @@ div.language-sh pre,  div.language-sh code ,div.language-shell pre,  div.languag
 .width80{
     width:80%;
 }
+.img100{
+    height: 100px;
+}
 .img200{
     height: 200px;
 }
@@ -186,6 +198,10 @@ div.language-sh pre,  div.language-sh code ,div.language-shell pre,  div.languag
         width: 100%;
     }
     .img200{
+        height:inherit;
+        width: 100%;
+    }
+    .img100{
         height:inherit;
         width: 100%;
     }

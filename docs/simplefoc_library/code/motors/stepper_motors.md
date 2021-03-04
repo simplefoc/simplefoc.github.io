@@ -92,12 +92,12 @@ Additionally <span class="simple">Simple<span class="foc">FOC</span>library</spa
 You set it by changing the `motor.controller` variable. 
 ```cpp
 // set FOC loop to be used
-// ControlType::voltage     - torque control loop using voltage
-// ControlType::velocity    - velocity motion control
-// ControlType::angle       - position/angle motion control
-// ControlType::velocity_openloop    - velocity open-loop control
-// ControlType::angle_openloop       - position open-loop control
-motor.controller = ControlType::angle;
+// MotionControlType::torque      - torque control loop using voltage
+// MotionControlType::velocity    - velocity motion control
+// MotionControlType::angle       - position/angle motion control
+// MotionControlType::velocity_openloop    - velocity open-loop control
+// MotionControlType::angle_openloop       - position open-loop control
+motor.controller = MotionControlType::angle;
 ```
 <blockquote class="warning"><p class="heading"> Important!</p>This parameter doesn't have a default value and it has to be set before real-time execution starts.</blockquote>
 
@@ -105,27 +105,32 @@ Each motion control strategy has its own parameters and you can find more about 
 
 Here is the list of all the motion control configuration parameters:
 ```cpp
-// index search velocity [rad/s]
-motor.velocity_index_search = 3;
-
 // set control loop type to be used
-motor.controller = ControlType::voltage;
+motor.controller = MotionControlType::angle;
 
 // controller configuration based on the control type 
 motor.PID_velocity.P = 0.2;
 motor.PID_velocity.I = 20;
 motor.PID_velocity.D = 0.001;
+// jerk control it is in Volts/s or Amps/s
+// for most of applications no change is needed 
+motor.PID_velocity.output_ramp = 1e6;
 
 // velocity low pass filtering time constant
 motor.LPF_velocity.Tf = 0.01;
 
 // angle loop controller
 motor.P_angle.P = 20;
+motor.P_angle.I = 0; // usually set to 0  - P controller is enough
+motor.P_angle.D = 0; // usually set to 0  - P controller is enough
+// acceleration limit
+motor.P_angle.output_ramp = 1e6;
 
+// motion control limits
 // angle loop velocity limit
 motor.velocity_limit = 50;
-// default value the same as driver.voltage_limit
-motor.voltage_limit = 12;
+// voltage limit
+motor.voltage_limit = 12; // Volts -  default driver.voltage_limit
 ```
 ### Step 4.4 Configuration done - `motor.init()`
 Finally the configuration is terminated by running `init()` function which prepares all the hardware and software motor components using the configured values.
@@ -253,7 +258,7 @@ void setup() {
   motor.linkDriver(&driver);
 
   // set motion control loop to be used
-  motor.controller = ControlType::voltage;
+  motor.controller = MotionControlType::torque;
 
   // initialize motor
   motor.init();

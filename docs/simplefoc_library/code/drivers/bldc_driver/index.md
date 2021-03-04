@@ -17,10 +17,10 @@ has_toc: False
 </div>
 
 Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> implements support for two types of BLDC driver control interfaces:<br>
-- [3PWM <i class="fa fa-external-link"></i>](bldcdriver3pwm) - class `BLDCMotor3PWM`
-- [6PWM <i class="fa fa-external-link"></i>](bldcdriver6pwm) - class `BLDCMotor6PWM`
+- [3PWM <i class="fa fa-external-link"></i>](bldcdriver3pwm) - class `BLDCDriver3PWM`
+- [6PWM <i class="fa fa-external-link"></i>](bldcdriver6pwm) - class `BLDCDriver6PWM`
 
-Classes `BLDCMotor3PWM` and  `BLDCMotor6PWM` provide an abstraction layer of all the hardware/platform specific code for all the supported platforms: atmega328, esp32, stm32 and teensy. 
+Classes `BLDCDriver3PWM` and  `BLDCDriver6PWM` provide an abstraction layer of all the hardware/platform specific code for all the supported platforms: atmega328, esp32, stm32 and teensy. 
 They implement:
 - PWM configuration
     - PWM frequency

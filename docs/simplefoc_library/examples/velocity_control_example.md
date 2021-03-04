@@ -91,10 +91,10 @@ driver.init();
 Then we tell the motor which control loop to run by specifying the `motor.controller` variable.
 ```cpp
 // set control loop type to be used
-// ControlType::voltage
-// ControlType::velocity
-// ControlType::angle
-motor.controller = ControlType::velocity;
+// MotionControlType::torque
+// MotionControlType::velocity
+// MotionControlType::angle
+motor.controller = MotionControlType::velocity;
 ```
 Now we configure the PI controller parameters
 ```cpp
@@ -141,7 +141,7 @@ That is it, let's see the full code now!
 <blockquote class="info">For more configuration parameters and control loops please check the <code class="highlighter-rouge">BLDCMotor</code> class <a href="motors_config">doc</a>.</blockquote>
 
 ## Full Arduino code
-To the full code I have added a small serial communication code in the `serialEvent()` function,  to be able to change velocity target value in real time.
+To the full code I have added a small serial [commander interface](commander_interface),  to be able to change velocity target value in real time.
 ```cpp
 #include <SimpleFOC.h>
 
@@ -151,11 +151,15 @@ BLDCDriver3PWM driver = BLDCDriver3PWM(9, 10, 11, 8);
 
 // define Encoder
 Encoder encoder = Encoder(2, 3, 2048);
-// Interrupt routine initialization
 // channel A and B callbacks
 void doA(){encoder.handleA();}
 void doB(){encoder.handleB();}
 
+// velocity set point variable
+float target_velocity = 0;
+// commander interface
+Commander command = Commander(Serial);
+void onTarget(char* cmd){ command.scalar(&target_velocity, cmd); }
 
 void setup() {
   
@@ -172,7 +176,7 @@ void setup() {
   motor.linkDriver(&driver);
 
   // set control loop type to be used
-  motor.controller = ControlType::velocity;
+  motor.controller = MotionControlType::velocity;
 
   // velocity PI controller parameters
   // default P=0.5 I = 10
@@ -195,6 +199,9 @@ void setup() {
   // align encoder and start FOC
   motor.initFOC();
 
+  // add target command T
+  command.add('T', doTarget, "target velocity");
+
   // monitoring port
   Serial.begin(115200);
   Serial.println("Motor ready.");
@@ -202,8 +209,6 @@ void setup() {
   _delay(1000);
 }
 
-// velocity set point variable
-float target_velocity = 0;
 
 void loop() {
   // iterative foc function 
@@ -212,26 +217,8 @@ void loop() {
   // iterative function setting and calculating the velocity loop
   // this function can be run at much lower frequency than loopFOC function
   motor.move(target_velocity);
-}
 
-// Serial communication callback function
-// gets the target value from the user
-void serialEvent() {
-  // a string to hold incoming data
-  static String inputString; 
-  while (Serial.available()) {
-    // get the new byte:
-    char inChar = (char)Serial.read();
-    // add it to the inputString:
-    inputString += inChar;
-    // if the incoming character is a newline
-    // end of input
-    if (inChar == '\n') {
-      target_velocity = inputString.toFloat();
-      Serial.print("Target velocity: ");
-      Serial.println(target_velocity);
-      inputString = "";
-    }
-  }
+  // user communication
+  command.run();
 }
 ```

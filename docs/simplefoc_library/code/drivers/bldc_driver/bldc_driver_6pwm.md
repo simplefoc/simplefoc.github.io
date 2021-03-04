@@ -154,7 +154,7 @@ Once when all the necessary configuration parameters are set the driver function
 driver.init();
 ```
 
-## Step 3. Using encoder in real-time
+## Step 3. Using  `BLDCDriver6PWM` in real-time
 
 BLDC driver class was developed to be used with the <span class="simple">Simple<span class="foc">FOC</span>library</span> and to provide the abstraction layer for FOC algorithm implemented in the `BLDCMotor` class. But the `BLDCDriver3PWM` class can used as a standalone class as well and once can choose to implement any other type of control algorithm using the bldc driver.  
 

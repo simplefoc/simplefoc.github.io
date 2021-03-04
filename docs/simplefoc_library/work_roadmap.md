@@ -11,8 +11,10 @@ permalink: /roadmap
 For more info about the features of library releases visit the [github releases <i class="fa fa-tag"></i>](https://github.com/simplefoc/Arduino-FOC/releases).
 
 ## Motion Control and FOC algorithm
-- [ ] Motor control: Support for current control
 - [ ] Motor control: FOC using IMU - camera gimbal and similar applications
+- [ ] Motor control: Low-side current  sensing
+- [ ] Motor control: High-side current  sensing
+- [x] Motor control: Inline current  sensing
 - [x] **Motor control: Support for stepper motors**
 - [x] Motor control: Support for Hall sensor commutation 
 - [x] Motor control: Support for fully open-loop operation (no sensor)
@@ -31,7 +33,7 @@ For more info about the features of library releases visit the [github releases 
 - [x] STM32 BLuepill support
 
 ## Driver support
-- [ ] Driver support: Implement support for MOSFET control low and high pairs
+- [x] Driver support: Implement support for MOSFET control low and high pairs
 - [x] Driver support: DRV8302 borads
 
 ## Sensor support
@@ -51,7 +53,7 @@ For more info about the features of library releases visit the [github releases 
 - [x] Support monitoring 
 
 ## Usability 
-- [ ] <span class="simple">Simple<span class="foc">FOC</span>library</span> getting started page
+- [x] <span class="simple">Simple<span class="foc">FOC</span>library</span> getting started page
 - [x] <span class="simple">Simple<span class="foc">FOC</span>Shield</span> getting started page
 - [x] Make the library accessible in the Arduino Library Manager 
 - [x] Make minimal version of the arduino code - all in one arduino file

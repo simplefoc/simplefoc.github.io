@@ -10,7 +10,7 @@ permalink: /pi_controller
 ---
 
  
-# PID controller theory
+# PID controller theory [v2.1](https://github.com/simplefoc/Arduino-FOC/releases)
 Transfer function of the PID controller this library implements is:
 
 <p><img src="./extras/Images/contPID.png" /></p>

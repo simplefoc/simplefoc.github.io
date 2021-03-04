@@ -5,11 +5,11 @@ parent: Theory corner
 grand_parent: Digging deeper
 grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 description: "Arduino Simple Field Oriented Control (FOC) library ."
-nav_order: 1
+nav_order: 2
 permalink: /foc_theory
 ---
 
-# Field Oriented Control algorithm briefly
+# Field Oriented Control algorithm briefly  [v2.0.2](https://github.com/simplefoc/Arduino-FOC/releases)
 
 Field oriented control algorithm's main task is to take user defined voltage <i>u<sub>q</sub></i> and, by continuously reading the position of the motor rotor <i>a</i>, calculate the appropriate phase voltages <i>u<sub>a</sub></i>,<i>u<sub>b</sub></i> and <i>u<sub>c</sub></i>. 
 

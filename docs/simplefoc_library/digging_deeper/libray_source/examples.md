@@ -9,7 +9,7 @@ grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</sp
 ---
 
 
-# Library Examples
+# Library Examples [v1.6](https://github.com/simplefoc/Arduino-FOC/releases)
 
 This library comes with `32` documented examples showing the basic usage of the library with:
 - **different microcontroller architectures**: 

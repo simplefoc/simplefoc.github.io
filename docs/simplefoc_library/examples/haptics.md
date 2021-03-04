@@ -79,7 +79,7 @@ void setup() {
   motor1.linkDriver(&driver1);
 
   // set control loop type to be used
-  motor1.controller = ControlType::voltage;
+  motor1.controller = MotionControlType::torque;
   // initialise motor
   motor1.init();
   // align encoder and start FOC
@@ -94,7 +94,7 @@ void setup() {
   // link driver
   motor2.linkDriver(&driver2);
   // set control loop type to be used
-  motor2.controller = ControlType::voltage;
+  motor2.controller = MotionControlType::torque;
   // initialise motor
   motor2.init();
   // align encoder and start FOC
@@ -177,8 +177,8 @@ Then we define the motion control to be voltage for one motor and the velocity f
 
 ```cpp
 // set control loop type to be used
-motor1.controller = ControlType::voltage;
-motor2.controller = ControlType::velocity;
+motor1.controller = MotionControlType::torque;
+motor2.controller = MotionControlType::velocity;
 ```
 Additionally we introduce a bit higher degree of filtering by augmenting `Tf` value and rise a bit the integral gain `I` as well for better following.
 ```cpp
@@ -242,8 +242,8 @@ void setup() {
   motor2.linkDriver(&driver2);
     
   // set control loop type to be used
-  motor1.controller = ControlType::voltage;
-  motor2.controller = ControlType::velocity;
+  motor1.controller = MotionControlType::torque;
+  motor2.controller = MotionControlType::velocity;
 
   motor2.LPF_velocity.Tf = 0.02;
   motor2.PID_velocity.I = 40;

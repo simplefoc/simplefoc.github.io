@@ -98,10 +98,10 @@ motor.velocity_index_search = 3;
 Then we tell the motor which control loop to run by specifying the `motor.controller` variable.
 ```cpp
 // set control loop type to be used
-// ControlType::voltage
-// ControlType::velocity
-// ControlType::angle
-motor.controller = ControlType::angle;
+// MotionControlType::torque
+// MotionControlType::velocity
+// MotionControlType::angle
+motor.controller = MotionControlType::angle;
 ```
 Now we configure the velocity PI controller parameters
 ```cpp
@@ -157,49 +157,42 @@ motor.move();
 That is it, that is the full code for the motor, FOC and motion control initialization and configuration. Let's enable user communication now.
 <blockquote class="info">For more configuration parameters and control loops please check the <code class="highlighter-rouge">BLDCMotor</code> class <a href="motors_config">doc</a>.</blockquote>
 
-## User communication
-At the end the Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> enables you to change all the configuration parameters in real-time as well as read the motor state variables, and set the target values by using [motor commands interface](communication).
-
-In order to enable it we need to first enable monitoring:
+## Monitor motor init 
+In order to enable it we need to enable [monitoring](monitoring) before the call of the `motor.init()` and `motor.initFOC()`:
 ```cpp  
 Serial.begin(115200);
 // enable monitoring functionality
 motor.useMonitoring(Serial);
 ```
-Then we need a small function to parse user input from the serial terminal such as:
+
+## User communication 
+
+At the end the Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> enables you to change all the configuration parameters in real-time as well as read the motor state variables, and set the target values by using [commander interface](communication).
+
+First we instantiate the commander class:
 ```cpp
-// utility function enabling serial communication the user
-String serialReceiveUserCommand() {
-  
-  // a string to hold incoming data
-  static String received_chars;
-  
-  String command = "";
-
-  while (Serial.available()) {
-    // get the new byte:
-    char inChar = (char)Serial.read();
-    // add it to the string buffer:
-    received_chars += inChar;
-
-    // end of user input
-    if (inChar == '\n') {
-      
-      // execute the user command
-      command = received_chars;
-
-      // reset the command buffer 
-      received_chars = "";
-    }
-  }
-  return command;
+Commander command = Commander(Serial);
+```
+Then we create the wrapper for generic motor callback:
+```cpp
+void onMotor(char* cmd){ command.motor(&motor, cmd); }
+``` 
+We subscribe the new command callback:
+```cpp
+void setup(){
+  ....
+  command.add('M', onMotor, "motor");
+  ....
 }
 ```
-And at the end we can make motor follow the user commands by adding this line to the `loop()`:
+And we add the commander runtime function the Arduino `loop`:
 ```cpp
-// user communication
-motor.command(serialReceiveUserCommand());
-``` 
+void loop(){
+  ....
+  command.run();
+}
+```
+
 And that is it, we everything configured and ready to go, let's see the full code!
 
 For more info about the [monitoring](monitoring) and [motor commands](communicaiton) visit the [Writing the Code section](code).
@@ -218,6 +211,10 @@ Encoder encoder = Encoder(2, 3, 2048);
 // channel A and B callbacks
 void doA(){encoder.handleA();}
 void doB(){encoder.handleB();}
+
+// commander interface
+Commander command = Commander(Serial);
+void onMotor(char* cmd){ command.motor(&motor, cmd); }
 
 void setup() {
 
@@ -240,7 +237,7 @@ void setup() {
   motor.velocity_index_search = 3;
 
   // set control loop to be used
-  motor.controller = ControlType::angle;
+  motor.controller = MotionControlType::angle;
   
   // controller configuration based on the control type 
   // velocity PI controller parameters
@@ -274,8 +271,11 @@ void setup() {
   motor.initFOC();
 
   // initial angle target
-  // it will be changed by the motor.command() function
+  // it will be changed by the commander class
   motor.target = 0;
+
+  // define the motor id
+  command.add('M', onMotor, "motor");
 
   Serial.println("Motor ready.");
   Serial.println("Set the target angle using serial terminal:");
@@ -288,36 +288,8 @@ void loop() {
 
   // position motion control loop
   motor.move();
-    
+   
   // user communication
-  motor.command(serialReceiveUserCommand());
-
-}
-
-// utility function enabling serial communication the user
-String serialReceiveUserCommand() {
-  
-  // a string to hold incoming data
-  static String received_chars;
-  
-  String command = "";
-
-  while (Serial.available()) {
-    // get the new byte:
-    char inChar = (char)Serial.read();
-    // add it to the string buffer:
-    received_chars += inChar;
-
-    // end of user input
-    if (inChar == '\n') {
-      
-      // execute the user command
-      command = received_chars;
-
-      // reset the command buffer 
-      received_chars = "";
-    }
-  }
-  return command;
+  command.run();
 }
 ```

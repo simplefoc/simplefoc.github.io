@@ -1,25 +1,35 @@
 ---
 layout: default
 title: Velocity Control
-parent: Motion Control
-grand_parent: Writing the Code
-grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 permalink: /velocity_loop
 nav_order: 2
+parent: Closed-Loop Motion control
+grand_parent: Motion Control
+grand_grand_parent: Writing the Code
+grand_grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 ---
 
 # Velocity control loop
-This control loop allows you to spin your BLDC motor with desired velocity. This mode is enabled by:
+This control loop allows you to spin your motor with desired velocity. This mode is enabled by:
 ```cpp
-// velocity control loop
-motor.controller = ControlType::velocity;
+// set velocity motion control loop
+motor.controller = MotionControlType::velocity;
 ```
+You can test this algorithm by running the examples in the `motion_control/velocity_motion_control/` folder.
 
-<img src="extras/Images/velocity_loop.png" >
 
-You can test this algorithm by running the example `velocity_control.ino`.
-The velocity control is created by adding a PID velocity controller to the [torque control loop](voltage_loop). PID controller reads the motor velocity <i>v</i>, filters it to <i>v<sub>f</sub></i> and sets the <i>u<sub>q</sub></i> voltage to the motor in a such manner that it reaches and maintains the target velocity <i>v<sub>d</sub></i>, set by the user. 
+## How it works
+The velocity control closes the control loop around the torque control, regardless which one it is. If it is the voltage mode without phase resistance set, the velocity motion control will set the the torque command using the voltage <i>U<sub>q</sub></i>::
+
+<img src="extras/Images/velocity_loop_v.png" >
+
+And if it is any of the current torque control modes (FOC or DC current) or voltage mode with provided phase resistance, the velocity motion control will be setting the target current <i>i<sub>q</sub></i>:
+
+<img src="extras/Images/velocity_loop_i.png" >
+
+
+The velocity control is created by adding a PID velocity controller to the [torque control loop](voltage_loop). PID controller reads the motor velocity <i>v</i>, filters it to <i>v<sub>f</sub></i> and sets the torque target (<i>u<sub>q</sub></i> voltage or <i>i<sub>q</sub></i> current) to the torque control loop in a such manner that it reaches and maintains the target velocity <i>v<sub>d</sub></i>, set by the user. 
 
 ## Controller parameters
 To tune this control loop you can set the parameters to both angle PID controller and velocity measurement low pass filter. 
@@ -39,8 +49,11 @@ motor.PID_velocity.output_ramp = 1000;
 // the lower the less filtered
 motor.LPF_velocity.Tf = 0.01;
 
-//default voltage_power_supply
-motor.voltage_limit = 10;
+// setting the limits
+// either voltage
+motor.voltage_limit = 10; // Volts - default driver.voltage_limit
+// of current 
+motor.current_limit = 2; // Amps - default 0.2Amps
 ```
 The parameters of the PID controller are proportional gain `P`, integral gain `I`, derivative gain `D`  and `output_ramp`. 
 - In general by raising the proportional gain `P`  your motor controller will be more reactive, but too much will make it unstable. Setting it to `0` will disable the proportional part of the controller.
@@ -59,13 +72,13 @@ For more theory about this approach and the source code documentation check the 
 
 ## Velocity motion control example
 
-Here is one basic example of the velocity motion control with the complete configuration. The program will set the target voltage of `2 RAD/s` and maintain it (resist disturbances) .
+Here is one basic example of the velocity motion control with the voltage mode torque control with the complete configuration. The program will set the target velocity of `2 RAD/s` and maintain it (resist disturbances) .
 
 ```cpp
 #include <SimpleFOC.h>
 
 // motor instance
-BLDCMotor motor = BLDCMotor( pole_pairs );
+BLDCMotor motor = BLDCMotor( pole_pairs , phase_resistance );
 // driver instance
 BLDCDriver3PWM driver = BLDCDriver3PWM(pwmA, pwmB, pwmC, enable);
 
@@ -84,7 +97,7 @@ void setup() {
   motor.linkDriver(&driver);
 
   // set motion control loop to be used
-  motor.controller = ControlType::velocity;
+  motor.controller = MotionControlType::velocity;
 
   // controller configuration 
   // default parameters in defaults.h
@@ -104,8 +117,9 @@ void setup() {
   // the lower the less filtered
   motor.LPF_velocity.Tf = 0.01;
 
-  //default voltage_power_supply
-  motor.voltage_limit = 10;
+  // since the phase resistance is provided we set the current limit not voltage
+  // default 0.2
+  motor.current_limit = 1; // Amps
 
   // use monitoring with serial 
   Serial.begin(115200);
@@ -122,25 +136,14 @@ void setup() {
 }
 
 // velocity set point variable
-float target_velocity = 2;
+float target_velocity = 2; // 2Rad/s ~ 20rpm
 
 void loop() {
   // main FOC algorithm function
-  // the faster you run this function the better
-  // Arduino UNO loop  ~1kHz
-  // Bluepill loop ~10kHz 
   motor.loopFOC();
 
   // Motion control function
-  // velocity, position or voltage (defined in motor.controller)
-  // this function can be run at much lower frequency than loopFOC() function
-  // You can also use motor.move() and set the motor.target in the code
   motor.move(target_velocity);
-
-  // function intended to be used with serial plotter to monitor motor variables
-  // significantly slowing the execution down!!!!
-  motor.monitor();
-  
 }
 ```
 

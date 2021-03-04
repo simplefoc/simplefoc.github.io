@@ -9,7 +9,7 @@ grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</sp
 ---
 
 
-# Motion control implementation 
+# Motion control implementation [v1.6](https://github.com/simplefoc/Arduino-FOC/releases)
 
 <span class="simple">Simple<span class="foc">FOC</span>library</span> implements 3 motion control loops:
 

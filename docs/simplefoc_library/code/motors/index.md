@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Motor code
-nav_order: 1
+nav_order: 2
 parent: Writing the Code
 permalink: /motors_config
 grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>

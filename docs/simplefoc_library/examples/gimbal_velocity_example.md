@@ -114,10 +114,10 @@ driver.init();
 Then we tell the motor which control loop to run by specifying the `motor.controller` variable.
 ```cpp
 // set control loop type to be used
-// ControlType::voltage
-// ControlType::velocity
-// ControlType::angle
-motor.controller = ControlType::velocity;
+// MotionControlType::torque
+// MotionControlType::velocity
+// MotionControlType::angle
+motor.controller = MotionControlType::velocity;
 ```
 Now we configure the PI controller parameters
 ```cpp
@@ -168,7 +168,7 @@ That is it, let's see the full code now!
 <blockquote class="info">For more configuration parameters and control loops please check the <code class="highlighter-rouge">BLDCMotor</code> class <a href="motors_config">doc</a>.</blockquote>
 
 ## Full Arduino code
-To the full code I have added a small serial communication code in the `serialEvent()` function,  to be able to change velocity target value in real time.
+To the full code I have added a small serial [commander interface](commander_interface),  to be able to change velocity target value in real time.
 ```cpp
 #include <SimpleFOC.h>
 // software interrupt library
@@ -181,7 +181,7 @@ BLDCMotor motor = BLDCMotor( 14 );
 // define driver
 BLDCDriver3PWM driver = BLDCDriver3PWM(9, 10, 11);
 //  define Encoder
-Encoder encoder = Encoder(A0, A1, 8192);
+Encoder encoder = Encoder(A0, A1, 500);
 // interrupt routine initialization
 void doA(){encoder.handleA();}
 void doB(){encoder.handleB();}
@@ -189,6 +189,12 @@ void doB(){encoder.handleB();}
 // encoder interrupt init
 PciListenerImp listenerA(encoder.pinA, doA);
 PciListenerImp listenerB(encoder.pinB, doB);
+
+// target variable
+float target_velocity=0;
+// commander interface
+Commander command = Commander(Serial);
+void onTarget(char* cmd){ command.scalar(&target_velocity, cmd); }
 
 void setup() {
   // initialize encoder hardware
@@ -207,10 +213,10 @@ void setup() {
   motor.linkDriver(&driver);
 
   // set FOC loop to be used
-  // ControlType::voltage
-  // ControlType::velocity
-  // ControlType::angle
-  motor.controller = ControlType::velocity;
+  // MotionControlType::torque
+  // MotionControlType::velocity
+  // MotionControlType::angle
+  motor.controller = MotionControlType::velocity;
 
   // controller configuration based on the control type 
   // velocity PI controller parameters
@@ -233,6 +239,9 @@ void setup() {
   motor.init();
   // align encoder and start FOC
   motor.initFOC();
+  
+  // add target command T
+  command.add('T', doTarget, "target velocity");
 
   // monitoring port
   Serial.begin(115200);
@@ -241,38 +250,15 @@ void setup() {
   _delay(1000);
 }
 
-float target_velocity=0;
-
 void loop() {
   // iterative FOC function
   motor.loopFOC();
 
   // 0.5 hertz sine wave
   //target_velocity = sin( micros()*1e-6 *2*M_PI * 0.5 );
-
-  // iterative function setting the velocity target
   motor.move(target_velocity);
 
-}
-
-// Serial communication callback function
-// gets the target value from the user
-void serialEvent() {
-  // a string to hold incoming data
-  static String inputString; 
-  while (Serial.available()) {
-    // get the new byte:
-    char inChar = (char)Serial.read();
-    // add it to the inputString:
-    inputString += inChar;
-    // if the incoming character is a newline
-    // end of input
-    if (inChar == '\n') {
-      target_velocity = inputString.toFloat();
-      Serial.print("Target velocity: ");
-      Serial.println(target_velocity);
-      inputString = "";
-    }
-  }
+  // iterative function setting the velocity target
+  command.run();
 }
 ```

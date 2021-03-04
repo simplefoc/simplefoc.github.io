@@ -9,7 +9,7 @@ nav_order: 1
 permalink: /voltage_torque_control
 ---
 
-# Torque control using voltage
+# Torque control using voltage [v2.0.2](https://github.com/simplefoc/Arduino-FOC/releases)
 In this library we are using the voltage as a substitute for the torque control, why is that and how does it work exactly?
 
 ## How does this work exactly

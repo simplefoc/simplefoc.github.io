@@ -14,6 +14,7 @@ grand_grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">F
 This is the class which provides an abstraction layer of most of the common 3PWM bldc drivers out there. Basically any BLDC driver board that can be run using 3PWM signals can be represented with this class.
 Examples:
 - Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span>
+- Arduino <span class="simple">Simple<span class="foc">FOC</span> <span class="power">Power</span>Shield</span>
 - L6234 breakout board
 - HMBGC v2.2
 - DRV830x ( can be run in 3pwm or 6pwm mode )
@@ -29,7 +30,15 @@ To create the interface to the BLDC driver you need to specify the 3 `pwm` pin n
 //  BLDCDriver3PWM( int phA, int phB, int phC, int en)
 //  - phA, phB, phC - A,B,C phase pwm pins
 //  - enable pin    - (optional input)
-BLDCDriver3PWM motor = BLDCDriver3PWM(9, 10, 11, 8);
+BLDCDriver3PWM driver = BLDCDriver3PWM(9, 10, 11, 8);
+```
+
+Additionally this bldc driver class enables the user to provide enable signal for each phase if available. <span class="simple">Simple<span class="foc">FOC</span>library</span> will then handle enable/disable calls for each of the enable pins and if using modulation type `Trapezoidal_120` or `Trapezoidal_150` using these pins the library will be able to set high impedance to motor phases, which is very suitable for Back-EMF control for example:
+```cpp
+//  BLDCDriver3PWM( int phA, int phB, int phC, int enA, int enB, int enC )
+//  - phA, phB, phC - A,B,C phase pwm pins
+//  - enA, enB, enC - enable pin for each phase (optional)
+BLDCDriver3PWM driver = BLDCDriver3PWM(9, 10, 11, 8, 7, 6);
 ```
 
 ## Step 2.1 PWM Configuration
@@ -78,7 +87,7 @@ Once when all the necessary configuration parameters are set the driver function
 driver.init();
 ```
 
-## Step 3. Using encoder in real-time
+## Step 3. Using `BLDCDriver3PWM` in real-time
 
 BLDC driver class was developed to be used with the <span class="simple">Simple<span class="foc">FOC</span>library</span> and to provide the abstraction layer for FOC algorithm implemented in the `BLDCMotor` class. But the `BLDCDriver3PWM` class can used as a standalone class as well and once can choose to implement any other type of control algorithm using the bldc driver.  
 
@@ -120,5 +129,52 @@ void loop() {
     // setting pwm
     // phase A: 3V, phase B: 6V, phase C: 5V
     driver.setPwm(3,6,5);
+}
+```
+
+An example code of the BLDC driver with three enable pins, one for each phase. This code will put one phase at the time to the high-impedance mode and pun 3 and 6 Volts on the remaining two. 
+```cpp
+// BLDC driver standalone example
+#include <SimpleFOC.h>
+
+// BLDC driver instance
+BLDCDriver3PWM driver = BLDCDriver3PWM(9, 10, 11, 8, 7, 6);
+
+void setup() {
+  
+  // pwm frequency to be used [Hz]
+  driver.pwm_frequency = 50000;
+  // power supply voltage [V]
+  driver.voltage_power_supply = 12;
+  // Max DC voltage allowed - default voltage_power_supply
+  driver.voltage_limit = 12;
+
+  // driver init
+  driver.init();
+
+  // enable driver
+  driver.enable();
+
+  _delay(1000);
+}
+
+void loop() {
+    // phase (A: 3V, B: 6V, C: high impedance )  
+    // set the phase C in high impedance mode - disabled or open
+    driver.setPhaseState(_ACTIVE , _ACTIVE , _HIGH_Z); // _HIGH_Z or _HIGH_IMPEDANCE
+    driver.setPwm(3, 6, 0); 
+    _delay(1000);
+
+    // phase (A: 3V, B: high impedance, C: 6V )  
+    // set the phase B in high impedance mode - disabled or open
+    driver.setPhaseState(_ACTIVE , _HIGH_IMPEDANCE, _ACTIVE);
+    driver.setPwm(3, 0, 6);
+    _delay(1000);
+
+    // phase (A: high impedance, B: 3V, C: 6V )  
+    // set the phase A in high impedance mode - disabled or open
+    driver.setPhaseState(_HIGH_IMPEDANCE, _ACTIVE, _ACTIVE);
+    driver.setPwm(0, 3, 6);
+    _delay(1000);
 }
 ```

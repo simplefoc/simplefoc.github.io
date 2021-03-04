@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Driver code
-nav_order: 2
+nav_order: 3
 parent: Writing the Code
 permalink: /drivers_config
 grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>

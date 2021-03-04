@@ -1,12 +1,12 @@
 ---
 layout: default
 title: Index Search loop 
-parent: Motion Control
-grand_parent: Writing the Code
-grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
-description: "Arduino Simple Field Oriented Control (FOC) library ."
-nav_order: 4
+nav_order: 3
 permalink: /index_search_loop
+parent: Open-Loop Motion control
+grand_parent: Motion Control
+grand_grand_parent: Writing the Code
+grand_grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 ---
 
 # Index search routine
@@ -17,7 +17,7 @@ motor.velocity_index_search = 2;
 ```
 The index search is executed in the `motor.initFOC()` function. 
 
-This velocity control loop is implemented exactly the same as [velocity control loop](/velocity_loop) and has the same controller parameters which are set in the configuration of the  [velocity control loop](/velocity_loop).
+This velocity control loop is implemented exactly the same as [velocity open-loop](/velocity_loop) and the only difference is that the voltage set to the motor will not be the `motor.volatge_limit` (or `motor.curren_limit*motor.phase_resistance`) but `motor.voltage_sensor_align`.
 
 ## Example of code using Index search
 
@@ -38,9 +38,7 @@ BLDCMotor motor = BLDCMotor(11);
 BLDCDriver3PWM driver = BLDCDriver3PWM(9, 10, 11, 8);
 
 // encoder instance
-Encoder encoder = Encoder(2, 3, 8192, A0);
-
-// Interrupt routine initialization
+Encoder encoder = Encoder(2, 3, 500, A0);
 // channel A and B callbacks
 void doA(){encoder.handleA();}
 void doB(){encoder.handleB();}
@@ -61,10 +59,11 @@ void setup() {
   motor.linkDriver(&driver);
 
   // index search velocity [rad/s]
-  motor.velocity_index_search = 3;
+  motor.velocity_index_search = 3; // rad/s
+  motor.voltage_sensor_align = 4; // Volts
 
   // set motion control loop to be used
-  motor.controller = ControlType::velocity;
+  motor.controller = MotionControlType::velocity;
 
   // controller configuration 
   // default parameters in defaults.h
@@ -102,15 +101,9 @@ float target_velocity = 2;
 
 void loop() {
   // main FOC algorithm function
-  // the faster you run this function the better
-  // Arduino UNO loop  ~1kHz
-  // Bluepill loop ~10kHz 
   motor.loopFOC();
 
   // Motion control function
-  // velocity, position or voltage (defined in motor.controller)
-  // this function can be run at much lower frequency than loopFOC() function
-  // You can also use motor.move() and set the motor.target in the code
   motor.move(target_velocity);
 
 }

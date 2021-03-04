@@ -3,7 +3,7 @@ layout: default
 title: Position Sensors
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 permalink: /sensors
-nav_order: 3
+nav_order: 4
 parent: Writing the Code
 has_children: True
 has_toc: False

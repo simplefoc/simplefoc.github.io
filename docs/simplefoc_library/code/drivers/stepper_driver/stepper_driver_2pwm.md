@@ -1,33 +1,56 @@
 ---
 layout: default
-title: StepperDriver
-nav_order: 3
-permalink: /stepperdriver
-parent: Driver code
-grand_parent: Writing the Code
-grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+title: Stepper Driver 2PWM
+nav_order: 2
+permalink: /stepper_driver_2pwm
+parent: StepperDriver
+grand_parent: Driver code
+grand_grand_parent: Writing the Code
+grand_grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 ---
 
-# Stepper Driver - `StepperDriver4PWM`
+# Stepper Driver - `StepperDriver2PWM`
 
-This is the class which provides an abstraction layer of most of the common 4PWM stepper drivers out there. Basically any stepper driver board that can be run using 4PWM signals can be represented with this class.
+This is the class which provides an abstraction layer of most of the common 2PWM stepper drivers out there. Basically any stepper driver board that can be run using 2PWM signals can be represented with this class.
 Examples:
-- L298n
-- MX1508
-- Shield R3 DC Motor Driver Module
+- [L289P-based shield](https://github.com/Luen/Arduino-Motor-Shield-29250)
+- [MD1.3 stepper driver](https://wiki.dfrobot.com/MD1.3_2A_Dual_Motor_Controller_SKU_DRI0002)
+- [VNH2SP30 based boards](https://www.ebay.com/itm/Dual-VNH2SP30-Stepper-Motor-Driver-Module-30A-Monster-Moto-Shield-Replace-L298N/401089386943?hash=item5d62ca59bf:g:NA8AAOSw44BYEvxS)
 - etc.
 
+There are two common `2PWM` stepper driver architectures
+- With one direction pin per phase (`dirx`)
+- With two direction pin per phase (`phxa` & `phxb`)
 
-<img src="extras/Images/stepper4pwm.png" class="width60">
+Stepper driver with only one direction pin per phase has integrated inversion hardware in the driver itself which invert both pwm signal and direction pin. THese kinds of drivers are very common because they are intended for running dc motors with a simple pwm/direction interface. Basically, in order to run a stepper motor you need to combine two of these drivers.
+<img src="extras/Images/stepper_2pwm_one_dir.png" class="width100">
+
+Stepper driver with two direction pins per phase had internal inversion hardware only for the pwm input but not for the direction input. And therefore it requires these inversions to be done outside, in software. You can imagine that `StepperDriver2PWM` class emulates the hardware circuits that are available in the one direction pin drivers shown above.  
+<img src="extras/Images/stepper_2pwm_two_dir.png" class="width100">
 
 ## Step 1. Hardware setup
-To create the interface to the stepper driver you need to specify the 4 `pwm` pin numbers for each motor phase and optionally `enable` pin for each phase `en1` and `en2`.
+To create the interface to the stepper driver you need to specify the 2 `pwm` pin numbers, one for each motor phase. In addition to this you can choose to specify two direction pins per phase or just one. Finally you can add optional `enable` pin for each phase `en1` and `en2`.
+
+
+For only two direction pins per phase use the constructor:
 ```cpp
-//  StepperDriver4PWM( int ph1A,int ph1B,int ph2A,int ph2B, int en1 (optional), int en2 (optional))
-//  - ph1A, ph1B - phase 1 pwm pins
-//  - ph2A, ph2B - phase 2 pwm pins
+//  StepperDriver4PWM( int pwm1, int ph1A,int ph1B,int pwm2, int ph2A,int ph2B, int en1 (optional), int en2 (optional))
+//  - pwm1       - phase 1 pwm pin
+//  - ph1A, ph1B - phase 1 direction pins
+//  - pwm2       - phase 2 pwm pin
+//  - ph2A, ph2B - phase 2 direction pins
 //  - en1, en2  - enable pins (optional input)
-StepperDriver4PWM motor = StepperDriver4PWM(5, 6, 9, 10, 7,  8);
+StepperDriver2PWM driver = StepperDriver2PWM(3, 4, 5, 10 , 9 , 8 , 11, 12);
+```
+For only one direction pin per phase use the constructor:
+```cpp
+//  StepperDriver2PWM( int pwm1,int dir1,int pwm2,int dir2, int en1 (optional), int en2 (optional))
+//  - pwm1      - phase 1 pwm pin
+//  - dir1      - phase 1 direction pin
+//  - pwm2      - phase 2 pwm pin
+//  - dir2      - phase 2 direction pin
+//  - en1, en2  - enable pins (optional input)
+StepperDriver2PWM driver = StepperDriver2PWM(3, 4, 5, 6, 11, 12);
 ```
 
 ## Step 2.1 PWM Configuration
@@ -93,13 +116,20 @@ If you wish to use the bldc driver as a standalone device and implement your-own
 // Stepper driver standalone example
 #include <SimpleFOC.h>
 
+
 // Stepper driver instance
-StepperDriver4PWM driver = StepperDriver4PWM(5, 6, 9,10, 7, 8);
+// StepperDriver2PWM(pwm1, in1a, in1b, pwm2, in2a, in2b, (en1, en2 optional))
+StepperDriver2PWM driver = StepperDriver2PWM(3, 4, 5, 10 , 9 , 8 , 11, 12);
+
+// StepperDriver2PWM(pwm1, dir1, pwm2, dir2,(en1, en2 optional))
+// StepperDriver2PWM driver = StepperDriver2PWM(3, 4, 5, 6, 11, 12);
 
 void setup() {
   
   // pwm frequency to be used [Hz]
-  driver.pwm_frequency = 50000;
+  // for atmega328 fixed to 32kHz
+  // esp32/stm32/teensy configurable
+  driver.pwm_frequency = 30000;
   // power supply voltage [V]
   driver.voltage_power_supply = 12;
   // Max DC voltage allowed - default voltage_power_supply
@@ -116,7 +146,8 @@ void setup() {
 
 void loop() {
     // setting pwm
-    // phase 1: 3V, phase 2: 6V
+    // phase A: 3V
+    // phase B: 6V
     driver.setPwm(3,6);
 }
 ```

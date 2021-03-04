@@ -20,7 +20,6 @@ The library is intended both for:
 - Beginners searching for a simple and *user-friendly* way to learn how to control BLDC and Stepper motors 
 - Advanced users ready to dig deeper into the FOC algorithm and optimize the code for their particular application/hardware.
 
-
 ## Features
 - **Arduino compatible**: 
    - Arduino library code
@@ -40,11 +39,6 @@ The library is intended both for:
      - ESP32
      - Teensy boards
 - **Plug & play**: Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> 
-
-<blockquote class="warning">📢
-Up to this moment (<a href="https://github.com/simplefoc/Arduino-FOC/releases">current release <i class="fa fa-tag"></i></a>) the library doesn't implement the current control loop. The motor torque is controlled via voltage directly. <a href="voltage_torque_control"> More info.</a>
-</blockquote>
-
 
 ## YouTube demonstration videos
 <iframe class="youtube" src="https://www.youtube.com/embed/Y5kLeqTc6Zk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

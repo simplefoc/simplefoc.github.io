@@ -36,7 +36,22 @@ var defines =[
     "M_PWM",
     "M_OC",
     "OC_ADJ",
-    "SPI_MODE0"
+    "SPI_MODE0",
+    "_MON_TARGET",
+    "_MON_VOLT_Q",
+    "_MON_VOLT_D",
+    "_MON_CURR_Q",
+    "_MON_CURR_D",
+    "_MON_VEL",
+    "_MON_ANGLE",
+    "_ACTIVE",
+    "_HIGH_IMPEDANCE",
+    "_HIGH_Z",
+    "_PI",
+    "_2PI",
+    "HIGH",
+    "LOW",
+    "DEF_VEL_LIM"
 ]
 
 var classNames = [
@@ -45,6 +60,7 @@ var classNames = [
     "BLDCDriver3PWM",
     "BLDCDriver6PWM",
     "StepperDriver4PWM",
+    "StepperDriver2PWM",
     "Encoder",
     "MagneticSensor",
     "MagneticSensorSPI",
@@ -58,7 +74,11 @@ var classNames = [
     "Wire",
     "SPIClass",
     "LowPassFilter",
-    "PIDController"
+    "PIDController",
+    "InlineCurrentSense",
+    "CurrentSense",
+    "StepDirListener",
+    "Commander"
 ];
 
 var classProps = [
@@ -76,7 +96,8 @@ var classProps = [
     "voltage_power_supply",
     "index_search_velocity",
     "controller",
-    "velocity_limit"
+    "velocity_limit",
+    "skip_align"
 ];
 
 var funcNames = [
@@ -103,10 +124,7 @@ var funcNames = [
     "controllerLQR",
     "sign",
     "shaftVelocity",
-    "initRelativeZero",
-    "initAbsoluteZero",
-    "needsAbsoluteZeroSearch",
-    "hasAbsoluteZero",
+    "needsSearch",
     "command",
     "setPhaseVoltage",
     "_delay",
@@ -126,7 +144,22 @@ var funcNames = [
     "disable",
     "pinMode",
     "digitalWrite",
-    "constrain"
+    "constrain",
+    "linkCurrentSense",
+    "getCurrent",
+    "getPhaseCurrents",
+    "getFOCCurrents",
+    "driverAlign",
+    "setPhaseState",
+    "handle",
+    "enableInterrupt",
+    "getValue",
+    "attach",
+    "run",
+    "add",
+    "pid",
+    "lpf",
+    "scalar"
 
 ];
 var structNames = [
@@ -135,7 +168,14 @@ var structNames = [
     "ControlType",
     "FOCModulationType",
     "MagneticSensorSPIConfig_s",
-    "MagneticSensorI2CConfig_s"
+    "MagneticSensorI2CConfig_s",
+    "PhaseCurrent_s",
+    "DQCurrent_s",
+    "TorqueControlType",
+    "MotionControlType",
+    "Direction",
+    "DQVoltage_s",
+    "VerboseMode"
 ];
 var structProps = [
     "EXTERN",
@@ -150,7 +190,15 @@ var structProps = [
     "SpaceVectorPWM",
     "SinePWM",
     "Trapesoid_120",
-    "Trapesoid_150"
+    "Trapesoid_150",
+    "dc_current",
+    "foc_current",
+    "torque",
+    "CW",
+    "CCW",
+    "nothing",
+    "on_request",
+    "user_friendly"
 ];
 jtd.onReady(function(){
     document.querySelectorAll('.n').forEach(function(e) {
@@ -169,6 +217,9 @@ jtd.onReady(function(){
         } else if(classProps.indexOf(e.innerHTML) >= 0 ){
             e.classList.remove("n");
             e.classList.add("classProps");
+        }else if(defines.indexOf(e.innerHTML) >= 0 ){
+            e.classList.remove("n");
+            e.classList.add("defines");
         }
     });
 
@@ -183,7 +234,7 @@ jtd.onReady(function(){
 
         // show defines
         defines.forEach(function(def){
-            str = str.replace( def ,"<span class='kt'>" +def + "</span>" );
+            str = str.replace( def ,"<span class='defines'>" +def + "</span>" );
         }); 
         
         

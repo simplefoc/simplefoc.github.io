@@ -49,11 +49,15 @@ StepperDriver4PWM driver = StepperDriver4PWM(5, 6, 9, 10,  8, 7);
 
 // encoder instance
 Encoder encoder = Encoder(A1, A2, 2048);
-
-// Interrupt routine intialisation
 // channel A and B callbacks
 void doA(){encoder.handleA();}
 void doB(){encoder.handleB();}
+
+
+
+// commander interface
+Commander command = Commander(Serial);
+void onMotor(char* cmd){ command.motor(&motor, cmd); }
 
 void setup() {
 
@@ -73,9 +77,9 @@ void setup() {
   motor.linkDriver(&driver);
 
   // set control loop type to be used
-  motor.controller = ControlType::voltage;
+  motor.controller = MotionControlType::torque;
 
-  // contoller configuration based on the controll type 
+  // controller configuration based on the control type 
   motor.PID_velocity.P = 0.2;
   motor.PID_velocity.I = 20;
   motor.PID_velocity.D = 0;
@@ -101,12 +105,14 @@ void setup() {
   // align encoder and start FOC
   motor.initFOC();
 
-  // set the inital target value
+  // set the initial target value
   motor.target = 2;
 
+  // define the motor id
+  command.add('M', onMotor, "motor");
 
   // Run user commands to configure and the motor (find the full command list in docs.simplefoc.com)
-  Serial.println("Motor commands sketch | Initial motion control > torque/voltage : target 2V.");
+  Serial.println(F("Motor commands sketch | Initial motion control > torque/voltage : target 2V."));
   
   _delay(1000);
 }
@@ -122,34 +128,6 @@ void loop() {
   motor.move();
 
   // user communication
-  motor.command(serialReceiveUserCommand());
+  command.run();
 }
-
-// utility function enabling serial communication the user
-String serialReceiveUserCommand() {
-  
-  // a string to hold incoming data
-  static String received_chars;
-  
-  String command = "";
-
-  while (Serial.available()) {
-    // get the new byte:
-    char inChar = (char)Serial.read();
-    // add it to the string buffer:
-    received_chars += inChar;
-
-    // end of user input
-    if (inChar == '\n') {
-      
-      // execute the user command
-      command = received_chars;
-
-      // reset the command buffer 
-      received_chars = "";
-    }
-  }
-  return command;
-}
-
 ```

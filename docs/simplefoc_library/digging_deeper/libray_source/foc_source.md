@@ -9,7 +9,7 @@ permalink: /foc_implementation
 ---
 
 
-# FOC Algorithm implementation
+# FOC Algorithm implementation  [v1.6](https://github.com/simplefoc/Arduino-FOC/releases)
 
 Since the <span class="simple">Simple<span class="foc">FOC</span>library</span> is intended for education about the FOC algorithm as well for enabling various applications, there are two (and a half) versions of the FOC modulation implemented in this library. Here I would like to explain you most of the implementation details about the FOC implementation in this library, so that you can better understand what is under the hood and how to change it and adapt for your application.
 

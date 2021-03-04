@@ -163,7 +163,7 @@ driver.init();
 Then we tell the motor which control loop to run by specifying the `motor.controller` variable.
 ```cpp
 // set control loop type to be used
-motor.controller = ControlType::voltage;
+motor.controller = MotionControlType::torque;
 ```
 <blockquote class="info">For more information about the voltage control loop please check the  <a href="voltage_loop">doc</a>.</blockquote>
 
@@ -301,7 +301,8 @@ void setup() {
   PciManager.registerListener(&listenerPB);
   
   // set control loop type to be used
-  motor.controller = ControlType::voltage;
+  motor.torque_controller = TorqueControlType::voltage;
+  motor.controller = MotionControlType::torque;
 
   // link the motor to the encoder
   motor.linkSensor(&encoder);
@@ -312,6 +313,7 @@ void setup() {
   motor.init();
   // align encoder and start FOC
   motor.initFOC();
+  
 }
 
 // loop down-sampling counter
@@ -329,7 +331,7 @@ void loop() {
 
     float target_voltage;
     if( abs(pendulum_angle) < 0.5 ) // if angle small enough stabilize
-      target_voltage = controllerLQR(pendulum_angle, pendulum.getVelocity(), motor.shaftVelocity());
+      target_voltage = controllerLQR(pendulum_angle, pendulum.getVelocity(), motor.shaft_velocity);
     else // else do swing-up
       // sets 40% of the maximal voltage to the motor in order to swing up
       target_voltage = -_sign(pendulum.getVelocity())*driver.voltage_power_supply*0.4;

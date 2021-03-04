@@ -92,10 +92,10 @@ driver.init();
 Then we tell the motor which control loop to run by specifying the `motor.controller` variable.
 ```cpp
 // set control loop type to be used
-// ControlType::voltage
-// ControlType::velocity
-// ControlType::angle
-motor.controller = ControlType::angle;
+// MotionControlType::torque
+// MotionControlType::velocity
+// MotionControlType::angle
+motor.controller = MotionControlType::angle;
 ```
 Now we configure the velocity PI controller parameters
 ```cpp
@@ -155,7 +155,7 @@ That is it, let's see the full code now!
 <blockquote class="info">For more configuration parameters and control loops please check the <code class="highlighter-rouge">BLDCMotor</code> class <a href="motors_config">doc</a>.</blockquote>
 
 ## Full Arduino code
-To the full code I have added a small serial communication code in the `serialEvent()` function,  to be able to change position/angle target value in real time.
+To the full code I have added a small serial [commander interface](commander_interface),  to be able to change position/angle target value in real time.
 
 ```cpp
 #include <SimpleFOC.h>
@@ -169,6 +169,12 @@ Encoder encoder = Encoder(2, 3, 2048);
 // channel A and B callbacks
 void doA(){encoder.handleA();}
 void doB(){encoder.handleB();}
+
+// angle set point variable
+float target_angle = 0;
+// commander interface
+Commander command = Commander(Serial);
+void onTarget(char* cmd){ command.scalar(&target_angle, cmd); }
 
 void setup() {
 
@@ -187,7 +193,7 @@ void setup() {
   motor.linkDriver(&driver);
 
   // set control loop to be used
-  motor.controller = ControlType::angle;
+  motor.controller = MotionControlType::angle;
   
   // controller configuration based on the control type 
   // velocity PI controller parameters
@@ -218,6 +224,8 @@ void setup() {
   // align encoder and start FOC
   motor.initFOC();
 
+  // add target command T
+  command.add('T', doTarget, "target angle");
 
   // monitoring port
   Serial.begin(115200);
@@ -226,9 +234,6 @@ void setup() {
   _delay(1000);
 }
 
-// angle set point variable
-float target_angle = 0;
-
 void loop() {
   // iterative FOC function
   motor.loopFOC();
@@ -236,26 +241,5 @@ void loop() {
   // function calculating the outer position loop and setting the target position 
   motor.move(target_angle);
 
-}
-
-// Serial communication callback function
-// gets the target value from the user
-void serialEvent() {
-  // a string to hold incoming data
-  static String inputString; 
-  while (Serial.available()) {
-    // get the new byte:
-    char inChar = (char)Serial.read();
-    // add it to the inputString:
-    inputString += inChar;
-    // if the incoming character is a newline
-    // end of input
-    if (inChar == '\n') {
-      target_angle = inputString.toFloat();
-      Serial.print("Target angle: ");
-      Serial.println(target_angle);
-      inputString = "";
-    }
-  }
 }
 ```

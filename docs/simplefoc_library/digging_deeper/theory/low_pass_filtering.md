@@ -9,7 +9,7 @@ nav_order: 4
 permalink: /low_pass_filter
 ---
 
-# Low-Pass velocity filter theory
+# Low-Pass velocity filter theory[v2.0.2](https://github.com/simplefoc/Arduino-FOC/releases)
 Transfer function of the Low pass filter is controller is:
 
 <p><img src="./extras/Images/cont_LPF.png" /></p>
