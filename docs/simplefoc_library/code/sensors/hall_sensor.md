@@ -27,10 +27,10 @@ HallSensor sensor = HallSensor(2, 3, 4, 11);
 
 ## Step 2. Configuration
 
-Additionally the hall senso has one more optional parameter you may set, the pullup location. Hall sensors usually require pullups and in cases when your sensor needs one and you don't have one on your hands you can use Arduino pullups. That is set by changing the value of the `sensor.pullup` variable. The default value is set to `Pullup::EXTERN` but if you would like to change it to use the MCU ones do:
+Additionally the hall senso has one more optional parameter you may set, the pullup location. Hall sensors usually require pullups and in cases when your sensor needs one and you don't have one on your hands you can use Arduino pullups. That is set by changing the value of the `sensor.pullup` variable. The default value is set to `Pullup::USE_EXTERN` but if you would like to change it to use the MCU ones do:
 ```cpp
 // use internal pullups
-sensor.pullup = Pullup::INTERN;
+sensor.pullup = Pullup::USE_INTERN;
 ```
 <blockquote class="warning"><p class="heading">Arduino Pullup 20kΩ</p> Be careful when using internal pullups, Arduino has relatively high valued pullups around 20kΩ, which means that you might have some problems for higher velocities (for shorted impulse durations). Recommended pull-up values are in between 1kΩ and 5kΩ.</blockquote>
 
@@ -202,7 +202,7 @@ void setup() {
   Serial.begin(115200);
 
   // check if you need internal pullups
-  sensor.pullup = Pullup::EXTERN;
+  sensor.pullup = Pullup::USE_EXTERN;
   
   // initialize sensor hardware
   sensor.init();
@@ -248,7 +248,7 @@ void setup() {
   Serial.begin(115200);
 
   // check if you need internal pullups
-  sensor.pullup = Pullup::EXTERN;
+  sensor.pullup = Pullup::USE_EXTERN;
   
   // initialize sensor hardware
   sensor.init();

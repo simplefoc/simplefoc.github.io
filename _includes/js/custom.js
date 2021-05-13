@@ -10,6 +10,7 @@ var libraires =[
     "MagneticSensor.h",
     "MagneticSensorSPI.h",
     "MagneticSensorI2C.h",
+    "MagneticSensorPWM.h",
     "MagneticSensorAnalog.h",
     "MySensor.h",
     "Sensor.h"
@@ -66,6 +67,7 @@ var classNames = [
     "MagneticSensorSPI",
     "MagneticSensorI2C",
     "MagneticSensorAnalog",
+    "MagneticSensorPWM",
     "HallSensor",
     "PciListenerImp",
     "PciManager",

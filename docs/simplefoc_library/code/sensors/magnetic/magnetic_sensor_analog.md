@@ -27,6 +27,9 @@ The parameters of the class are
 - `min_raw_count` - the smallest expected reading. Whilst you might expect it to be 0 it is often ~15.  Getting this wrong results in a small click once per revolution
 - `max_raw_count` - the largest value read. Whilst you might expect it to be 2^10 = 1023 it is often ~ 1020. Note: For ESP32 (with 12bit ADC the value will be nearer 4096)
 
+<blockquote class="info"> <p class="heading"> 💡 Find out min and max</p>
+Every mcu is a bit different and every sensor as well so we advise you to use the provided example in the <code class="highlighter-rouge">examples/sensor_test/magentic_sensor_analog_example/find_raw_min_max</code> to find out the maximal and minimal values of your sensor.
+</blockquote>
 Finally after the initialization the only thing you need to do afterwards is to call the `init()` function. This function initializes the sensor hardware. So your magnetic sensor initialization code will look like:
 ```cpp
 MagneticSensorAnalog sensor = MagneticSensorAnalog(A1, 14, 1020);
@@ -38,7 +41,7 @@ void loop(){
 }
 ```
 
-If you wish to use more than one magnetic sensor, make sure you connect their `chip_select` pins to different arduino pins and follow the same idea as above, here is a simple example:
+If you wish to use more than one magnetic sensor, make sure you connect their ADC pins to different arduino pins and follow the same idea as above, here is a simple example:
 ```cpp
 MagneticSensorAnalog sensor1 = MagneticSensorAnalog(A1, 14, 1020);
 MagneticSensorAnalog sensor2 = MagneticSensorAnalog(A2, 14, 1020);

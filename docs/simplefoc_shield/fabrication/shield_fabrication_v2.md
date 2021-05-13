@@ -173,7 +173,7 @@ Here is a complete list of all the components you will need to make the board:
          </tr>
          <tr>
             <td>RCS1, RCS2</td>
-            <td>0.01Ohm 2512</td>
+            <td>0.01Ohm (or 0.006Ohm) 2512</td>
             <td>2</td>
             <td><a href="https://eu.mouser.com/ProductDetail/Vishay-Dale/WSLT2512R0100FEA/?qs=eFWhpKjIuGgySlBeZZzAWQ%3D%3D">WSLT2512R0100FEA</a></td>
          </tr>

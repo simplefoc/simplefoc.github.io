@@ -24,94 +24,21 @@ Therefore this is an attempt to:
 
 
 <blockquote class="info">
-   <p class="heading">NEW RELEASE 📢: <span class="simple">Simple<span class="foc">FOC</span>library</span> v2.1</p>
+   <p class="heading">NEW RELEASE 📢: <span class="simple">Simple<span class="foc">FOC</span>library</span> v2.1.1 - <a href="https://github.com/simplefoc/Arduino-FOC/releases/tag/v2.1.1">see release</a></p>
    <ul>
-      <li>
-         <strong>Initial current sensing support</strong>
-         <g-emoji class="g-emoji" alias="tada" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f389.png">🎉</g-emoji>
-         - <a href="current_sense">See in docs</a>
-        <ul>
-            <li>Inline current sensors </li>
-            <li>adaptive zero finding and shunt direction</li>
-        </ul>
-      </li>
-      <li>
-         <strong>Implemented real torque control</strong> - <a href="torque_mode">See in docs</a>
-         <ul>
-            <li>using voltage</li>
-            <li>using current magnitude (one current)</li>
-            <li>using FOC currents ( d-q currents ) - real foc control</li>
-            <li>Support SVPWM full implementation  d+q axis</li>
-         </ul>
-      </li>
-      <li>
-         <strong>Simplified sensor implementation</strong>
-         <g-emoji class="g-emoji" alias="loudspeaker" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4e2.png">📢</g-emoji>
-         - <a href="sensor_support">See in docs</a>
-         <ul>
-            <li>For new sensor implementation only one function necessary <code  class="highlighter-rouge">getAngle()</code></li>
-         </ul>
-      </li>
-      <li>
-         New MCU support - <a href="microcontrollers">See in docs</a>
-         <ul>
-            <li>Support for Arduino DUE - everything except the 6PWM mode</li>
-            <li>Support for ATMega328pb</li>
-            <li>
-               Support for <strong>samd21</strong> boards by <a class="user-mention" data-hovercard-type="user" data-hovercard-url="/users/runger1101001/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/runger1101001">@runger1101001</a>
-               <ul>
-                  <li>pull request <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="814892649" data-permission-text="Title is private" data-url="https://github.com/simplefoc/Arduino-FOC/issues/56" data-hovercard-type="pull_request" data-hovercard-url="/simplefoc/Arduino-FOC/pull/56/hovercard" href="https://github.com/simplefoc/Arduino-FOC/pull/56">#56</a></li>
-               </ul>
-            </li>
-         </ul>
-      </li>
-      <li>Upgrade of the HallSensor implementation by <a href="https://github.com/owennewo">@owennewo</a></li>
-      <li>bugfix for the Teensy boards ( setting 3pwm )</li>
-      <li>extended support for 2PWM stepper drivers - by <a href="https://github.com/zjor">@zjor</a></li>
-      <li>included F macro for shrinking string memory usage - moved to programming memory</li>
-      <li>
-         disable phase support for 3pwm driver
-         <ul>
-            <li>not yet for 6pwm</li>
-         </ul>
-      </li>
-      <li>
-         rewritten <code class="highlighter-rouge">initFOC()</code>
-         <ul>
-            <li>can be skipped and outputs much more info</li>
-            <li>align sensor: direction + zero offset + pole pair check</li>
-            <li>align current sense</li>
-         </ul>
-      </li>
-      <li>sensor offset supported (<code  class="highlighter-rouge">motor.sensor_offset</code>)</li>
-      <li>
-         <strong>refactored motor commands interface</strong>  - <a href="communication">See in docs</a>
-         <ul>
-            <li>much more flexible and easy to extend</li>
-            <li>very easy to add new commands and function callbacks</li>
-            <li>implemented motor+pid+lpf commands of-the-shelf</li>
-         </ul>
-      </li>
-      <li>
-         Added <strong>step/dir interface</strong> - <a href="step_dir_interface">See in docs</a>
-         <ul>
-            <li>integrated as an optional communication channel</li>
-         </ul>
-      </li>
-   </ul>
-   <p>
-      BEWARE 
-      <g-emoji class="g-emoji" alias="loudspeaker" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4e2.png">📢</g-emoji>
-      slight API changes included  - <a href="motion_control">See in docs</a>
-   </p>
-   <ul>
-      <li><code  class="highlighter-rouge">ControlType</code> renamed into <code  class="highlighter-rouge">MotionControlType</code></li>
-      <li><code  class="highlighter-rouge">ControlType::voltage</code> does not exist any more now - <code  class="highlighter-rouge">MotionControlType::torque</code></li>
+      <li>Raspberry pi Pico initial support  - <a href="rpi_mcu">see in docs</a></li>
+      <li>SAMD51 support  - <a href="samd_mcu">see in docs</a></li>
+      <li>full support of the <a href="studio">Simple<b>FOC</b>Studio</a> - <a href="studio">see in docs</a></li>
+      <li>added initial support for <code class="highlighter-rouge">MagneticSensorPWM</code> <a href="magnetic_sensor_pwm">see in docs</a></li>
+      <li>improved esp32 implementation to avoid the need for <code class="highlighter-rouge">mcpwm.h</code> changes by @tschundler</li>
+      <li>added examples fot the PowerShield</li>
+      <li>added examples to find the raw max and min of the analog and pwm sensor</li>
+      <li>extension of the Commander interface EOL character + additional commands  - <a href="commander_interface">see in docs</a></li>
    </ul>
 </blockquote>
 
 
-## Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> <i><small>v2.1</small></i>
+## Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> <i><small>v2.1.1</small></i>
 <iframe class="youtube"  src="https://www.youtube.com/embed/Y5kLeqTc6Zk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 This video demonstrates the Simple FOC library basic usage, electronic connections and shows its capabilities.
 
@@ -154,10 +81,11 @@ This video demonstrates the Simple FOC library basic usage, electronic connectio
 
 ##### If you are interested in this board as a product, find more information on this link: [Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span>](https://simplefoc.com/simplefoc_shield_product)
 
+
 <p><img src="extras/Images/simple_foc_shield_v13_small.gif" class="img200" ><img src="https://simplefoc.com/assets/img/v1.jpg" class="img200 img_half" ><img src="https://simplefoc.com/assets/img/v2.jpg" class="img200 img_half" ></p>
+
 ## Alternative FOC supporting projects
 These are just a few of the alternative FOC supporting projects which provide hardware and software solutions. 
-
 <a href="https://odriverobotics.com/" >Odrive</a> | <a href="https://www.youtube.com/watch?v=g2BHEdvW9bU">Trinamic</a> | <a href="https://www.infineon.com/cms/en/product/evaluation-boards/bldc_shield_tle9879/" >Infineon</a> | <a href="https://github.com/gouldpa/FOC-Arduino-Brushless">FOC-Arduino-Brushless</a>
 ------------ | ------------- | ------------ | -------------
 <img src="https://static1.squarespace.com/static/58aff26de4fcb53b5efd2f02/t/5c2c766921c67c143049cbd3/1546417803031/?format=1200w" style="width:100%;max-width:250px"  > | <img src="https://i3.ytimg.com/vi/g2BHEdvW9bU/maxresdefault.jpg" style="width:100%;max-width:250px"  > | <img src="https://www.infineon.com/export/sites/default/_images/product/evaluation-boards/BLDC_Motor_Shild_with_TLE9879QXA40.jpg_1711722916.jpg" style="width:100%;max-width:250px"  >| <img src="https://hackster.imgix.net/uploads/attachments/998086/dev_kit_89eygMekks.jpg?auto=compress%2Cformat&w=1280&h=960&fit=max" style="width:100%;max-width:250px"  >

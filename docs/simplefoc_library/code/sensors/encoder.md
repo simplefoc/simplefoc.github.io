@@ -34,12 +34,12 @@ encoder.quadrature = Quadrature::OFF;
 ```
 <blockquote class="warning"><p class="heading">CPR, PPR?!</p> PPR (pulses per revolution) - this is the physical number of impulses the encoder has per revolution. CPR (counts per revolution) - this is amount you are going to have in your counter after the full rotation of the encoder. Now depending on whether you use quadrature mode (counting each edge of the impulse) or not (counting just the rising edge) you will have different CPR for the same PPR. For quadrature mode you will have CPR = 4xPPR and if not using quadrature mode you will have CPR=PPR</blockquote>
 
-Additionally the encoder has one more important parameter and this is the pullup location. MAny encoders require pullups and in cases when you have an encoder that needs one and you don't have one on your hands you can use Arduino pullups. That is set by changing the value of the `encoder.pullup` variable. The default value is set to `Pullup::EXTERN` but if you would like to change it to use the MCU ones do:
+Additionally the encoder has one more important parameter and this is the pullup location. MAny encoders require pullups and in cases when you have an encoder that needs one and you don't have one on your hands you can use Arduino pullups. That is set by changing the value of the `encoder.pullup` variable. The default value is set to `Pullup::USE_EXTERN` but if you would like to change it to use the MCU ones do:
 ```cpp
 // check if you need internal pullups
-// Pullup::EXTERN - external pullup added  - default
-// Pullup::INTERN - needs internal arduino pullup
-encoder.pullup = Pullup::INTERN;
+// Pullup::USE_EXTERN - external pullup added  - default
+// Pullup::USE_INTERN - needs internal arduino pullup
+encoder.pullup = Pullup::USE_INTERN;
 ```
 <blockquote class="warning"><p class="heading">Arduino Pullup 20kΩ</p> Be careful when using internal pullups, Arduino has relatively high valued pullups around 20kΩ, which means that you might have some problems for higher velocities (for shorted impulse durations). Recommended pull-up values are in between 1kΩ and 5kΩ.</blockquote>
 
@@ -272,7 +272,7 @@ void setup() {
   encoder.quadrature = Quadrature::ON;
 
   // check if you need internal pullups
-  encoder.pullup = Pullup::EXTERN;
+  encoder.pullup = Pullup::USE_EXTERN;
   
   // initialize encoder hardware
   encoder.init();

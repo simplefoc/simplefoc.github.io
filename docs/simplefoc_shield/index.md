@@ -9,7 +9,7 @@ has_toc: false
 ---
 
 
-# Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span>  <small><i>v2.0.2</i></small>
+# Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span>  <small><i>v2.0.3</i></small>
 
 This is an open-source low-cost Brushless DC (BLDC) motor driver board intended primarily for low-power FOC applications up to 5Amps. The board is fully compatible with the Arduino UNO and all the boards with the standard Arduino headers.
 The <span class="simple">Simple<span class="foc">FOC</span>Shield</span>, in combination with  the <span class="simple">Simple<span class="foc">FOC</span>library</span> provides *user-friendly* way to control BLDC motors both in hardware and software.    

@@ -52,7 +52,7 @@ Magnetic sensors usually come with several different communication protocols:
 - I2C (✔️ supported)
 - Analog (✔️ supported)
 - UVW (✔️ supported)  - *exactly the same as the Hall sensor interface* 
-- PWM
+- PWM (✔️ supported)
 - SSI 
 
 PWM and SSI protocol will be tested for their performance and implemented in following steps. 

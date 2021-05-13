@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Supported Hardware
-nav_order: 5
+nav_order: 2
 parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 permalink: /supported_hardware

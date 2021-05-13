@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Installation
-nav_order: 4
+nav_order: 1
 parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 permalink: /installation

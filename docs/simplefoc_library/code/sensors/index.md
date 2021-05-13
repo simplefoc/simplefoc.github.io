@@ -22,7 +22,7 @@ This library supports *off-the-shelf* these types of position sensors:
     - Sensor that uses precise magnetic field measurement to estimate the position.
         - They come with multitude of different communication standards such as: SPI, SSI, I2C, ABI, UVW, PWM...
         - **Supported communications:** ([releases <i class="fa fa-tag"></i>](https://github.com/simplefoc/Arduino-FOC/releases)) 
-            - SPI, I2C, Analog
+            - SPI, I2C, Analog, PWM
             - UVW (*using the hall sensor interface*)
             - ABI (*using the encoder interface*)
     - Examples :  [AS5048A <i class="fa fa-external-link"></i>](https://www.ebay.com/itm/AS5048-Magnetic-Encoder-PWM-SPI-Interface-14-Bit-Precision-For-Brushless-Motor/153636871434?hash=item23c5789d0a:g:oOMAAOSwd-5ddaWQ), [AS5047U <i class="fa fa-external-link"></i>](https://www.mouser.fr/ProductDetail/ams/AS5X47U-TS_EK_AB?qs=sGAEpiMZZMve4%2FbfQkoj%252BBDLPCj82ZLyYIPEtADg0FE%3D), [AS5600 <i class="fa fa-external-link"></i>](https://www.ebay.com/itm/1PC-New-AS5600-magnetic-encoder-sensor-module-12bit-high-precision/303401254431?hash=item46a41fbe1f:g:nVwAAOSwTJJd8zRK)

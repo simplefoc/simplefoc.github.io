@@ -32,13 +32,42 @@ This g-code like interface provides callback to configure and tune any:
 
 Furthermore commander enables you to easily create your own commands and extend this interface in any way you might need for your particular application.
 
+## What happens when user sends a command?
+When the commander received the string:
+
+<img src="extras/Images/cmd1.png" class="width20">
+
+It first checks the command id, identifies its `M` and sends the remaining string to the motor handling callback. Then the motor callback checks what is the coommand id, finds `V` and sends the remaining string to the PID velocity callbacK. Then the PID velocity callback scans the command id and finds it is the `D`, so derivative gain and sets the value.
+
+Commander | Motor callback (cmd id `M` )  | PID callback (cmd id `V` ) 
+--- | ---| ---
+<img src="extras/Images/cmd2.png" > | <img src="extras/Images/cmd3.png" > | <img src="extras/Images/cmd4.png" >
+
+The other example is if the commander receives:
+
+<img src="extras/Images/cmd5.png" class="width20">
+
+First id that it finds is `O`, which is for example motor. It calls the callback that is assigned to this command (which is in this case motor callback) with the string remaining string. Then the motor callback finds the command `E` and knows its the status (enabled/disabled) either getting or getting. It checks the value and sees that the value is empty, which means the user has sent a get request. 
+
+Commander | Motor callback (cmd id `O` ) 
+--- | ---
+<img src="extras/Images/cmd6.png" class="img100"> | <img src="extras/Images/cmd7.png" class="img100"> 
+
+
 ## Using the commander interface
 Command interface is implemented in the `Commander` class.
 ```cpp
 // Commander interface constructor
-// - optionally receives HardwareSerial/Stream instance
-Commander commander = Commander(Serial);
+// - serial  - optionally receives HardwareSerial/Stream instance
+// - eol     - optionally receives eol character - by default it is the newline: "\n" 
+// - echo    - option echo last typed character (for command line feedback) - defualt false
+Commander commander = Commander(Serial, "\n", false);
 ```
+The end of line (eol) character is an optional input of the `Commander` class which represents end of command character. User can define its own end of command characters here, but by default the character used is newline character `\n`. For example i
+
+<blockquote class="warning"><p class="heading">BEWARE: EOL characters</p> Different operating systems have different EOL characters by default. Newline character is probably the most common one but there is also the carriage return '\r' for linux users. Be sure to provide it to the constructor of the Commander class if you wish to use it with your setup!</blockquote>
+
+The echo flag can be used as a debugging feature but it is not recommended to be used for real time motor control and configuration!
 
 Next step would be to add the commander function that reads the `Serial` instance that you provided into the Arduino `loop()`:
 ```cpp
@@ -292,7 +321,10 @@ When using a standard callback for `BLDCMotor` and `StepperMotor` classes:`comma
 - **R** - Motor phase resistance               
 - **S** - Sensor offsets     
   - **M** - sensor offset          
-  - **E** - sensor electrical zero 
+  - **E** - sensor electrical zero             
+- **W** - PWM settings     
+  - **T** - pwm modulation type         
+  - **C** - pwm waveform centering boolean 
 - **M** - Monitoring control    
   - **D** - downsample monitoring     
   - **C** - clear monitor        
@@ -531,11 +563,9 @@ void loop() {
 
 ## *Simple**FOC**Studio* by [@JorgeMaker](https://github.com/JorgeMaker)
 
-SimpleFOCStudio is an awesome application built by [@JorgeMaker](https://github.com/JorgeMaker) which we will try to keep up to date with out library. It is a python application that uses commander interface for tunning and configuring the motor. More info about it will come soon. 
+SimpleFOCStudio is an awesome application built by [@JorgeMaker](https://github.com/JorgeMaker) which we will try to keep up to date with out library. It is a python application that uses commander interface for tunning and configuring the motor. 
 
-<img src="https://raw.githubusercontent.com/JorgeMaker/SimpleFOCStudio/main/DOC/SimpleFOCStudio.gif">
+<img src="https://raw.githubusercontent.com/JorgeMaker/SimpleFOCStudio/main/DOC/new_gif.gif" class="width80">
 
-To install this application follow the readme in the [git repository](https://github.com/JorgeMaker/SimpleFOCStudio).
-
-For more info about this application and <span class="simple">Simple<span class="foc">FOC</span>library</span> make sure to follow [the community forum](https://community.simplefoc.com). 
+For more info how to install and use this application visit the studio [docs <i class="fa fa-external-link"></i>](studio). 
 

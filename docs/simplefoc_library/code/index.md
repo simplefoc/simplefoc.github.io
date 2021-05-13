@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Writing the Code
-nav_order: 6
+nav_order: 3
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 permalink: /code
 has_children: True
@@ -24,7 +24,7 @@ Let's start by including the library header file:
 First step when writing the code is initializing and configuring the position sensor.
 The library supports these position sensors:
  - [Encoders](encoder): Optical, Capacitive, Magnetic encoders (ABI)
- - [Magnetic sensors](magnetic_sensor): SPI, I2C or Analog
+ - [Magnetic sensors](magnetic_sensor): SPI, I2C, Analog or PWM
  - [Hall sensors](hall_sensors): 3xHall sonde, Magnetic sensor (UVW interface) 
 
 Choose position sensor to use with this example:

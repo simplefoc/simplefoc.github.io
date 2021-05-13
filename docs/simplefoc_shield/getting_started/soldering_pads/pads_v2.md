@@ -8,7 +8,7 @@ nav_order: 2
 permalink: /pads_soldering_v2
 grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span>
 ---
-# Hardware configuration using soldering pads <br> <span class="simple">Simple<span class="foc">FOC</span>Shield</span> <small>v2.0</small>
+# Hardware configuration using soldering pads <br> <span class="simple">Simple<span class="foc">FOC</span>Shield</span> <small>v2</small>
 One of the very important features of the Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> is the hardware configuration. 
 
 <img src="extras/Images/shield_bot_v201_pinout.gif" class="width40">
@@ -23,7 +23,7 @@ Each board has a set of solder pads on the bottom side which are used for config
 - Configure the pinout of current sensing 
 
 <blockquote class="info"> <p class="heading">BEWARE 📢: Conductive ink </p>
-All the Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> boards will be initially tested and they will be shipped with initial configuration. The testing configuration will be done with use of conductive ink instead of soldering connections. Therefore once you have the board, if you wish to change configuration all you need to do is remove the ink with some wet paper wipe.
+Many Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> boards will be initially tested and they will be shipped with initial configuration. The testing configuration will be done with use of conductive ink instead of soldering connections. Therefore once you have the board, if you wish to change configuration all you need to do is remove the ink with some wet paper wipe.
 </blockquote>
 
 ## Enabling encoder/hall sensor pull-up resistors

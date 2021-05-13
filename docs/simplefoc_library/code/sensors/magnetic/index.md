@@ -22,6 +22,7 @@ Magnetic sensors implementation in this library ([current version <i class="fa f
 - **SPI** - [MagneticSensorSPI](magnetic_sensor_spi)
 - **I2C** - [MagneticSensorI2C](magnetic_sensor_i2c)
 - **Analog** - [MagneticSensorAnalog](magnetic_sensor_analog)
+- **PWM** - [MagneticSensorPWM](magnetic_sensor_pwm)
 - **ABI** - *equivalent to encoder sensors* - [encoder docs <i class="fa fa-external-link"></i>](encoder)
 - **UVW** - *equivalent to hall sensors* - [hall sensors docs <i class="fa fa-external-link"></i>](hall_sensors).
 
