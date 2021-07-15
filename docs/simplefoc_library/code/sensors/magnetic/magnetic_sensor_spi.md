@@ -38,7 +38,7 @@ Finally after the configuration the only thing you need to do is to call the `in
 ```cpp
 MagneticSensorSPI sensor = MagneticSensorSPI(10, 14, 0x3FFF);
 
-void loop(){
+void setup(){
   ...
   sensor.spi_mode = SPI_MODE0; // spi mode - OPTIONAL
   sensor.clock_speed = 500000; // spi clock frequency - OPTIONAL
@@ -52,7 +52,7 @@ If you wish to use more than one magnetic sensor, make sure you connect their `c
 MagneticSensorSPI sensor1 = MagneticSensorSPI(10, 14, 0x3FFF);
 MagneticSensorSPI sensor1 = MagneticSensorSPI(9, 14, 0x3FFF);
 
-void loop(){
+void setup(){
   ...
   sensor1.init();
   sensor2.init();
