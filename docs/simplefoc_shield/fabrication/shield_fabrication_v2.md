@@ -146,9 +146,9 @@ Here is a complete list of all the components you will need to make the board:
          </tr>
          <tr>
             <td>L1</td>
-            <td>L7808</td>
+            <td>L78M08</td>
             <td>1</td>
-            <td><a href="https://eu.mouser.com/ProductDetail/STMicroelectronics/L7808ABD2T-TR/?qs=%2Fha2pyFaduhJaWWi9Q0Ux5qBhxdStDSDVBKjt6TWzIYi2UHCV3ncDg%3D%3D">L7808ABD2T-TR</a></td>
+            <td><a href="https://www.mouser.fr/ProductDetail/STMicroelectronics/L78M08CDT-TR?qs=ffCs9zvlEwgmdeb5KIHMuA%3D%3D">L78M08CDT-TR</a></td>
          </tr>
          <tr>
              <td>CAP2</td>
@@ -196,22 +196,10 @@ Here is a complete list of all the components you will need to make the board:
             <td colspan="4"><b>Header connectors</b></td>
          </tr>
          <tr>
-            <td>P1, P4</td>
-            <td>8 pin, female, long</td>
+            <td>P1, P4, P2, P3</td>
+            <td>8 pin, 10 pin, 6 pin female, long</td>
             <td>2</td>
-            <td><a href="https://www.mouser.fr/ProductDetail/872-920-0086-01">872-920-0086-01</a></td>
-         </tr>
-         <tr>
-            <td> P2</td>
-            <td>10 pin, female, long</td>
-            <td>1</td>
-            <td><a href="https://www.mouser.fr/ProductDetail/872-920-0087-01">872-920-0087-01</a></td>
-         </tr>
-         <tr>
-            <td>P3</td>
-            <td>6  pin, female, long</td>
-            <td>1</td>
-            <td><a href="https://www.mouser.fr/ProductDetail/Gravitech/6fx1L-254mm?qs=%2Fha2pyFadugTMKIzmATdF3ycHTdv4fz%2FLeD9aI6nqeEU9o9FRZ5XDw%3D%3D">6fx1L-254mm</a></td>
+            <td><a href="https://www.sparkfun.com/products/11417">sparkfun</a> <a href="https://store.arduino.cc/strip-2x3-6-8-10-ways-arduino-uno-printed?queryID=70fa5b2be995a4e88b89876392222482">Arduino</a> </td>
          </tr>
          <tr>
             <td>P_ENC</td>
