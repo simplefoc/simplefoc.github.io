@@ -29,7 +29,7 @@ devices *off-the-shelf*, using Arduino IDE, and with small modifications many mo
 
 Even though <span class="simple">Simple<span class="foc">FOC</span>library</span> supports many microcontrollers and all of the will work with most of the BLDC motors+BLDC driver+sensor combinations, their performance will not be the same. So here are some comparisons and our thoughts how to chose your mcu and where to start.
 
-This is teh comparison of the PWM features implemented for different microcontroller families:
+This is the comparison of the PWM features implemented for different microcontroller families:
 
 MCU | 2 PWM mode | 4PWM mode | 3 PWM mode | 6 PWM mode | pwm frequency config 
 --- | --- |--- |--- |--- |--- 
@@ -43,8 +43,7 @@ teensy | ✔️ | ✔️ | ✔️ | ❌ | ✔️
 Raspberry Pi Pico | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
 Portenta H7 | ✔️ | ✔️ | ✔️ | ❌ | ✔️ 
 
-Fwom this table you can see that if you need teh 6PWM mode for your application you should avoid using Teensy and Arduino DUE boards for now.
-
+From this table you can see that if you need teh 6PWM mode for your application you should avoid using Teensy and Arduino DUE boards for now.
 
 Even though all the MCUs from the table above (and many more) are supported in the library and all of the will work with most of the BLDC motors+BLDC driver+sensor combinations, their performance will not be the same. So here is a quick guide how to choose which MCU to use.
 
@@ -63,6 +62,26 @@ Nano 33 | SAMD21  | 200us (ipr = 0), ~800us (ipr > 50000) | 300us | ~1000us
 
 
 In the table above you can a comparison of the execution times of the FOC loop for different MCUs. When you are deciding which MCU to use with your project please make sure that your loop execution time `loopFOC() + move()`, in the worst case, will not be greater 3-4ms. And for optimal performance your loop time should be under 2ms. Make sure to account for multiple motors.
+
+
+
+The current sensing support for all the architectures is shown in the table below:
+
+MCU | In-line | Low-side | High-side
+--- | --- |--- |--- 
+Arduino (8-bit) | ✔️ | ❌ |  ❌
+Arduino DUE  | ✔️ | ❌ |  ❌
+stm32 | ✔️ | ❌ |  ❌
+stm32 B_G431B_ESC1 | ✔️ | ✔️ (initial) |  ❌
+esp32 | ✔️ | ✔️ (initial) |  ❌
+esp8266 | ❌ | ❌ |  ❌ 
+samd21 | ✔️ | ✔️ (initial) |  ❌ 
+samd51 | ✔️ | ❌ |  ❌ 
+teensy | ✔️ | ❌ |  ❌
+Raspberry Pi Pico | ✔️ | ❌ |  ❌
+Portenta H7 | ✔️ | ❌ |  ❌
+
+Most of the boards will support inline current sensing, and initial support for the low-side current sensing is available for esp32, samd21 and the stm32 B_G431B_ESC1 board.
 
 ## Gimbal controllers
 Gimbal controllers are the most simple and surely the cheapest solution for running FOC algorithm with your gimbal motor. They are perfect for smooth position/velocity controlling two BLDC motors with sensors if you don't have high constraints on dynamics. Their main disadvantage is that they use all the external interrupt pins for PWM signals and therefore you cannot access them from outside. That would mean that even if you only need one motor (3PWMs) you will still not be able to use pin `2` and `3` for encoder `A` and `B` signals. This means, if you are planing to use encoders with these boards you will need to use software interrupts. The good news is that this will work, the bad news is that the performance of counting encoder signals will be impaired. So I would suggest you to use Magnetic sensors with communication interface (SPI, I2C...) with these boards if possible.  

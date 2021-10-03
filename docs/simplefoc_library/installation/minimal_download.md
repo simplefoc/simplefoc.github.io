@@ -2,7 +2,7 @@
 layout: default
 title: Minimal Code Version
 parent: Installation
-nav_order: 2
+nav_order: 3
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 permalink: /minimal_download
 grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>

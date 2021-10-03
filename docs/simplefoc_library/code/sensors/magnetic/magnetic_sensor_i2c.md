@@ -54,7 +54,7 @@ Finally, after the configuration, you just call the `init()` function. This func
 ```cpp
 MagneticSensorI2C sensor = MagneticSensorI2C(0x36, 12, 0x0E, 4);
 
-void loop(){
+void setup(){
   ...
   sensor.init();
   ...
@@ -66,7 +66,7 @@ If you wish to use more than one magnetic sensor using SPI interface, make sure 
 MagneticSensorI2C sensor1 = MagneticSensorI2C(0x36, 12, 0x0E, 4);
 MagneticSensorI2C sensor2 = MagneticSensorI2C(0x37, 12, 0x0E, 4);
 
-void loop(){
+void setup(){
   ...
   sensor1.init();
   sensor2.init();
@@ -176,6 +176,9 @@ void setup() {
 }
 
 void loop() {
+  // IMPORTANT - call as frequently as possible
+  // update the sensor values 
+  sensor.update();
   // display the angle and the angular velocity to the terminal
   Serial.print(as5600.getAngle());
   Serial.print("\t");

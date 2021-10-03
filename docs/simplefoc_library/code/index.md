@@ -132,9 +132,11 @@ For full documentation of the setup and all configuration parameters please visi
 
 
 ## Step 3. <a href="current_sense" class="remove_dec"> Current sense setup</a>
-After the position sensor and the driver we can proceed to initializing and configuring the current sense, if available of course. If current sense is not available you can skip this step. The library supports one type of current sense architecture and that is in-line current sensing `InlineCurrentSense`. 
+After the position sensor and the driver we can proceed to initializing and configuring the current sense, if available of course. If current sense is not available you can skip this step. The library supports two types of current sense architecture:
+- in-line current sensing `InlineCurrentSense`. 
+- low-side current sensing `LowsideCurrentSense`. 
 
-`InlineCurrentSense` class instantiated by providing:
+`InlineCurrentSense` and `LowsideCurrentSense` classes are instantiated by providing:
 - shunt resistor value `shunt_resistance`
 - amplifier gain `gain`
 - `phase A, B (and optionally C) pin number 

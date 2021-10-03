@@ -119,6 +119,7 @@ var funcNames = [
     "monitor_port",
     "println",
     "getVelocity",
+    "update",
     "getAngle",
     "loopFOC",
     "move",
@@ -180,8 +181,10 @@ var structNames = [
     "VerboseMode"
 ];
 var structProps = [
-    "EXTERN",
-    "INTERN",
+    "USE_EXTERN",
+    "USE_INTERN",
+    "ON",
+    "OFF",
     "ENABLE",
     "DISABLE",
     "angle",

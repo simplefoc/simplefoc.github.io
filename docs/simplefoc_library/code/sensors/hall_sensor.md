@@ -214,6 +214,9 @@ void setup() {
 }
 
 void loop() {
+  // IMPORTANT - call as frequently as possible
+  // update the sensor values 
+  sensor.update();
   // display the angle and the angular velocity to the terminal
   Serial.print(sensor.getAngle());
   Serial.print("\t");
@@ -262,6 +265,9 @@ void setup() {
 }
 
 void loop() {
+  // IMPORTANT - call as frequently as possible
+  // update the sensor values 
+  sensor.update();
   // display the angle and the angular velocity to the terminal
   Serial.print(sensor.getAngle());
   Serial.print("\t");

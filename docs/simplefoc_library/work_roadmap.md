@@ -12,9 +12,9 @@ For more info about the features of library releases visit the [github releases 
 
 ## Motion Control and FOC algorithm
 - [ ] **Motor control: Low-side current  sensing** - No.1
-- [ ] **Bugfix: Floating point angle overflow** - No.2
-- [ ] **Motor control: Inline current sensing with DMA** - No.3
+- [ ] **Motor control: Inline current sensing with DMA** - No.2
 - [ ] Motor control: High-side current  sensing
+- [x] **Bugfix: Floating point angle overflow** 
 - [x] Motor control: Inline current  sensing
 - [x] **Motor control: Support for stepper motors**
 - [x] Motor control: Support for Hall sensor commutation 
@@ -27,7 +27,10 @@ For more info about the features of library releases visit the [github releases 
 - [x] Implement Space Vector Modulation method : PWM SVM
 
 ## MCU support
-- [ ] Raspberry pi Pico - [PR #78](https://github.com/simplefoc/Arduino-FOC/pull/78)
+- [ ] ESP8266 - initial 
+- [ ] Portenta H7 - initial 
+- [x] Arduino leonardo 
+- [x] Raspberry pi Pico - [PR #78](https://github.com/simplefoc/Arduino-FOC/pull/78)
 - [x] SAM - Arduino DUE
 - [x] SAMD21/51
 - [x] Teensy support

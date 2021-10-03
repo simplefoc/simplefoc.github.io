@@ -34,7 +34,7 @@ Finally after the initialization the only thing you need to do afterwards is to 
 ```cpp
 MagneticSensorAnalog sensor = MagneticSensorAnalog(A1, 14, 1020);
 
-void loop(){
+void setup(){
   ...
   sensor.init();
   ...
@@ -46,7 +46,7 @@ If you wish to use more than one magnetic sensor, make sure you connect their AD
 MagneticSensorAnalog sensor1 = MagneticSensorAnalog(A1, 14, 1020);
 MagneticSensorAnalog sensor2 = MagneticSensorAnalog(A2, 14, 1020);
 
-void loop(){
+void setup(){
   ...
   sensor1.init();
   sensor2.init();
@@ -105,6 +105,9 @@ void setup() {
 }
 
 void loop() {
+  // IMPORTANT - call as frequently as possible
+  // update the sensor values 
+  sensor.update();
   // display the angle and the angular velocity to the terminal
   Serial.print(sensor.getAngle());
   Serial.print("\t");

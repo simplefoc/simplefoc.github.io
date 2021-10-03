@@ -323,11 +323,14 @@ void loop() {
   // ~1ms 
   motor.loopFOC();
 
+  // pendulum sensor read
+  pendulum.update();
+
   // control loop each ~25ms
   if(loop_count++ > 25){
     
     // calculate the pendulum angle 
-    float pendulum_angle = constrainAngle(pendulum.getAngle() + M_PI);
+    float pendulum_angle = constrainAngle(pendulum.getAngle() + _PI);
 
     float target_voltage;
     if( abs(pendulum_angle) < 0.5 ) // if angle small enough stabilize
@@ -348,10 +351,10 @@ void loop() {
 
 // function constraining the angle in between -pi and pi, in degrees -180 and 180
 float constrainAngle(float x){
-    x = fmod(x + M_PI, _2PI);
+    x = fmod(x + _PI, _2PI);
     if (x < 0)
         x += _2PI;
-    return x - M_PI;
+    return x - _PI;
 }
 
 // LQR stabilization controller functions

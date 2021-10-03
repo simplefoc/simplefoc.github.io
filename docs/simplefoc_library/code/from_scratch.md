@@ -37,6 +37,9 @@ void setup() {
 }
 
 void loop() {
+  // IMPORTANT
+  // read sensor and update the internal variables
+  sensor.update();
   // display the angle and the angular velocity to the terminal
   Serial.print(sensor.getAngle());
   Serial.print("\t");

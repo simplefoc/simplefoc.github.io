@@ -166,6 +166,9 @@ void setup() {
 }
 
 void loop() {
+  // IMPORTANT - call as frequently as possible
+  // update the sensor values 
+  sensor.update();
   // display the angle and the angular velocity to the terminal
   Serial.print(as5047u.getAngle());
   Serial.print("\t");

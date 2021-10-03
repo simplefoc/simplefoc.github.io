@@ -284,6 +284,9 @@ void setup() {
 }
 
 void loop() {
+  // IMPORTANT - call as frequently as possible
+  // update the sensor values 
+  encoder.update();
   // display the angle and the angular velocity to the terminal
   Serial.print(encoder.getAngle());
   Serial.print("\t");

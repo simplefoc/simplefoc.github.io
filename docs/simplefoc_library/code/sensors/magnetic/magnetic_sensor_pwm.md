@@ -46,7 +46,7 @@ After the creation of the sensor class the only thing you need to do is to call 
 ```cpp
 MagneticSensorPWM sensor = MagneticSensorPWM(2, 4, 904);
 
-void loop(){
+void setup(){
   ...
   sensor.init();
   ...
@@ -58,7 +58,7 @@ If you wish to use more than one magnetic sensor, make sure you connect their `c
 MagneticSensorPWM sensor1 = MagneticSensorPWM(2, 4, 904);
 MagneticSensorPWM sensor2 = MagneticSensorPWM(3, 4, 904);
 
-void loop(){
+void setup(){
   ...
   sensor1.init();
   sensor2.init();
@@ -90,7 +90,7 @@ MagneticSensorPWM sensor = MagneticSensorPWM(3, 4, 904);
 // create teh buffering function
 void doPWM(){sensor.handlePWM();}
 
-void loop(){
+void setup(){
   ...
   // init the sensor
   sensor.init();
@@ -106,7 +106,7 @@ void doPWM1(){sensor1.handlePWM();}
 MagneticSensorPWM sensor2 = MagneticSensorPWM(3, 4, 904);
 void doPWM2(){sensor2.handlePWM();}
 
-void loop(){
+void setup(){
   ...
   sensor1.init();  
   sensor1.enableInterrupt(doPWM1);
@@ -169,6 +169,9 @@ void setup() {
 }
 
 void loop() {
+  // IMPORTANT - call as frequently as possible
+  // update the sensor values 
+  sensor.update();
   // display the angle and the angular velocity to the terminal
   Serial.print(sensor.getAngle());
   Serial.print("\t");

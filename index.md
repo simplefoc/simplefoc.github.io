@@ -26,13 +26,26 @@ Therefore this is an attempt to:
 <blockquote class="info">
    <p class="heading">NEW RELEASE 📢: <span class="simple">Simple<span class="foc">FOC</span>library</span> v2.2 - <a href="https://github.com/simplefoc/Arduino-FOC/releases/tag/v2.2">see release</a></p>
    <ul>
-   <li>Sensor floating point error bugfux #83</li>
-   <li>Support for arduino leonardo #108 - <a href="microcontrollers">docs</a></li>
-   <li>Initial support for portenta h7 board in collaboration with <img src="extras/Images/arduino.png" style="height:15px"><a href="https://www.arduino.cc/">Arduino</a> - <a href="microcontrollers">docs</a></li>
-   <li>Initial support for esp8266 - <a href="microcontrollers">docs</a></li>
-   <li>Low side current sensing support for esp32</li>
-   <li>Awesome <g-emoji class="g-emoji" alias="smiley" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f603.png"><img class="emoji" alt="smiley" src="https://github.githubassets.com/images/icons/emoji/unicode/1f603.png" width="20" height="20"></g-emoji> Low side current sening support for B_G431B_ESC1 by <a href="https://github.com/sDessens">@sDessens</a>: PR #73</li>
-   <li>Restructured the generic code and simplified adding new mcus</li>
+   <li>Sensor floating point error bugfix (initial solution) #83, #37</li>
+   <li>Sensor class restructuring - <b>slight API change</b> - <a href="sensors">docs</a></li>
+   <li>Restructured the generic code and simplified adding new mcus: <b>IMPORTANT: an additional compiler flag needed for PlatformIO</b> see <a href="https://github.com/simplefoc/Arduino-FOC/issues/99">issue</a> and <a href="library_platformio">PlatformIO docs</a></li>
+   <li>Removed initial jump #110, #111</li>
+   <li>Double to float transformation of the code - performance increase by <a href="https://github.com/sDessens">@sDessens</a> (#100), <a href="https://github.com/KaSroka">@KaSroka</a> (#100)  </li>
+   <li> <a href="docs_chinese"><b>Docs website translated to Chinese!</b></a> 🎉 : Awesome work 😃 by <a href="https://github.com/MINQING1101">@MINQING1101</a>, <a href="https://github.com/Deng-ge-open-source">@Deng-ge-open-source</a> and <a href="https://github.com/mingggggggg">@mingggggggg</a></li>
+   <li>New MCU support
+      <ul>
+         <li>Support for arduino leonardo #108 - <a href="microcontrollers">docs</a></li>
+         <li>Initial support for portenta h7 board in collaboration with <img src="extras/Images/arduino.png" style="height:15px"><a href="https://www.arduino.cc/">Arduino</a> - <a href="microcontrollers">docs</a></li>
+         <li>Initial support for esp8266 - <a href="microcontrollers">docs</a></li>
+      </ul>
+   </li>
+   <li>Low side current sensing initial support - <a href="current_sense">docs</a>
+      <ul>
+         <li>Initial support for stm32 B_G431B_ESC1 by <a href="https://github.com/sDessens">@sDessens</a>: PR #73</li>
+         <li>Initial support for samd21 by <a href="https://github.com/maxlem">@maxlem</a>: PR #79</li>
+         <li>Initial support for esp32 by <a href="https://github.com/maxlem">@byDagor</a></li>
+      </ul> 
+   </li>
    </ul>
 </blockquote>
 
@@ -59,7 +72,7 @@ This video demonstrates the Simple FOC library basic usage, electronic connectio
 - **Plug & play**: Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> 
 
 
-## Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> <i><small>v2.0.3</small></i>
+## Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> <i><small>v2.0.4</small></i>
 <iframe class="youtube"  src="https://www.youtube.com/embed/G5pbo0C6ujE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### Features
@@ -69,14 +82,14 @@ This video demonstrates the Simple FOC library basic usage, electronic connectio
    - configurable: 3.3Amps - 3.3V adc, 5Amps - 5V adc
 - **Integrated 8V regulator**: 
    - Enable/disable by soldering pads
-- **Max power 120W** - max current 5A, power-supply 12-24V
+- **Max power 120W** - max current 5A, power-supply 12-35V
    - Designed for Gimbal motors with the internal resistance >10 Ωs. 
 - **Stackable**: running 2 motors in the same time
 - **Encoder/Hall sensors interface**: Integrated 3.3kΩ pullups (configurable)
 - **I2C interface**: Integrated 4.7kΩ pullups (configurable)
 - **Configurable pinout**: Hardware configuration - soldering connections
 - **Arduino headers**: Arduino UNO, Arduino MEGA, STM32 Nucleo boards...
-- **Open Source**: Fully available fabrication files - [how to make it yourself](https://docs.simplefoc.com/arduino_simplefoc_shield_fabrication)
+- **Open Source**: Fully available fabrication files - [how to make it yourself](arduino_simplefoc_shield_fabrication)
 
 ##### If you are interested in this board as a product, find more information on this link: [Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span>](https://simplefoc.com/simplefoc_shield_product)
 
