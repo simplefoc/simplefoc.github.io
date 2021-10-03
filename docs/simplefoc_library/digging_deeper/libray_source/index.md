@@ -63,7 +63,7 @@ All the drivers that are supported in this library are placed in the drivers dir
 | | ├─── hardware_specific          # mcu specific hadrware_api.h implementations
 | | | ├─ atmega2560_mcu.cpp         # ATMega 2560 implementation
 | | | ├─ atmega328_mcu.cpp          # ATMega 328 (Arduino UNO) implementation
-| | | ├─ esp32_mcu.cpp              # esp32 implementation
+| | | ├─ esp_mcu.cpp              # esp32 implementation
 | | | ├─ stm32_mcu.cpp              # stm32 implementation
 | | | ├─ teensy_mcu.cpp             # teensy implementation
 | | | └─ generic_mcu./h             # generic implementation - if not nay of above (not complete)   

@@ -19,26 +19,25 @@ Therefore this is an attempt to:
   - <i>Support as many <b>motor + sensor + current sense + driver + mcu</b> combinations out there</i>
 - 🎯 Develop a modular FOC supporting BLDC driver boards:
    - *Low-power* gimbal driver (<5Amps) :   [Arduino <span class="simple">Simple<b>FOC</b>Shield</span> ](arduino_simplefoc_shield_showcase).
-   - ***NEW*** 📢: *Medium-power* BLDC driver (<30Amps): [Arduino <span class="simple">Simple<b>FOC</b>PowerShield</span> ](https://github.com/simplefoc/Arduino-SimpleFOC-PowerShield).
+   - *Medium-power* BLDC driver (<30Amps): [Arduino <span class="simple">Simple<b>FOC</b>PowerShield</span> ](https://github.com/simplefoc/Arduino-SimpleFOC-PowerShield).
    - See also [@byDagor](https://github.com/byDagor)'s *fully-integrated* ESP32 based board: [Dagor Brushless Controller](https://github.com/byDagor/Dagor-Brushless-Controller)
 
 
 <blockquote class="info">
-   <p class="heading">NEW RELEASE 📢: <span class="simple">Simple<span class="foc">FOC</span>library</span> v2.1.1 - <a href="https://github.com/simplefoc/Arduino-FOC/releases/tag/v2.1.1">see release</a></p>
+   <p class="heading">NEW RELEASE 📢: <span class="simple">Simple<span class="foc">FOC</span>library</span> v2.2 - <a href="https://github.com/simplefoc/Arduino-FOC/releases/tag/v2.2">see release</a></p>
    <ul>
-      <li>Raspberry pi Pico initial support  - <a href="rpi_mcu">see in docs</a></li>
-      <li>SAMD51 support  - <a href="samd_mcu">see in docs</a></li>
-      <li>full support of the <a href="studio">Simple<b>FOC</b>Studio</a> - <a href="studio">see in docs</a></li>
-      <li>added initial support for <code class="highlighter-rouge">MagneticSensorPWM</code> <a href="magnetic_sensor_pwm">see in docs</a></li>
-      <li>improved esp32 implementation to avoid the need for <code class="highlighter-rouge">mcpwm.h</code> changes by @tschundler</li>
-      <li>added examples fot the PowerShield</li>
-      <li>added examples to find the raw max and min of the analog and pwm sensor</li>
-      <li>extension of the Commander interface EOL character + additional commands  - <a href="commander_interface">see in docs</a></li>
+   <li>Sensor floating point error bugfux #83</li>
+   <li>Support for arduino leonardo #108 - <a href="microcontrollers">docs</a></li>
+   <li>Initial support for portenta h7 board in collaboration with <img src="extras/Images/arduino.png" style="height:15px"><a href="https://www.arduino.cc/">Arduino</a> - <a href="microcontrollers">docs</a></li>
+   <li>Initial support for esp8266 - <a href="microcontrollers">docs</a></li>
+   <li>Low side current sensing support for esp32</li>
+   <li>Awesome <g-emoji class="g-emoji" alias="smiley" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f603.png"><img class="emoji" alt="smiley" src="https://github.githubassets.com/images/icons/emoji/unicode/1f603.png" width="20" height="20"></g-emoji> Low side current sening support for B_G431B_ESC1 by <a href="https://github.com/sDessens">@sDessens</a>: PR #73</li>
+   <li>Restructured the generic code and simplified adding new mcus</li>
    </ul>
 </blockquote>
 
 
-## Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> <i><small>v2.1.1</small></i>
+## Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> <i><small>v2.2</small></i>
 <iframe class="youtube"  src="https://www.youtube.com/embed/Y5kLeqTc6Zk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 This video demonstrates the Simple FOC library basic usage, electronic connections and shows its capabilities.
 

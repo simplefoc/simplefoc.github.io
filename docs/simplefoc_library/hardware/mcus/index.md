@@ -13,12 +13,13 @@ has_toc: false
 # Supported microcontrollers
 
 Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> supports:
-- [Arduino UNO/MEGA, Arduino DUE](arduino_mcu) 
+- [Arduino UNO/MEGA, Leonardo, Arduino DUE](arduino_mcu) 
 - [STM32](stm32_mcu)
-- [ESP32](esp32_mcu)
+- [ESP32 and ESP8266](esp_mcu)
 - [Teensy](teensy_mcu)
 - [SAMD21/SAMD51](samd_mcu)
 - [Raspberry Pi Pico](rpi_mcu) - *initial support*
+- [Portenta H7](portenta_mcu) - *initial support*
 
 devices *off-the-shelf*, using Arduino IDE, and with small modifications many more... 😃
 
@@ -36,9 +37,11 @@ Arduino (8-bit) | ✔️ | ✔️ | ✔️ | ✔️ | ❌ (32kHz)
 Arduino DUE  | ✔️ | ✔️ | ✔️ | ❌ | ✔️
 stm32 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
 esp32 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
+esp8266 | ✔️ | ✔️ | ✔️ | ❌ | ✔️ 
 samd21/51 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
 teensy | ✔️ | ✔️ | ✔️ | ❌ | ✔️ 
 Raspberry Pi Pico | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
+Portenta H7 | ✔️ | ✔️ | ✔️ | ❌ | ✔️ 
 
 Fwom this table you can see that if you need teh 6PWM mode for your application you should avoid using Teensy and Arduino DUE boards for now.
 

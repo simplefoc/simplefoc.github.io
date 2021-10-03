@@ -14,10 +14,10 @@ has_toc: False
 Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> has as a goal to support FOC implementation with (at least) three most standard types of current sensing:
 
 - [In-line current sensing](inline_current_sense)
-- [Low-side current sensing](low_side_current_sense) - *Not supported yet*
+- [Low-side current sensing](low_side_current_sense) - *initial support*
 - [High-side current sensing](high_side_current_sense) - *Not supported yet*
 
-up to this moment ( [check the releases <i class="fa fa-tag"></i>](https://github.com/simplefoc/Arduino-FOC/releases) ), Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> supports only in-line current sensing. 
+up to this moment ( [check the releases <i class="fa fa-tag"></i>](https://github.com/simplefoc/Arduino-FOC/releases) ), Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> supports only in-line current sensing and implements initial support for the low-side current sensing on ESP32 boards (one motor) and on the stm32 based B_G431B_ESC1 boards. 
 
 Each one of the current sensing classes will implement all the necessary functionalities for simple and robust implementation of FOC algorithm:
 - Hardware config
@@ -34,7 +34,7 @@ Each of the implemented classes can be used as stand-alone classes and they can 
 In order for FOC algorithm to work the current sense classes are linked to a `BLDCMotor` class which uses the driver to read the FOC currents.   
 
 ## 🎯 Our implementation goals
-The current sense code will be written in a way to support as many different drivers out there as possible and in a way to be fully interchangeable. Due to the very hardware specific implementations of the ADC acquisition for different MCU architectures and due to very different driver/adc synchronisation requirements for different current sensing approaches this task is probably one of the most complex challenges for the <span class="simple">Simple<span class="foc">FOC</span>library</span> so far. Therefore the worrk will be done in iterations and each release will better and better support.  Please make sure to follow out github and [check the releases <i class="fa fa-tag"></i>](https://github.com/simplefoc/Arduino-FOC/releases).
+The current sense code will be written in a way to support as many different drivers out there as possible and in a way to be fully interchangeable. Due to the very hardware specific implementations of the ADC acquisition for different MCU architectures and due to very different driver/adc synchronisation requirements for different current sensing approaches this task is probably one of the most complex challenges for the <span class="simple">Simple<span class="foc">FOC</span>library</span> so far. Therefore the work will be done in iterations and each release will better and better support.  Please make sure to follow out github and [check the releases <i class="fa fa-tag"></i>](https://github.com/simplefoc/Arduino-FOC/releases).
 
 Also make sure to follow our [community forum](https://community.simplefoc.com), a lot of discussions is being held about current sensing and its applications!
 
