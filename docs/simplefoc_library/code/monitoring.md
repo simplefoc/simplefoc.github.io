@@ -68,13 +68,13 @@ motor.monitor()
 ```
 
 Monitoring function can output 7 different motor specific variables:
-- `target` - current target value, specific to the motion control used (either current, voltage, velocity or position)
-- `voltage.q` - set voltage in q direction
-- `voltage.d` - set voltage in d direction
-- `current.q` - measured current in q direction ( if current sense available )
-- `current.d` - measured current in d direction ( if current sense available )
-- `shaft_velocity` - motor velocity
-- `shaft_angle` - motor position
+- `target` - current target value, specific to the motion control used (either current [A], voltage [V], velocity [rad/s], or position [rad])
+- `voltage.q` - [V] - set voltage in q direction
+- `voltage.d` - [V] - set voltage in d direction
+- `current.q` - [mA] - measured current in q direction ( if current sense available )
+- `current.d` - [mA] - measured current in d direction ( if current sense available )
+- `shaft_velocity` - [rad/s] - motor velocity
+- `shaft_angle` - [rad] - motor position
 
 To set the preferred values to be monitored you can just change the `motor.monitoring_variables` parameter in the `setup()` function.:
 ```cpp
@@ -158,7 +158,7 @@ voltage,target,velocity
 <blockquote class="warning"><p class="heading"> Execution time impairment</p>
 The intention of this method is to be called in main loop function along the <code class="highlighter-rouge">loopFOC()</code> and <code class="highlighter-rouge">move()</code> function. Therefore, <code class="highlighter-rouge">motor.monitor()</code> is going to impact the execution performance and reduce the sampling frequency of the FOC algorithm so therefore take it in consideration when running the code.  </blockquote>
 
-## Custom serial terminal monitoring 
+## Custom serial terminal monitoring
 
 If you wish to implement you own monitoring functions or just output the motor variables to the `Serial` terminal here are the public variables of the `BLDCMotor` and `StepperMotor` class that you can access at any time.
 ```cpp
