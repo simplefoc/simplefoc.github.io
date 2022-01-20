@@ -18,7 +18,7 @@ Using SimpleFOC from PlatformIO is not hard at all! The following instructions s
 - First, install [Visual Studio Code](https://code.visualstudio.com/download)
 - Run Visual Studio Code, and install PlatformIO using the Extensions Manager:
 
-<img src="extras/Images/platformio_screenshot1.png">
+<img src="extras/Images/platformio_screenshot1.png"  class="width80">
 1. Select extension manager
 2. Enter "PlatformIO" in the search
 3. Choose PlatformIO extension from the list (should be the first result)
@@ -30,7 +30,7 @@ Congratulations, you're ready to start your first project!
 
 To create a new project that uses SimpleFOC, use the following steps:
 
-<img src="extras/Images/platformio_screenshot2.png">
+<img src="extras/Images/platformio_screenshot2.png" class="width80">
 1. Select the PlatformIO Menu on the left sidebar
 2. Choose Open to open the platformIO home screen
 3. Click "New Project"
@@ -49,16 +49,16 @@ At this point, if it is the first project you are creating for this board, Platf
 
 When everything is finished installing, you should be presented with a view like this:
 
-<img src="extras/Images/platformio_screenshot4.png">
+<img src="extras/Images/platformio_screenshot4.png" class="width80">
 
 You can now add the SimpleFOC library to the project:
 
-<img src="extras/Images/platformio_screenshot5.png">
+<img src="extras/Images/platformio_screenshot5.png" class="width80">
 1. Click on the PlatformIO icon, and choose "Libraries" from the Menu
 2. Enter "Simple FOC" in the search
 3. Click on the library
 
-<img src="extras/Images/platformio_screenshot6.png">
+<img src="extras/Images/platformio_screenshot6.png" class="width80">
 1. Click on "Add Library" to display the "Add Library" wizard
 
 <img src="extras/Images/platformio_screenshot7.png" class="width50">
@@ -71,7 +71,7 @@ Cool! The SimpleFOC library is now associated with your project.
 
 Open the platformio.ini file in the root directory of your project. It should look something like this, depending on the board you chose:
 
-```
+```ini
 ; PlatformIO Project Configuration File
 ;
 ;   Build options: build flags, source filter
@@ -87,15 +87,17 @@ platform = atmelsam
 board = mkrwifi1010
 framework = arduino
 lib_deps = askuric/Simple FOC@^2.2
+lib_archive = false
 ```
 
-Important!
-You have to add the line *lib_archive = false* to make SimpleFOC compile correctly with PlatformIO.
+<blockquote class='warning'>
+<p class='heading'>IMPORTANT! ⚠️</p>
+You have to add the line <code class='highlighter-rouge'>lib_archive = false</code> to make SimpleFOC compile correctly with PlatformIO.
+</blockquote>
 
 You may also want to add some other options, like *monitor_speed* to set the serial port speed for debug output.
 
-```
-lib_archive = false
+```ini
 monitor_speed = 115200
 ```
 
