@@ -13,14 +13,26 @@ grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</sp
 
 MCU | 2 PWM mode | 4PWM mode | 3 PWM mode | 6 PWM mode | pwm frequency config 
 --- | --- |--- |--- |--- |--- 
-esp32 | ✔️ | ✔️ | ✔️ | ❌ | ✔️ 
+esp32 | ✔️ | ✔️ | ✔️ | ✔️  | ✔️ 
+esp32-s2 | ✔️ | ✔️ | ✔️ | ❌  | ✔️ 
+esp32-s3 | ✔️ | ✔️ | ✔️ | ✔️  | ✔️ 
+esp32-c3 | ✔️ | ✔️ | ✔️ | ❌  | ✔️ 
 
-Esp32 devices have full coagulability using the <span class="simple">Simple<span class="foc">FOC</span>library</span> and will work with all driver types.
+Esp32 devices are fully configurable using the <span class="simple">Simple<span class="foc">FOC</span>library</span> and will work with all driver types.
+
+<blockquote class='info'>
+<p class="heading">BEWARE </p>
+From the <span class="simple">Simple<span class="foc">FOC</span>library</span> version v2.2.1,  the library requires the <a href='https://github.com/espressif/arduino-esp32/releases'>esp32 arduino package version <b>v2.0.1+</b></a>
+</blockquote>
+
+Some example esp32 based boards:
 
  Board | Name | Specifications | Link | Price
 ---- | --- | --- | --- | --- | ---
 [<img src="extras/Images/esp32.jpg" class="imgtable150">](https://www.ebay.com/itm/Espressif-ESP32-WLAN-Dev-Kit-Board-Development-Bluetooth-Wifi-v1-WROOM32-NodeMCU/253059783728?hash=item3aeb89dc30:g:5-8AAOSwAThb3MaZ) | ESP32 | (ex. NodeMCU)<br>- 3,3V / 5V logic<br> - 16 PWMs <br>- all pins interrupts <br>- 240MHz <br> - Wifi + Bluetooth | [Ebay](https://www.ebay.com/itm/Espressif-ESP32-WLAN-Dev-Kit-Board-Development-Bluetooth-Wifi-v1-WROOM32-NodeMCU/253059783728?hash=item3aeb89dc30:g:5-8AAOSwAThb3MaZ) | 10€
 [<img src="extras/Images/d1_r32.jpg" class="imgtable150">](https://www.amazon.com/Arduino-Wireless-Bluetooth-Development-Memory/dp/B07W1K56LN/ref=sr_1_2?dchild=1&keywords=d1+r32&qid=1614849959&sr=8-2) | ESP32 R32 D1 board | - 3,3V / 5V logic<br> - 16 PWMs <br>- all pins interrupts <br>- 240MHz <br> - Wifi + Bluetooth <br> - Arduino headers | [Amazon](https://www.amazon.com/Arduino-Wireless-Bluetooth-Development-Memory/dp/B07W1K56LN/ref=sr_1_2?dchild=1&keywords=d1+r32&qid=1614849959&sr=8-2)  <br> [Ebay](https://www.ebay.com/itm/USB-B-ESP32-WiFi-Bluetooth-UNO-WeMos-D1-R32-4MB-Flash-CH340-Board-for-Arduino/264084379226?hash=item3d7ca7d65a:g:f0wAAOSwIs1cEF8l) | 10€
+[<img src="extras/Images/feathers2.jpg" class="imgtable150">](https://www.adafruit.com/product/4769) | FeatherS2 ESP32-S2 | - 3,3V / 5V logic<br> - 8 PWMs <br> - 13 analog channels <br> - all pins interrupts <br>- 240MHz <br> - Wifi | [Adafruit shop](https://www.adafruit.com/product/4769) | 20€
+[<img src="extras/Images/metros2.jpg" class="imgtable150">](https://learn.adafruit.com/adafruit-metro-esp32-s2) | Metro ESP32-S2 | - 3,3V / 5V logic<br> - 8 PWMs <br> - 1813 analog channels <br> - all pins interrupts <br>- 240MHz <br> - Wifi | [Adafruit shop](https://www.adafruit.com/product/4775) | 15€
 
 ## Arduino IDE support package
 
