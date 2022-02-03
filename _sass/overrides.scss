@@ -164,6 +164,9 @@ div.language-sh pre,  div.language-sh code ,div.language-shell pre,  div.languag
 .img100{
     height: 100px;
 }
+.img150{
+    height: 150px;
+}
 .img200{
     height: 200px;
 }
@@ -198,6 +201,10 @@ div.language-sh pre,  div.language-sh code ,div.language-shell pre,  div.languag
         width: 100%;
     }
     .img200{
+        height:inherit;
+        width: 100%;
+    }
+    .img150{
         height:inherit;
         width: 100%;
     }

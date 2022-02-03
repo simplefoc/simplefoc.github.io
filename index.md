@@ -22,35 +22,30 @@ Therefore this is an attempt to:
    - *Medium-power* BLDC driver (<30Amps): [Arduino <span class="simple">Simple<b>FOC</b>PowerShield</span> ](https://github.com/simplefoc/Arduino-SimpleFOC-PowerShield).
    - See also [@byDagor](https://github.com/byDagor)'s *fully-integrated* ESP32 based board: [Dagor Brushless Controller](https://github.com/byDagor/Dagor-Brushless-Controller)
 
-
 <blockquote class="info">
-   <p class="heading">NEW RELEASE 📢: <span class="simple">Simple<span class="foc">FOC</span>library</span> v2.2 - <a href="https://github.com/simplefoc/Arduino-FOC/releases/tag/v2.2">see release</a></p>
+   <p class="heading">NEW RELEASE 📢: <span class="simple">Simple<span class="foc">FOC</span>library</span> v2.2.1 <a href="https://github.com/simplefoc/Arduino-FOC/releases/tag/v2.2.1">see release</a></p>
    <ul>
-   <li>Sensor floating point error bugfix (initial solution) #83, #37</li>
-   <li>Sensor class restructuring - <b>slight API change</b> - <a href="sensors">docs</a></li>
-   <li>Restructured the generic code and simplified adding new mcus: <b>IMPORTANT: an additional compiler flag needed for PlatformIO</b> see <a href="https://github.com/simplefoc/Arduino-FOC/issues/99">issue</a> and <a href="library_platformio">PlatformIO docs</a></li>
-   <li>Removed initial jump #110, #111</li>
-   <li>Double to float transformation of the code - performance increase by <a href="https://github.com/sDessens">@sDessens</a> (#100), <a href="https://github.com/KaSroka">@KaSroka</a> (#100)  </li>
-   <li> <a href="docs_chinese"><b>Docs website translated to Chinese!</b></a> 🎉 : Awesome work 😃 by <a href="https://github.com/MINQING1101">@MINQING1101</a>, <a href="https://github.com/Deng-ge-open-source">@Deng-ge-open-source</a> and <a href="https://github.com/mingggggggg">@mingggggggg</a></li>
-   <li>New MCU support
+      <li>Sensor class init bugfix <a href="https://github.com/simplefoc/Arduino-FOC/issues/121">#121</a></li>
+      <li>Voltage/current limit handling bugs <a href="https://github.com/simplefoc/Arduino-FOC/issues/118">#118</a></li>
+      <li>Added the new motion control interface to the commander <a href="https://docs.simplefoc.com/commander_target">see docs</a>
       <ul>
-         <li>Support for arduino leonardo #108 - <a href="microcontrollers">docs</a></li>
-         <li>Initial support for portenta h7 board in collaboration with <img src="extras/Images/arduino.png" style="height:15px"><a href="https://www.arduino.cc/">Arduino</a> - <a href="microcontrollers">docs</a></li>
-         <li>Initial support for esp8266 - <a href="microcontrollers">docs</a></li>
+         <li>New target setting - possible to set the position, velocity and torque target at once</li>
+         <li>Separated the motion control interface from full motor callback - only motion control and torque control type, enable disable and target setting</li>
       </ul>
-   </li>
-   <li>Low side current sensing initial support - <a href="current_sense">docs</a>
+      </li>
+      <li>New MCU support <a href="https://docs.simplefoc.com/microcontrollers">see docs</a>
       <ul>
-         <li>Initial support for stm32 B_G431B_ESC1 by <a href="https://github.com/sDessens">@sDessens</a>: PR #73</li>
-         <li>Initial support for samd21 by <a href="https://github.com/maxlem">@maxlem</a>: PR #79</li>
-         <li>Initial support for esp32 by <a href="https://github.com/maxlem">@byDagor</a></li>
-      </ul> 
-   </li>
-   </ul>
+        <li>NRF52 series mcus support by <a href="https://github.com/Polyphe">@Polyphe</a></li>
+        <li><b>esp32 arduino package transfer to v2.0.1+</b> - helpful <a href="https://github.com/simplefoc/Arduino-FOC/pull/92/149">PR#149</a> by <a href="https://github.com/samguns">samguns</a></li>
+        <li>Initial support for esp32s2 and esp32s3 - separation of the esp32 mcpwm and led implementation</li>
+      </ul>
+      </li>
+      <li>Generic sensor class - to implement a new sensor only implement one function <a href="https://docs.simplefoc.com/generic_sensor">see docs</a></li>
+      </ul>
 </blockquote>
 
 
-## Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> <i><small>v2.2</small></i>
+## Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> <i><small>v2.2.1</small></i>
 <iframe class="youtube"  src="https://www.youtube.com/embed/Y5kLeqTc6Zk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 This video demonstrates the Simple FOC library basic usage, electronic connections and shows its capabilities.
 

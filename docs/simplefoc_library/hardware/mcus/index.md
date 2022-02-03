@@ -20,6 +20,7 @@ Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> su
 - [SAMD21/SAMD51](samd_mcu)
 - [Raspberry Pi Pico](rpi_mcu) - *initial support*
 - [Portenta H7](portenta_mcu) - *initial support*
+- [nRF52](nRF52_mcu) - *initial support*
 
 devices *off-the-shelf*, using Arduino IDE, and with small modifications many more... 😃
 
@@ -42,6 +43,7 @@ samd21/51 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
 teensy | ✔️ | ✔️ | ✔️ | ❌ | ✔️ 
 Raspberry Pi Pico | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
 Portenta H7 | ✔️ | ✔️ | ✔️ | ❌ | ✔️ 
+nRF52 |✔️ | ✔️ | ✔️ | ✔️ | ✔️
 
 From this table you can see that if you need teh 6PWM mode for your application you should avoid using Teensy and Arduino DUE boards for now.
 
@@ -80,6 +82,7 @@ samd51 | ✔️ | ❌ |  ❌
 teensy | ✔️ | ❌ |  ❌
 Raspberry Pi Pico | ✔️ | ❌ |  ❌
 Portenta H7 | ✔️ | ❌ |  ❌
+nRF52 | ✔️ | ❌ |  ❌
 
 Most of the boards will support inline current sensing, and initial support for the low-side current sensing is available for esp32, samd21 and the stm32 B_G431B_ESC1 board.
 

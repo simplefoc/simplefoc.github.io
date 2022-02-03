@@ -1,20 +1,22 @@
 ---
 layout: default
-title: v2.0.2
+title: v2.0.4
 description: "Arduino SimpleFOCShield board fabrication"
 parent: Board Fabrication
 grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span>
 nav_order: 2
 permalink: /arduino_simplefoc_shield_fabrication_v2
 ---
-# Fabrication guide for <span class="simple">Simple<span class="foc">FOC</span>Shield</span> <small><i>v2.0.2</i></small> 
-Here is a quick guide how to fabricate the Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> [version <i class="fa fa-tag"></i>V2.0.2](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases) 
+# Fabrication guide for <span class="simple">Simple<span class="foc">FOC</span>Shield</span> <small><i>v2.0.4</i></small> 
+Here is a quick guide how to fabricate the Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> [version <i class="fa fa-tag"></i>V2.0.4](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases) 
 
 
 <p align="">
-<img src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/v2.0.2/images/top.png"  class="width30"><img src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/v2.0.2/images/bottom.png"  class="width30">
+<img src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/v2.0.4/images/top.png"  class="width30"><img src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/v2.0.4/images/bottom.png"  class="width30">
 </p>
 
+
+<blockquote class="info"> 📢 Official Easy EDA project <a href="https://oshwlab.com/the.skuric/simplefocshield"> here <i class="fa fa-external-link"></i></a></blockquote>
 ## Board releases
 To check the release timeline, click [here](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases) 
 
@@ -23,6 +25,9 @@ Version  | link | Release date | Comment
 *Simple**FOC**Shield* v2.0 |[release v2.0](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases/tag/v2.0) | 01/21 | - 3A in-line current sensing <br>- 5V regulator <br>- new pinout for hardware config 
 *Simple**FOC**Shield* v2.0.1 |[release v2.0.1](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases/tag/v2.0.1) | 01/21 | - reduced via size <br> - configurable range
 *Simple**FOC**Shield* v2.0.2 |[release v2.0.2](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases) | 01/21 | replaced 7805(connected to 5V) with 7808 (connected to VIN) to be compatible with stm32 Nucleo-64
+*Simple**FOC**Shield* v2.0.3 |[release v2.0.3](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases/tag/v2.0.3) | 03/21 | - Shortened the lines from ADC to current sense <br> - Typo fix : underside label switched phase A and phase B
+*Simple**FOC**Shield* v2.0.4 |[release v2.0.4](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases/tag/v2.0.4) | 09/21 | - Pullup config simplified <br> - Max input voltage 35V <br> - removed CAP2 for a CL1 <br> - Easy EDA version of the project
+
 
 
 
@@ -151,10 +156,10 @@ Here is a complete list of all the components you will need to make the board:
             <td><a href="https://www.mouser.fr/ProductDetail/STMicroelectronics/L78M08CDT-TR?qs=ffCs9zvlEwgmdeb5KIHMuA%3D%3D">L78M08CDT-TR</a></td>
          </tr>
          <tr>
-             <td>CAP2</td>
-            <td>10 uF (Electrolytic)</td>
+             <td>CL1</td>
+            <td>0.1 uF</td>
             <td>1</td>
-            <td><a href="https://eu.mouser.com/ProductDetail/Lelon/VZH-100M1HTR-0606/?qs=%2Fha2pyFadug9fpMd9zS1WVuLY1XOmrV1BVzFD1joM%252BDTbPmM%252BxSOHg%3D%3D">VZH100M1HTR-0606</a></td>
+            <td><a href="https://eu.mouser.com/c/?q=C1206C104M5RECAUTO">C1206C104M5RECAUTO</a></td>
          </tr>
          <tr>
             <td colspan="4"><b>Curent sense circuit</b></td>

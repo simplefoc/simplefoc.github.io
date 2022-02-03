@@ -19,12 +19,12 @@ The <span class="simple">Simple<span class="foc">FOC</span>Shield</span>, in com
 
 ### Features
 - **Plug & play**: In combination with Arduino *Simple**FOC**library* - [github](https://github.com/simplefoc/Arduino-FOC)
-- **Low-cost**: Price of €15 - [Check the pricing](https://www.simplefoc.com/shop) 
+- **Low-cost**: Price of 15-20€ - [Check the pricing](https://www.simplefoc.com/simplefoc_shield_product) 
 - **In-line current sensing**: Up to 3Amps/5Amps bidirectional
    - configurable: 3.3Amps - 3.3V adc, 5Amps - 5V adc
 - **Integrated 8V regulator**: 
    - Enable/disable by soldering pads
-- **Max power 120W** - max current 5A, power-supply 12-35V
+- **Max power 120W** - max current 5A, power-supply 12-24V **(35V max)**
    - Designed for Gimbal motors with the internal resistance >10 Ωs. 
 - **Stackable**: running 2 motors in the same time
 - **Encoder/Hall sensors interface**: Integrated 3.3kΩ pullups (configurable)
@@ -32,6 +32,11 @@ The <span class="simple">Simple<span class="foc">FOC</span>Shield</span>, in com
 - **Configurable pinout**: Hardware configuration - soldering connections
 - **Arduino headers**: Arduino UNO, Arduino MEGA, STM32 Nucleo boards...
 - **Open Source**: Fully available fabrication files - [how to make it yourself](https://docs.simplefoc.com/arduino_simplefoc_shield_fabrication)
+
+### New Features
+ - Max input voltage 35V
+ - Simplified pull-up config
+ - **Official [Easy EDA project](https://oshwlab.com/the.skuric/simplefocshield)**
 
 
 <blockquote class="warning"> 

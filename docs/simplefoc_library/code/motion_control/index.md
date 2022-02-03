@@ -16,7 +16,7 @@ grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>lib
     - [Closed-loop motion control](closed_loop_motion_control) - with position sensor
     - [Open-loop motion control](open_loop_motion_control) - no position sensor
 
-## Torque control modes
+x## Torque control modes
 There are three torque control types implemented in the <span class="simple">Simple<span class="foc">FOC</span>library</span>:
 - Voltage - `TorqueControlType::voltage`
 - DC current - `TorqueControlType::dc_current`
