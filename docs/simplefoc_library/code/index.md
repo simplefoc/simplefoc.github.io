@@ -26,6 +26,7 @@ The library supports these position sensors:
  - [Encoders](encoder): Optical, Capacitive, Magnetic encoders (ABI)
  - [Magnetic sensors](magnetic_sensor): SPI, I2C, Analog or PWM
  - [Hall sensors](hall_sensors): 3xHall sonde, Magnetic sensor (UVW interface) 
+ - [Generic sensors](generic_sensor) **NEW📢**: A simplified sensor implementation for adding custom sensors 
 
 Choose position sensor to use with this example:
 

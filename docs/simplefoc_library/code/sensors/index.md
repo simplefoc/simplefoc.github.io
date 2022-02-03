@@ -29,6 +29,9 @@ This library supports *off-the-shelf* these types of position sensors:
 - [Hall sensors](hall_sensors): 
     - Sensor that estimates rotor position by reading magnet positions on the rotor.
     - Examples :  [49E Hall sonde <i class="fa fa-external-link"></i>](https://fr.aliexpress.com/item/32590021901.html?spm=a2g0o.productlist.0.0.6eec671cZA32JT&algo_pvid=5729f98b-72a0-4cf8-b80a-adac9ecbbd2a&algo_expid=5729f98b-72a0-4cf8-b80a-adac9ecbbd2a-58&btsid=0b8b035915993735716435630eb78b&ws_ab_test=searchweb0_0,searchweb201602_,searchweb201603_) ,   [105 Hall sensor <i class="fa fa-external-link"></i>](https://fr.aliexpress.com/item/32968973849.html?spm=a2g0o.productlist.0.0.2727671c1QF3Xc&algo_pvid=701cd77d-e484-49ca-8ee8-35a76ed246a1&algo_expid=701cd77d-e484-49ca-8ee8-35a76ed246a1-12&btsid=0b8b034e15993753711202685ed51b&ws_ab_test=searchweb0_0,searchweb201602_,searchweb201603_) 
+- [Generic sensors](generic_sensor): **NEW📢**
+    - Simplified implementation of your custom sensors - only one function to implement
+    
 
 All classes of sensors are implemented in generic way in order to support as many of their versions as possible.
 
@@ -57,6 +60,9 @@ All classes of sensors are implemented in generic way in order to support as man
 ## Supporting additional sensors
 If you are interested to see what does it take to enable your code to run with different type of sensor or with the communication interface that has nto been implemented in the Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> yet, check out the short example [how to implement new sensor source](sensor_support). For more details about the theoretical parts of the code and the source code documentation visit [digging deeper section](digging_deeper).
 
+<blockquote class="info"> <p class="heading"> NEW 📢</p>
+We've also created a simplified interface for implementing new sensors in a context of the <code class="highlighter-rouge">GenericSensor</code> class. With it you can add your custom sensor to the <span class="simple">Simple<span class="foc">FOC</span>library</span> by implementing only one function. Check the <a href="generic_sensor"> new sensor class</a>
+</blockquote>
 
 <h2><i class="fa fa-lg"><svg id="fab-discourse" style="width:20px;fill:#44a8fa" viewBox="0 0 448 512"><path d="M225.9 32C103.3 32 0 130.5 0 252.1 0 256 .1 480 .1 480l225.8-.2c122.7 0 222.1-102.3 222.1-223.9C448 134.3 348.6 32 225.9 32zM224 384c-19.4 0-37.9-4.3-54.4-12.1L88.5 392l22.9-75c-9.8-18.1-15.4-38.9-15.4-61 0-70.7 57.3-128 128-128s128 57.3 128 128-57.3 128-128 128z"></path> </svg></i> <span class="simple">Simple<span class="foc">FOC</span> Community</span></h2>
 

@@ -21,7 +21,7 @@ Here is a quick guide how to fabricate the Arduino <span class="simple">Simple<s
 
 <div class="image_icon width40" >
     <a href="arduino_simplefoc_shield_fabrication_v2" >
-        <img style="width:50%;display:inline" src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/v2.0.2/images/top.png" > <img style="width:50%;display:inline" src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/v2.0.2/images/bottom.png" >
+        <img style="width:50%;display:inline" src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/v2.0.4/images/top.png" > <img style="width:50%;display:inline" src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/v2.0.4/images/bottom.png" >
         <i class="fa fa-external-link-square fa-2x"></i>
         <p > <span class="simple">Simple<span class="foc">FOC</span>Shield</span> v2</p>
     </a>

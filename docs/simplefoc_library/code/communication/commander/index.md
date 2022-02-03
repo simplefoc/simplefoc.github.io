@@ -7,6 +7,7 @@ parent: Communication
 grand_parent: Writing the Code
 grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 has_children: true
+has_toc: false
 ---
 
 # Commander interface
@@ -17,7 +18,14 @@ Commander is a simple and flexible interface monitoring, supervision, configurat
 <img src="extras/Images/cmd_motor_get.gif" class="img100">
 
 This g-code like interface provides callback to configure and tune any:
-- [BLDC or Stepper motor](commander_motor)
+- [PID controllers](commander_pid)
+- [Low pass filters](commander_lpf)
+- [Scalar variables](commander_scalar)
+- [Motion control](commander_target) <b><i>NEW</i>📢</b>
+  - Setting target values and limits at once (ex. angle velocity torque)
+  - Changing the motion and torque control mode
+  - Enable/Disable the motor 
+- [Fully integrated configuration](commander_motor) for BLDC or Stepper motors
   - PID controllers
   - Low pass filters
   - Motion control
@@ -27,13 +35,9 @@ This g-code like interface provides callback to configure and tune any:
   - sensor offsets
   - phase resistance 
   - ... 
-- [PID controllers](commander_pid)
-- [Low pass filters](commander_lpf)
-- [Scalar variables](commander_scalar)
-- [Motion control target](commander_target) <b><i>NEW</i>📢</b>
-  - Setting target values and limits at once (ex. angle velocity torque)
 
 Furthermore commander enables you to easily create your own commands and extend this interface in any way you might need for your particular application.
+Here is the link to the docs about how to [make your custom commands.](commander_custom)
 
 ## What happens when user sends a command?
 When the commander received the string:
@@ -135,11 +139,13 @@ void doSomething(char* cmd){ ... }
 With this simple interface you can create your own commands very simply and subscribe them to the `Commander` using just one line of code.
 
 In addition to this flexible interface for adding generic callbacks the `Commander` class additionally implements standardized callbacks for:
-- BLDC motor (`BLDCMotor`)  - `commander.motor(&motor, cmd)`
-- Stepper motor (`StepperMotor`) - `commander.motor(&motor, cmd)`
-- PID controller (`PIDController`) - `commander.pid(&pid, cmd)`
-- Low pass filter (`LowPassFilter`) - `commander.lpf(&lpf, cmd)`
-- Any numeric variable (`float`) - `commander.scalar(&variable, cmd)`
+- BLDC (`BLDCMotor`) or Stepper (`StepperMotor`) motor  - `commander.motor(&motor, cmd)` - [see more](commander_motor)
+- PID controller (`PIDController`) - `commander.pid(&pid, cmd)` - [see more](commander_pid)
+- Low pass filter (`LowPassFilter`) - `commander.lpf(&lpf, cmd)` - [see more](commander_lpf)
+- Any numeric variable (`float`) - `commander.scalar(&variable, cmd)` - [see more](commander_scalar)
+- Target setting control (`BLDCMotor` or `StepperMotor`) - `commander.target(&motor, cmd)` - [see more](commander_target)
+- Full motion control (`BLDCMotor` or `StepperMotor`) - `commander.motion(&motor, cmd)` - [see more](commander_target)
+
 
 For example if you are interested in full configuration of one `motor` your code could look something like this:
 ```cpp
@@ -168,13 +174,13 @@ Commander commander = ....
 // defined wrappers for generic callbacks
 void onPid(char* cmd){commander.pid(&motor.PID_velocity, cmd);}
 void onLpf(char* cmd){commander.lpf(&motor.LPF_velocity, cmd);}
-void onTarget(char* cmd){commander.scalar(&motor.tagret, cmd);}
+void onTarget(char* cmd){commander.target(&motor, cmd);}
 
 void setup(){
   ...
   commander.add('C',onPid,"PID vel");
   commander.add('L',onLpf,"LPF vel");
-  commander.add('T',onTarget,"target vel");
+  commander.add('T',onTarget,"target vel (+ torque limit)");
   ...
 }
 void loop(){
@@ -187,19 +193,7 @@ This simple interface provides the user a simple way to make communicate and con
 It also makes the tuning of the custom control loops much easier since you can close the loop with a pid controller `PIDController` very easily and just add it to the commander to tune it in real time. 
 
 You can find more examples in library examples `examples/utils/communication_test/commander` folder.
-
-## List of commands
-
-All built-in commands and subcommands are defined in the library source, in file `src/communication/commands.h`.
-If you wish to change the character id of a certain command that is the place to do it. 😄
-
-In general we can separate the commands into:
-- [Commander commands](#commander-commands) - commands specific for the `Commander` class
-- [PID commands](#pid-commands)  - commands specific for the `PIDController` class
-- [Low pass filter commands](#low-pass-filter-commands) - commands specific for the `LowPassFilter` class
-- [Motor commands](#motor-commands) - commands specific for the `FOCMotor` classes
-
-### Commander commands
+## Commander commands
 When using the `Commander` in your program the user will have three built-in default commands he can use:
 - `?` - list all the commands available
 - `#` - get/set decimal point number
@@ -230,6 +224,26 @@ M: some motor
 P: some pid
 R: some other motor
 ``` 
+
+
+## List of available commands
+
+All built-in commands and subcommands are defined in the library source, in file `src/communication/commands.h`.
+If you wish to change the character id of a certain command that is the place to do it. 😄
+
+In general we can separate the commands into:
+- [Commander commands](#commander-commands) - commands specific for the `Commander` class
+- [PID commands](commands_pid)  - commands specific for the `PIDController` class 
+- [Low pass filter commands](command_lpf) - commands specific for the `LowPassFilter` class
+- [Motor commands](command_motor) - commands specific for the `FOCMotor` classes
+
+When adding the `scalar` variable to the commander or the motion control `target` the only command letter used is the one provided to the `commander.add`. 
+- [Scaler variable](commander_scalar) - adding the scalar `float` variable
+- [Motion control and target setting](commander_target) - setting the target for the `FOCMotor` classes
+
+Commander provides a very simple way to extend the command list and implement new ones
+- [Custom commands](commander_custom) - create your own callbacks
+
 
 ## *Simple**FOC**Studio* by [@JorgeMaker](https://github.com/JorgeMaker)
 

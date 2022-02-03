@@ -15,28 +15,20 @@ grand_grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">F
 
 When using a standard callback for `BLDCMotor` and `StepperMotor` classes:`commander.motor(&motor,cmd)` the user will have available set of possible commands:
 
-- **Q** - Q current PID controller & LPF (see [pid](#pid-commands) and [lpf](#low-pass-filter-commands) for commands)
-- **D** - D current PID controller & LPF (see [pid](#pid-commands) and [lpf](#low-pass-filter-commands) for commands)
-- **V** - Velocity PID controller & LPF  (see [pid](#pid-commands) and [lpf](#low-pass-filter-commands) for commands) 
-- **A** - Angle PID controller & LPF-  (see [pid](#pid-commands) and [lpf](#low-pass-filter-commands) for commands)
+- **Q** - Q current PID controller & LPF (see [pid](commander_pid) and [lpf](commander_lpf) for commands)
+  - **P** - proportional gain
+  - **I** - integration gain
+  - **D** - derivative gain
+  - **L** - saturation limit
+  - **R** - ramp parameter
+  - **F** - low pass filtering time constant
+- **D** - D current PID controller & LPF (see [pid](commander_pid) and [lpf](commander_lpf) for commands)
+- **V** - Velocity PID controller & LPF  (see [pid](commander_pid) and [lpf](commander_lpf) for commands) 
+- **A** - Angle PID controller & LPF-  (see [pid](commander_pid) and [lpf](commander_lpf) for commands)
 - **L** - Limits     
   -  **C** - Current  
   -  **U** - Voltage   
   -  **V** - Velocity  
-- **C** - Motion control type config 
-  - **D** - downsample motion loop 
-  - `0` - torque    
-  - `1` - velocity 
-  - `2` - angle    
-  - `3` - velocity_openloop 
-  - `4` - angle_openloop    
-- **T** - Torque control type
-  - `0` - voltage      
-  - `1` - dc_current     
-  - `2` - foc_current 
-- **E** - Motor status (enable/disable) 
-  - `0` - enable    
-  - `1` - disable  
 - **R** - Motor phase resistance               
 - **S** - Sensor offsets     
   - **M** - sensor offset          
@@ -49,7 +41,25 @@ When using a standard callback for `BLDCMotor` and `StepperMotor` classes:`comma
   - **C** - clear monitor        
   - **S** - set monitoring variables  
   - **G** - get variable value        
-- '' - Target get/set                  
+- **C** - Motion control type config  - [see motion control](commander_target)
+  - **D** - downsample motion loop 
+  - `0` - torque    
+  - `1` - velocity 
+  - `2` - angle    
+  - `3` - velocity_openloop 
+  - `4` - angle_openloop    
+- **T** - Torque control type - [see motion control](commander_target)
+  - `0` - voltage      
+  - `1` - dc_current     
+  - `2` - foc_current 
+- **E** - Motor status (enable/disable) - [see motion control](commander_target)
+  - `0` - enable    
+  - `1` - disable  
+- **else** - Target setting interface - [see motion control target](commander_target) <br> 
+    Depends of the motion control mode:
+    - torque mode - torque target (ex. `M2.5`) 
+    - velocity (open and closed loop) mode - velocity target and torque limit (ex.`M10 2.5` or `M10` to only change the target without limits)
+    - angle (open and closed loop) mode - angle target,  velocity limit,  torque limit (ex.`M3.5 10 2.5` or `M3.5` to only change the target without limits)                 
 
 All built-in commands and subcommands are defined in the library source, in file `src/communication/commands.h`
 

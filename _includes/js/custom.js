@@ -2,6 +2,7 @@ var libraires =[
     "SimpleFOC.h",
     "PciManager.h",
     "PciListenerImp.h",
+    "ESP32Encoder.h",
     "Encoder.h",
     "FOCutils.h",
     "BLDCMotor.h",
@@ -80,7 +81,8 @@ var classNames = [
     "InlineCurrentSense",
     "CurrentSense",
     "StepDirListener",
-    "Commander"
+    "Commander",
+    "GenericSensor"
 ];
 
 var classProps = [
@@ -162,7 +164,10 @@ var funcNames = [
     "add",
     "pid",
     "lpf",
-    "scalar"
+    "scalar",
+    "motion",
+    "target",
+    "motor"
 
 ];
 var structNames = [
