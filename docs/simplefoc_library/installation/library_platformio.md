@@ -12,6 +12,17 @@ grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>lib
 
 Using SimpleFOC from PlatformIO is not hard at all! The following instructions should get you set up and compiling your code in a matter of minutes.
 
+## Quick setup for pros
+
+You can use SimpleFOC in Arduino projects in PlatformIO. Just add the library via the library manager.
+
+<b>You will need this option in your platformio.ini file:</b>
+```ini
+lib_archive = false
+```
+
+# Detailed instructions
+
 ## Prerequisites
 
 - You need an active internet connection throughout this process, until your project is set up.
