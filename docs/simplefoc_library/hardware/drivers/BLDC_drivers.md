@@ -12,7 +12,7 @@ grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</sp
 # BLDC motor drivers
 This library will be compatible with the most of 3 phase BLDC motor drivers. Such as [<i class="fa fa-file"></i> L6234](https://www.st.com/en/motor-drivers/l6234.html), [<i class="fa fa-file"></i> DRV8305](https://www.ti.com/product/DRV8305), [<i class="fa fa-file"></i> DRV8313](https://www.ti.com/product/DRV8313)  or even [<i class="fa fa-file"></i> L293](http://www.ti.com/lit/ds/symlink/l293.pdf). 
 
-At this moment, a low-cost BLDC driver board is still reasonably hard to find making our choice of hardware is quiet restricted. This is the one of the motivations to develop the <span class="simple">Simple<span class="foc">FOC</span>Shield</span>, a versatile and simple BLDC driver. Fortunately, the community is starting to gain momentum in this direction and it is probably a matter of time before BLDC motors become a standard in the hobby community as well, what is really exciting! 😃
+At this moment, a low-cost BLDC driver board is still reasonably hard to find making our choice of hardware is quite restricted. This is the one of the motivations to develop the <span class="simple">Simple<span class="foc">FOC</span>Shield</span>, a versatile and simple BLDC driver. Fortunately, the community is starting to gain momentum in this direction and it is probably a matter of time before BLDC motors become a standard in the hobby community as well, what is really exciting! 😃
 
 The choice what kind of BLDC driver you will need in your project directly depends of the BLDC motor you are using. Therefore we can divide them in two groups:
 - [Low power BLDC drivers](#low-power-boards---gimbal-motors-) - *Gimbal motors (R>10Ω)* 
