@@ -41,6 +41,7 @@ Therefore this is an attempt to:
       </ul>
       </li>
       <li>Generic sensor class - to implement a new sensor only implement one function <a href="https://docs.simplefoc.com/generic_sensor">see docs</a></li>
+      <li>First release of the <a href="/drivers_library">Drivers Library</a> v1.0.0 to Arduino library manager</li>
       </ul>
 </blockquote>
 
