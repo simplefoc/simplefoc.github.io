@@ -8,66 +8,43 @@ grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>lib
 ---
 
 
-# Monitoring functionality
+# Monitoring (telemetry) functionality
 
-Both `BLDCMotor` and `StepperMotor` classes support monitoring using `Serial` port which is enabled by:
+Both `BLDCMotor` and `StepperMotor` classes support a basic telemetry function using the `Serial` port.
+
+This telemetry (also called *monitoring* in the following documentation), will allow you to visualize key parameters from the motor using tools like the Arduino IDE serial plotter, or our [<span class="simple">Simple<span class="foc">FOC</span>Studio</span> tool](/studio).
+
+<span class="simple">Simple<span class="foc">FOC</span>library</span> monitoring is the real-time tab separated output of the motor variables to the serial terminal. And it is enabled by including this line in your `setup` function:
+
 ```cpp
 motor.useMonitoring(Serial);
 ```
 
-Monitoring has two main goals:
-- [Display motor status during the init and alignment procedure](#monitoring-the-motor-init) 
-- [Real-time monitoring of motor variables](#real-time-motor-variables-monitoring)
+<blockquote class="info">
+Note: you can also use other serial ports, e.g. Serial1, Serial2, as supported by your MCU.
+</blockquote>
 
-## Monitoring the motor init
-The `motor` will output to the serial port its status during the initialization `motor.init()` and the alignment procedure `motor.initFOC()`. Enabling this functionality will not directly influence the real-time performance because there is no predefined monitoring in real time-loop in the functions `motor.loopFOC()` and `motor.move()`.
+<blockquote class="warning">
+At the moment, enabling monitoring using <code class="highlighter-rouge">motor.useMonitoring</code> will <i>also</i> enable debug output - see [debugging] for details.
 
-This is an example of the `motor` initialization monitoring output gone well:
-```sh
-MOT: Monitor enabled!
-MOT: Init
-MOT: Enable driver.
-MOT: Align sensor.
-MOT: sensor direction==CW
-MOT: PP check: OK!
-MOT: Zero elec. angle: 4.28
-MOT: Align current sense.
-MOT: Success: 2
-MOT: Ready.
-```
+In a future release, debug output and telemetry output will be seperated and the <code class="highlighter-rouge">motor.useMonitoring</code> function will likely be deprecated.
 
-Failed motor initialization due to the position sensor:
-```sh
-MOT: Monitor enabled!
-MOT: Init
-MOT: Enable driver.
-MOT: Align sensor.
-MOT: Failed to notice movement
-MOT: Init FOC failed.
-```
+If the debug output is undesired or causing you problems, you can disable debug output (but keep monitoring) like this:
+</blockquote>
 
-And failed motor initialization due to the current sense:
-```sh
-MOT: Monitor enabled!
-MOT: Init
-MOT: Enable driver.
-MOT: Align sensor.
-MOT: sensor direction==CW
-MOT: PP check: OK!
-MOT: Zero elec. angle: 4.28
-MOT: Align current sense.
-MOT: Fail!
-MOT: Init FOC failed.
+```cpp
+motor.useMonitoring(Serial);
+SimpleFOCDebug::enable(NULL);
 ```
 
 ## Real-time motor variables monitoring
 
-Second role of the monitoring is the real-time tab separated output of the motor variables to the serial terminal. And it is enabled including this line in to `loop` function:
+To actually produce any output you also have to add this line in to `loop` function:
 ```cpp
 motor.monitor()
 ```
 
-Monitoring function can output 7 different motor specific variables:
+The monitoring function can output 7 different motor specific variables:
 - `target` - current target value, specific to the motion control used (either current [A], voltage [V], velocity [rad/s], or position [rad])
 - `voltage.q` - [V] - set voltage in q direction
 - `voltage.d` - [V] - set voltage in d direction

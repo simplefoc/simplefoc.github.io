@@ -1,7 +1,7 @@
 ---
 layout: default
 title: SimpleFOC Drivers Library
-nav_order: 9
+nav_order: 10
 permalink: /drivers_library
 parent: Writing the Code
 grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
