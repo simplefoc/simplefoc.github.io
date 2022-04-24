@@ -82,16 +82,18 @@ MOT: Init FOC failed.
 You can use the <span class="simple">Simple<span class="foc">FOC</span>library</span>  easily for your own purposes:
 
 ```cpp
-SimpleFOCDebug::println("Hello world!");
-SimpleFOCDebug::println("Float value: ", fval);
-SimpleFOCDebug::println("Int value: ", ival);
+SIMPLEFOC_DEBUG("Hello world!");
+SIMPLEFOC_DEBUG("Float value: ", fval);
+SIMPLEFOC_DEBUG("Int value: ", ival);
 ```
+
+Using this macro has several advantages, see FlashStringHelper, global disable and rationale, below.
 
 See the [SimpleFOCDebug class header](https://github.com/simplefoc/Arduino-FOC/blob/master/src/communication/SimpleFOCDebug.h) for all available methods.
 
 ### FlashStringHelper
 
-SimpleFOCDebug automatically uses FlashStringHelper, and you should not use the F() macro on strings supplied to `SimpleFOCDebug::println` functions.
+The SimpleFOCDebug macro automatically uses FlashStringHelper, and you should not use the F() macro on strings supplied to the `SIMPLEFOC_DEBUG` macro.
 
 ### Debug - global disable
 
@@ -99,7 +101,7 @@ Using the build flag `SIMPLEFOC_DISABLE_DEBUG` you can globally disable all debu
 
 ### Rationale
 
-Why have our own `SimpleFOCDebug::println`? Wny not just use `Serial.println`?
+Why have our own `SimpleFOCDebug`? Wny not just use `Serial.println`?
 
 When supporting many hardware platforms (as <span class="simple">Simple<span class="foc">FOC</span>library</span> does), we can't make assumptions about the availability of the `Serial` object. While it is a pretty standard feature of Arduino framework, a given board may not support it, or may for whatever reasons have a different name for it. We also can't make assumptions about *which* `Serial` object you would want to use. Some MCUs support 6 or more Serial ports.
 
