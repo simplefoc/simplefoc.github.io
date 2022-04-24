@@ -135,7 +135,7 @@ There are 3 different torque control modes implemented in the Arduino <span clas
 - [DC current](dc_current_torque_mode)
 - [FOC current](foc_current_torque_mode)
 
-[DC current](dc_current_torque_mode) and [FOC current](foc_current_torque_mode) require current sensing and are controlling current and limiting the real current the motor is drawing, whereas [voltage mode](voltage_mode) approximates the motor current and does not use any current sensing. Read more in [torque control docs](torque_mode).
+[DC current](dc_current_torque_mode) and [FOC current](foc_current_torque_mode) require current sensing and are controlling current and limiting the real current the motor is drawing, whereas [voltage mode](voltage_mode) approximates the motor current and does not use any current sensing. Read more in [torque control docs](torque_control).
 
 The torque mode can be set by changing the motor attribute `torque_controller`.
 ```cpp
@@ -149,7 +149,7 @@ motor.torque_controller = TorqueControlType::foc_current;
 ### Step 5.5 Motion control parameters  
 
 There are 3 different closed loop control strategies implemented in the Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>: 
-- [Torque control loop](voltage_loop)
+- [Torque control loop](torque_control)
 - [Velocity motion control](velocity_loop)
 - [Position/angle motion control](angle_loop)
 
@@ -327,7 +327,7 @@ The `move()` method executes the motion control loops of the algorithm. If is go
 It receives one parameter `float target` which is current user defined target value.
 - If the user runs [velocity loop](velocity_loop) or [velocity open-loop](velocity_openloop), `move` function will interpret `target` as the target velocity.
 - If the user runs [angle loop](angle_loop) or [angle open-loop](angle_openloop), `move` will interpret `target` parameter as the target angle. 
-- If the user runs the [torque loop](voltage_loop), `move` function will interpret the `target` parameter as either voltage <i>u<sub>q</sub></i> or current <i>i<sub>q</sub></i> (if phase resistance provided). 
+- If the user runs the [torque loop](torque_control), `move` function will interpret the `target` parameter as either voltage <i>u<sub>q</sub></i> or current <i>i<sub>q</sub></i> (if phase resistance provided). 
 
 The `target` parameter is optional and if it is not set, the target value will be set by the public motor variable `motor.target`. The equivalent code would be:
 

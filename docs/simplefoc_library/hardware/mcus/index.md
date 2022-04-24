@@ -66,23 +66,24 @@ Nano 33 | SAMD21  | 200us (ipr = 0), ~800us (ipr > 50000) | 300us | ~1000us
 In the table above you can a comparison of the execution times of the FOC loop for different MCUs. When you are deciding which MCU to use with your project please make sure that your loop execution time `loopFOC() + move()`, in the worst case, will not be greater 3-4ms. And for optimal performance your loop time should be under 2ms. Make sure to account for multiple motors.
 
 
-
 The current sensing support for all the architectures is shown in the table below:
-
+    
 MCU | In-line | Low-side | High-side
 --- | --- |--- |--- 
 Arduino (8-bit) | ✔️ | ❌ |  ❌
 Arduino DUE  | ✔️ | ❌ |  ❌
-stm32 | ✔️ | ❌ |  ❌
-stm32 B_G431B_ESC1 | ✔️ | ✔️ (initial) |  ❌
-esp32 | ✔️ | ✔️ (initial) |  ❌
+stm32 (in general) | ✔️ | ❌ |  ❌
+stm32f1 family | ✔️ | ✔️ (one motor) |  ❌
+stm32f4 family | ✔️ | ✔️ (one motor) |  ❌
+stm32g4 family | ✔️ | ✔️ (one motor) |  ❌
+stm32 B_G431B_ESC1 | ✔️ | ✔️ |  ❌
+esp32 | ✔️ | ✔️ |  ❌
 esp8266 | ❌ | ❌ |  ❌ 
-samd21 | ✔️ | ✔️ (initial) |  ❌ 
+samd21 | ✔️ | ✔️ (one motor) |  ❌ 
 samd51 | ✔️ | ❌ |  ❌ 
 teensy | ✔️ | ❌ |  ❌
 Raspberry Pi Pico | ✔️ | ❌ |  ❌
 Portenta H7 | ✔️ | ❌ |  ❌
-nRF52 | ✔️ | ❌ |  ❌
 
 Most of the boards will support inline current sensing, and initial support for the low-side current sensing is available for esp32, samd21 and the stm32 B_G431B_ESC1 board.
 

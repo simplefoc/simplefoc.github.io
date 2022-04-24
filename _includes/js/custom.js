@@ -53,7 +53,8 @@ var defines =[
     "_2PI",
     "HIGH",
     "LOW",
-    "DEF_VEL_LIM"
+    "DEF_VEL_LIM",
+    "_NC"
 ]
 
 var classNames = [
@@ -154,6 +155,7 @@ var funcNames = [
     "getCurrent",
     "getPhaseCurrents",
     "getFOCCurrents",
+    "getDCCurrent",
     "driverAlign",
     "setPhaseState",
     "handle",

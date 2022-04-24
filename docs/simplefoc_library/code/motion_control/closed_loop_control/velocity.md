@@ -4,7 +4,7 @@ title: Velocity Control
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 permalink: /velocity_loop
 nav_order: 2
-parent: Closed-Loop Motion control
+parent: Closed-Loop control
 grand_parent: Motion Control
 grand_grand_parent: Writing the Code
 grand_grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
@@ -29,7 +29,7 @@ And if it is any of the current torque control modes (FOC or DC current) or volt
 <img src="extras/Images/velocity_loop_i.png" >
 
 
-The velocity control is created by adding a PID velocity controller to the [torque control loop](voltage_loop). PID controller reads the motor velocity <i>v</i>, filters it to <i>v<sub>f</sub></i> and sets the torque target (<i>u<sub>q</sub></i> voltage or <i>i<sub>q</sub></i> current) to the torque control loop in a such manner that it reaches and maintains the target velocity <i>v<sub>d</sub></i>, set by the user. 
+The velocity control is created by adding a PID velocity controller to the [torque control loop](torque_control). PID controller reads the motor velocity <i>v</i>, filters it to <i>v<sub>f</sub></i> and sets the torque target (<i>u<sub>q</sub></i> voltage or <i>i<sub>q</sub></i> current) to the torque control loop in a such manner that it reaches and maintains the target velocity <i>v<sub>d</sub></i>, set by the user. 
 
 ## Controller parameters
 To tune this control loop you can set the parameters to both angle PID controller and velocity measurement low pass filter. 

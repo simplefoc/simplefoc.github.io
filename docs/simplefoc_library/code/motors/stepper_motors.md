@@ -81,7 +81,7 @@ motor.voltage_sensor_align = 3;
 ### Step 4.3 Motion control parameters  
 
 There are 3 different closed loop control strategies implemented in the Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>: 
-- [torque control loop using voltage](voltage_loop)
+- [torque control loop using voltage](torque_control)
 - [position/angle motion control](angle_loop)
 - [velocity motion control](velocity_loop)
 
@@ -207,7 +207,7 @@ The `move()` method executes the control loops of the algorithm. If is governed 
 It receives one parameter `float target` which is current user defined target value.
 - If the user runs [velocity loop](velocity_loop) or [velocity open-loop](velocity_openloop), `move` function will interpret `target` as the target velocity <i>v<sub>d</sub></i>.
 - If the user runs [angle loop](angle_loop) or [angle open-loop](angle_openloop), `move` will interpret `target` parameter as the target angle <i>a<sub>d</sub></i>. 
-- If the user runs the [voltage loop](voltage_loop), `move` function will interpret the `target` parameter as voltage <i>u<sub>d</sub></i>.
+- If the user runs the [voltage loop](torque_control), `move` function will interpret the `target` parameter as voltage <i>u<sub>d</sub></i>.
 
  The `target` parameter is optional and if it is not set, the target value will be set by the public motor variable `motor.target`. The equivalent code would be:
 

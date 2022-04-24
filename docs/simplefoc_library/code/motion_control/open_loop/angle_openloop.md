@@ -4,7 +4,7 @@ title: Position Open-Loop
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 permalink: /angle_openloop
 nav_order: 2
-parent: Open-Loop Motion control
+parent: Open-Loop control
 grand_parent: Motion Control
 grand_grand_parent: Writing the Code
 grand_grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
@@ -16,7 +16,26 @@ This control loop allows you to move your motor to the desired angle in real tim
 // set position motion control open-loop
 motor.controller = MotionControlType::angle_openloop;
 ```
-<img src="extras/Images/open_loop_angle.png">
+
+<script type="text/javascript">
+    function show(id){
+        Array.from(document.getElementsByClassName('gallery_img')).forEach(
+        function(e){e.style.display = "none";});
+        document.getElementById(id).style.display = "block";
+        Array.from(document.getElementsByClassName("btn-primary")).forEach(
+        function(e){e.classList.remove("btn-primary");});
+        document.getElementById("btn-"+id).classList.add("btn-primary");
+    }
+</script>
+
+<a href ="javascript:show(0);" id="btn-0" class="btn  btn-primary">Voltage limiting</a>
+<a href ="javascript:show(1);" id="btn-1" class="btn">Current limiting</a>
+<a href ="javascript:show(2);" id="btn-2" class="btn ">Current limiting with Back-EMF compensation</a>
+
+<img style="display:display" id="0" class="gallery_img " src="extras/Images/open_loop_angle (3).png"/>
+<img style="display:none" id="1" class="gallery_img " src="extras/Images/open_loop_angle (1).png"/>
+<img style="display:none" id="2" class="gallery_img " src="extras/Images/open_loop_angle (2).png"/>
+
 
 You can test this algorithm by running the examples in the `motion_control/open_loop_motor_control/` folder.
 

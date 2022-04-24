@@ -86,7 +86,7 @@ void loop() {
 Make sure that all phases output PWM signals, you can try to connect a small led light in between each phase and ground or just measure it with the multimeter.</blockquote>
 
 ## Step 2. Testing the driver + motor combination - open-loop
-If you already have your motor connected and if you are sure your driver works well we advise you to test the motor+driver combination using the open-loop motion control examples in the `examples/motion_control/open_loop_motion_control`. If your driver is not the same as the ones provided in the examples go though the [driver docs](drivers_config) and find the driver and the code that will work for you. Additionally you can browse through the examples in teh `examples/utils/driver_standalone_test` folder and see the used in there.
+If you already have your motor connected and if you are sure your driver works well we advise you to test the motor+driver combination using the Open-Loop control examples in the `examples/motion_control/open_loop_motion_control`. If your driver is not the same as the ones provided in the examples go though the [driver docs](drivers_config) and find the driver and the code that will work for you. Additionally you can browse through the examples in teh `examples/utils/driver_standalone_test` folder and see the used in there.
 
 Now here is an example of the open-loop velocity control for the `BLDCDriver3PWM`:
 ```cpp
@@ -151,7 +151,7 @@ This example code has few very important rules.
 
 ## Step 3. Closed-loop control - torque using voltage
 
-Once you have a working sensor, working motor and driver you can proceed to the closed-loop motion control testing. The first one to test is the torque control mode using voltage, this one is the simplest form of the closed loop control that is available in the <span class="simple">Simple<span class="foc">FOC</span>library</span>. You can find the examples of this torque mode for different sensors in the library examples folder `examples/motion_control/torque_control`.
+Once you have a working sensor, working motor and driver you can proceed to the Closed-Loop control testing. The first one to test is the torque control mode using voltage, this one is the simplest form of the closed loop control that is available in the <span class="simple">Simple<span class="foc">FOC</span>library</span>. You can find the examples of this torque mode for different sensors in the library examples folder `examples/motion_control/torque_control`.
 Here is an example of the `BLDCMotor3PWM` driver and `Encoder` as position sensor:
 ```cpp
 #include <SimpleFOC.h>
@@ -443,7 +443,7 @@ void loop() {
 }
 ```
 
-To see all of the FOC torque control parameters please visit the [torque control docs](torque_mode). The goon news is that if you have set the phase resistance during the tuning the velocity and position motion control loops in step 4. you will most probably not need to retune them. 
+To see all of the FOC torque control parameters please visit the [torque control docs](torque_control). The goon news is that if you have set the phase resistance during the tuning the velocity and position motion control loops in step 4. you will most probably not need to retune them. 
 
 However the most important tip is still to use the [commander interface](commander_interface) to tune hte torque control PID controller and Low pas filter parameters, this way you will be able to test quickly and change the parameters of controllers in real-time and see what will happen. One time you are satisfied you can write these values in code and quit using the commander. 
 
