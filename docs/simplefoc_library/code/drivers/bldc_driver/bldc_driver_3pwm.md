@@ -24,6 +24,7 @@ Examples:
 
 <img src="extras/Images/3pwm_driver.png" class="width40">
 
+
 ## Step 1. Hardware setup
 To create the interface to the BLDC driver you need to specify the 3 `pwm` pin numbers for each motor phase and optionally `enable` pin.
 ```cpp
@@ -41,6 +42,20 @@ Additionally this bldc driver class enables the user to provide enable signal fo
 BLDCDriver3PWM driver = BLDCDriver3PWM(9, 10, 11, 8, 7, 6);
 ```
 
+
+### Low-side current sensing considerations
+
+As ADC conversion has to be synchronised with the PWM generated on ALL the phases, it is important that all the PWM generated for all the phases have aligned PWM. Since the microcontrollers usually have more than one timer for PWM generation on its pins, different architectures of microcontrollers have different degrees of alinement in between the PWM generated from different timers.
+
+
+<blockquote class="info">
+<p class="heading">RULE OF THUMB: PWM timer pins</p>
+In order to maximise your chances for the low-side current sensing to work well we suggest to make sure that the PWM pins chosen for your driver all belong to the same Timer.
+
+Finding out which pins belong to different timers might require some time to be spent in the MCU datasheet 😄
+You can also always ask the community for help - <a href="https://community.simplefoc.com/">community link</a>!
+</blockquote>
+
 ## Step 2.1 PWM Configuration
 ```cpp
 // pwm frequency to be used [Hz]
@@ -57,11 +72,28 @@ Here is a list of different microcontrollers and their PWM frequency and resolut
 MCU | default frequency | MAX frequency | PWM resolution | Center-aligned | Configurable freq
 --- | --- | --- | --- | ---
 Arduino UNO(Atmega328) | 32 kHz | 32 kHz | 8bit | yes | no
-STM32 | 50kHz | 100kHz | 14bit | yes | yes
-ESP32 | 40kHz | 100kHz | 10bit | yes | yes
-Teensy | 50kHz | 100kHz | 8bit | yes | yes
+STM32 | 25kHz | 50kHz | 14bit | yes | yes
+ESP32 | 30kHz | 50kHz | 10bit | yes | yes
+Teensy | 25kHz | 50kHz | 8bit | yes | yes
 
 All of these settings are defined in the `drivers/hardware_specific/x_mcu.cpp/h` of the library source. 
+
+
+### Low-side current sensing considerations
+ 
+As the ADC conversion takes some time to finish and as this conversion has to happen only during the specific time window ( when all the phases are grounded  - low-side mosfets are ON ) it is important to use an appropriate PWM frequency. PWM frequency will determine how long each period of the PWM is and in term how much time the low-side switches are ON. Higher PWM frequency will leave less time for the ADC to read the current values. 
+
+On the other hand, having higher PWM frequency will produce smoother operation, so there is definitely a tradeoff here.
+
+<blockquote class="info">
+<p class="heading">RULE OF THUMB: PWM frequency</p>
+The rule of thumb is to stay arround 20kHz.
+
+<code class="highlighter-rouge">
+driver.pwm_frequency = 20000;
+</code>
+</blockquote>
+
 
 
 ## Step 2.2 Voltages

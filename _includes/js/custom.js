@@ -13,6 +13,8 @@ var libraires =[
     "MagneticSensorI2C.h",
     "MagneticSensorPWM.h",
     "MagneticSensorAnalog.h",
+    "LowsideCurrentSense.h",
+    "InlineCurrentSense.h",
     "MySensor.h",
     "Sensor.h"
 ]
@@ -80,6 +82,7 @@ var classNames = [
     "LowPassFilter",
     "PIDController",
     "InlineCurrentSense",
+    "LowsideCurrentSense",
     "CurrentSense",
     "StepDirListener",
     "Commander",

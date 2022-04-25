@@ -18,19 +18,35 @@ All stepper motor are handled by `StepperMotor` class. The class implements:
 - Stepper motor FOC algorithm
 - Motion control loops
 - Monitoring
-- User communication interface
 
 ## Step 1. Creating the instance of the stepper motor
 To create a stepper motor instance you need to specify the number of `pole pairs` of the motor.
 ```cpp
-// StepperMotor(  int pp)
-// - pp  - pole pair number
-StepperMotor motor = StepperMotor( 50 );
+// StepperMotor(  int pp, (optional R, KV))
+//  - pp  - pole pair number
+//  - R   - phase resistance value - optional
+//  - KV  - motor KV rating [rpm/V] - optional
+StepperMotor motor = StepperMotor( 50 , 1.5, 20.6);
 ```
 <blockquote class="info"><p class="heading">Pole pair number </p>
 Most of the stepper motors are 200 step per rotation motors making them 50 pole pair motors. In practice you can know the <code class="highlighter-rouge">pole_paris</code> number by dividing the number of steps per rotation by <code class="highlighter-rouge">4</code>.<br><br>
 If you are not sure what your <code class="highlighter-rouge">pole_paris</code> number is. The library provides you an example code to estimate your <code class="highlighter-rouge">pole_paris</code> number in the examples <code class="highlighter-rouge">find_pole_pairs_number.ino</code>.
  </blockquote>
+
+
+### Motor phase reistance and KV rating 
+Providing the KV rating in combination with the phase resistance (not very used for current based torque modes `foc_current` and `dc_current`) will enable the user to control the motor's current without measuring it. The user will be able to control (and limit) the estimated current of the motor using the voltage control mode. Read more in the [torque control docs](voltage_torque_mode).
+
+Working with currents instead of voltages is better in may ways, since the torque of the BLDC motor is proportional to the current and not voltages and especially since the same voltage value will produce very different currents for different motors (due to the different phase resistance). Once when the phase resistance is provided the user will be able to set current limit for its BLDC motor instead of voltage limit which is much easier to understand. 
+
+It is important to say that once you specify the phase resistance value, you will most probably have to retune the [velocity motion control](velocity_loop) and [angle motion control](angle_loop) parameters, due to the reason that the voltages and currents values are in different orders of magnitude. The rule of thumb is to divide all the `P`, `I` and `D` gains with the `motor.phase_resistance` value. That will be a good staring point.
+
+Finally, this parameter is suggested to be used if one whats to switch in real time in between voltage ([voltage mode](voltage_mode)) and current based ([DC current](dc_current_torque_mode) and [FOC current](foc_current_torque_mode)) torque control strategies. Since in this way all the torque control loops will have current as input (target value) the user will not have to change the motion control parameters (PID values). 
+
+<blockquote class="info">
+<p class="heading">Open-loop motion control will use KV and phase reistance values  </p>
+KV rating and the pahse resitance values will be used in te open loop contol as well to let the user to limit the current drawn by the motor instead of limitting the volatge. Read more in the <a href="open_loop_motion_control">open-loop motion control docs</a>.
+</blockquote>
 
 
 ## Step 2. Linking the sensor 
