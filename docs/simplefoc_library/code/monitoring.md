@@ -48,7 +48,7 @@ The monitoring function can output 7 different motor specific variables:
 - `target` - current target value, specific to the motion control used (either current [A], voltage [V], velocity [rad/s], or position [rad])
 - `voltage.q` - [V] - set voltage in q direction
 - `voltage.d` - [V] - set voltage in d direction
-- `current.q` - [mA] - measured current in q direction ( if current sense available )
+- `current.q` - [mA] - measured current in q direction ( if current sense available ) or estimated current if no current sense but provided phase resistance
 - `current.d` - [mA] - measured current in d direction ( if current sense available )
 - `shaft_velocity` - [rad/s] - motor velocity
 - `shaft_angle` - [rad] - motor position

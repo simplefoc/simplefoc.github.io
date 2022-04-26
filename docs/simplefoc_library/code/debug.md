@@ -7,7 +7,7 @@ parent: Writing the Code
 grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> 
 ---
 
-# Debugging SimpleFOClibrary sketches
+# Debugging <span class="simple">Simple<span class="foc">FOC</span>library</span>  sketches
 
 So you hooked everything up, downloaded your sketch, applied power, and... nothing. Or another common scenario: motor jerks around and makes terrible sounds.
 

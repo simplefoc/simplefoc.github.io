@@ -62,7 +62,7 @@ InlineCurrentSense current_sense = InlineCurrentSense(0.01, 50.0, A0, A2);
 
 // instantiate the commander
 Commander command = Commander(Serial);
-void doTarget(char* cmd) { command.variable(&motor.target, cmd); }
+void doTarget(char* cmd) { command.scalar(&motor.target, cmd); }
 
 void setup() { 
   

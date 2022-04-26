@@ -48,9 +48,10 @@ next_angle = past_angle + target_velocity*d_time;
 You need to know the  `target_velocity`, sample time `d_time` and past value of the angle `past_angle` you have set to the motor.
 
 ## Configuration
+There are only three main parameters of the velocity open-loop control
 ```cpp
-// choose FOC modulation (optional) - default SinePWM
-motor.foc_modulation = FOCModulationType::SpaceVectorPWM;
+// choose FOC modulation (optional) - SinePWM or SpaceVectorPWM
+motor.foc_modulation = FOCModulationType::SinePWM;
 
 // limiting voltage 
 motor.voltage_limit = 3;   // Volts
@@ -58,10 +59,26 @@ motor.voltage_limit = 3;   // Volts
 motor.current_limit = 0.5 // Amps
 ```
 
-This type of motion control is highly inefficient therefore try not to use to high value for `motor.voltage_limit`. We suggest you to provide the motor class with the `phase_resistance` value and set the `motor.current_limit` instead the voltage limit. This current might be surpassed but at least you will know an approximate current your motor is drawing. You can calculate the current the motor is going to be producing by checking the motor resistance `phase_resistance` and evaluating:
+The velocity open-loop control will (if not provided phase resistance) set the voltage to the motor equal to the `motor.voltage_limit`
+
 ```cpp
-voltage_limit = current_limit * phase_resistance; // Amps
+voltage = voltage_limit; // Volts
 ```
+This is very ineficeint, as for different motors with different phase resistances the same voltage values can produce wildly different currents.
+For gimbal motor, you can run it in the open loop with the voltage limits of 5-10 Volts and it will reach the currents of 0.5-2 amps as it has the pahse resistance from 5-15 Ohms. For drone motors, the voltage limits should stay very low, under 1 volt. Because they have pahse resisatnce of 0.05 to 0.2 Ohms.
+
+### Current limiting approaches
+
+We suggest you to provide the motor class with the `phase_resistance` value and set the `motor.current_limit` instead the voltage limit. This current might be surpassed but at least you will know an approximate current your motor is drawing. You can calculate the current the motor is going to be producing by checking the motor resistance `phase_resistance` and evaluating:
+```cpp
+voltage = current_limit * phase_resistance; // Amps
+```
+The best way to use this control strategy would be to provide both phase resistance value and KV rating of your motor. The the library would be able to calculate he back-emf voltage and much more precisely estimate the consumed current. And with the current and the back-emf current the library can set much more appropriate voltage to the motor.
+```cpp
+voltage = current_limit*phase_resistance + desired_velocity/KV; // Amps
+```
+
+### Changing limits in real-time
 
 Also, you can change the voltage/current limit in real-time if you need this kind of behavior in your application.
 
@@ -75,15 +92,13 @@ Here is one basic example of the velocity open-loop control with the complete co
 
 // BLDC motor & driver instance
 // BLDCMotor( pp number , phase resistance)
-BLDCMotor motor = BLDCMotor(11 , 12.5); 
+BLDCMotor motor = BLDCMotor(11 , 12.5, 100); 
 BLDCDriver3PWM driver = BLDCDriver3PWM(9, 5, 6, 8);
-
-//target variable
-float target_velocity = 2; // rad/s
 
 // instantiate the commander
 Commander command = Commander(Serial);
-void doTarget(char* cmd) { command.variable(&target_velocity, cmd); }
+void doTarget(char* cmd) { command.scalar(&motor.target, cmd); }
+void doLimitCurrent(char* cmd) { command.scalar(&motor.current_limit, cmd); }
 
 void setup() {
 
@@ -102,9 +117,11 @@ void setup() {
 
   // init motor hardware
   motor.init();
+  motor.initFOC();
 
   // add target command T
   command.add('T', doTarget, "target velocity");
+  command.add('C', doLimitCurrent, "current limit");
 
   Serial.begin(115200);
   Serial.println("Motor ready!");
@@ -113,10 +130,10 @@ void setup() {
 }
 
 void loop() {
-
+  motor.loopFOC();
   // open loop velocity movement
   // using motor.current_limit and motor.velocity_limit
-  motor.move(target_velocity);
+  motor.move();
 
   // user communication
   command.run();

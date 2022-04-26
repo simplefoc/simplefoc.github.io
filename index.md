@@ -19,12 +19,13 @@ Therefore this is an attempt to:
 - 🎯 Demystify FOC algorithm and make a robust but simple Arduino library: [Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> ](#arduino-simplefoclibrary-v160)
   - <i>Support as many <b>motor + sensor + current sense + driver + mcu</b> combinations out there</i>
 - 🎯 Develop a modular FOC supporting BLDC driver boards:
+   - ***NEW*** 📢: *Minimalistic* BLDC driver (<3Amps) :   [<span class="simple">Simple<b>FOC</b>Mini</span> ](https://github.com/simplefoc/SimpleFOCMini).
    - *Low-power* gimbal driver (<5Amps) :   [Arduino <span class="simple">Simple<b>FOC</b>Shield</span> ](arduino_simplefoc_shield_showcase).
    - *Medium-power* BLDC driver (<30Amps): [Arduino <span class="simple">Simple<b>FOC</b>PowerShield</span> ](https://github.com/simplefoc/Arduino-SimpleFOC-PowerShield).
    - See also [@byDagor](https://github.com/byDagor)'s *fully-integrated* ESP32 based board: [Dagor Brushless Controller](https://github.com/byDagor/Dagor-Brushless-Controller)
 
 <blockquote class="info">
-   <p class="heading">NEW RELEASE 📢: <span class="simple">Simple<span class="foc">FOC</span>library</span> v2.2.2 <a href="https://github.com/simplefoc/Arduino-FOC/releases/tag/v2.2.1">see release</a></p>
+   <p class="heading">NEW RELEASE 📢: <span class="simple">Simple<span class="foc">FOC</span>library</span> v2.2.2 <a href="https://github.com/simplefoc/Arduino-FOC/releases/tag/v2.2.2">see release</a></p>
    <ul>
       <li>GenericCurrentSense bugfix and testing</li>
       <li>bugfix leonardo #170</li>
@@ -35,7 +36,7 @@ Therefore this is an attempt to:
             <li>Current sense API</li>
          </ul>
       </li>
-      <li>New debugging interface
+      <li>New debugging interface - <a href="debugging">see in docs</a>
          <ul dir="auto">
             <li>Static class SimpleFOCDebug</li>
          </ul>
@@ -53,12 +54,13 @@ Therefore this is an attempt to:
             </li>
          </ul>
       </li>
-      <li>New handling of current limit using voltage
+      <li>New appraoch for current estimation for torque control using voltage - <a href="voltage_torque_mode">see in docs </a>
          <ul dir="auto">
             <li>Support for motor KV rating - back emf estimation</li>
             <li>Using motor phase resistance</li>
          </ul>
       </li>
+      <li>KV rating and phase resistance used for open-loop current limiting as well - <a href="open_loop_motion_control">see in docs </a> </li>
    </ul>
 </blockquote>
 
