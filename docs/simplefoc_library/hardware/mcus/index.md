@@ -84,6 +84,7 @@ samd51 | ✔️ | ❌ |  ❌
 teensy | ✔️ | ❌ |  ❌
 Raspberry Pi Pico | ✔️ | ❌ |  ❌
 Portenta H7 | ✔️ | ❌ |  ❌
+nRF52 | ✔️ | ❌ |  ❌
 
 Most of the boards will support inline current sensing, and initial support for the low-side current sensing is available for esp32, samd21 and the stm32 B_G431B_ESC1 board.
 

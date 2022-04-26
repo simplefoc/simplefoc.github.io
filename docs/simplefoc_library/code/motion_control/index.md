@@ -17,7 +17,7 @@ grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>lib
 - [Torque control mode](torque_control) - `motor.torque_controller`
     - Used only in the closed-loop control modes
 
-## Torque control modes
+x## Torque control modes
 There are three torque control types implemented in the <span class="simple">Simple<span class="foc">FOC</span>library</span>:
 - Voltage - `TorqueControlType::voltage`
 - DC current - `TorqueControlType::dc_current`

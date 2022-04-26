@@ -19,7 +19,7 @@ grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</sp
 To initialize the hall sensors you need to provide the pin numbers for `A`, `B` and `C` (sometimes called `U`,`V` and`W`) channel and the number of pole pairs `pp` of the motor.
 ```cpp
 // Hall sensor instance
-// HallSensor(int hallA, int hallB , int cpr, int index)
+// HallSensor(int hallA, int hallB , int hallC , int pp)
 //  - hallA, hallB, hallC    - HallSensor A, B and C pins
 //  - pp                     - pole pairs
 HallSensor sensor = HallSensor(2, 3, 4, 11);
@@ -186,7 +186,7 @@ Here is a quick example using only hardware interrupts:
 #include <SimpleFOC.h>
 
 // Hall sensor instance
-// HallSensor(int hallA, int hallB , int cpr, int index)
+// HallSensor(int hallA, int hallB , int hallC , int pp)
 //  - hallA, hallB, hallC    - HallSensor A, B and C pins
 //  - pp                     - pole pairs
 HallSensor sensor = HallSensor(2, 3, 4, 11);
@@ -230,7 +230,7 @@ Here is a quick example using software interrupts:
 #include <SimpleFOC.h>
 
 // Hall sensor instance
-// HallSensor(int hallA, int hallB , int cpr, int index)
+// HallSensor(int hallA, int hallB , int hallC , int pp)
 //  - hallA, hallB, hallC    - HallSensor A, B and C pins
 //  - pp                     - pole pairs
 HallSensor sensor = HallSensor(2, 3, 4, 11);
