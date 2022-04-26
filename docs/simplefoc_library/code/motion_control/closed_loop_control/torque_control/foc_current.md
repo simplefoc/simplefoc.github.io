@@ -1,10 +1,11 @@
 ---
 layout: default
 title: FOC Current Mode
-parent: Torque Mode
-grand_parent: Motion Control
-grand_grand_parent: Writing the Code
-grand_grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+parent: Torque Control
+grand_parent: Closed-Loop control
+grand_grand_parent: Motion Control
+grand_grand_grand_parent: Writing the Code
+grand_grand_grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 permalink: /foc_current_torque_mode
 nav_order: 3 

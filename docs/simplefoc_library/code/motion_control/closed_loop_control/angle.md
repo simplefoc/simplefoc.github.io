@@ -4,7 +4,7 @@ title: Position Control
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 nav_order: 3
 permalink: /angle_loop
-parent: Closed-Loop Motion control
+parent: Closed-Loop control
 grand_parent: Motion Control
 grand_grand_parent: Writing the Code
 grand_grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>

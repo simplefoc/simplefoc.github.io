@@ -320,6 +320,10 @@ ul.nav-custom-bottom li.nav-item a{
 li.nav-item svg{
     fill: #5c5962;
 }
+
+li.nav-item path{
+    fill: #5c5962;
+}
 li.nav-item:hover {
   background-color: #0099da;
 }
@@ -329,21 +333,27 @@ li.nav-item:hover a{
 li.nav-item:hover svg{
     fill:white;
 }
+li.nav-item:hover path{
+    fill:white;
+}
 
-@media (max-width: 1200px) {
+@media (max-width: 1300px) {
     li.rm-md span{
         display:none;
     }
     .contact-rm{
         display:none;
     }
+    .breadcrumb-nav-list-item.rm-md {
+        display:none;
+    }
 }
-@media (min-width: 1200px) and (max-width: 1300px) {
+@media (min-width: 1300px) and (max-width: 1400px) {
     .search{
         max-width:225px;
     }
 }
-@media (min-width: 853px) and (max-width: 1200px) {
+@media (min-width: 853px) and (max-width: 1300px) {
     .search{
         max-width:220px;
     }

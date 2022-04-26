@@ -20,26 +20,29 @@ The library is intended both for:
 - Beginners searching for a simple and *user-friendly* way to learn how to control BLDC and Stepper motors 
 - Advanced users ready to dig deeper into the FOC algorithm and optimize the code for their particular application/hardware.
 
-## Features
-- **Arduino compatible**: 
-   - Arduino library code
-  - Arduino Library Manager integration
+### Features
+- **Easy install**: 
+   - Arduino IDE: Arduino Library Manager integration
+   - PlatformIO
 - **Open-Source**: Full code and documentation available on github
+- **Goal**: 
+   - Support as many [sensor](position_sensors) + [motor](motors) + [driver](drivers) + [current sense](current_sense)   combination as possible.
+   - Provide the up-to-date and in-depth documentation with API references and the examples
 - **Easy to setup and configure**: 
-  - Easy hardware configuration
-  - Easy [tuning the control loops](motion_control)
-- **Modular**:
-  - Supports multiple motors:
-     - BLDC motors
-     - Stepper motors
-  - Support as many [sensors and  driver boards](supported_hardware) as possible
-  - Supports multiple [MCU architectures](microcontrollers):
-     - Arduino: UNO, MEGA, any board with ATMega328 chips
-     - STM32 boards: [Nucleo](https://www.st.com/en/evaluation-tools/stm32-nucleo-boards.html), [Bluepill](https://stm32-base.org/boards/STM32F103C8T6-Blue-Pill.html) ...
-     - ESP32
-     - Teensy boards
-- **Plug & play**: Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> 
-
+   - Easy hardware configuration 
+   - Each hardware component is a C++ object (easy to understand) 
+   - Easy [tuning the control loops](motion_control)
+   - [*Simple**FOC**Studio*](studio) configuration GUI tool
+   - Built-in communication and monitoring
+- **Cross-platform**:
+   - Seamless code transfer from one microcontroller family to another 
+   - Supports multiple [MCU architectures](microcontrollers):
+      - Arduino: UNO, MEGA, DUE, Leonardo ....
+      - STM32
+      - ESP32
+      - Teensy
+      - many more ...
+      
 ## YouTube demonstration videos
 <iframe class="youtube" src="https://www.youtube.com/embed/Y5kLeqTc6Zk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 

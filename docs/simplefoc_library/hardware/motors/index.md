@@ -10,7 +10,7 @@ has_children: true
 has_toc: false
 ---
 
-# Supported BLDC motors
+# Supported motors
 
 <div class="width60">
 <img src="extras/Images/mot2.jpg" style="width:20%;display:inline"><img src="extras/Images/bigger.jpg" style="width:20%;display:inline"><img src="extras/Images/mot.jpg" style="width:20%;display:inline"><img src="extras/Images/nema17_2.jpg" style="width:20%;display:inline"><img src="extras/Images/nema17_1.jpg" style="width:20%;display:inline">
