@@ -114,7 +114,7 @@ You can also always ask the community for help - <a href="https://community.simp
 // pwm frequency to be used [Hz]
 // for atmega328 fixed to 32kHz
 // esp32/stm32/teensy configurable
-driver.pwm_frequency = 50000;
+driver.pwm_frequency = 20000;
 ```
 <blockquote class="warning">
 ⚠️ Arduino devices based on ATMega328 chips have fixed pwm frequency of 32kHz.
@@ -209,7 +209,7 @@ BLDCDriver6PWM driver = BLDCDriver6PWM(5, 6, 9,10, 3, 11, 8);
 void setup() {
   
   // pwm frequency to be used [Hz]
-  driver.pwm_frequency = 50000;
+  driver.pwm_frequency = 20000;
   // power supply voltage [V]
   driver.voltage_power_supply = 12;
   // Max DC voltage allowed - default voltage_power_supply

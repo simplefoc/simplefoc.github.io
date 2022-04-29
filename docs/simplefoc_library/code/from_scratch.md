@@ -62,7 +62,7 @@ BLDCDriver3PWM driver = BLDCDriver3PWM(9, 5, 6, 8);
 
 void setup() {
   // pwm frequency to be used [Hz]
-  driver.pwm_frequency = 50000;
+  driver.pwm_frequency = 20000;
   // power supply voltage [V]
   driver.voltage_power_supply = 12;
   // Max DC voltage allowed - default voltage_power_supply
