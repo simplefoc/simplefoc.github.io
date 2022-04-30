@@ -30,11 +30,22 @@ BLDCMotor motor = BLDCMotor(11, 10.5, 120);
 ```
 
 <blockquote class="info"><p class="heading">Pole pair number </p>
-If you are not sure what your <code class="highlighter-rouge">pole_paris</code> number is. The library provides an example code to estimate your <code class="highlighter-rouge">pole_paris</code> number in the examples <code class="highlighter-rouge">find_pole_pairs_number.ino</code>.
+If you are not sure what your <code class="highlighter-rouge">pole_paris</code> number is. The library provides an example code to estimate your <code class="highlighter-rouge">pole_paris</code> number in the examples <code class="highlighter-rouge">examples/utils/calibration/find_pole_pairs_number.ino</code>.
 </blockquote>
 
-<blockquote class="info"><p class="heading">KV rating </p>
-If you are not sure what your motor's <code class="highlighter-rouge">KV</code> is. You can easily find it as the velocity of your motor when controlled in the voltage torque control with a setpoint of 1 volt -  <code class="highlighter-rouge">velocity_at_one_volt</code> . The KV rating units are rpm per Volt, and as the <span class="simple">Simple<span class="foc">FOC</span>library</span> works with rad/s rather than rpm. You once when you get the velocity reached with 1 volt setpoint, you can multiply it with \(30/\pi\) - <code class="highlighter-rouge">KV = velocity_at_one_volt * 30/pi</code>
+<blockquote class="warning" markdown="1">
+<p class="heading">RULE OF THUMB: KV value </p>
+We suggest to set the `KV` value provided to the library to 10-20% higher than the one given in the datasheet, or the one determined experimentally.
+</blockquote>
+
+<blockquote class="info" markdown="1">
+<p class="heading">Finding KV rating value </p>
+If you are not sure what your motor's <code class="highlighter-rouge">KV</code> is. You can easily find it as the velocity of your motor when controlled in the voltage torque control with a setpoint of 1 volt -  <code class="highlighter-rouge">velocity_at_one_volt</code> . The KV rating units are rpm per Volt, and as the <span class="simple">Simple<span class="foc">FOC</span>library</span> works with rad/s rather than rpm. You once when you get the velocity reached with 1 volt setpoint, you can multiply it with $$30/\pi$$ 
+
+```cpp
+KV = velocity_at_one_volt * 30/pi
+```
+You can also use the provided libray examples `examples/utils/calibration/find_KV_rating.ino`.
 </blockquote>
 
 
