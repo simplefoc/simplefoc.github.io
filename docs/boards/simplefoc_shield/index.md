@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span>
+parent: <span class="simple">Simple<span class="foc">FOC</span> Boards</span>
 description: "Arduino SimpleFOCShield board showcase."
-nav_order: 2
+nav_order: 1
 permalink: /arduino_simplefoc_shield_showcase
 has_children: true
 has_toc: false
