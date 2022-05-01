@@ -35,7 +35,7 @@ If you are not sure what your <code class="highlighter-rouge">pole_paris</code> 
 
 <blockquote class="warning" markdown="1">
 <p class="heading">RULE OF THUMB: KV value </p>
-We suggest to set the `KV` value provided to the library to 10-20% higher than the one given in the datasheet, or the one determined experimentally.
+We suggest to set the `KV` value provided to the library to 50-70% higher than the one given in the datasheet, or the one determined experimentally. Depending on the motor mechanics the appropriate value will be in between the 100% to 200% of the motor's KV rating.
 </blockquote>
 
 <blockquote class="info" markdown="1">
