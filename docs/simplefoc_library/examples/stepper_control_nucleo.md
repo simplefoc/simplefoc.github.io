@@ -16,6 +16,8 @@ For this stepper motor control example we are going to be using this hardware:
 --- | --- | --- | --- 
 <img src="extras/Images/nucleo.jpg" class="imgtable150"> |  <img src="extras/Images/l298n.jpg" class="imgtable150">  | <img src="extras/Images/enc1.png" class="imgtable150">  | <img src="extras/Images/nema17_2.jpg" class="imgtable150"> 
 
+Download the STL file as well as STEP and solidworks project of the amt103 mount on the nema17 used in the images and the Youtube video [here](extras/nema17_encoder_mount.zip).
+
 # Connecting everything together
 
 Here is an example of the connection scheme using the L298N and Nucleo-64: 
