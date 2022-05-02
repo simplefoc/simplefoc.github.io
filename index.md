@@ -10,6 +10,7 @@ permalink: /
 ![Library Compile](https://github.com/simplefoc/Arduino-FOC/workflows/Library%20Compile/badge.svg)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![arduino-library-badge](https://www.ardu-badge.com/badge/Simple%20FOC.svg?)
+[![status](https://joss.theoj.org/papers/4382445f249e064e9f0a7f6c1bb06b1d/status.svg)](https://joss.theoj.org/papers/4382445f249e064e9f0a7f6c1bb06b1d)
 
 We live in very exciting times 😃! BLDC motors are entering the hobby community more and more and many great projects have already emerged leveraging their far superior dynamics and power capabilities. BLDC motors have numerous advantages over regular DC motors but they have one big disadvantage, the complexity of control. Even though it has become relatively easy to design and manufacture PCBs and create our own hardware solutions for driving BLDC motors the proper low-cost solutions are yet to come. One of the reasons for this is the apparent complexity of writing the BLDC driving algorithms, Field oriented control (FOC) being an example of one of the most efficient ones.
 The solutions that can be found on-line are almost exclusively very specific for certain hardware configuration and the microcontroller architecture used.
@@ -18,54 +19,77 @@ Therefore this is an attempt to:
 - 🎯 Demystify FOC algorithm and make a robust but simple Arduino library: [Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> ](#arduino-simplefoclibrary-v160)
   - <i>Support as many <b>motor + sensor + current sense + driver + mcu</b> combinations out there</i>
 - 🎯 Develop a modular FOC supporting BLDC driver boards:
+   - ***NEW*** 📢: *Minimalistic* BLDC driver (<3Amps) :   [<span class="simple">Simple<b>FOC</b>Mini</span> ](https://github.com/simplefoc/SimpleFOCMini).
    - *Low-power* gimbal driver (<5Amps) :   [Arduino <span class="simple">Simple<b>FOC</b>Shield</span> ](arduino_simplefoc_shield_showcase).
    - *Medium-power* BLDC driver (<30Amps): [Arduino <span class="simple">Simple<b>FOC</b>PowerShield</span> ](https://github.com/simplefoc/Arduino-SimpleFOC-PowerShield).
    - See also [@byDagor](https://github.com/byDagor)'s *fully-integrated* ESP32 based board: [Dagor Brushless Controller](https://github.com/byDagor/Dagor-Brushless-Controller)
 
 <blockquote class="info">
-   <p class="heading">NEW RELEASE 📢: <span class="simple">Simple<span class="foc">FOC</span>library</span> v2.2.1 <a href="https://github.com/simplefoc/Arduino-FOC/releases/tag/v2.2.1">see release</a></p>
+   <p class="heading">NEW RELEASE 📢: <span class="simple">Simple<span class="foc">FOC</span>library</span> v2.2.2 <a href="https://github.com/simplefoc/Arduino-FOC/releases/tag/v2.2.2">see release</a></p>
    <ul>
-      <li>Sensor class init bugfix <a href="https://github.com/simplefoc/Arduino-FOC/issues/121">#121</a></li>
-      <li>Voltage/current limit handling bugs <a href="https://github.com/simplefoc/Arduino-FOC/issues/118">#118</a></li>
-      <li>Added the new motion control interface to the commander <a href="https://docs.simplefoc.com/commander_target">see docs</a>
-      <ul>
-         <li>New target setting - possible to set the position, velocity and torque target at once</li>
-         <li>Separated the motion control interface from full motor callback - only motion control and torque control type, enable disable and target setting</li>
-      </ul>
+      <li>GenericCurrentSense bugfix and testing</li>
+      <li>bugfix leonardo #170</li>
+      <li>bugfix - no index search after specifying natural direction</li>
+      <li>Low level API restructuring
+         <ul dir="auto">
+            <li>Driver API</li>
+            <li>Current sense API</li>
+         </ul>
       </li>
-      <li>New MCU support <a href="https://docs.simplefoc.com/microcontrollers">see docs</a>
-      <ul>
-        <li>NRF52 series mcus support by <a href="https://github.com/Polyphe">@Polyphe</a></li>
-        <li><b>esp32 arduino package transfer to v2.0.1+</b> - helpful <a href="https://github.com/simplefoc/Arduino-FOC/pull/92/149">PR#149</a> by <a href="https://github.com/samguns">samguns</a></li>
-        <li>Initial support for esp32s2 and esp32s3 - separation of the esp32 mcpwm and led implementation</li>
-      </ul>
+      <li>New debugging interface - <a href="debugging">see in docs</a>
+         <ul dir="auto">
+            <li>Static class SimpleFOCDebug</li>
+         </ul>
       </li>
-      <li>Generic sensor class - to implement a new sensor only implement one function <a href="https://docs.simplefoc.com/generic_sensor">see docs</a></li>
-      <li>First release of the <a href="/drivers_library">Drivers Library</a> v1.0.0 to Arduino library manager</li>
-      </ul>
+      <li>CurrentSense API change - added method <code class="highlighter-rouge">linkDriver()</code> - <a href="current_sense">see in docs</a></li>
+      <li>Low-side current sensing - <a href="low_side_current_sense">see in docs</a>
+         <ul dir="auto">
+            <li>ESP32 generic support for multiple motors</li>
+            <li>Added low-side current sensing support for stm32 - only one motor
+            <ul dir="auto">
+               <li>f1 family</li>
+               <li>f4 family</li>
+               <li>g4 family</li>
+            </ul>
+            </li>
+         </ul>
+      </li>
+      <li>New appraoch for current estimation for torque control using voltage - <a href="voltage_torque_mode">see in docs </a>
+         <ul dir="auto">
+            <li>Support for motor KV rating - back emf estimation</li>
+            <li>Using motor phase resistance</li>
+         </ul>
+      </li>
+      <li>KV rating and phase resistance used for open-loop current limiting as well - <a href="open_loop_motion_control">see in docs </a> </li>
+   </ul>
 </blockquote>
 
-
-## Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> <i><small>v2.2.1</small></i>
+## Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> <i><small>v2.2.2</small></i>
 <iframe class="youtube"  src="https://www.youtube.com/embed/Y5kLeqTc6Zk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 This video demonstrates the Simple FOC library basic usage, electronic connections and shows its capabilities.
 
 ### Features
-- **Arduino compatible**: 
-   - Arduino library code
-  - Arduino Library Manager integration
+- **Easy install**: 
+   - Arduino IDE: Arduino Library Manager integration
+   - PlatformIO
 - **Open-Source**: Full code and documentation available on github
+- **Goal**: 
+   - Support as many [sensor](position_sensors) + [motor](motors) + [driver](drivers) + [current sense](current_sense)   combination as possible.
+   - Provide the up-to-date and in-depth documentation with API references and the examples
 - **Easy to setup and configure**: 
-  - Easy hardware configuration
-  - Easy [tuning the control loops](motion_control)
-- **Modular**:
-  - Supports as many [sensors,  BLDC motors  and  driver boards](supported_hardware) as possible
-  - Supports multiple [MCU architectures](microcontrollers):
-     - Arduino: UNO, MEGA, any board with ATMega328 chips
-     - STM32 boards: [Nucleo](https://www.st.com/en/evaluation-tools/stm32-nucleo-boards.html), [Bluepill](https://stm32-base.org/boards/STM32F103C8T6-Blue-Pill.html) ...
-     - ESP32
-     - Teensy boards
-- **Plug & play**: Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> 
+   - Easy hardware configuration 
+   - Each hardware component is a C++ object (easy to understand) 
+   - Easy [tuning the control loops](motion_control)
+   - [*Simple**FOC**Studio*](studio) configuration GUI tool
+   - Built-in communication and monitoring
+- **Cross-platform**:
+   - Seamless code transfer from one microcontroller family to another 
+   - Supports multiple [MCU architectures](microcontrollers):
+      - Arduino: UNO, MEGA, DUE, Leonardo ....
+      - STM32
+      - ESP32
+      - Teensy
+      - many more ...
 
 
 ## Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> <i><small>v2.0.4</small></i>
@@ -97,7 +121,7 @@ These are just a few of the alternative FOC supporting projects which provide ha
 
 <a href="https://odriverobotics.com/" >Odrive</a> | <a href="https://www.youtube.com/watch?v=g2BHEdvW9bU">Trinamic</a> | <a href="https://www.infineon.com/cms/en/product/evaluation-boards/bldc_shield_tle9879/" >Infineon</a> | <a href="https://github.com/gouldpa/FOC-Arduino-Brushless">FOC-Arduino-Brushless</a>
 ------------ | ------------- | ------------ | -------------
-<img src="https://static1.squarespace.com/static/58aff26de4fcb53b5efd2f02/t/5c2c766921c67c143049cbd3/1546417803031/?format=1200w" style="width:100%;max-width:250px"  > | <img src="https://i3.ytimg.com/vi/g2BHEdvW9bU/maxresdefault.jpg" style="width:100%;max-width:250px"  > | <img src="https://www.infineon.com/export/sites/default/_images/product/evaluation-boards/BLDC_Motor_Shild_with_TLE9879QXA40.jpg_1711722916.jpg" style="width:100%;max-width:250px"  >| <img src="https://hackster.imgix.net/uploads/attachments/998086/dev_kit_89eygMekks.jpg?auto=compress%2Cformat&w=1280&h=960&fit=max" style="width:100%;max-width:250px"  >
+<img src="https://images.squarespace-cdn.com/content/v1/58aff26de4fcb53b5efd2f02/1523147803002-0OYG383CVIPARMB6Y9IT/ODrive_v34%400%2C5x.jpg?format=500w" style="width:100%;max-width:250px"  > | <img src="https://i3.ytimg.com/vi/g2BHEdvW9bU/maxresdefault.jpg" style="width:100%;max-width:250px"  > | <img src="https://www.infineon.com/export/sites/default/_images/product/evaluation-boards/BLDC_Motor_Shild_with_TLE9879QXA40.jpg_1711722916.jpg" style="width:100%;max-width:250px"  >| <img src="https://hackster.imgix.net/uploads/attachments/998086/dev_kit_89eygMekks.jpg?auto=compress%2Cformat&w=1280&h=960&fit=max" style="width:100%;max-width:250px"  >
 ✔️ Open Source | ❌ Open Source | ✔️ Open Source(recently) | ✔️ Open Source
 ✔️Simple to use | ✔️ Simple to use | ✔️Simple to use | ❌ Simple to use
 ❌ Low cost ($100) | ❌ Low cost ($100) | ✔️Low cost ($40) | ✔️ Low cost

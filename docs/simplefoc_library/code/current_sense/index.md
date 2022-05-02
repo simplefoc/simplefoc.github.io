@@ -14,13 +14,13 @@ has_toc: False
 Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> has as a goal to support FOC implementation with (at least) three most standard types of current sensing:
 
 - [In-line current sensing](inline_current_sense)
-- [Low-side current sensing](low_side_current_sense) - *initial support*
+- [Low-side current sensing](low_side_current_sense)
 - [High-side current sensing](high_side_current_sense) - *Not supported yet*
 
 
 <img src="extras/Images/comparison_cs.png" class="width40">
 
-up to this moment ( [check the releases <i class="fa fa-tag"></i>](https://github.com/simplefoc/Arduino-FOC/releases) ), Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> supports only in-line current sensing and implements initial support for the low-side current sensing on ESP32 boards (one motor), samd21 (one motor) and on the stm32 based B_G431B_ESC1 boards (one motor). 
+up to this moment ( [check the releases <i class="fa fa-tag"></i>](https://github.com/simplefoc/Arduino-FOC/releases) ), Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> supports in-line current sensing for almost all platforms and low-side current sensing on ESP32 boards, stm32 (f1, f4 and g4 families - one motor), samd21 (one motor) and on the stm32 based B_G431B_ESC1 boards (one motor). 
 
 Each one of the current sensing classes will implement all the necessary functionalities for simple and robust implementation of FOC algorithm:
 - Hardware config
@@ -47,11 +47,14 @@ MCU | In-line | Low-side | High-side
 --- | --- |--- |--- 
 Arduino (8-bit) | ✔️ | ❌ |  ❌
 Arduino DUE  | ✔️ | ❌ |  ❌
-stm32 | ✔️ | ❌ |  ❌
-stm32 B_G431B_ESC1 | ✔️ | ✔️ (initial) |  ❌
-esp32 | ✔️ | ✔️ (initial) |  ❌
+stm32 (in general) | ✔️ | ❌ |  ❌
+stm32f1 family | ✔️ | ✔️ (one motor) |  ❌
+stm32f4 family | ✔️ | ✔️ (one motor) |  ❌
+stm32g4 family | ✔️ | ✔️ (one motor) |  ❌
+stm32 B_G431B_ESC1 | ✔️ | ✔️ |  ❌
+esp32 | ✔️ | ✔️ |  ❌
 esp8266 | ❌ | ❌ |  ❌ 
-samd21 | ✔️ | ✔️ (initial) |  ❌ 
+samd21 | ✔️ | ✔️ (one motor) |  ❌ 
 samd51 | ✔️ | ❌ |  ❌ 
 teensy | ✔️ | ❌ |  ❌
 Raspberry Pi Pico | ✔️ | ❌ |  ❌

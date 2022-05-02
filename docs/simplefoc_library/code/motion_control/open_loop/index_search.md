@@ -3,7 +3,7 @@ layout: default
 title: Index Search loop 
 nav_order: 3
 permalink: /index_search_loop
-parent: Open-Loop Motion control
+parent: Open-Loop control
 grand_parent: Motion Control
 grand_grand_parent: Writing the Code
 grand_grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>

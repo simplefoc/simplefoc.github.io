@@ -29,7 +29,8 @@ When using a standard callback for `BLDCMotor` and `StepperMotor` classes:`comma
   -  **C** - Current  
   -  **U** - Voltage   
   -  **V** - Velocity  
-- **R** - Motor phase resistance               
+- **R** - Motor phase resistance                
+- **K** - Motor KV rating              
 - **S** - Sensor offsets     
   - **M** - sensor offset          
   - **E** - sensor electrical zero             
@@ -70,10 +71,10 @@ For example if you have a BLDC motor added to the `commander`:
 BLDCMotor motor = ....
 Commander commander = ...
 
-void onTarget(char* cmd){ commander.target(&motor,cmd); }
+void onMotor(char* cmd){ commander.motor(&motor,cmd); }
 void setup(){
   ...
-  commander.add('M',onTarget,"my motor motion");
+  commander.add('M',onMotor,"my motor motion");
   ...
 }
 void loop(){

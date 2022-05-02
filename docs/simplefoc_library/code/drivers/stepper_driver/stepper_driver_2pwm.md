@@ -58,7 +58,7 @@ StepperDriver2PWM driver = StepperDriver2PWM(3, 4, 5, 6, 11, 12);
 // pwm frequency to be used [Hz]
 // for atmega328 fixed to 32kHz
 // esp32/stm32/teensy configurable
-driver.pwm_frequency = 50000;
+driver.pwm_frequency = 20000;
 ```
 <blockquote class="warning">
 ⚠️ Arduino devices based on ATMega328 chips have fixed pwm frequency of 32kHz.

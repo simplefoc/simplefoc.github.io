@@ -17,7 +17,7 @@ Motion control interface in the `Commander` can be integrated in user's applicat
 - [Motion control interface](#motion-control-interface) - `commander.motion(&motor,cmd)`
     - Set the target value along will all the limits in one command
     - Change the [motion control](motion_control) mode
-    - Change the [torque control](torque_mode) mode
+    - Change the [torque control](torque_control) mode
     - Enable/Disable the motor mode
 - [Full configuration interface](commander_motor) - `commander.motor(&motor,cmd)` 
     - All above + full parameter configuration of the motor...

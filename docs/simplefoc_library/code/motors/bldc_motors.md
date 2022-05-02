@@ -18,23 +18,50 @@ All BLDC motors are handled with the `BLDCMotor` class. This class implements:
 - BLDC FOC algorithm
 - Motion control loops
 - Monitoring
-- User communication interface
 
 ## Step 1. Creating the instance of the BLDC motor
 To instantiate the BLDC motor we need to create an instance of the `BLDCMotor` class and provide it the number of `pole pairs` of the motor.
 ```cpp
-//  BLDCMotor(int pp, (optional R))
+//  BLDCMotor(int pp, (optional R, KV))
 //  - pp  - pole pair number
 //  - R   - phase resistance value - optional
-BLDCMotor motor = BLDCMotor(11 , 10.5);
+//  - KV  - motor KV rating [rpm/V] - optional
+BLDCMotor motor = BLDCMotor(11, 10.5, 120);
 ```
 
 <blockquote class="info"><p class="heading">Pole pair number </p>
-If you are not sure what your <code class="highlighter-rouge">pole_paris</code> number is. The library provides an example code to estimate your <code class="highlighter-rouge">pole_paris</code> number in the examples <code class="highlighter-rouge">find_pole_pairs_number.ino</code>.
- </blockquote>
-<blockquote class="info"><p class="heading">Phase resisatnce </p>
-If you know in advance your motor's phase resistance value <code class="highlighter-rouge">R</code>, we suggest you to provide it to the library. The library will then calculate the voltage values internally and  the user will be dealing only with currents. But this is an optional feature.
- </blockquote>
+If you are not sure what your <code class="highlighter-rouge">pole_paris</code> number is. The library provides an example code to estimate your <code class="highlighter-rouge">pole_paris</code> number in the examples <code class="highlighter-rouge">examples/utils/calibration/find_pole_pairs_number.ino</code>.
+</blockquote>
+
+<blockquote class="warning" markdown="1">
+<p class="heading">RULE OF THUMB: KV value </p>
+We suggest to set the `KV` value provided to the library to 50-70% higher than the one given in the datasheet, or the one determined experimentally. Depending on the motor mechanics the appropriate value will be in between the 100% to 200% of the motor's KV rating.
+</blockquote>
+
+<blockquote class="info" markdown="1">
+<p class="heading">Finding KV rating value </p>
+If you are not sure what your motor's <code class="highlighter-rouge">KV</code> is. You can easily find it as the velocity of your motor when controlled in the voltage torque control with a setpoint of 1 volt -  <code class="highlighter-rouge">velocity_at_one_volt</code> . The KV rating units are rpm per Volt, and as the <span class="simple">Simple<span class="foc">FOC</span>library</span> works with rad/s rather than rpm. You once when you get the velocity reached with 1 volt setpoint, you can multiply it with $$30/\pi$$ 
+
+```cpp
+KV = velocity_at_one_volt * 30/pi
+```
+You can also use the provided libray examples `examples/utils/calibration/find_KV_rating.ino`.
+</blockquote>
+
+
+### Motor phase reistance and KV rating 
+Providing the KV rating in combination with the phase resistance (not very used for current based torque modes `foc_current` and `dc_current`) will enable the user to control the motor's current without measuring it. The user will be able to control (and limit) the estimated current of the motor using the voltage control mode. Read more in the [torque control docs](voltage_torque_mode).
+
+Working with currents instead of voltages is better in may ways, since the torque of the BLDC motor is proportional to the current and not voltages and especially since the same voltage value will produce very different currents for different motors (due to the different phase resistance). Once when the phase resistance is provided the user will be able to set current limit for its BLDC motor instead of voltage limit which is much easier to understand. 
+
+It is important to say that once you specify the phase resistance value, you will most probably have to retune the [velocity motion control](velocity_loop) and [angle motion control](angle_loop) parameters, due to the reason that the voltages and currents values are in different orders of magnitude. The rule of thumb is to divide all the `P`, `I` and `D` gains with the `motor.phase_resistance` value. That will be a good staring point.
+
+Finally, this parameter is suggested to be used if one whats to switch in real time in between voltage ([voltage mode](voltage_mode)) and current based ([DC current](dc_current_torque_mode) and [FOC current](foc_current_torque_mode)) torque control strategies. Since in this way all the torque control loops will have current as input (target value) the user will not have to change the motion control parameters (PID values). 
+
+<blockquote class="info">
+<p class="heading">Open-loop motion control will use KV and phase resitance values  </p>
+KV rating and the pahse resitance values will be used in te open loop contol as well to let the user to limit the current drawn by the motor instead of limitting the volatge. Read more in the <a href="open_loop_motion_control">open-loop motion control docs</a>.
+</blockquote>
 
 ## Step 2. Linking the sensor 
 Once when you have the `motor` defined and the sensor initialized you need to link the `motor` and the `sensor` by executing:    
@@ -115,27 +142,26 @@ motor.sensor_offset = 0; // default 0 rad
 ```
 This parameter can be changed in real-time.
 
-### Step 5.3 Motor phase resistance
-Motor phase resistance is an optional parameter which is not very important for current based torque modes, but if the voltage mode is used and if user specifies the `motor.phase_resistance` (either in constructor or in the `setup()` function) the library will allow user to work with current value and it will calculate the necessary voltages automatically. In the setup function you can change this parameter by setting:
+
+### Step 5.4 Motor phase resistance and KV rating
+
+Motor phase resistance and KV rating are optional parameters which are not used for current based torque modes. These variables are used to estimate the motor current in the voltage torque mode and for open-loop motion control. If user specifies the `motor.phase_resistance` and `motor.KV_rating` (either in constructor or in the `setup()` function) the library will allow user to work with current value and it will calculate the necessary voltages automatically. In the setup function you can change this parameter by setting:
 ```cpp
 // motor phase resistance [Ohms]
 motor.phase_resistance = 2.54; // Ohms - default not set
+// motor KV rating [rpm/V]
+motor.KV_rating = 100; // rpm/volt - default not set
 ```
-Working with currents instead of voltages is better in may ways, since the torque of the BLDC motor is proportional to the current and not voltages and especially since the same voltage value will produce very different currents for different motors (due to the different phase resistance). Once when the phase resistance is provided the user will be able to set current limit for its BLDC motor instead of voltage limit which is much easier to understand. 
 
-It is important to say that once you specify the phase resistance value, you will most probably have to retune the [velocity motion control](velocity_loop) and [angle motion control](angle_loop) parameters, due to the reason that the voltages and currents values are in different orders of magnitude. The rule of thumb is to divide all the `P`, `I` and `D` gains with the `motor.phase_resistance` value. That will be a good staring point.
+Read more in the [torque control docs](voltage_torque_mode).
 
-Finally, this parameter is suggested to be used if one whats to switch in real time in between voltage ([voltage mode](voltage_mode)) and current based ([DC current](dc_current_torque_mode) and [FOC current](foc_current_torque_mode)) torque control strategies. Since in this way all the torque control loops will have current as input (target value) the user will not have to change the motion control parameters (PID values). 
-
-Phase resistance can be changed in real-time if needed.
-
-### Step 5.4 Torque control mode
+### Step 5.5 Torque control mode
 There are 3 different torque control modes implemented in the Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>: 
 - [Voltage mode](voltage_mode)
 - [DC current](dc_current_torque_mode)
 - [FOC current](foc_current_torque_mode)
 
-[DC current](dc_current_torque_mode) and [FOC current](foc_current_torque_mode) require current sensing and are controlling current and limiting the real current the motor is drawing, whereas [voltage mode](voltage_mode) approximates the motor current and does not use any current sensing. Read more in [torque control docs](torque_mode).
+[DC current](dc_current_torque_mode) and [FOC current](foc_current_torque_mode) require current sensing and are controlling current and limiting the real current the motor is drawing, whereas [voltage mode](voltage_mode) approximates the motor current and does not use any current sensing. Read more in [torque control docs](torque_control).
 
 The torque mode can be set by changing the motor attribute `torque_controller`.
 ```cpp
@@ -146,10 +172,10 @@ The torque mode can be set by changing the motor attribute `torque_controller`.
 motor.torque_controller = TorqueControlType::foc_current;
 ```
 
-### Step 5.5 Motion control parameters  
+### Step 5.6 Motion control parameters  
 
 There are 3 different closed loop control strategies implemented in the Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>: 
-- [Torque control loop](voltage_loop)
+- [Torque control loop](torque_control)
 - [Velocity motion control](velocity_loop)
 - [Position/angle motion control](angle_loop)
 
@@ -170,8 +196,6 @@ motor.controller = MotionControlType::angle;
 <blockquote class="warning"><p class="heading"> Important!</p>This parameter doesn't have a default value and it has to be set before real-time execution starts.</blockquote>
 
 Each motion control strategy has its own parameters and you can find more about them on [motion control docs](motion_control). 
-
-Here is the list of all the motion control configuration parameters:
 ```cpp
 // set control loop type to be used
 motor.controller = MotionControlType::angle;
@@ -180,19 +204,12 @@ motor.controller = MotionControlType::angle;
 motor.PID_velocity.P = 0.2;
 motor.PID_velocity.I = 20;
 motor.PID_velocity.D = 0.001;
-// jerk control it is in Volts/s or Amps/s
-// for most of applications no change is needed 
-motor.PID_velocity.output_ramp = 1e6;
 
 // velocity low pass filtering time constant
 motor.LPF_velocity.Tf = 0.01;
 
 // angle loop controller
 motor.P_angle.P = 20;
-motor.P_angle.I = 0; // usually set to 0  - P controller is enough
-motor.P_angle.D = 0; // usually set to 0  - P controller is enough
-// acceleration limit
-motor.P_angle.output_ramp = 1e6;
 
 // motion control limits
 // angle loop velocity limit
@@ -200,10 +217,10 @@ motor.velocity_limit = 50;
 // either voltage limit
 motor.voltage_limit = 12; // Volts -  default driver.voltage_limit
 // or current limit - if phase_resistance set
-motor.current_limit = 12; // Amps -  default 0.5 Amps
+motor.current_limit = 1; // Amps -  default 2 Amps
 ```  
 
-### Step 5.6 Configuration done - `motor.init()`
+### Step 5.7 Configuration done - `motor.init()`
 Finally the configuration is terminated by running `init()` function which prepares all the hardware and software motor components using the configured values.
 ```cpp
 // initialize motor
@@ -327,7 +344,7 @@ The `move()` method executes the motion control loops of the algorithm. If is go
 It receives one parameter `float target` which is current user defined target value.
 - If the user runs [velocity loop](velocity_loop) or [velocity open-loop](velocity_openloop), `move` function will interpret `target` as the target velocity.
 - If the user runs [angle loop](angle_loop) or [angle open-loop](angle_openloop), `move` will interpret `target` parameter as the target angle. 
-- If the user runs the [torque loop](voltage_loop), `move` function will interpret the `target` parameter as either voltage <i>u<sub>q</sub></i> or current <i>i<sub>q</sub></i> (if phase resistance provided). 
+- If the user runs the [torque loop](torque_control), `move` function will interpret the `target` parameter as either voltage <i>u<sub>q</sub></i> or current <i>i<sub>q</sub></i> (if phase resistance provided). 
 
 The `target` parameter is optional and if it is not set, the target value will be set by the public motor variable `motor.target`. The equivalent code would be:
 

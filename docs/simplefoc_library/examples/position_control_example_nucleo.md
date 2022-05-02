@@ -195,7 +195,7 @@ void loop(){
 
 And that is it, we everything configured and ready to go, let's see the full code!
 
-For more info about the [monitoring](monitoring) and [motor commands](communicaiton) visit the [Writing the Code section](code).
+For more info about the [monitoring](monitoring) and [motor commands](communication) visit the [Writing the Code section](code).
 
 ## Full Arduino code
 

@@ -1,0 +1,9 @@
+name: simpledocs
+channels:
+  - defaults
+dependencies:
+  - python
+  - compilers
+  - c-compiler
+  - cxx-compiler
+  - ruby

@@ -245,6 +245,18 @@ Commander provides a very simple way to extend the command list and implement ne
 - [Custom commands](commander_custom) - create your own callbacks
 
 
+## Commander with Serial Monitor in Arudino IDE
+
+
+Once the commander interface is added to the code you will be able to communicate to it using the Serial Monitor of the Arduino IDE
+
+<img src="extras/Images/commander.png">
+
+Commander paramters in the serial monitor are the same as for every other Arduino code working with the `Serial`. 
+Make sure to:
+- Set the baudrate number the same as in the `ino` file : for examle if in the `ino` file you have `Serial.begin(115200)`, the baud rate should be `115200`
+- Make sure to set the termination character to `newline`
+
 ## *Simple**FOC**Studio* by [@JorgeMaker](https://github.com/JorgeMaker)
 
 SimpleFOCStudio is an awesome application built by [@JorgeMaker](https://github.com/JorgeMaker) which we will try to keep up to date with out library. It is a python application that uses commander interface for tunning and configuring the motor. 

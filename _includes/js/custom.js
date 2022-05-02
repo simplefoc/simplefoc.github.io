@@ -13,6 +13,8 @@ var libraires =[
     "MagneticSensorI2C.h",
     "MagneticSensorPWM.h",
     "MagneticSensorAnalog.h",
+    "LowsideCurrentSense.h",
+    "InlineCurrentSense.h",
     "MySensor.h",
     "Sensor.h"
 ]
@@ -53,7 +55,8 @@ var defines =[
     "_2PI",
     "HIGH",
     "LOW",
-    "DEF_VEL_LIM"
+    "DEF_VEL_LIM",
+    "_NC"
 ]
 
 var classNames = [
@@ -79,6 +82,7 @@ var classNames = [
     "LowPassFilter",
     "PIDController",
     "InlineCurrentSense",
+    "LowsideCurrentSense",
     "CurrentSense",
     "StepDirListener",
     "Commander",
@@ -97,7 +101,9 @@ var classProps = [
     "quadrature",
     "pullup",
     "voltage_limit",
+    "current_limit",
     "voltage_power_supply",
+    "controller",
     "index_search_velocity",
     "controller",
     "velocity_limit",
@@ -154,6 +160,7 @@ var funcNames = [
     "getCurrent",
     "getPhaseCurrents",
     "getFOCCurrents",
+    "getDCCurrent",
     "driverAlign",
     "setPhaseState",
     "handle",
