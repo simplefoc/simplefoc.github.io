@@ -33,7 +33,7 @@ This makes it a bit more clear what the time constant `Tf` of the Low pass filte
 alpha = 0.01/(0.01 + 0.001) = 0.91
 ```
 
-Which means that your actual velocity measurement <i>v</i> will influence the filtered value <i>v<sub>f</sub><i> with the coefficient `1-alpha = 0.09` which is going to smooth the velocity values considerably (maybe even too much, depends of the application).
+Which means that your actual velocity measurement <i>v</i> will influence the filtered value <i>v<sub>f</sub><i> with the coefficient `1-alpha = 0.09` which is going to smooth the velocity values considerably (maybe even too much, depending on the application).
 
 
 ## Implementation details

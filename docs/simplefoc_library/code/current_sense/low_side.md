@@ -67,7 +67,7 @@ driver.pwm_frequency = 20000;
 
 ####  2. PWM pin considerations
 
-As ADC conversion has to be synchronised with the PWM generated on ALL the phases, it is important that all the PWM generated for all the phases have aligned PWM. Since the microcontrollers usually have more than one timer for PWM generation on its pins, different architectures of microcontrollers have different degrees of alinement in between the PWM generated from different timers.
+As ADC conversion has to be synchronised with the PWM generated on ALL the phases, it is important that all the PWM generated for all the phases have aligned PWM. Since the microcontrollers usually have more than one timer for PWM generation on its pins, different architectures of microcontrollers have different degrees of alignment in between the PWM generated from different timers.
 
 
 <blockquote class="info">
@@ -171,10 +171,10 @@ else{
 }
 ```
 
-Once when your current sense has been intialised and calibrated you can start measuring the currents!
+When your current sense has been intialised and calibrated you can start measuring the currents!
 
 ## Using the current sense with FOC algorithm
-To use the `LowsideCurrentSense` with the FOC algorithm all you need to do is to add it to link it with the `BLDCMotor` you wish to use it with:
+To use the `LowsideCurrentSense` with the FOC algorithm all you need to do is link it with the `BLDCMotor` you wish to use it with:
 ```cpp
 // link motor and current sense
 motor.linkCurrentSense(&current_sense);
@@ -272,7 +272,7 @@ See the full example for the Aliexpress DRB8302 based board in the library examp
 ## Standalone current sense
 
 Since the low-side current sense has to be synchornised with PWM of a driver of interest it does not make sense to use it as a stand-alone sensor.
-But once when you linked the current sense with the `BLDCMotor` you can use it to read your phase currents, overall current magnitude and DQ currents.
+But once you have linked the current sense with the `BLDCMotor` you can use it to read your phase currents, overall current magnitude and DQ currents.
 
 Reading the phase currents can be done by calling:
 ```cpp

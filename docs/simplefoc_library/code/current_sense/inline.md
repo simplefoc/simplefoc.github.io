@@ -10,14 +10,14 @@ grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</sp
 
 # In-line current sensing
 
-Inline current sensing technique is the simplest one to use and the most precise one. The shunt resistors are placed in-line with motor phases and the current measured on these shunt resistors will be motor phase current regardless of the state of the PWM duty cycle. This implementation is therefore very suitable for Arduino devices due to the fact that adc can be sampled at any time to read the current and the adc acquisition duration is as important as for the other current sensing approaches. The downside of this approach is the hardware, this current sensing architecture requirers high-precision bidirectional amplifiers with much better PWM rejection than the regular low-side or high-side amplifiers. 
+Inline current sensing technique is the simplest one to use and the most precise one. The shunt resistors are placed in-line with motor phases and the current measured on these shunt resistors will be motor phase current regardless of the state of the PWM duty cycle. This implementation is therefore very suitable for Arduino devices due to the fact that adc can be sampled at any time to read the current and the adc acquisition duration is not as important as for the other current sensing approaches. The downside of this approach is the hardware, this current sensing architecture requires high-precision bidirectional amplifiers with much better PWM rejection than the regular low-side or high-side amplifiers. 
 
 <img src="extras/Images/in-line.png" class="width60"><img src="extras/Images/comparison_cs.png" class="width30">
 
 
 ## Current sensing support per MCU architecture
 
-In-line current sensing is currently supported for almost all MCU architectures supported by the <span class="simple">Simple<span class="foc">FOC</span>library</span>. Only not supported architecture is teh ESP8266 which does not have 2 ADC pins, making it unable to run FOC. 
+In-line current sensing is currently supported for almost all MCU architectures supported by the <span class="simple">Simple<span class="foc">FOC</span>library</span>. Only not supported architecture is the ESP8266 which does not have 2 ADC pins, making it unable to run FOC. 
     
 MCU | In-line Current sensing
 --- | --- 
@@ -44,7 +44,7 @@ Portenta H7 | ✔️
 //  - phC   - C phase adc pin (optional)
 InlineCurrentSense current_sense  = InlineCurrentSense(0.01, 20, A0, A1, A2);
 ```
-To instantiate the inline current sensor using the <span class="simple">Simple<span class="foc">FOC</span>library</span> just create an instance of the class `InlineCurrentSense`. This class takes as a parameter shunt resistance value `shunt_resistor`, amplification gain `gain` and two or three ADC channel pins depending on the available measuring hardware that you might have. It is important to specify right adc channels for right driver/motor phase. So if your pin `A0` measures the phase current `A` and pin `A1` measures the phase current `B` make sure to put provide them to the constructor in that order. 
+To instantiate the inline current sensor using the <span class="simple">Simple<span class="foc">FOC</span>library</span> just create an instance of the class `InlineCurrentSense`. This class takes as a parameter shunt resistance value `shunt_resistor`, amplification gain `gain` and two or three ADC channel pins depending on the available measuring hardware that you might have. It is important to specify right adc channels for right driver/motor phase. So if your pin `A0` measures the phase current `A` and pin `A1` measures the phase current `B` make sure to provide them to the constructor in that order. 
 
 ### Measuring 2 out of 3 currents
 Field Oriented Control algorithm can run with both 2 or 3 phase current measurements.  If measuring 2 out of 3 currents, when defining your `InlineCurrentSense` class put the flag `_NC` (not connected) to the phase value you are not using.

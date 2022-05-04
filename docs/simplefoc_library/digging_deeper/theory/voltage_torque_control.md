@@ -26,13 +26,13 @@ Therefore as for the DC motor we know that the motor torque `T` is directly prop
 T = I*K 
 ```
 Where `K` is the motor constant defined by its hardware.
-And we also know that the curren is proportional to the set voltage `U`:
+And we also know that the current is proportional to the set voltage `U`:
 
 ```cpp
 I  = (U - EMF)/R
 ```
 
-Where `R` is the motor resistance and `EMF` is the generated back EMF voltage. Thi equation doesn't take in consideration any dynamics but in general it works good enough. 
+Where `R` is the motor resistance and `EMF` is the generated back EMF voltage. This equation doesn't take in consideration any dynamics but in general it works good enough. 
 
 So what we can conclude from all this is that (if we neglect the EMF):
 ```cpp

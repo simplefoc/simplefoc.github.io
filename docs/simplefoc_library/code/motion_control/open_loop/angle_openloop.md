@@ -71,12 +71,12 @@ The angle open-loop control will (if not provided phase resistance) set the volt
 ```cpp
 voltage = voltage_limit; // Volts
 ```
-This is very ineficeint, as for different motors with different phase resistances the same voltage values can produce wildly different currents.
-For gimbal motor, you can run it in the open loop with the voltage limits of 5-10 Volts and it will reach the currents of 0.5-2 amps as it has the pahse resistance from 5-15 Ohms. For drone motors, the voltage limits should stay very low, under 1 volt. Because they have pahse resisatnce of 0.05 to 0.2 Ohms.
+This is very inefficient, as for different motors with different phase resistances the same voltage values can produce wildly different currents.
+For gimbal motor, you can run it in the open loop with the voltage limits of 5-10 Volts and it will reach the currents of 0.5-2 amps as it has the phase resistance from 5-15 Ohms. For drone motors, the voltage limits should stay very low, under 1 volt. Because they have phase resisatnce of 0.05 to 0.2 Ohms.
 
 ### Current limiting approaches
 
-We suggest you to provide the motor class with the `phase_resistance` value and set the `motor.current_limit` instead the voltage limit. This current might be surpassed but at least you will know an approximate current your motor is drawing. You can calculate the current the motor is going to be producing by checking the motor resistance `phase_resistance` and evaluating:
+We suggest you to provide the motor class with the `phase_resistance` value and set the `motor.current_limit` instead of the voltage limit. This current might be surpassed but at least you will know an approximate current your motor is drawing. You can calculate the current the motor is going to be producing by checking the motor resistance `phase_resistance` and evaluating:
 ```cpp
 voltage = current_limit * phase_resistance; // Amps
 ```
