@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Contact
+title: Contact and Contributing
 nav_order: 9
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 permalink: /contact
