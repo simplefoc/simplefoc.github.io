@@ -16,6 +16,8 @@ grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>lib
 <img src="extras/Images/arduino_uno.jpg" class="imgtable150"> |  <img src="extras/Images/shield_to_v13.jpg" class="imgtable150">  | <img src="extras/Images/enc1.png" class="imgtable150"> | <img src="extras/Images/as5600.jpg" class="imgtable150">  | <img src="extras/Images/mot.jpg" class="imgtable150"> 
 
 
+Download the STL file as well as STEP and solidworks project of the amt103 mount for the GM4108H used in the images and the Youtube video [here](extras/gm4108_encoder_mount.zip).
+
 ## Connecting everything together
 Here is a picture of the setup used in this project. Check the Arduino code to see the pin numbers that are used.
 
