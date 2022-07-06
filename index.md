@@ -24,6 +24,15 @@ Therefore this is an attempt to:
    - *Medium-power* BLDC driver (<30Amps): [Arduino <span class="simple">Simple<b>FOC</b>PowerShield</span> ](https://github.com/simplefoc/Arduino-SimpleFOC-PowerShield).
    - See also [@byDagor](https://github.com/byDagor)'s *fully-integrated* ESP32 based board: [Dagor Brushless Controller](https://github.com/byDagor/Dagor-Brushless-Controller)
 
+
+<blockquote class="success">
+<p class="heading">NEWS 📢: <span class="simple">Simple<span class="foc">FOC</span>library</span> has been published in the Journal of Open Source Software <a href="citing">read more</a></p>
+
+SimpleFOC: A Field Oriented Control (FOC) Library for Controlling Brushless Direct Current (BLDC) and Stepper Motors.<br>
+A. Skuric, HS. Bank, R. Unger, O. Williams, D. González-Reyes<br>
+Journal of Open Source Software, 7(74), 4232<br>
+</blockquote>
+
 <blockquote class="info">
    <p class="heading">NEW RELEASE 📢: <span class="simple">Simple<span class="foc">FOC</span>library</span> v2.2.2 <a href="https://github.com/simplefoc/Arduino-FOC/releases/tag/v2.2.2">see release</a></p>
    <ul>
