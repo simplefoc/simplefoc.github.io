@@ -26,7 +26,7 @@ where:
 
 <p><img src="./extras/Images/alpha.png" /></p>
 
-This makes it a bit more clear what the time constant `Tf` of the Low pass filter stands for. If your sample time is around 1millisecond (for arduino UNO this can be taken as an average) then setting the
+This makes it a bit more clear what the time constant `Tf` of the Low pass filter stands for. If your sample time is around 1millisecond (for Arduino UNO this can be taken as an average) then setting the
 `Tf` value to `Tf = 0.01` will result in:
 
 ```cpp

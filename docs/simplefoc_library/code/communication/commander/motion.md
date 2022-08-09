@@ -25,7 +25,7 @@ Motion control interface in the `Commander` can be integrated in user's applicat
 
 
 ## Target setting in one line
-Commander interface enables the user to set the target value for the motion control as well as the limits at once. However different motion control strategies have different numbers of limits (angle, velocity, torque) so depending of the motion control mode used the behavior of the command will change:
+Commander interface enables the user to set the target value for the motion control as well as the limits at once. However different motion control strategies have different numbers of limits (angle, velocity, torque) so depending of the motion control mode used the behaviour of the command will change:
 
 This feature is available to the user if any one of the three interfaces is added to the `Commander`.
 

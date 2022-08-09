@@ -37,11 +37,11 @@ sensor.pullup = Pullup::USE_INTERN;
 ## Step 3. Interrupt setup
 There are two ways you can run hall sensors with Simple FOC library.
 - Using [hardware external interrupt](#hardware-external-interrupt) 
-   - Arduino UNO(Atmega328) pins `2` and `3`
+   - Arduino UNO(ATmega328) pins `2` and `3`
    - STM32 boards any pin
    - ESP32 any pin
 - Using [software pin change interrupt](#software-pin-change-interrupt) by using a library such as [PciManager library](https://github.com/prampec/arduino-pcimanager)
-   - Only for Arduino devices (Atmga328 and Atmage2560)
+   - Only for Arduino devices (ATmega328 and ATmega2560)
 
 <blockquote class="warning"><p class="heading">Software interrupts</p> Using the hardware external interrupts usually results in better and more reliable performance but software interrupts will work very well for lower velocities. Especially on boards that just don't have enough hardware interrupt pins, having this functionality basically enables FOC on these boards.</blockquote>
 
@@ -86,7 +86,7 @@ void setup(){
 
 ### Software pin change interrupt
 
-For Arduino Uno and boards using Atmega328 chipd, we will have to use the software interrupt library to use Hall senors with this library, because we will need three interrupt pins and Atmega328 has only 2.  
+For Arduino UNO and other boards using ATmega328 chips, we will have to use the software interrupt library to use Hall senors with this library, because we will need three interrupt pins and ATmega328 has only 2.  
 I suggest using the [PciManager library](https://github.com/prampec/arduino-pcimanager).
 
 The steps of using this library in code are very similar to [hardware interrupt](#arduino-hardware-external-interrupt).

@@ -80,7 +80,7 @@ We suggest you to provide the motor class with the `phase_resistance` value and 
 ```cpp
 voltage = current_limit * phase_resistance; // Amps
 ```
-The best way to use this control strategy would be to provide both phase resistance value and KV rating of your motor. The the library would be able to calculate he back-emf voltage and much more precisely estimate the consumed current. And with the current and the back-emf current the library can set much more appropriate voltage to the motor.
+The best way to use this control strategy would be to provide both phase resistance value and KV rating of your motor. The the library would be able to calculate he back-EMF voltage and much more precisely estimate the consumed current. And with the current and the back-EMF current the library can set much more appropriate voltage to the motor.
 ```cpp
 voltage = current_limit*phase_resistance + desired_velocity/KV; // Amps
 ```

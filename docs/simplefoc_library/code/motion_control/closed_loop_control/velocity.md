@@ -20,7 +20,7 @@ You can test this algorithm by running the examples in the `motion_control/veloc
 
 
 ## How it works
-The velocity control closes the control loop around the torque control, regardless which one it is. If it is the voltage mode without phase resistance set, the velocity motion control will set the the torque command using the voltage <i>U<sub>q</sub></i>::
+The velocity control closes the control loop around the torque control, regardless which one it is. If it is the voltage mode without phase resistance set, the velocity motion control will set the the torque command using the voltage <i>U<sub>q</sub></i>:
 
 <img src="extras/Images/velocity_loop_v.png" >
 

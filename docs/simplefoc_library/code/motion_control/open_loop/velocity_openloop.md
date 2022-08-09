@@ -64,7 +64,7 @@ The velocity open-loop control will (if not provided phase resistance) set the v
 ```cpp
 voltage = voltage_limit; // Volts
 ```
-This is very ineficeint, as for different motors with different phase resistances the same voltage values can produce wildly different currents.
+This is very inefficient, as for different motors with different phase resistances the same voltage values can produce wildly different currents.
 For gimbal motor, you can run it in the open loop with the voltage limits of 5-10 Volts and it will reach the currents of 0.5-2 amps as it has the pahse resistance from 5-15 Ohms. For drone motors, the voltage limits should stay very low, under 1 volt. Because they have pahse resisatnce of 0.05 to 0.2 Ohms.
 
 ### Current limiting approaches
@@ -73,7 +73,7 @@ We suggest you to provide the motor class with the `phase_resistance` value and 
 ```cpp
 voltage = current_limit * phase_resistance; // Amps
 ```
-The best way to use this control strategy would be to provide both phase resistance value and KV rating of your motor. The the library would be able to calculate he back-emf voltage and much more precisely estimate the consumed current. And with the current and the back-emf current the library can set much more appropriate voltage to the motor.
+The best way to use this control strategy would be to provide both phase resistance value and KV rating of your motor. The the library would be able to calculate he back-EMF voltage and much more precisely estimate the consumed current. And with the current and the back-EMF current the library can set much more appropriate voltage to the motor.
 ```cpp
 voltage = current_limit*phase_resistance + desired_velocity/KV; // Amps
 ```
@@ -84,7 +84,7 @@ Also, you can change the voltage/current limit in real-time if you need this kin
 
 ## Velocity open-loop control example
 
-Here is one basic example of the velocity open-loop control with the complete configuration. The program will set the target velocity of `2 RAD/s` and maintain it, and the user cna change the target velocity using serial terminal.
+Here is one basic example of the velocity open-loop control with the complete configuration. The program will set the target velocity of `2 RAD/s` and maintain it, and the user can change the target velocity using serial terminal.
 
 ```cpp
 // Open loop motor control example

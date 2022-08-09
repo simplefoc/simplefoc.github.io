@@ -34,23 +34,23 @@ encoder.quadrature = Quadrature::OFF;
 ```
 <blockquote class="warning"><p class="heading">CPR, PPR?!</p> PPR (pulses per revolution) - this is the physical number of impulses the encoder has per revolution. CPR (counts per revolution) - this is amount you are going to have in your counter after the full rotation of the encoder. Now depending on whether you use quadrature mode (counting each edge of the impulse) or not (counting just the rising edge) you will have different CPR for the same PPR. For quadrature mode you will have CPR = 4xPPR and if not using quadrature mode you will have CPR=PPR</blockquote>
 
-Additionally the encoder has one more important parameter and this is the pullup location. MAny encoders require pullups and in cases when you have an encoder that needs one and you don't have one on your hands you can use Arduino pullups. That is set by changing the value of the `encoder.pullup` variable. The default value is set to `Pullup::USE_EXTERN` but if you would like to change it to use the MCU ones do:
+Additionally the encoder has one more important parameter and this is the pullup location. Many encoders require pullups and in cases when you have an encoder that needs one and you don't have one on your hands you can use Arduino pullups. That is set by changing the value of the `encoder.pullup` variable. The default value is set to `Pullup::USE_EXTERN` but if you would like to change it to use the MCU ones do:
 ```cpp
 // check if you need internal pullups
 // Pullup::USE_EXTERN - external pullup added  - default
 // Pullup::USE_INTERN - needs internal arduino pullup
 encoder.pullup = Pullup::USE_INTERN;
 ```
-<blockquote class="warning"><p class="heading">Arduino Pullup 20kΩ</p> Be careful when using internal pullups, Arduino has relatively high valued pullups around 20kΩ, which means that you might have some problems for higher velocities (for shorted impulse durations). Recommended pull-up values are in between 1kΩ and 5kΩ.</blockquote>
+<blockquote class="warning"><p class="heading">Arduino Pullup 20kΩ</p> Be careful when using internal pullups, Arduino has relatively high valued pullups around 20kΩ, which means that you might have some problems for higher velocities (for shorted impulse durations). Recommended pull-up values are between 1kΩ and 5kΩ.</blockquote>
 
 ## Step 3. Encoder interrupt setup
 There are two ways you can run encoders with Simple FOC library.
 - Using [hardware external interrupt](#hardware-external-interrupt) 
-   - Arduino UNO(Atmega328) pins `2` and `3`
+   - Arduino UNO(ATmega328) pins `2` and `3`
    - STM32 boards any pin
    - ESP32 any pin
 - Using [software pin change interrupt](#software-pin-change-interrupt) by using a library such as [PciManager library](https://github.com/prampec/arduino-pcimanager)
-   - Only for Arduino devices (Atmga328 and Atmage2560)
+   - Only for Arduino devices (ATmega328 and ATmega2560)
 
 <blockquote class="warning"><p class="heading">Software interrupts</p> Using the hardware external interrupts usually results in better and more reliable performance but software interrupts will work very well for lower velocities. Especially on boards that just don't have enough hardware interrupt pins, having this functionality basically enables FOC on these boards.</blockquote>
 
@@ -70,7 +70,7 @@ And provide those functions to the encoder interrupt init function `encoder.enab
 // enable encoder hardware interrupts
 encoder.enableInterrupts(doA, doB)
 ```
-You can name the buffering functions as you wish. It is just important to provide them to the `encoder.enableInterrupts()` function. This procedure is a tradeoff in between scalability and simplicity. This allows you to have more than one encoder connected to the same MCU. All you need to do is to instantiate new `Encoder` class and create new buffer functions. For example:
+You can name the buffering functions as you wish. It is just important to provide them to the `encoder.enableInterrupts()` function. This procedure is a tradeoff between scalability and simplicity. This allows you to have more than one encoder connected to the same MCU. All you need to do is to instantiate new `Encoder` class and create new buffer functions. For example:
 ```cpp
 // encoder 1
 Encoder enc1 =  Encoder(...);
@@ -96,7 +96,7 @@ In order to read index pin efficiently Simple FOC library enables you to use the
 ```cpp
 Encoder encoder = Encoder(pinA, pinB, cpr, index_pin);
 ```
-If you are using Arduino board such as Arduino Mega and similar and if you have more tha 2 hardware interrupts you can connect your index pin to the hardware interrupt pin (example Arduino Mega pin `21`). Your code will look like:
+If you are using Arduino board such as Arduino Mega and similar and if you have more than 2 hardware interrupts you can connect your index pin to the hardware interrupt pin (example Arduino Mega pin `21`). Your code will look like:
 ```cpp
 Encoder encoder =  Encoder(2,3,600,21);
 // A and B interrupt routine 
@@ -112,7 +112,7 @@ void setup(){
 ```
 The function `enableInterrupts` will handle all the initialization for you. 
 
-If yo are using Arduino UNO to run this algorithm and you do not have enough hardware interrupt pins you will need to use software interrupt library such as  [PciManager library](https://github.com/prampec/arduino-pcimanager). Arduino UNO code for using an encoder with index can be:
+If you are using Arduino UNO to run this algorithm and you do not have enough hardware interrupt pins you will need to use software interrupt library such as  [PciManager library](https://github.com/prampec/arduino-pcimanager). Arduino UNO code for using an encoder with index can be:
 ```cpp
 Encoder encoder =  Encoder(2,3,600,A0);
 // A and B interrupt routine 
@@ -132,7 +132,7 @@ void setup(){
   ...
   }
 ```
-The same procedure can be done for pins `A` and `B` if your application makes you run out of the hardware interrupt pins. Software interrupts are very powerful and produce comparable results to the hardware interrupts especially if you have no other choice. `index` pin produces an interrupt once per rotation, therefore it is not critical, so software or hardware interrupt doesn't change too much in terms of performance. 
+The same procedure can be done for pins `A` and `B` if your application makes you run out of the hardware interrupt pins. Software interrupts are very powerful and produce comparable results to the hardware interrupts especially if you have no other choice. The `index` pin produces one pulse per rotation, therefore it is not critical, so using software or hardware interrupts doesn't change too much in terms of performance. 
 
 To explore better the difference in the encoder functions with both hardware and software interrupt approach please check the examples `encoder_example.ino` and `encoder_software_interrupts_example.ino`.
 
@@ -155,7 +155,7 @@ Encoder encoder = Encoder(10, 11, 8192);
 void doA(){encoder.handleA();}
 void doB(){encoder.handleB();}
 ```
-Then you declare listeners `PciListenerImp `:
+Next you declare listeners `PciListenerImp `:
 ```cpp
 // encoder interrupt init
 PciListenerImp listenerA(encoder.pinA, doA);
@@ -200,12 +200,11 @@ void setup(){
 ```
 You can look into the `HMBGC_example.ino` example to see this code in action. 
 #### Index pin configuration
-Enabling index pin in the case of the software interrupt is very simple. You just need to provide it to the `Encoder` class initialization as additional parameter. 
+Enabling the index pin in the case of the software interrupt is very simple. You just need to provide it to the `Encoder` class initialization as additional parameter. 
 ```cpp
 Encoder encoder = Encoder(pinA, pinB, cpr, index_pin);
 ```
 Afterwards you create the same type of callback buffering function as for `A` and `B` channels and using the `PCIManager` tools initialize and register the listener for the `index` channel as for the `A` and `B`. Here is a quick example:
-example:
 ```cpp
 // class init
 Encoder encoder =  Encoder(9, 10, 8192,11);

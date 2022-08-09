@@ -70,7 +70,7 @@ Please check the `magnetic_sensor_analog_pwm.ino` example to see more about it.
 <blockquote class="warning">
 <p class="heading">BEWARE: Blocking support limitations ⚠️</p>
 Blocking support for magnetic sensors is arguably has the worst performance out of all the  position sensing techniques supported in this library. Each time the code reads the angle from the sensor it will read one pulse and since the magnetic sensor have PWM frequency of around 1kHz, it means the the shortest execution time for reading an angle is around 1ms. 
-But in case of Arudino UNO and similar MCUs this might be the only option.
+But in case of Arduino UNO and similar MCUs this might be the only option.
 </blockquote>
 
 ### Interrupt based implementation
@@ -144,7 +144,7 @@ class MagneticSensorPWM{
 }
 ```
 
-Here is a quick example for AS5048A magnetic sensor using it's pwm output:
+Here is a quick example for AS5048A magnetic sensor using its PWM output:
 ```cpp
 #include <SimpleFOC.h>
 

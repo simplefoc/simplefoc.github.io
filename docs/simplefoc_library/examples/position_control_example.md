@@ -225,7 +225,7 @@ void setup() {
   motor.initFOC();
 
   // add target command T
-  command.add('T', doTarget, "target angle");
+  command.add('T', onTarget, "target angle");
 
   // monitoring port
   Serial.begin(115200);

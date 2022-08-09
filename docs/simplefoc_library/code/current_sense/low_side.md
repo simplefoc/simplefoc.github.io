@@ -21,22 +21,22 @@ Low side current sensing for all the architectures is on our road-map and we are
 
 ## Current sensing support per MCU architecture
 
-Low side current sensing is currently supported for several MCU architectures supported by the <span class="simple">Simple<span class="foc">FOC</span>library</span>. ESP32 architecture has the most generic support, supporting multiple motors per chip. Stm32 families f1, f4 and g4 are initially supported and support low-side sensing for only one motor. A special case of the stm32 board is the BG431_ESC1 development kit which has very specific low-side implementation for its hardware configuration, and it is fully supported by the library. Samd21 architecture is under development, it has an initial support for only one motor, but for now as it has not been extensively tested, we suggest not to rely on our implementation.
+Low side current sensing is currently supported for several MCU architectures supported by the <span class="simple">Simple<span class="foc">FOC</span>library</span>. ESP32 architecture has the most generic support, supporting multiple motors per chip. Stm32 families f1, f4 and g4 are initially supported and support low-side sensing for only one motor. A special case of the STM32 board is the B-G431-ESC1 development kit which has very specific low-side implementation for its hardware configuration, and it is fully supported by the library. Samd21 architecture is under development, it has an initial support for only one motor, but for now as it has not been extensively tested, we suggest not to rely on our implementation.
 
 MCU | Low-side  Current sensing
 --- | --- 
 Arduino (8-bit) |  ❌
 Arduino DUE  |  ❌
-stm32 (in general) |❌ 
-stm32f1 family | ✔️ (one motor) 
-stm32f4 family | ✔️ (one motor) 
-stm32g4 family | ✔️ (one motor) 
-stm32 B_G431B_ESC1 | ✔️ 
-esp32 |✔️ 
-esp8266 | ❌ 
-samd21 | ✔️/❌ (one motor, poorly tested) 
-samd51 | ❌ 
-teensy |  ❌
+STM32 (in general) |❌ 
+STM32f1 family | ✔️ (one motor) 
+STM32f4 family | ✔️ (one motor) 
+STM32g4 family | ✔️ (one motor) 
+STM32 B_G431B_ESC1 | ✔️ 
+ESP32 |✔️ 
+ESP8266 | ❌ 
+SAMD21 | ✔️/❌ (one motor, poorly tested) 
+SAMD51 | ❌ 
+Teensy |  ❌
 Raspberry Pi Pico | ❌
 Portenta H7 |  ❌
 
@@ -233,8 +233,7 @@ If you are sure in your configuration and if you wish to skip the alignment proc
 current_sense.skip_align = true;
 ```
 
-For example  [AliExpress DRV8302 board](https://fr.aliexpress.com/wholesale?catId=0&initiative_id=SB_20211003032006&SearchText=bldc+drv8302) , you would have a code similar to this:
-For example, Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> v2, you would have a code similar to this:
+For example for the [AliExpress DRV8302 board](https://fr.aliexpress.com/wholesale?catId=0&initiative_id=SB_20211003032006&SearchText=bldc+drv8302), you would have code similar to this:
 ```cpp
 // one possible combination of current sensing pins for SimpleFOCShield v2
 // shunt - 5milliOhm

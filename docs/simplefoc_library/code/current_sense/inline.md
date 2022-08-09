@@ -17,19 +17,19 @@ Inline current sensing technique is the simplest one to use and the most precise
 
 ## Current sensing support per MCU architecture
 
-In-line current sensing is currently supported for almost all MCU architectures supported by the <span class="simple">Simple<span class="foc">FOC</span>library</span>. Only not supported architecture is the ESP8266 which does not have 2 ADC pins, making it unable to run FOC. 
+In-line current sensing is currently supported for almost all MCU architectures supported by the <span class="simple">Simple<span class="foc">FOC</span>library</span>. The only not supported architecture is the ESP8266 which does not have 2 ADC pins, making it unable to run FOC. 
     
 MCU | In-line Current sensing
 --- | --- 
 Arduino (8-bit) | ✔️ 
 Arduino DUE  | ✔️ 
-stm32  | ✔️ 
-stm32 B_G431B_ESC1 | ✔️ 
-esp32 | ✔️ 
-esp8266 | ❌  
-samd21 | ✔️  
-samd51 | ✔️  
-teensy | ✔️ 
+STM32  | ✔️ 
+STM32 B_G431B_ESC1 | ✔️ 
+ESP32 | ✔️ 
+ESP8266 | ❌  
+SAMD21 | ✔️  
+SAMD51 | ✔️  
+Teensy | ✔️ 
 Raspberry Pi Pico | ✔️ 
 Portenta H7 | ✔️ 
 
