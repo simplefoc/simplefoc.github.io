@@ -40,7 +40,7 @@ This variable can be changed in real-time as well!
 
 ## Real-time execution `move()` 
 
-The real-time motion control is executed inside `move()` function. Move function receives executes one of the control loops based on the `controller` variable. The parameter `new_target` of the `move()` function is the target value so be set to the control loop. the `new_target` value is optional and doesn't need ot be set. If it is not se the motion control will use `motor.target` variable.  
+The real-time motion control is executed inside `move()` function. Move function receives executes one of the control loops based on the `controller` variable. The parameter `new_target` of the `move()` function is the target value so be set to the control loop. The `new_target` value is optional and doesn't need to be set. If it is not set the motion control will use `motor.target` variable.  
 
 Here is the implementation:
 ```cpp
@@ -142,7 +142,7 @@ float BLDCMotor::velocityPI(float tracking_error) {
   return controllerPI(tracking_error, PID_velocity);
 }
 ```
-The `BLDMotor` class has implemented generic PI controller function called `controllerPI()`.
+The `BLDCMotor` class has implemented generic PI controller function called `controllerPI()`.
 ```cpp
 // PI controller function
 float BLDCMotor::controllerPI(float tracking_error, PI_s& cont){

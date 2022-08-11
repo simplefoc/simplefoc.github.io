@@ -16,7 +16,7 @@ grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</sp
 
 
 ## Step 1. Implement the function reading your sensor
-Basically all that you need to do in your arduino code is implement a function that reads your sensor and returns an angle in radians in between 0 and 2PI:
+Basically all that you need to do in your arduino code is implement a function that reads your sensor and returns an angle in radians between 0 and 2π:
 ```cpp
 float readMySensorCallback(){
  // read my sensor

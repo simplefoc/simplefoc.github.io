@@ -11,7 +11,7 @@ grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</sp
 
 # nRF52 boards support
 
-MCU | 2 PWM mode | 4PWM mode | 3 PWM mode | 6 PWM mode | pwm frequency config 
+MCU | 2 PWM mode | 4 PWM mode | 3 PWM mode | 6 PWM mode | pwm frequency config 
 --- | --- |--- |--- |--- |--- 
 nRF52 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
 

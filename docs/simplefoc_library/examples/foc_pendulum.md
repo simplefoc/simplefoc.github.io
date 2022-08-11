@@ -19,7 +19,8 @@ This is a very fun project in many ways, and it is intended:
 - Students in search for a good testing platform for their advanced algorithms
 - Everyone with a bit of free time and a motivation to create something cool :D
 
-### YouTube demonstration video :D
+### YouTube demonstration video 😃
+
 <iframe class="youtube"  src="https://www.youtube.com/embed/Ih-izQyXJCI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 But for me, the most exciting part of this project was the ability to use the Field Oriented Control algorithm. 

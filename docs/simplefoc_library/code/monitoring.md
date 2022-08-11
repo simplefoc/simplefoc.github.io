@@ -75,7 +75,7 @@ motor.monitor_downsample = 100; // default 10
 ```
 This variable tells `motor.monitor()` to output the variables to the serial each `monitor_downsample` number of calls. So in short, it will output the variables to the serial each `monitor_downsample` loop calls.
 
-Here is an example of a full comfiguration code:
+Here is an example of a full configuration code:
 ```cpp
 ...
 void setup(){

@@ -10,7 +10,7 @@ grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</sp
 
 # Motor commands list [v2.1](https://github.com/simplefoc/Arduino-FOC/releases)
 
-The command ids used by the commander interface are defined in the library source by the default values in the header file: `src/communication/commands.h`, hre is the list of hte commands:
+The command ids used by the commander interface are defined in the library source by the default values in the header file: `src/communication/commands.h`, here is the list of the commands:
 ```cpp
 
 // list of commands

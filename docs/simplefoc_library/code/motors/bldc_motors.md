@@ -30,7 +30,7 @@ BLDCMotor motor = BLDCMotor(11, 10.5, 120);
 ```
 
 <blockquote class="info"><p class="heading">Pole pair number </p>
-If you are not sure what your <code class="highlighter-rouge">pole_paris</code> number is. The library provides an example code to estimate your <code class="highlighter-rouge">pole_paris</code> number in the examples <code class="highlighter-rouge">examples/utils/calibration/find_pole_pairs_number.ino</code>.
+If you are not sure what your <code class="highlighter-rouge">pole_pairs</code> number is. The library provides an example code to estimate your <code class="highlighter-rouge">pole_pairs</code> number in the examples <code class="highlighter-rouge">examples/utils/calibration/find_pole_pairs_number.ino</code>.
 </blockquote>
 
 <blockquote class="warning" markdown="1">
@@ -49,7 +49,7 @@ You can also use the provided libray examples `examples/utils/calibration/find_K
 </blockquote>
 
 
-### Motor phase reistance and KV rating 
+### Motor phase resistance and KV rating 
 Providing the KV rating in combination with the phase resistance (not very used for current based torque modes `foc_current` and `dc_current`) will enable the user to control the motor's current without measuring it. The user will be able to control (and limit) the estimated current of the motor using the voltage control mode. Read more in the [torque control docs](voltage_torque_mode).
 
 Working with currents instead of voltages is better in may ways, since the torque of the BLDC motor is proportional to the current and not voltages and especially since the same voltage value will produce very different currents for different motors (due to the different phase resistance). Once when the phase resistance is provided the user will be able to set current limit for its BLDC motor instead of voltage limit which is much easier to understand. 
@@ -128,7 +128,7 @@ The voltage used for the motor and sensor alignment set the variable `motor.volt
 motor.voltage_sensor_align = 3; // default 3V
 ```
 
-If your sensor is an encoder and if it has an index pin, you can set the index search velocity value by set the variable `motor.velocity_index_search`:
+If your sensor is an encoder and it has an index pin, you can set the index search velocity value by setting the variable `motor.velocity_index_search`:
 ```cpp
 // incremental encoder index search velocity [rad/s]
 motor.velocity_index_search = 3; // default 1 rad/s
@@ -309,7 +309,7 @@ The faster you can run this function the better, here is approximative loops exe
 <td>~ 1.5 ms</td>
 </tr>
 <tr>
-<td>Esp32</td>
+<td>ESP32</td>
 <td>~ 100 us</td>
 <td>~ 200 us</td>
 <td>~ 300 us</td>
