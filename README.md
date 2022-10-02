@@ -26,7 +26,7 @@ bundle install
 ```
 And you're ready to go!
 
-Just make sure that whenever you open your terminal to generate the webiste to activate the conda anvironment:
+Just make sure that whenever you open your terminal to generate the website to activate the conda environment:
 ```
 conda activate simpledocs
 ```

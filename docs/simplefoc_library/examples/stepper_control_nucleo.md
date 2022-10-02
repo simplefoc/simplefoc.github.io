@@ -1,6 +1,6 @@
 ---
 layout: default
-title:  Stepper Motor Control Nucleo-64
+title:  Stepper Motor Control Nucleo
 parent: Example projects
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 nav_order: 8

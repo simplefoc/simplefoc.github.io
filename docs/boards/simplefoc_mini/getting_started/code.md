@@ -1,16 +1,16 @@
 ---
 layout: default
 title: Writing the code
-parent: Getting Started
-description: "Writing the Arduino program for your SimpleFOCShield."
-nav_order: 3
-permalink: /foc_shield_code
-grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span>
+parent: Starting with Mini
+description: "Writing the Arduino program for your SimpleFOCMini."
+nav_order: 2
+permalink: /mini_code
+grand_parent: <span class="simple">Simple<span class="foc">FOC</span>Mini</span>
 grand_grand_parent: <span class="simple">Simple<span class="foc">FOC</span> Boards</span>
 ---
 
 # Writing the code
-Once when you have decided the appropriate [hardware configuration](pads_soldering) of yous board and once you have all the hardware [ready to be connected](foc_shield_connect_hardware): 
+Once you have all the [hardware connected](mini_connect_hardware): 
 - Microcontroller
 - BLDC motor
 - Position sensor
@@ -18,9 +18,9 @@ Once when you have decided the appropriate [hardware configuration](pads_solderi
 
 we can start the most exciting part, coding!
 
-Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> is fully supported by Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>, therefore please make sure you have the newest version of the  <span class="simple">Simple<span class="foc">FOC</span>library</span> installed. If you still did not get your owm version of the library please follow the [installation instructions](installation). 
+<span class="simple">Simple<span class="foc">FOC</span>Mini</span> is fully supported by Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>, therefore please make sure you have the newest version of the  <span class="simple">Simple<span class="foc">FOC</span>library</span> installed. If you still did not get your owm version of the library please follow the [installation instructions](installation). 
 
-Suggested approach when starting coding for the Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> is:
+Suggested approach when starting coding for the Arduino <span class="simple">Simple<span class="foc">FOC</span>Mini</span> is:
 
 - [Test the sensor](#step-1-testing-the-sensor)
 - [Test the motor](#step-2-testing-the-motor)
@@ -48,7 +48,7 @@ utils >
 Once you have your sensor reading the good values you can continue the testing the combination of the motor and the sensor.
 
 <blockquote class="warning"> <p class="heading">Update the example pinout</p> 
-When testing the sensor make sure to update the pinout that you have chosen in the <a href="pads_soldering">hardware configuration</a>.</blockquote>
+When testing the sensor make sure to update the pinout.</blockquote>
 
 ## Step 2. Testing the motor
 To test the BLDC motor before running FOC algorithm we suggest to run the open loop examples!
@@ -59,7 +59,7 @@ motion_control >
              - open_loop_velocity_example
 ```
 <blockquote class="warning"> <p class="heading">Update the example pinout</p> 
-When testing the motor make sure to update the pinout that you have chosen in the <a href="pads_soldering">hardware configuration</a>.</blockquote>
+When testing the motor make sure to update the pinout that you have chosen in the <a href="mini_connect_hardware">hardware configuration</a>.</blockquote>
 
 If you are not sure what is the number of pole pairs your motor has, please check the example code:
 ```sh
@@ -99,4 +99,4 @@ motion_control >
                        - magnetic_sensor
                        - hall_sensors
 ```
-For more information about the possible <span class="simple">Simple<span class="foc">FOC</span>Shield</span> projects visit [example projects](examples)
+For more information about the possible <span class="simple">Simple<span class="foc">FOC</span>Mini</span> projects visit [example projects](examples)

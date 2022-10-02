@@ -1,37 +1,51 @@
 ---
 layout: default
-title:  Position Control example
+title: <span class="simple">Simple<span class="foc">FOC</span>Mini</span> & UNO
 parent: Example projects
 description: "Arduino Simple Field Oriented Control (FOC) library ."
-nav_order: 1
-permalink: /position_control_example
+nav_order: 9
+permalink: /mini_example
 grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> 
 ---
 
 
-# Position control example<br>using <span class="simple">Simple<span class="foc">FOC</span>Shield</span>
+# Position control example<br>using <span class="simple">Simple<span class="foc">FOC</span>Mini</span>
 For this BLDC motor position control example we are going to be using this hardware:
 
-[Arduino UNO](https://store.arduino.cc/arduino-uno-rev3) | [Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span>](arduino_simplefoc_shield_showcase) | [AMT 103 encoder](https://www.mouser.fr/ProductDetail/CUI-Devices/AMT103-V?qs=%2Fha2pyFaduiAsBlScvLoAWHUnKz39jAIpNPVt58AQ0PVb84dpbt53g%3D%3D) | [IPower GBM4108H-120T](https://www.ebay.com/itm/iPower-Gimbal-Brushless-Motor-GBM4108H-120T-for-5N-7N-GH2-ILDC-Aerial-photo-FPV/254541115855?hash=item3b43d531cf:g:q94AAOSwPcVVo571)
+[Arduino UNO](https://store.arduino.cc/arduino-uno-rev3) | [Arduino <span class="simple">Simple<span class="foc">FOC</span>Mini</span>](simplefocmini) | [AMT 103 encoder](https://www.mouser.fr/ProductDetail/CUI-Devices/AMT103-V?qs=%2Fha2pyFaduiAsBlScvLoAWHUnKz39jAIpNPVt58AQ0PVb84dpbt53g%3D%3D) | [IPower GBM4108H-120T](https://www.ebay.com/itm/iPower-Gimbal-Brushless-Motor-GBM4108H-120T-for-5N-7N-GH2-ILDC-Aerial-photo-FPV/254541115855?hash=item3b43d531cf:g:q94AAOSwPcVVo571)
 --- | --- | --- | --- 
-<img src="extras/Images/arduino_uno.jpg" class="imgtable150"> |  <img src="extras/Images/shield_to_v13.jpg" class="imgtable150">  | <img src="extras/Images/enc1.png" class="imgtable150">  | <img src="extras/Images/mot.jpg" class="imgtable150"> 
+<img src="extras/Images/arduino_uno.jpg" class="imgtable150"> |  <img src="https://simplefoc.com/assets/img/mini.jpg" class="imgtable150">  | <img src="extras/Images/enc1.png" class="imgtable150">  | <img src="extras/Images/mot.jpg" class="imgtable150"> 
 
 
 # Connecting everything together
-For a bit more in depth explanation of Arduino UNO and <span class="simple">Simple<span class="foc">FOC</span>Shield</span> connection please check the [connection examples](arduino_simplefoc_shield).
-<p><img src="extras/Images/foc_shield_v13.jpg" class="width60"></p>
+<p><img src="extras/Images/connection_mini.jpg" class="width60"></p>
 
-For more information about the <span class="simple">Simple<span class="foc">FOC</span>Shield</span> check the [docs](arduino_simplefoc_shield_showcase).
+For more information about the <span class="simple">Simple<span class="foc">FOC</span>Mini</span> check the [docs](simplefocmini).
+
+<p><img src="extras/Images/mini_connection_uno.png"></p>
 
 ## Encoder 
-- Channels `A` and `B` are connected to the encoder connector `P_ENC`, terminals `A` and `B`. 
+- Channels `A` and `B` are connected to the Arduino  UNO pins `2` and `3`. 
 
 ## Motor
-- Motor phases `a`, `b` and `c` are connected directly the motor terminal connector `TB_M1`
+- Motor phases `a`, `b` and `c` are connected directly the motor terminal connector connectors `M1`, `M2` and `M3` of the <span class="simple">Simple<span class="foc">FOC</span>Mini</span> board
+
+## <span class="simple">Simple<span class="foc">FOC</span>Mini</span>
+- The most convenient way of plugging the <span class="simple">Simple<span class="foc">FOC</span>Mini</span> board to the Arduino UNO is to stack it on its pins `12-8`.
+   - `GND` - `12`
+   - `IN1` - `11`
+   - `IN2` - `10`
+   - `IN3` - `9`
+   - `EN` - `8`
+
+<blockquote class="warning" markdown="1">
+Pin `12` is not a real ground pin. As no power is transferred through the mini's `GND` pin then we can use pin `12` to approximate the `GND` pin by declaring it as digital output and setting it to `LOW`. This technique might not always work though. If you start seeing that your motor vibrates, even in the open loop control mode, then you should ditch this approach and connect the mini's `GND` pin to the Arduino UNO's `GND` pin. The vibrations should then stop completely.
+</blockquote>
 
 
 ### Small motivation :D
-<p><img src="extras/Images/simple_foc_shield_v13_small.gif" class="width60"></p>
+<p><img src="extras/Images/mini_gif1.gif" class="width60"></p>
+
 
 # Arduino code 
 Let's go through the full code for this example and write it together.
@@ -79,7 +93,7 @@ BLDCMotor motor = BLDCMotor(11);
 Next we need to define the `BLDCDriver3PWM` class with the PWM pin numbers of the motor and the driver enable pin
 ```cpp
 // define BLDC driver
-BLDCDriver3PWM driver = BLDCDriver3PWM(9, 10, 11, 8);
+BLDCDriver3PWM driver = BLDCDriver3PWM(11, 10, 9, 8);
 ```
 
 Then in the `setup()` we configure first the voltage of the power supply if it is not `12` Volts and init the driver.
@@ -89,6 +103,11 @@ Then in the `setup()` we configure first the voltage of the power supply if it i
 driver.voltage_power_supply = 12;
 driver.init();
 ```
+Additionally we add the code to declare the pin `12` ad digital output set to `LOW` to be used as a common ground signal. In the `setup` we add
+```cpp
+pinMode(12,OUTPUT); // declares pin 12 as output and sets it to LOW
+```
+
 Then we tell the motor which control loop to run by specifying the `motor.controller` variable.
 ```cpp
 // set control loop type to be used
@@ -103,9 +122,6 @@ Now we configure the velocity PI controller parameters
 // default P=0.5 I = 10
 motor.PID_velocity.P = 0.2;
 motor.PID_velocity.I = 20;
-// jerk control using voltage voltage ramp
-// default value is 300 volts per sec  ~ 0.3V per millisecond
-motor.PID_velocity.output_ramp = 1000;
 
 //default voltage_power_supply
 motor.voltage_limit = 6;
@@ -115,7 +131,7 @@ Additionally we can configure the Low pass filter time constant `Tf`
 // velocity low pass filtering
 // default 5ms - try different values to see what is the best. 
 // the lower the less filtered
-motor.LPF_velocity.Tf = 0.01;
+motor.LPF_velocity.Tf = 0.02;
 ```
 Finally we configure position P controller gain and the velocity limit variable.
 ```cpp
@@ -148,7 +164,7 @@ motor.loopFOC();
 
 // iterative function setting and calculating the angle/position loop
 // this function can be run at much lower frequency than loopFOC function
-motor.move(target_angle);
+motor.move();
 }
 ```
 That is it, let's see the full code now!
@@ -163,20 +179,20 @@ To the full code I have added a small serial [commander interface](commander_int
 // init BLDC motor
 BLDCMotor motor = BLDCMotor( 11 );
 // init driver
-BLDCDriver3PWM driver = BLDCDriver3PWM(9, 10, 11, 8);
+BLDCDriver3PWM driver = BLDCDriver3PWM(11, 10, 9, 8);
 //  init encoder
 Encoder encoder = Encoder(2, 3, 2048);
 // channel A and B callbacks
 void doA(){encoder.handleA();}
 void doB(){encoder.handleB();}
 
-// angle set point variable
-float target_angle = 0;
 // commander interface
 Commander command = Commander(Serial);
-void onTarget(char* cmd){ command.scalar(&target_angle, cmd); }
+void onTarget(char* cmd){ command.motion(&motor, cmd); }
 
 void setup() {
+
+  pinMode(12,OUTPUT); // declares pin 12 as output and sets it to LOW
 
   // initialize encoder hardware
   encoder.init();
@@ -200,9 +216,6 @@ void setup() {
   // default P=0.5 I = 10
   motor.PID_velocity.P = 0.2;
   motor.PID_velocity.I = 20;
-  // jerk control using voltage voltage ramp
-  // default value is 300 volts per sec  ~ 0.3V per millisecond
-  motor.PID_velocity.output_ramp = 1000;
   
   //default voltage_power_supply
   motor.voltage_limit = 6;
@@ -210,7 +223,7 @@ void setup() {
   // velocity low pass filtering
   // default 5ms - try different values to see what is the best. 
   // the lower the less filtered
-  motor.LPF_velocity.Tf = 0.01;
+  motor.LPF_velocity.Tf = 0.02;
 
   // angle P controller 
   // default P=20
@@ -225,7 +238,7 @@ void setup() {
   motor.initFOC();
 
   // add target command T
-  command.add('T', doTarget, "target angle");
+  command.add('T', doTarget, "motion control");
 
   // monitoring port
   Serial.begin(115200);
@@ -239,9 +252,10 @@ void loop() {
   motor.loopFOC();
 
   // function calculating the outer position loop and setting the target position 
-  motor.move(target_angle);
+  motor.move();
 
-  // user communication
-  command.run();
+  // commander interface with the user
+  commander.run();
+
 }
 ```

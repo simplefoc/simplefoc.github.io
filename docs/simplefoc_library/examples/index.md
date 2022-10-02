@@ -58,3 +58,15 @@ parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</
         <i class="fa fa-external-link-square fa-2x"></i>
     </a>
 </div>
+<div class="image_icon">
+     <a href="mini_example">
+        <img src="extras/Images/connection_mini.jpg">
+        <i class="fa fa-external-link-square fa-2x"></i>
+    </a>
+</div>
+<div class="image_icon">
+     <a href="mini_example_nucleo">
+        <img src="extras/Images/connection_mini_nucleo.jpg">
+        <i class="fa fa-external-link-square fa-2x"></i>
+    </a>
+</div>
