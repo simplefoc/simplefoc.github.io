@@ -188,7 +188,7 @@ It is very important that the the current sensing `init` function is called afte
 So the suggested code structure would be:
 
 ```cpp
-void loop(){
+void setup(){
   .... 
   // driver init
   driver.init();
