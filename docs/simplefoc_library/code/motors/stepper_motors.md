@@ -203,12 +203,22 @@ motor.initFOC();
 <blockquote class="info"><p class="heading"> Can be skipped for openloop control!</p>If no sensor is attached this function will not really do anything, but you can still call it if necessary or more convenient. </blockquote>
 
 This function does several things:
+- Checks if driver (and current sense if available) are well initialised
 - Checks/modifies position sensor direction in respect to the motor's direction
 - Searches for encoder index if necessary
 - Finds the motor electrical offset in respect to the position sensor
+- Checks/modifies current sense pinout and gains signs if one available to make sure it aligned with the driver 
 
-This function is a final check function and it will disable your motor and display you a message what is wrong. (when using the [monitoring](monitoring) ). If everything is well configured, after the call of this function FOC is ready and our setup is done!  
+If for some reason the `initFOC` fails this function will return `0` and it will disable your motor and display you a message what is wrong (when using the [monitoring](monitoring) ). If everything is well configured, the call of this function will return `1` and the our setup is done, FOC is ready to be used! So we suggest you to check if the init function was executed successfully before continuing:
 
+```cpp
+// init current sense
+if (motor.initFOC())  Serial.println("FOC init success!");
+else{
+  Serial.println("FOC init failed!");
+  return;
+}
+```
 The alignment procedure will have to move your motor several times and might not be desirable behavior, therefore for most of the position sensors (except encodes) and current senses, this alignment procedure can be skipped by following the steps 5.1. 
 
 ### Step 5.1 Skip alignment - position sensor

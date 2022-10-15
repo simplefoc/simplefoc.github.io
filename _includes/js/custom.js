@@ -16,7 +16,9 @@ var libraires =[
     "LowsideCurrentSense.h",
     "InlineCurrentSense.h",
     "MySensor.h",
-    "Sensor.h"
+    "Sensor.h",
+    "SimpleFOCDrivers.h",
+    "MagneticSensorAS5048A.h"
 ]
 
 var defines =[

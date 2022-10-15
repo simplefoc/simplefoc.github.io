@@ -42,7 +42,7 @@ The current sense code will be written in a way to support as many different dri
 Also make sure to follow our [community forum](https://community.simplefoc.com), a lot of discussions is being held about current sensing and its applications!
 
 ## Current sensing support per MCU architecture
-    
+   
 MCU | In-line | Low-side | High-side
 --- | --- |--- |--- 
 Arduino (8-bit) | ✔️ | ❌ |  ❌
@@ -51,14 +51,16 @@ stm32 (in general) | ✔️ | ❌ |  ❌
 stm32f1 family | ✔️ | ✔️ (one motor) |  ❌
 stm32f4 family | ✔️ | ✔️ (one motor) |  ❌
 stm32g4 family | ✔️ | ✔️ (one motor) |  ❌
-stm32 B_G431B_ESC1 | ✔️ | ✔️ |  ❌
-esp32 | ✔️ | ✔️ |  ❌
+stm32 B_G431B_ESC1 | ❌ | ✔️ (one motor) |  ❌
+esp32/esp32s3 | ✔️ | ✔️ |  ❌
+esp32s2/esp32c3 |  ✔️ | ❌ |  ❌ 
 esp8266 | ❌ | ❌ |  ❌ 
 samd21 | ✔️ | ✔️ (one motor) |  ❌ 
 samd51 | ✔️ | ❌ |  ❌ 
 teensy | ✔️ | ❌ |  ❌
 Raspberry Pi Pico | ✔️ | ❌ |  ❌
 Portenta H7 | ✔️ | ❌ |  ❌
+nRF52 | ✔️ | ❌ |  ❌
 
 ## Digging deeper
 For more theoretical explanations and source code implementations of the current sensing and its integration into the FOC and motion  check out the [digging deeper section](digging_deeper).

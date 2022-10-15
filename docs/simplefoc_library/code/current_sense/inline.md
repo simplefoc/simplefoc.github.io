@@ -24,8 +24,9 @@ MCU | In-line Current sensing
 Arduino (8-bit) | ✔️ 
 Arduino DUE  | ✔️ 
 stm32  | ✔️ 
-stm32 B_G431B_ESC1 | ✔️ 
-esp32 | ✔️ 
+stm32 B_G431B_ESC1 | ❌ 
+esp32/esp32s3 |✔️ 
+esp32s2/esp32c3 |❌ 
 esp8266 | ❌  
 samd21 | ✔️  
 samd51 | ✔️  

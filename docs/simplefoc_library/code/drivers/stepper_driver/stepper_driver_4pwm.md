@@ -77,6 +77,22 @@ Once when all the necessary configuration parameters are set the driver function
 driver.init();
 ```
 
+This function is responsible for:
+- determining and configuring the hardware timer for PWM generation
+- verifying that all provided pins can be used to generate PWM
+- configuring the PWM channels
+
+If for some reason the driver configuration fails this function will return `0` if everything went well the function will return `1`. So we suggest you to check if the init function was executed successfully before continuing
+```cpp
+Serial.print("Driver init ");
+// init driver
+if (driver.init())  Serial.println("success!");
+else{
+  Serial.println("failed!");
+  return;
+}
+```
+
 ## Step 3. Using encoder in real-time
 
 BLDC driver class was developed to be used with the <span class="simple">Simple<span class="foc">FOC</span>library</span> and to provide the abstraction layer for FOC algorithm implemented in the `StepperMotor` class. But the `StepperDriver4PWM` class can used as a standalone class as well and once can choose to implement any other type of control algorithm using the bldc driver.  

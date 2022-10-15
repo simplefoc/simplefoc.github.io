@@ -3,7 +3,7 @@ layout: default
 title: v1.3.3
 description: "Arduino SimpleFOCShield board fabrication"
 parent: Board Fabrication
-grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span>
+grand_parent: <span class="simple">Simple<span class="foc">FOC</span>Shield</span>
 grand_grand_parent: <span class="simple">Simple<span class="foc">FOC</span> Boards</span>
 nav_order: 1
 permalink: /arduino_simplefoc_shield_fabrication_v1
