@@ -13,9 +13,9 @@ has_toc: false
 One of the goals of the  <span class="simple">Simple<span class="foc">FOC</span>project</span> is to develop low-cost easy to use BLDC driver boards compatible with the <span class="simple">Simple<span class="foc">FOC</span>library</span>and completely open source!
 
 For now there have been three official BLDC drivers developed by the <span class="simple">Simple<span class="foc">FOC</span>project</span>:
-- <span class="simple">Simple<span class="foc">FOC</span>Shield</span>
+- <span class="simple">Simple<span class="foc">FOC</span>Shield</span>  - <small>[Find out more](arduino_simplefoc_shield_showcase)</small>
+- <span class="simple">Simple<span class="foc">FOC</span>Mini</span> 📢**NEW**  - <small>[Find out more](simplefocmini)</small>
 - <span class="simple">Simple<span class="foc">FOC</span> <b>Power</b>Shield</span>
-- <span class="simple">Simple<span class="foc">FOC</span>Mini</span> 📢**NEW**
 
 ## Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> <small>v2.0.4</small> - <small>[Find out more](arduino_simplefoc_shield_showcase)</small>
 
@@ -42,6 +42,32 @@ The <span class="simple">Simple<span class="foc">FOC</span>Shield</span>, in com
 - **Arduino headers**: Arduino UNO, Arduino MEGA, STM32 Nucleo boards...
 - **Open Source**: Fully available fabrication files - [how to make it yourself](https://docs.simplefoc.com/arduino_simplefoc_shield_fabrication)
 
+
+## 📢**NEW**: <span class="simple">Simple<span class="foc">FOC</span>Mini</span> <small>v1.0</small> - <small>[Find out more](simplefocmini)</small>
+
+Small package, low-cost BLDC driver board fully compatible with the <span class="simple">Simple<span class="foc">FOC</span>library</span>
+
+
+<img src="extras/Images/mini.png" class="width40"/><img  src="https://user-images.githubusercontent.com/36178713/164240473-5abd7453-9d38-4f25-9195-378c39180054.jpg"  class="width40"/>
+
+
+
+
+## Features
+- **Plug & play**: In combination with Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+- **DRV8313 based** - [datasheet](https://www.ti.com/lit/ds/symlink/drv8313.pdf?ts=1650461862269&ref_url=https%253A%252F%252Fwww.google.com%252F)
+  - Power supply: 8-24V
+  - Max current: 2.5A per phase
+  - Onboard 3.3V LDO
+- **Small size**: 26x20 mm
+- **Fully open-source**:
+  - [EasyEDA](https://easyeda.com/the.skuric/simplefocmini)
+  - [GitHub](https://github.com/simplefoc/SimpleFOCMini) 
+- **Low-cost**: 
+   - JLCPCB production cost ~3-5€
+   - Will be available in the [shop](https://www.simplefoc.com/shop) soon: 7-10€ 
+
+   Read more about this board at [link](https://github.com/simplefoc/SimpleFOCMini)
 
 ## Arduino <span class="simple">Simple<span class="foc">FOC</span> <b>Power</b>Shield</span> <small>v0.2</small> <small>⚠️<i>( under developement)</i></small>
 
@@ -78,29 +104,3 @@ This does not mean that the board itself is not functional or that it will not w
    - schematics
 
 Read more about this board at [link](https://github.com/simplefoc/Arduino-SimpleFOC-PowerShield)
-
-## 📢**NEW**: <span class="simple">Simple<span class="foc">FOC</span>Mini</span> <small>v1.0</small>
-
-Small package, low-cost BLDC driver board fully compatible with the <span class="simple">Simple<span class="foc">FOC</span>library</span>
-
-
-<img src="extras/Images/mini.png" class="width40"/><img  src="https://user-images.githubusercontent.com/36178713/164240473-5abd7453-9d38-4f25-9195-378c39180054.jpg"  class="width40"/>
-
-
-
-
-## Features
-- **Plug & play**: In combination with Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
-- **DRV8313 based** - [datasheet](https://www.ti.com/lit/ds/symlink/drv8313.pdf?ts=1650461862269&ref_url=https%253A%252F%252Fwww.google.com%252F)
-  - Power supply: 8-24V
-  - Max current: 2.5A per phase
-  - Onboard 3.3V LDO
-- **Small size**: 26x20 mm
-- **Fully open-source**:
-  - [EasyEDA](https://easyeda.com/the.skuric/simplefocmini)
-  - [GitHub](https://github.com/simplefoc/SimpleFOCMini) 
-- **Low-cost**: 
-   - JLCPCB production cost ~3-5€
-   - Will be available in the [shop](https://www.simplefoc.com/shop) soon: 7-10€ 
-
-   Read more about this board at [link](https://github.com/simplefoc/SimpleFOCMini)

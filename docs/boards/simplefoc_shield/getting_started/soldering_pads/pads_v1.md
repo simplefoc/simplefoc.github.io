@@ -6,7 +6,7 @@ grand_parent: Getting Started
 description: "Configuring your SimpleFOCShield by soldering the pads."
 nav_order: 1
 permalink: /pads_soldering_v1
-grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span>
+grand_grand_parent: <span class="simple">Simple<span class="foc">FOC</span>Shield</span>
 grand_grand_grand_parent: <span class="simple">Simple<span class="foc">FOC</span> Boards</span>
 ---
 # Hardware configuration using soldering pads <br> <span class="simple">Simple<span class="foc">FOC</span>Shield</span> <small>v1</small>

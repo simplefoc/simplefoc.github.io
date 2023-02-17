@@ -79,8 +79,9 @@ stm32 (in general) | ✔️ | ❌ |  ❌
 stm32f1 family | ✔️ | ✔️ (one motor) |  ❌
 stm32f4 family | ✔️ | ✔️ (one motor) |  ❌
 stm32g4 family | ✔️ | ✔️ (one motor) |  ❌
-stm32 B_G431B_ESC1 | ✔️ | ✔️ |  ❌
-esp32 | ✔️ | ✔️ |  ❌
+stm32 B_G431B_ESC1 | ❌ | ✔️ (one motor) |  ❌
+esp32/esp32s3 | ✔️ | ✔️ |  ❌
+esp32s2/esp32c3 |  ✔️ | ❌ |  ❌ 
 esp8266 | ❌ | ❌ |  ❌ 
 samd21 | ✔️ | ✔️ (one motor) |  ❌ 
 samd51 | ✔️ | ❌ |  ❌ 

@@ -1,6 +1,6 @@
 # simplefoc.github.io
 Documentation website for SimpleFOCproject
-
+ 
 - [Documentation](https://docs.simplefoc.com)
 - [Community forum](https://community.simplefoc.com)
 - [Shop](https://simplefoc.com/shop)
@@ -26,7 +26,7 @@ bundle install
 ```
 And you're ready to go!
 
-Just make sure that whenever you open your terminal to generate the webiste to activate the conda anvironment:
+Just make sure that whenever you open your terminal to generate the website to activate the conda environment:
 ```
 conda activate simpledocs
 ```
@@ -42,3 +42,12 @@ Since the site is quiet large sometimes the `--incremental` flag helps with fast
 ```
 bundle exec jekyll serve --incremental
 ```
+
+## Olddocs generating 
+
+1) Add the library version to the index.md 
+2) modify the `_config.yaml`
+    - `url: "http://olddocs.simplefoc.com" `
+    - `baseurl: "v2.2.3"`  
+3) run `bundle exec jekyll build`
+4) in `_site` you have the generated html
