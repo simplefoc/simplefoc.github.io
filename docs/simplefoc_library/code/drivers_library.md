@@ -49,7 +49,7 @@ It is steadily growing, but at the moment we have:
 
 ## How can I use it?
 
-```c++
+```cpp
 #include "SimpleFOCDrivers.h"
 ```
 
@@ -57,7 +57,7 @@ It is in the arduino library manager, called "Simple FOC Drivers". Install as no
 
 To use some code from the library, include the specific driver module you want. For example:
 
-```c++
+```cpp
 #include "encoders/as5048a/MagneticSensorAS5048A.h"
 ```
 

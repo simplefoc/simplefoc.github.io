@@ -151,6 +151,17 @@ class MagneticSensorI2C{
 }
 ```
 
+<blockquote markdown="1" class="info">
+<p class="heading" markdown="1">Calling `getVelocity` multiple times</p>
+When calling `getVelocity` it will only calculate the velocity if the elapsed time from the previous call is longer than the time specified in teh variable `min_elapsed_time` (default 100us). If the elapsed time from the last call is shorter than `min_elapsed_time` the function will return previously calculated value. Variable `min_elapsed_time` can be changed easily if necessary:
+
+```cpp
+sensor.min_elapsed_time = 0.0001; // 100us by default
+```
+</blockquote>
+
+
+
 Here is a quick example for AS5600 magnetic sensor with I2C communication:
 ```cpp
 #include <SimpleFOC.h>

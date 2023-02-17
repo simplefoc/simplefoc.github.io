@@ -5,7 +5,7 @@ parent: Getting Started
 description: "Writing the Arduino program for your SimpleFOCShield."
 nav_order: 3
 permalink: /foc_shield_code
-grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span>
+grand_parent: <span class="simple">Simple<span class="foc">FOC</span>Shield</span>
 grand_grand_parent: <span class="simple">Simple<span class="foc">FOC</span> Boards</span>
 ---
 
@@ -26,6 +26,8 @@ Suggested approach when starting coding for the Arduino <span class="simple">Sim
 - [Test the motor](#step-2-testing-the-motor)
 - [Voltage motion control](#step-3-voltage-motion-control)
 - [More complex control strategies](#step-4-more-complex-control-strategies) - position and velocity
+
+You can also follow our [Getting started](example_from_scratch) guide!
 
 ## Step 1. Testing the sensor
 First make sure your sensor works properly. Run one of the library examples specific to your sensors. You can find the library examples in 

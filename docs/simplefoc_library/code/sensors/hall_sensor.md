@@ -34,6 +34,14 @@ sensor.pullup = Pullup::USE_INTERN;
 ```
 <blockquote class="warning"><p class="heading">Arduino Pullup 20kΩ</p> Be careful when using internal pullups, Arduino has relatively high valued pullups around 20kΩ, which means that you might have some problems for higher velocities (for shorted impulse durations). Recommended pull-up values are in between 1kΩ and 5kΩ.</blockquote>
 
+### Step 2.1 Velocity outlier removal
+
+From the release v2.2.3 `HallSensor` class implements the outlier removal for its velocity calculations. It is based on a simple principle where all the calculated velocities higher than a certain maximal expected velocity are considered to be an outlier. To modify the maximal expected motor velocity, you can modify the variable `velocity_max`. This variable is set to 1000rad/s by default which is a good starting point for most applications. Except if you are using very high performance motors, then 1000 rad/s (~10,000 rpm) could still be reachable by the motor in which case please increase this value to a number outside the motor's reach.
+
+```cpp
+// maximal expected velocity
+sensor.velocity_max = 1000; // 1000rad/s by default ~10,000 rpm
+```
 ## Step 3. Interrupt setup
 There are two ways you can run hall sensors with Simple FOC library.
 - Using [hardware external interrupt](#hardware-external-interrupt) 
@@ -180,6 +188,15 @@ class HallSensor{
     float getAngle();
 }
 ```
+
+<blockquote markdown="1" class="info">
+<p class="heading" markdown="1">Calling `getVelocity` multiple times</p>
+When calling `getVelocity` it will only calculate the velocity if the elapsed time from the previous call is longer than the time specified in teh variable `min_elapsed_time` (default 100us). If the elapsed time from the last call is shorter than `min_elapsed_time` the function will return previously calculated value. Variable `min_elapsed_time` can be changed easily if necessary:
+
+```cpp
+sensor.min_elapsed_time = 0.0001; // 100us by default
+```
+</blockquote>
 
 Here is a quick example using only hardware interrupts:
 ```cpp
