@@ -233,9 +233,9 @@ If you wish to change the character id of a certain command that is the place to
 
 In general we can separate the commands into:
 - [Commander commands](#commander-commands) - commands specific for the `Commander` class
-- [PID commands](commands_pid)  - commands specific for the `PIDController` class 
-- [Low pass filter commands](command_lpf) - commands specific for the `LowPassFilter` class
-- [Motor commands](command_motor) - commands specific for the `FOCMotor` classes
+- [PID commands](commander_pid)  - commands specific for the `PIDController` class 
+- [Low pass filter commands](commander_pid) - commands specific for the `LowPassFilter` class
+- [Motor commands](commander_motor) - commands specific for the `FOCMotor` classes
 
 When adding the `scalar` variable to the commander or the motion control `target` the only command letter used is the one provided to the `commander.add`. 
 - [Scaler variable](commander_scalar) - adding the scalar `float` variable

@@ -164,4 +164,4 @@ Here are two project examples which use velocity motion control and describe the
     </a>
 </div>
 
-Find more projects in the [example projects](example_projects) section.
+Find more projects in the [example projects](examples) section.

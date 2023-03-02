@@ -61,7 +61,7 @@ The torque control loop is used as a base for all other motion control loops.  F
 
 ## Configuration parameters
 Depending on the torque control type you wish to use there are different parameters that you need to consider. 
-- [Voltage mode](voltage_mode)  - the simplest one - no parameters except maybe `motor.phase_resistance`
+- [Voltage mode](voltage_torque_mode)  - the simplest one - no parameters except maybe `motor.phase_resistance`
 - [DC current mode](dc_current_torque_mode) - 1xPID controller + 1xLPF
 - [FOC current mode](foc_current_torque_mode) - 2xPID controller + 2xLPF filters 
 
@@ -95,4 +95,4 @@ Here is one very cool project example which uses torque control and describes th
     </a>
 </div>
 
-Find more projects in the [example projects](example_projects) section.
+Find more projects in the [example projects](examples) section.

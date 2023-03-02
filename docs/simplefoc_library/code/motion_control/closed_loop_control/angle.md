@@ -201,4 +201,4 @@ Here is one project example which uses position control and describes the full h
     </a>
 </div>
 
-Find more projects in the [example projects](example_projects) section.
+Find more projects in the [example projects](examples) section.

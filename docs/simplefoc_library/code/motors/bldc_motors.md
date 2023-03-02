@@ -56,7 +56,7 @@ Working with currents instead of voltages is better in may ways, since the torqu
 
 It is important to say that once you specify the phase resistance value, you will most probably have to retune the [velocity motion control](velocity_loop) and [angle motion control](angle_loop) parameters, due to the reason that the voltages and currents values are in different orders of magnitude. The rule of thumb is to divide all the `P`, `I` and `D` gains with the `motor.phase_resistance` value. That will be a good staring point.
 
-Finally, this parameter is suggested to be used if one whats to switch in real time in between voltage ([voltage mode](voltage_mode)) and current based ([DC current](dc_current_torque_mode) and [FOC current](foc_current_torque_mode)) torque control strategies. Since in this way all the torque control loops will have current as input (target value) the user will not have to change the motion control parameters (PID values). 
+Finally, this parameter is suggested to be used if one whats to switch in real time in between voltage ([voltage mode](voltage_torque_mode)) and current based ([DC current](dc_current_torque_mode) and [FOC current](foc_current_torque_mode)) torque control strategies. Since in this way all the torque control loops will have current as input (target value) the user will not have to change the motion control parameters (PID values). 
 
 <blockquote class="info">
 <p class="heading">Open-loop motion control will use KV and phase resitance values  </p>
@@ -157,11 +157,11 @@ Read more in the [torque control docs](voltage_torque_mode).
 
 ### Step 5.5 Torque control mode
 There are 3 different torque control modes implemented in the Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>: 
-- [Voltage mode](voltage_mode)
+- [Voltage mode](voltage_torque_mode)
 - [DC current](dc_current_torque_mode)
 - [FOC current](foc_current_torque_mode)
 
-[DC current](dc_current_torque_mode) and [FOC current](foc_current_torque_mode) require current sensing and are controlling current and limiting the real current the motor is drawing, whereas [voltage mode](voltage_mode) approximates the motor current and does not use any current sensing. Read more in [torque control docs](torque_control).
+[DC current](dc_current_torque_mode) and [FOC current](foc_current_torque_mode) require current sensing and are controlling current and limiting the real current the motor is drawing, whereas [voltage mode](voltage_torque_mode) approximates the motor current and does not use any current sensing. Read more in [torque control docs](torque_control).
 
 The torque mode can be set by changing the motor attribute `torque_controller`.
 ```cpp
@@ -308,7 +308,7 @@ The faster you can run this function the better, here is approximative loops exe
 <table>
 <tr>
 <td>MCU</td>
-<td><a href="voltage_mode">Voltage mode</a></td>
+<td><a href="voltage_torque_mode">Voltage mode</a></td>
 <td><a href="dc_current_torque_mode">DC current</a></td>
 <td><a href="foc_current_torque_mode">FOC current</a></td>
 </tr>
