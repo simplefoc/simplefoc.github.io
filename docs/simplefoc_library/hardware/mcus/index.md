@@ -20,7 +20,7 @@ Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> su
 - [SAMD21/SAMD51](samd_mcu)
 - [Raspberry Pi Pico](rpi_mcu) - *initial support*
 - [Portenta H7](portenta_mcu) - *initial support*
-- [nRF52](nRF52_mcu) - *initial support*
+- [nRF52](nrf52_mcu) - *initial support*
 
 devices *off-the-shelf*, using Arduino IDE, and with small modifications many more... 😃
 
