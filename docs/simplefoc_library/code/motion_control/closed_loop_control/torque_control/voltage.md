@@ -20,8 +20,9 @@ motor.torque_controller = TorqueControlType::voltage;
 
 There are three different ways to control the torque of your motor using voltage requiring different knowledge about your motor mechanical parameters:
 - [Pure voltage control](#pure-voltage-control) - no motor parameters needed
-- [Estimated current control](#voltage-control-with-current-estimation) - phase resistance required
-- [Estimated current control with Back-EMF compensation](#voltage-control-with-current-estimation-and-back-emf-compensation) - required phase resistance and KV rating of the motor
+- [Estimated current control](#voltage-control-with-current-estimation) - phase resistance $$R$$ required
+- [Estimated current control with Back-EMF compensation](#voltage-control-with-current-estimation-and-back-emf-compensation) - required phase resistance $$R$$ and $$KV$$ rating of the motor
+- [Estimated current control with Back-EMF and lag compensation](#voltage-control-with-current-estimation-and-back-emf-compensation) - required phase resistance $$R$$, inductance $$L$$ and $$KV$$ rating of the motor
 
 Block diagrams of the three torque control techniques based on voltage control can be represented as:
 <script type="text/javascript">
@@ -36,16 +37,18 @@ Block diagrams of the three torque control techniques based on voltage control c
 </script>
 
 <a href ="javascript:show(0);" id="btn-0" class="btn btn-primary">Voltage control</a>
-<a href ="javascript:show(1);" id="btn-1" class="btn">Voltage control + Phase resistance</a>
-<a href ="javascript:show(2);" id="btn-2" class="btn">Voltage control + Phase resistance + KV rating</a>
+<a href ="javascript:show(1);" id="btn-1" class="btn"> + Phase resistance</a>
+<a href ="javascript:show(2);" id="btn-2" class="btn"> + KV rating</a>
+<a href ="javascript:show(3);" id="btn-3" class="btn"> + Phase inductance</a>
 
-<img style="display:block" id="0" class="gallery_img" src="extras/Images/voltage_loop_0000.jpg"/>
-<img style="display:none" id="1" class="gallery_img" src="extras/Images/voltage_loop_0001.jpg"/>
-<img style="display:none" id="2" class="gallery_img" src="extras/Images/voltage_loop_0002.jpg"/>
+<img style="display:block" id="0" class="gallery_img width80" src="extras/Images/vm0.jpg"/>
+<img style="display:none" id="1" class="gallery_img width80" src="extras/Images/vm1.jpg"/>
+<img style="display:none" id="2" class="gallery_img width80" src="extras/Images/vm2.jpg"/>
+<img style="display:none" id="3" class="gallery_img width80" src="extras/Images/vm3.jpg"/>
 
 ## Pure voltage control
 
-<a name="foc_image"></a><img src="extras/Images/voltage_loop_0000.jpg">
+<a name="foc_image"></a><img class="width80" src="extras/Images/vm0.jpg">
 
 The voltage control algorithm reads the angle $$a$$ from the position sensor and the gets target $$U_q$$ voltage value from the user and using the FOC algorithm sets the appropriate $$u_a$$, $$u_b$$ and $$u_c$$ voltages to the motor. FOC algorithm ensures that these voltages generate the magnetic force in the motor rotor exactly with <i>90 degree</i> offset from its permanent magnetic field, which guarantees maximal torque, this is called commutation.
 
@@ -72,7 +75,7 @@ If you set a certain desired voltage $$U_g$$ your motor should start moving and 
 
 Block diagram of this torque control strategy is as follows
 
-<a name="foc_image"></a><img src="extras/Images/voltage_loop_0001.jpg">
+<a name="foc_image"></a><img class="width80" src="extras/Images/vm1.jpg">
 
 If the user provides the phase resistance $$R$$ value of the motor, the user can set the desired current $$I_d$$ (that generates the desired torque $$I_d = k\tau_d$$) and the library will automatically calculate the appropriate voltage $$U_q$$.
 
@@ -114,7 +117,7 @@ If your desired current is set to some value that is not 0, but your motor does 
 
 Block diagram of this torque control strategy is as follows
 
-<a name="foc_image"></a><img src="extras/Images/voltage_loop_0002.jpg" >
+<a name="foc_image"></a><img class="width80" src="extras/Images/vm2.jpg" >
 
 If the user provides the phase resistance $$R$$ value and the motor's $$KV$$ rating of the motor, the user can set the desired current $$I_d$$ (that generates the desired torque $$I_d = k\tau_d$$) directly. The library will automatically calculate the appropriate voltage $$U_q$$ while compensating for the generated Back EMF voltage by keeping track of the motor velocity $$v$$.
 
@@ -165,6 +168,73 @@ If your desired current is set to some value that is not 0, but your motor does 
 
 
 
+## Voltage control using current estimation with Back-EMF and lag compensation
+
+Block diagram of this torque control strategy is as follows
+
+<a name="foc_image"></a><img class="width80" src="extras/Images/vm3.jpg" >
+
+If the user provides the phase resistance $$R$$ value and the motor's $$KV$$ rating of the motor, the user can set the desired current $$I_d$$ (that generates the desired torque $$I_d = k\tau_d$$) directly. The library will automatically calculate the appropriate voltage $$U_q$$ while compensating for the generated Back EMF voltage by keeping track of the motor velocity $$v$$.
+
+$$
+U_q = I_d R + U_{bemf}= (k\tau_d) R + \frac{v}{KV}
+$$
+
+Additionally if the user sets the phase inductance value $$L$$, the library will be able to compensate for the lag of the torque vector by calculating an appropriate d-axis voltage $$U_d$$
+
+$$
+U_d = -I_d L v n_{pp} = -(k\tau_d)L v n_{pp}
+$$
+
+where $$n_{pp}$$ is the number of motor's pole pairs. By compensating the lag of the torque vector due to the motor rotation velocity $$v$$, the motor will be able to spin with higher max velocity. Therefore the lag compensation will have the most effect if application requires going to the maximal motor velocity.
+
+User can specify the phase resistance and the KV rating of the motor either through the constructor for example
+```cpp
+// BLDCMotor(pole pair number, phase resistance [Ohms], KV rating [rpm/V], phase inductance [H])
+BLDCMotor motor = BLDCMotor( 11, 2.5, 120, 0.01 );
+```
+
+
+<blockquote class="info">
+<p class="heading"> RULE OF THUMB: KV value</p> 
+KV rating of the motor is defined as speed of the motor in rpm with the set voltage \(U_q\) of 1 Volt. If you do not know your motor's KV rating you can easily measure it using the library. Run your motor int the voltage mode and set the target voltage to one 1V and read the motor velocity.  <span class="simple">Simple<span class="foc">FOC</span>library</span> shows that velocity in the rad/s so in order to convert it to the rpm you just need to multiply it by \(30/\pi \approx 10\).<br><br>
+
+As explained above as the Back-EMF constant of the motor is always a bit smaller than the inverse of the KV rating ( \(k_{bemf}<1/KV\) ), the rule of thumb is to set the KV rating 10-20% higher than the one given in the datasheet, or the one determined experimentally. 
+</blockquote>
+
+
+
+With the $$R$$ and $$KV$$ information the <span class="simple">Simple<span class="foc">FOC</span>library</span> is able to estimate current set to the motor and the user will be able to control the motor torque, provided the motor parameters are correct (enough 😄).
+
+
+<blockquote class="warning">
+<p class="heading">⚠️ Practical limitations</p> 
+Back-EMF voltage is defined as \(U_{bemf} = k_{bemf}v\) and calculating it based on the motor \(KV\) rating of the motor is just an approximation because the motor BEMF constant \(k_{bemf}\) is not exacly \(k_{bemf}=1/KV\).
+It can be shown that the back-emf constant is always somewhat smaller than the inverse of the KV rating:
+\[k_{bemf}<\frac{1}{KV}\]
+</blockquote>
+
+### Expected motor behavior 
+If the user sets the desired current of 0 Amps, the motor should have very low resistance, much lower than in the two torque control strategies above. The motor should feel like it is almost disconnected. 
+
+<blockquote class="info">
+<p class="heading"> For current 0 motor moves</p>
+If your desired current is set to 0, but when you move your motor with your hand it continues moving on its own and does not come back to a complete stop, your \(KV\) value is too high. Try reducing it.
+</blockquote>
+
+If you set a certain desired current $$I_d$$ your motor should accelerate to its maximum velocity. The acceleration value is proportional to the motor torque and will be proportional to the current $$I_d$$. So for larger currents your motor will accelerate faster and for the lower currents it will accelerate slower. But for the motor without load, regardless of set target current $$I_d$$ the motor should reach its max velocity. 
+
+<blockquote class="info">
+<p class="heading"> For current \(I_d > 0\) motor does not move</p>
+If your desired current is set to some value that is not 0, but your motor does not move, your phase resistance value \(R\) is probably too low. Try increasing it.
+</blockquote>
+
+For different values of the motor phase inductance $$L$$ motor will be able to reach different maximal velocities. The higher the inductance value the higher the maximal velocity. However, after certain inductance value the motor maximal velocity will stop being affected as it will reach its absolute max velocity.  
+
+<blockquote class="info">
+<p class="heading"> How to find the phase inductance \(L\) value</p>
+Start with low value, such as 0.1mH and set your target current \(I_d\) to certain value to allow the motor to accelerate to it's max velocity. Then use the Commander interface to change the inductance and see see how the motor's velocity evolves. By raising the \(L\) value, the velocity should increase. After certain \(L\) value the velocity will stop increasing and if you continue it might even decrease. So use the minimal \(L\) value that reaches the max velocity.  
+</blockquote>
 
 
 

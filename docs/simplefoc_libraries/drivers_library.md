@@ -1,20 +1,19 @@
 ---
 layout: default
-title: SimpleFOC Drivers Library
-nav_order: 10
+title: <span class="simple">Simple<span class="foc">FOC</span>Drivers</span>
+nav_order: 1
 permalink: /drivers_library
-parent: Writing the Code
-grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+parent: <span class="simple">Simple<span class="foc">FOC</span>utils</span>
 has_children: False
 has_toc: False
 ---
 
 
-# SimpleFOC drivers library
+# <span class="simple">Simple<span class="foc">FOC</span>Drivers</span> library
 
 ![Library Compile](https://github.com/simplefoc/Arduino-FOC-Drivers/workflows/Library%20Compile/badge.svg)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-![arduino-library-badge](https://www.ardu-badge.com/badge/Simple%20FOC%20Drivers.svg?)
+![arduino-library-badge](https://www.ardu-badge.com/badge/SimpleFOCDrivers.svg?)
 
 
 The <span class="simple">Simple<span class="foc">FOC</span>library</span>'s main objective is to provide an efficient low level motion motor control for BLDC and stepper motors.

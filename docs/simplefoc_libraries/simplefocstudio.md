@@ -1,9 +1,9 @@
 ---
 layout: default
 title:  Simple<b>FOC</b>Studio
-nav_order: 4
+nav_order: 2
 permalink: /studio
-parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+parent: <span class="simple">Simple<span class="foc">FOC</span>utils</span>
 ---
 
 # *Simple**FOC**Studio*  <small>by [@JorgeMaker](https://github.com/JorgeMaker) </small>

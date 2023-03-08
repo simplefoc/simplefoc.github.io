@@ -6,12 +6,32 @@ nav_order: 8
 permalink: /roadmap
 ---
 
-#  Roadmap
+#  Feature Roadmap
 
-For more info about the features of library releases visit the [github releases <i class="fa fa-tag"></i>](https://github.com/simplefoc/Arduino-FOC/releases). This page is not really rigorously maintained and can be outdated from time to time.
+This page is not really rigorously maintained and can be a bit outdated.
+
+<div class="image_icon" >
+    <a href="https://simplefoc.notion.site/Developement-4149a181ea5b4383964cc8cc250e7d11" >
+        <img src="extras/Images/roadmap.png" >
+        <i class="fa fa-external-link-square fa-2x"></i>
+        <p >Roadmap with Notion</p>
+    </a>
+</div>
+<div class="image_icon" >
+    <a href="https://github.com/simplefoc/Arduino-FOC/releases" >
+        <img src="extras/Images/releases.png" >
+        <i class="fa fa-external-link-square fa-2x"></i>
+        <p >Github changelog</p>
+    </a>
+</div>
+
+For more info about the features of library releases visit the [github releases <i class="fa fa-tag"></i>](https://github.com/simplefoc/Arduino-FOC/releases). 
+
+# Old roadmap 
+<details markdown=1>
 
 ## Motion Control and FOC algorithm
-- [ ] **Motor control: Low-side current  sensing** - No.1
+- [x] **Motor control: Low-side current  sensing** - No.1
 - [ ] **Motor control: Inline current sensing with DMA** - No.2
 - [ ] Motor control: High-side current  sensing
 - [x] **Bugfix: Floating point angle overflow** 
@@ -78,6 +98,6 @@ For more info about the features of library releases visit the [github releases 
 - [x] VIDEO: Two motors running on HMBGC example
 - [x] VIDEO: Initial video with simple demonstration
 
-
+</details>
 
 
