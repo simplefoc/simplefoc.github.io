@@ -70,7 +70,7 @@ Please check the `magnetic_sensor_analog_pwm.ino` example to see more about it.
 <blockquote class="warning">
 <p class="heading">BEWARE: Blocking support limitations ⚠️</p>
 Blocking support for magnetic sensors is arguably has the worst performance out of all the  position sensing techniques supported in this library. Each time the code reads the angle from the sensor it will read one pulse and since the magnetic sensor have PWM frequency of around 1kHz, it means the the shortest execution time for reading an angle is around 1ms. 
-But in case of Arudino UNO and similar MCUs this might be the only option.
+But in case of Arduino UNO and similar MCUs this might be the only option.
 </blockquote>
 
 ### Interrupt based implementation
@@ -155,7 +155,29 @@ sensor.min_elapsed_time = 0.0001; // 100us by default
 
 
 
-Here is a quick example for AS5048A magnetic sensor using it's pwm output:
+<blockquote markdown="1" class="info">
+<p class="heading" markdown="1">Calling `getVelocity` multiple times</p>
+When calling `getVelocity` it will only calculate the velocity if the elapsed time from the previous call is longer than the time specified in teh variable `min_elapsed_time` (default 100us). If the elapsed time from the last call is shorter than `min_elapsed_time` the function will return previously calculated value. Variable `min_elapsed_time` can be changed easily if necessary:
+
+```cpp
+sensor.min_elapsed_time = 0.0001; // 100us by default
+```
+</blockquote>
+
+
+
+<blockquote markdown="1" class="info">
+<p class="heading" markdown="1">Calling `getVelocity` multiple times</p>
+When calling `getVelocity` it will only calculate the velocity if the elapsed time from the previous call is longer than the time specified in teh variable `min_elapsed_time` (default 100us). If the elapsed time from the last call is shorter than `min_elapsed_time` the function will return previously calculated value. Variable `min_elapsed_time` can be changed easily if necessary:
+
+```cpp
+sensor.min_elapsed_time = 0.0001; // 100us by default
+```
+</blockquote>
+
+
+
+Here is a quick example for AS5048A magnetic sensor using its PWM output:
 ```cpp
 #include <SimpleFOC.h>
 

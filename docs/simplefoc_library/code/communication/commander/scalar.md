@@ -34,7 +34,7 @@ void loop(){
 }
 ```
 
-You will be able to configure (set and get) itfrom serial monitor:
+You will be able to configure (set and get) it from serial monitor:
 ```sh
 $ ?           # list available commands 
 A: my variable

@@ -41,7 +41,7 @@ has_toc: False
 - [DC current mode](dc_current_torque_mode) - `dc_current`
 - [FOC current mode](foc_current_torque_mode) - `foc_current`
 
-In short **voltage control mode** is the simplest approximation of the motor torque control and it so basic that can be run on any motor+driver+mcu combination out there. **DC current mode** is teh next step of the motor's torque approximation which is much more exact than the voltage mode but requires current sensing and much stronger microcontroller. **FOC current mode** is controls motor's true torque and it is not an approximation, it also requires current sensor and even more processing power than the DC current mode. See in depth explanations in [torque mode docs](torque_control). 
+In short **voltage control mode** is the simplest approximation of the motor torque control and it so basic that can be run on any motor+driver+mcu combination out there. **DC current mode** is the next step of the motor's torque approximation which is much more exact than the voltage mode but requires current sensing and much stronger microcontroller. **FOC current mode** is controls motor's true torque and it is not an approximation, it also requires current sensor and even more processing power than the DC current mode. See in depth explanations in [torque mode docs](torque_control). 
 
 This motion control mode is enabled setting the `controller` parameter to:
 ```cpp
@@ -73,7 +73,7 @@ For more information about the source code implementation of the motion control 
 Torque control type | PROS | CONS
 ----- | ----- | ------
 Voltage  | ✔️ Very simple and fast <br>✔️ Good performance with any MCU <br> ✔️ Very smooth on low speeds<br> ✔️ No current sense needed   | ❌ Not optimal on high speeds <br> ❌ Cannot control true current draw <br> ❌ Torque is approximated (low error on low speeds)
-DC current  | ✔️ Can control true current draw <br> ✔️ Suitable for low performance MUCs <br> ✔️ Current limiting  | ❌ More complex to execute  (slower) <br> ❌ Can achieve lower speeds than voltage mode <br>❌ Torque is approximated (low error on low speeds) <br> ❌ Needs current sensing
+DC current  | ✔️ Can control true current draw <br> ✔️ Suitable for low performance MCUs <br> ✔️ Current limiting  | ❌ More complex to execute  (slower) <br> ❌ Can achieve lower speeds than voltage mode <br>❌ Torque is approximated (low error on low speeds) <br> ❌ Needs current sensing
 FOC current  | ✔️ True torque control (any velocity) <br> ✔️ Can control true current draw <br> ✔️ Very efficient on higher velocities <br> ✔️ Current limiting | ❌ The most complex to execute (slowest) <br> ❌ Not suitable for low-performing MCUs (can become unstable) <br> ❌ Needs current sensing
 
 ### Voltage mode - `voltage`

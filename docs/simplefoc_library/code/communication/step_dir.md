@@ -63,7 +63,7 @@ step_dir.attach(&my_value);
 ```
 
 <blockquote class="warning"><p class="heading">⚠️ BEWARE: Suboptimal performance</p>
-The simplest forms of communication such as step/dir are designed to be handled in hardware and software, interrupt based, implementation of these communication interfaces is usually not the optimal solution. It will provide the user a good base for testing purposes, but it is hard guarantee long-term robustness.  
+The simplest forms of communication such as step/dir are designed to be handled in hardware and software, interrupt based, implementation of these communication interfaces is usually not the optimal solution. It will provide the user a good base for testing purposes, but it is hard to guarantee long-term robustness.  
 </blockquote>
 
 
