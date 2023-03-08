@@ -16,7 +16,7 @@ MCU | 2 PWM mode | 4PWM mode | 3 PWM mode | 6 PWM mode | pwm frequency config
 --- | --- |--- |--- |--- |--- 
 stm32 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
 
-Stm32 devices have full coagulability using the <span class="simple">Simple<span class="foc">FOC</span>library</span> and will work with all driver types.
+Stm32 devices have full compatibility using the <span class="simple">Simple<span class="foc">FOC</span>library</span> and will work with all driver types.
 
 Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> will support most of the stm32 boards out there. Stm32 boards are very powerful and they are the most common choice for implementing motion control applications. Here are two most commonly used families of boards with this library. 
 

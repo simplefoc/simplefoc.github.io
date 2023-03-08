@@ -29,7 +29,7 @@ In the context of the <span class="simple">Simple<span class="foc">FOC</span>pro
    <span class="simple">Simple<span class="foc">FOC</span>library</span> is really intended for field oriented control of PMSM/BLDC motors, it's in the name ;-). But for different reasons, sometimes DC motors are preferred, and while we're not focused on this use-case, we do have a fair amount of code that can be leveraged to help with DC-Motor control applications.
 
 
-   So this represents a less-supported effort to provide some useful building blocks for DC-Motors.
+   So this represents a less-supported effort to provide some useful building blocks for DC-Motors. [Read more ...](dc_motors_library)
 
    <a href ="https://github.com/simplefoc/Arduino-FOC-dcmotor" class="btn"><i class="fa fa-github"></i> Github repo</a>   
 

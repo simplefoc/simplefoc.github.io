@@ -23,7 +23,7 @@ Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> re
 
 
 <blockquote class="warning"> <p class="heading">BEWARE: limitations of the current implementation ⚠️</p>
-Raspberry Pi Pico has only the early stage of support. The PWM features work well and have been tested and most of the sensors will work well! 
+Raspberry Pi Pico's ADC features are not sufficient for low-side current sensing, but inline current sensing is supported. Current sensing is recently developed, and not well tested.
 </blockquote>
 
 ## Arduino IDE support package
