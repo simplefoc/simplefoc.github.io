@@ -18,30 +18,32 @@ Examples:
 - [VNH2SP30 based boards](https://www.ebay.com/itm/Dual-VNH2SP30-Stepper-Motor-Driver-Module-30A-Monster-Moto-Shield-Replace-L298N/401089386943?hash=item5d62ca59bf:g:NA8AAOSw44BYEvxS)
 - etc.
 
-There are two common `2PWM` stepper driver architectures
+There are two common `2 PWM` stepper driver architectures
 - With one direction pin per phase (`dirx`)
 - With two direction pin per phase (`phxa` & `phxb`)
 
-Stepper driver with only one direction pin per phase has integrated inversion hardware in the driver itself which invert both pwm signal and direction pin. THese kinds of drivers are very common because they are intended for running dc motors with a simple pwm/direction interface. Basically, in order to run a stepper motor you need to combine two of these drivers.
+Stepper driver with only one direction pin per phase has integrated inversion hardware in the driver itself which invert both PWM signal and direction pin. THese kinds of drivers are very common because they are intended for running dc motors with a simple PWM/direction interface. Basically, in order to run a stepper motor you need to combine two of these drivers.
 <img src="extras/Images/stepper_2pwm_one_dir.png" class="width100">
 
-Stepper driver with two direction pins per phase had internal inversion hardware only for the pwm input but not for the direction input. And therefore it requires these inversions to be done outside, in software. You can imagine that `StepperDriver2PWM` class emulates the hardware circuits that are available in the one direction pin drivers shown above.  
+Stepper driver with two direction pins per phase had internal inversion hardware only for the PWM input but not for the direction input. And therefore it requires these inversions to be done outside, in software. You can imagine that `StepperDriver2PWM` class emulates the hardware circuits that are available in the one direction pin drivers shown above.  
 <img src="extras/Images/stepper_2pwm_two_dir.png" class="width100">
 
 ## Step 1. Hardware setup
-To create the interface to the stepper driver you need to specify the 2 `pwm` pin numbers, one for each motor phase. In addition to this you can choose to specify two direction pins per phase or just one. Finally you can add optional `enable` pin for each phase `en1` and `en2`.
+To create the interface to the stepper driver you need to specify the 2 `PWM` pin numbers, one for each motor phase. In addition to this you can choose to specify two direction pins per phase or just one. Finally you can add an optional `enable` pin for each phase `en1` and `en2`.
 
 
-For only two direction pins per phase use the constructor:
+For two direction pins per phase use the constructor:
 ```cpp
-//  StepperDriver4PWM( int pwm1, int ph1A,int ph1B,int pwm2, int ph2A,int ph2B, int en1 (optional), int en2 (optional))
-//  - pwm1       - phase 1 pwm pin
-//  - ph1A, ph1B - phase 1 direction pins
-//  - pwm2       - phase 2 pwm pin
-//  - ph2A, ph2B - phase 2 direction pins
-//  - en1, en2  - enable pins (optional input)
-StepperDriver2PWM driver = StepperDriver2PWM(3, 4, 5, 10 , 9 , 8 , 11, 12);
+      // pwm1  PWM1 phase pwm pin
+      // in1   IN1A phase dir pins
+      // pwm2  PWM2 phase pwm pin
+      // in2   IN2A phase dir pins
+      // en1 enable pin phase 1 (optional input)
+      // en2 enable pin phase 2 (optional input)
+      // StepperDriver2PWM(int pwm1, int* in1, int pwm2, int* in2, int en1 = NOT_SET, int en2 = NOT_SET);
+StepperDriver2PWM driver = StepperDriver2PWM(3, {4,5}, 10, {9,8}, 11, 12);
 ```
+
 For only one direction pin per phase use the constructor:
 ```cpp
 //  StepperDriver2PWM( int pwm1,int dir1,int pwm2,int dir2, int en1 (optional), int en2 (optional))
@@ -61,7 +63,7 @@ StepperDriver2PWM driver = StepperDriver2PWM(3, 4, 5, 6, 11, 12);
 driver.pwm_frequency = 20000;
 ```
 <blockquote class="warning">
-⚠️ Arduino devices based on ATMega328 chips have fixed pwm frequency of 32kHz.
+⚠️ Arduino devices based on ATMega328 chips have fixed PWM frequency of 32kHz.
 </blockquote>
 
 Here is a list of different microcontrollers and their PWM frequency and resolution used with the  Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>.
@@ -77,7 +79,7 @@ All of these settings are defined in the `drivers/hardware_specific/x_mcu.cpp/h`
 
 
 ## Step 2.2 Voltages
-Driver class is the one that handles setting the pwm duty cycles to the driver output pins and it is needs to know the DC power supply voltage it is plugged to.
+Driver class is the one that handles setting the PWM duty cycles to the driver output pins and it is needs to know the DC power supply voltage it is plugged to.
 Additionally driver class enables the user to set the absolute DC voltage limit the driver will be set to the output pins.  
 ```cpp
 // power supply voltage [V]
@@ -117,7 +119,7 @@ else{
 
 ## Step 3. Using encoder in real-time
 
-BLDC driver class was developed to be used with the <span class="simple">Simple<span class="foc">FOC</span>library</span> and to provide the abstraction layer for FOC algorithm implemented in the `StepperMotor` class. But the `StepperDriver4PWM` class can used as a standalone class as well and once can choose to implement any other type of control algorithm using the bldc driver.  
+BLDC driver class was developed to be used with the <span class="simple">Simple<span class="foc">FOC</span>library</span> and to provide the abstraction layer for FOC algorithm implemented in the `StepperMotor` class. But the `StepperDriver4PWM` class can used as a standalone class as well and once can choose to implement any other type of control algorithm using the BLDC driver.  
 
 ## FOC algorithm support
 In the context of the FOC control all the driver usage is done internally by the motion control algorithm and all that is needed to enable is is just link the driver to the `StepperMotor` class.
@@ -127,7 +129,7 @@ motor.linkDriver(&driver)
 ```
 
 ## Standalone driver 
-If you wish to use the bldc driver as a standalone device and implement your-own logic around it this can be easily done. Here is an example code of a very simple standalone application.
+If you wish to use the BLDC driver as a standalone device and implement your-own logic around it this can be easily done. Here is an example code of a very simple standalone application.
 ```cpp
 // Stepper driver standalone example
 #include <SimpleFOC.h>

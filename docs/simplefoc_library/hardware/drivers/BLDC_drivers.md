@@ -48,11 +48,11 @@ Examples | Description | Specifications | Link | Price
 <p class="heading">L298N limitations</p>
 L298N is based on bipolar transistor technology and has relatively long transistor rise times which can produce non-smooth operation.
 We suggest the L298N based boards only in closed loop mode, as the position sensor can correct possible noise from the driver. 
-It can also be a good board for beginner users, to get familier with the FOC as a cheep solution, but with certain performance limits.
+It can also be a good board for beginner users, to get familiar with the FOC as a cheap solution, but with certain performance limits.
 </blockquote>
 
 ## High performance boards
-<span class="simple">Simple<span class="foc">FOC</span>library</span> will support basically any BLDC motor driver which can be controlled using 3 PWM or 6PWM signals. Up to this moment ([version 1.3.1](https://github.com/simplefoc/Arduino-FOC/releases)) the library doesn't implement the current control loop. The motor torque is controlled via voltage directly ([more info](voltage_torque_control))
+<span class="simple">Simple<span class="foc">FOC</span>library</span> will support basically any BLDC motor driver which can be controlled using 3 PWM or 6 PWM signals. Up to this moment ([version 1.3.1](https://github.com/simplefoc/Arduino-FOC/releases)) the library doesn't implement the current control loop. The motor torque is controlled via voltage directly ([more info](voltage_torque_control))
 
 Here are the boards that have been tested and are compatible with the library:
 
@@ -72,5 +72,5 @@ Examples | Description | Specifications | Link | Price
 <p class="heading">IFX007T and BTN8982 chips limitations</p>
 IFX007T and BTN8982 are based on relatively old transistor technology and have relatively long transistor rise times which can produce non-smooth operation.
 We suggest the boards based on these chips to be used only in closed loop mode, as the position sensor can correct possible noise from the driver. 
-It can also be a good board for beginner users, to get familier with the high-current FOC as a cheep solution, but with certain performance limits.
+It can also be a good board for beginner users, to get familiar with the high-current FOC as an inexpensive solution, but with certain performance limits.
 </blockquote>

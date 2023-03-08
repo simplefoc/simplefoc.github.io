@@ -11,12 +11,12 @@ grand_grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">F
 
 # BLDC driver 6PWM - `BLDCDriver6PWM`
 
-This is the class which provides an abstraction layer of most of the common 6PWM bldc drivers out there. Basically any BLDC driver board that can be run using 6PWM signals can be represented with this class.
+This is the class which provides an abstraction layer of most of the common 6 PWM BLDC drivers out there. Basically any BLDC driver board that can be run using 6 PWM signals can be represented with this class.
 Examples:
-- DRV830x ( can be run in 3pwm or 6pwm mode )
+- DRV830x ( can be run in 3 PWM or 6 PWM mode )
 - ST B-G431B
 - X-NUCLEO-IHM08M1
-- Odrive 3.6
+- ODrive 3.6
 - etc.
 
 
@@ -25,7 +25,7 @@ Examples:
 6 PWM control mode gives much more freedom for BLDC motor control than 3PWM control since each of the 6 half-bride mosfets can be controlled separately. 
 
 ## Step 1. Hardware setup
-To create the interface to the BLDC driver you need to specify the 6 `pwm` pin numbers for each motor phase and optionally `enable` pin.
+To create the interface to the BLDC driver you need to specify the 6 `PWM` pin numbers for each motor phase and optionally `enable` pin.
 ```cpp
 //  BLDCDriver6PWM( int phA_h, int phA_l, int phB_h, int phB_l, int phC_h, int phC_l, int en)
 //  - phA_h, phA_l - A phase pwm pin high/low pair 
@@ -39,8 +39,8 @@ BLDCDriver6PWM motor = BLDCDriver6PWM(5,6, 9,10, 3,11, 8);
 </blockquote>
 
 ### Arduino UNO support
-Arduino UNO and all the atmega328 based boards have only 6 pwm pins and in order to use the `BLDCDrievr6PWM` we need to use all of them. Those are `3`,`5`,`6`,`9`,`10` and `11`. 
-Furthermore in order for the algorithm to work well we need to use the pwm pins that belong to the same timer for each high/low side pair of each phase. 7
+Arduino UNO and all the atmega328 based boards have only 6 PWM pins and in order to use the `BLDCDrievr6PWM` we need to use all of them. Those are `3`,`5`,`6`,`9`,`10` and `11`. 
+Furthermore in order for the algorithm to work well we need to use the PWM pins that belong to the same timer for each high/low side pair of each phase.
 So Atmega328 pins belonging to the timers are:
 
 `TIM0` |`TIM1` |`TIM2` 
@@ -49,28 +49,28 @@ So Atmega328 pins belonging to the timers are:
 
 Therefore it is important that `phA_h` and `phA_l` belong to one timer, `phB_h` and `phB_l` to second timer and `phC_h` and `phC_l` to the last timer. If we decide that phase `A` belongs to the timer `TIM0` we can set `phA_h` either to pin `5` or pin `6`. 
 
-### stm32 support
+### STM32 support
 
-Stm32 boards have two possible 6pwm modes:
-- Hardware 6pwm mode
-- Software 6pwm mode
+Stm32 boards have two possible 6 PWM modes:
+- Hardware 6 PWM mode
+- Software 6 PWM mode
 
-####  Hardware 6pwm mode
-In hardware 6pwm mode the user uses only one timer, usually Timer 1 for all the 6PWM channels. Stm32 boards usually have at least one timer which has automatic complementary channels which avoids the need for a complicated channel inverting configuration. <span class="simple">Simple<span class="foc">FOC</span>library</span> automatically enables this control mode if you provide the pins that support this interface to the constructor of the `BLDCDriver6PWM` class. For example, both stm32 Bluepill and stm32 Nucleo boards have this interface supported by pins:
+####  Hardware 6 PWM mode
+In hardware 6 PWM mode the user uses only one timer, usually Timer 1 for all the 6 PWM channels. Stm32 boards usually have at least one timer which has automatic complementary channels which avoids the need for a complicated channel inverting configuration. <span class="simple">Simple<span class="foc">FOC</span>library</span> automatically enables this control mode if you provide the pins that support this interface to the constructor of the `BLDCDriver6PWM` class. For example, both STM32 Bluepill and STM32 Nucleo boards have this interface supported by pins:
 
  `T1C1` | `T1C2` | `T1C3` | `T1C1N` | `T1C2N` | `T1C3N` 
  --- | --- | ---| ---| ---| ---
  `PA8` | `PA9` | `PA10` | `PB13` | `PB14` | `PB15`  
 
-Where `T1Cx` are the Timer 1 channels and `T1CxN` are their complementary channels (inverted channels). Each pair of `T1Cx` and `T1CxN` is used for one pair of the high/low pwm pins. The library will configure the necessary timers and registers if you provide these pins to the constrictor of the `BLDCDriver6PWM` class. For example:
+Where `T1Cx` are the Timer 1 channels and `T1CxN` are their complementary channels (inverted channels). Each pair of `T1Cx` and `T1CxN` is used for one pair of the high/low PWM pins. The library will configure the necessary timers and registers if you provide these pins to the constrictor of the `BLDCDriver6PWM` class. For example:
 ```cpp
 //  BLDCDriver6PWM( int phA_h, int phA_l, int phB_h, int phB_l, int phC_h, int phC_l, int en)
 BLDCDriver6PWM motor = BLDCDriver6PWM(PA8, PB13, PA9, PB14, PA10, PB15);
 ```
 
-####  Software 6pwm mode
-If it is not possible to use the hardware 6pwm mode with your board  <span class="simple">Simple<span class="foc">FOC</span>library</span> enables you to use any two channels of any of the timers as your high/low side pwm pair. Basically, the library will automatically configure the complementary channels on the provided low side pins. The only requirement for this code to work properly is exatcly the same as for the Arudino UNO, each phase high/low pwm pair needs to belong to the same timer. 
-For example, if we take stm32 Nucleo F401RE board we can take for example:
+####  Software 6 PWM mode
+If it is not possible to use the hardware 6 PWM mode with your board  <span class="simple">Simple<span class="foc">FOC</span>library</span> enables you to use any two channels of any of the timers as your high/low side PWM pair. Basically, the library will automatically configure the complementary channels on the provided low side pins. The only requirement for this code to work properly is exatcly the same as for the Arudino UNO, each phase high/low PWM pair needs to belong to the same timer. 
+For example, if we take STM32 Nucleo F401RE board we can take for example:
 ```cpp
 //  BLDCDriver6PWM( int phA_h, int phA_l, int phB_h, int phB_l, int phC_h, int phC_l, int en)
 BLDCDriver6PWM motor = BLDCDriver6PWM(7, 2, 6, 3, 5, 4);
@@ -92,8 +92,8 @@ Where
  --- | --- | ---| ---| ---| ---
  `PA8` | `PA9` | `PB6` | `PB7` | `PB8` | `PB9`  
 
-### esp32 support
-Esp32 boards support `MCPWM` interface that is intended for this kind of applications. Each ep32 board has two of the `MCPWM` channels and can support two 6PWM drivers. There is no pin specific requirements for the esp32, each pin can be used in pwm mode. But please make sure not to use the pins that have predefined states on boot because this could result malfunction. You can find this information online easily, here is a [YouTube video](https://www.youtube.com/watch?v=c0tMGlJVmkw) with more details. 
+### ESP32 support
+ESP32 boards support `MCPWM` interface that is intended for this kind of applications. Each ESP32 board has two of the `MCPWM` channels and can support two 6 PWM drivers. There is no pin specific requirements for the ESP32, each pin can be used in PWM mode. But please make sure not to use the pins that have predefined states on boot because this could result malfunction. You can find this information online easily, here is a [YouTube video](https://www.youtube.com/watch?v=c0tMGlJVmkw) with more details. 
 
 
 ### Low-side current sensing considerations
@@ -103,7 +103,7 @@ As ADC conversion has to be synchronised with the PWM generated on ALL the phase
 
 <blockquote class="info">
 <p class="heading">RULE OF THUMB: PWM timer pins</p>
-In order to maximise your chances for the low-side current sensing to work well we suggest to make sure that the PWM pins chosen for your driver all belong to the same Timer.
+In order to maximise your chances for the low-side current sensing to work well we suggest to make sure that the PWM pins chosen for your driver all belong to the same timer.
 
 Finding out which pins belong to different timers might require some time to be spent in the MCU datasheet 😄
 You can also always ask the community for help - <a href="https://community.simplefoc.com/">community link</a>!
@@ -117,7 +117,7 @@ You can also always ask the community for help - <a href="https://community.simp
 driver.pwm_frequency = 20000;
 ```
 <blockquote class="warning">
-⚠️ Arduino devices based on ATMega328 chips have fixed pwm frequency of 32kHz.
+⚠️ Arduino devices based on ATMega328 chips have fixed PWM frequency of 32kHz.
 </blockquote>
 
 Here is a list of different microcontrollers and their PWM frequency and resolution used with the  Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>.
@@ -158,13 +158,13 @@ driver.pwm_frequency = 20000;
 // dead_zone [0,1] - default 0.02 - 2%
 driver.dead_zone = 0.05;
 ```
-The dead zone parameter is defined as the amount of teh duty cycle that is reserved in between changing the active mosfet. Each time the high/low side is deacitvated and low/high side is activated half of the `dead_zone` is injected. This parameter is equivalent to the dead time, dead_time can be calculated as:
+The dead zone parameter is defined as the amount of the duty cycle that is reserved in between changing the active mosfet. Each time the high/low side is deacitvated and low/high side is activated half of the `dead_zone` is injected. This parameter is equivalent to the dead time, dead_time can be calculated as:
 ```cpp
 dead_time = 1/pwm_frequency*dead_zone
 ```
 
 ## Step 2.2 Voltages
-Driver class is the one that handles setting the pwm duty cycles to the driver output pins and it is needs to know the DC power supply voltage it is plugged to.
+Driver class is the one that handles setting the PWM duty cycles to the driver output pins and it is needs to know the DC power supply voltage it is plugged to.
 Additionally driver class enables the user to set the absolute DC voltage limit the driver will be set to the output pins.  
 ```cpp
 // power supply voltage [V]
@@ -204,7 +204,7 @@ else{
 
 ## Step 3. Using  `BLDCDriver6PWM` in real-time
 
-BLDC driver class was developed to be used with the <span class="simple">Simple<span class="foc">FOC</span>library</span> and to provide the abstraction layer for FOC algorithm implemented in the `BLDCMotor` class. But the `BLDCDriver3PWM` class can used as a standalone class as well and once can choose to implement any other type of control algorithm using the bldc driver.  
+BLDC driver class was developed to be used with the <span class="simple">Simple<span class="foc">FOC</span>library</span> and to provide the abstraction layer for FOC algorithm implemented in the `BLDCMotor` class. But the `BLDCDriver3PWM` class can used as a standalone class as well and once can choose to implement any other type of control algorithm using the BLDC driver.  
 
 ## FOC algorithm support
 In the context of the FOC control all the driver usage is done internally by the motion control algorithm and all that is needed to enable is is just link the driver to the `BLDCMotor` class.
@@ -214,7 +214,7 @@ motor.linkDriver(&driver)
 ```
 
 ## Standalone driver 
-If you wish to use the bldc driver as a standalone device and implement your-own logic around it this can be easily done. Here is an example code of a very simple standalone application.
+If you wish to use the BLDC driver as a standalone device and implement your-own logic around it this can be easily done. Here is an example code of a very simple standalone application.
 ```cpp
 // BLDC driver standalone example
 #include <SimpleFOC.h>

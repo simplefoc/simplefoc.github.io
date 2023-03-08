@@ -11,9 +11,9 @@ grand_grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">F
 
 # Stepper Driver - `StepperDriver4PWM`
 
-This is the class which provides an abstraction layer of most of the common 4PWM stepper drivers out there. Basically any stepper driver board that can be run using 4PWM signals can be represented with this class.
+This is the class which provides an abstraction layer of most of the common 4 PWM stepper drivers out there. Basically any stepper driver board that can be run using 4 PWM signals can be represented with this class.
 Examples:
-- L298n
+- L298N
 - MX1508
 - Shield R3 DC Motor Driver Module
 - etc.
@@ -95,7 +95,7 @@ else{
 
 ## Step 3. Using encoder in real-time
 
-BLDC driver class was developed to be used with the <span class="simple">Simple<span class="foc">FOC</span>library</span> and to provide the abstraction layer for FOC algorithm implemented in the `StepperMotor` class. But the `StepperDriver4PWM` class can used as a standalone class as well and once can choose to implement any other type of control algorithm using the bldc driver.  
+BLDC driver class was developed to be used with the <span class="simple">Simple<span class="foc">FOC</span>library</span> and to provide the abstraction layer for FOC algorithm implemented in the `StepperMotor` class. But the `StepperDriver4PWM` class can used as a standalone class as well and once can choose to implement any other type of control algorithm using the BLDC driver.  
 
 ## FOC algorithm support
 In the context of the FOC control all the driver usage is done internally by the motion control algorithm and all that is needed to enable is is just link the driver to the `StepperMotor` class.
@@ -105,7 +105,7 @@ motor.linkDriver(&driver)
 ```
 
 ## Standalone driver 
-If you wish to use the bldc driver as a standalone device and implement your-own logic around it this can be easily done. Here is an example code of a very simple standalone application.
+If you wish to use the BLDC driver as a standalone device and implement your-own logic around it this can be easily done. Here is an example code of a very simple standalone application.
 ```cpp
 // Stepper driver standalone example
 #include <SimpleFOC.h>

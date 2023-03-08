@@ -21,23 +21,22 @@ Low side current sensing for all the architectures is on our road-map and we are
 
 ## Current sensing support per MCU architecture
 
-Low side current sensing is currently supported for several MCU architectures supported by the <span class="simple">Simple<span class="foc">FOC</span>library</span>. ESP32 architecture has the most generic support, supporting multiple motors per chip. Stm32 families f1, f4 and g4 are initially supported and support low-side sensing for only one motor. A special case of the stm32 board is the BG431_ESC1 development kit which has very specific low-side implementation for its hardware configuration, and it is fully supported by the library. Samd21 architecture is under development, it has an initial support for only one motor, but for now as it has not been extensively tested, we suggest not to rely on our implementation.
+Low side current sensing is currently supported for several MCU architectures supported by the <span class="simple">Simple<span class="foc">FOC</span>library</span>. ESP32 architecture has the most generic support, supporting multiple motors per chip. Stm32 families f1, f4 and g4 are initially supported and support low-side sensing for only one motor. A special case of the STM32 board is the B-G431-ESC1 development kit which has very specific low-side implementation for its hardware configuration, and it is fully supported by the library. Samd21 architecture is under development, it has an initial support for only one motor, but for now as it has not been extensively tested, we suggest not to rely on our implementation.
 
 MCU | Low-side  Current sensing
 --- | --- 
 Arduino (8-bit) |  ❌
 Arduino DUE  |  ❌
-stm32 (in general) |❌ 
-stm32f1 family | ✔️ (one motor) 
-stm32f4 family | ✔️ (one motor) 
-stm32g4 family | ✔️ (one motor) 
-stm32 B_G431B_ESC1 | ✔️ (one motor) 
-esp32/esp32s3 |✔️ 
-esp32s2/esp32c3 |❌ 
-esp8266 | ❌ 
-samd21 | ✔️/❌ (one motor, poorly tested) 
-samd51 | ❌ 
-teensy |  ❌
+STM32 (in general) |❌ 
+STM32f1 family | ✔️ (one motor) 
+STM32f4 family | ✔️ (one motor) 
+STM32g4 family | ✔️ (one motor) 
+STM32 B_G431B_ESC1 | ✔️ 
+ESP32 |✔️ 
+ESP8266 | ❌ 
+SAMD21 | ✔️/❌ (one motor, poorly tested) 
+SAMD51 | ❌ 
+Teensy |  ❌
 Raspberry Pi Pico | ❌
 Portenta H7 |  ❌
 
@@ -68,7 +67,7 @@ driver.pwm_frequency = 20000;
 
 ####  2. PWM pin considerations
 
-As ADC conversion has to be synchronised with the PWM generated on ALL the phases, it is important that all the PWM generated for all the phases have aligned PWM. Since the microcontrollers usually have more than one timer for PWM generation on its pins, different architectures of microcontrollers have different degrees of alinement in between the PWM generated from different timers.
+As ADC conversion has to be synchronised with the PWM generated on ALL the phases, it is important that all the PWM generated for all the phases have aligned PWM. Since the microcontrollers usually have more than one timer for PWM generation on its pins, different architectures of microcontrollers have different degrees of alignment in between the PWM generated from different timers.
 
 
 <blockquote class="info">
@@ -172,10 +171,10 @@ else{
 }
 ```
 
-Once when your current sense has been intialised and calibrated you can start measuring the currents!
+When your current sense has been intialised and calibrated you can start measuring the currents!
 
 ## Using the current sense with FOC algorithm
-To use the `LowsideCurrentSense` with the FOC algorithm all you need to do is to add it to link it with the `BLDCMotor` you wish to use it with:
+To use the `LowsideCurrentSense` with the FOC algorithm all you need to do is link it with the `BLDCMotor` you wish to use it with:
 ```cpp
 // link motor and current sense
 motor.linkCurrentSense(&current_sense);
@@ -234,8 +233,7 @@ If you are sure in your configuration and if you wish to skip the alignment proc
 current_sense.skip_align = true;
 ```
 
-For example  [AliExpress DRV8302 board](https://fr.aliexpress.com/wholesale?catId=0&initiative_id=SB_20211003032006&SearchText=bldc+drv8302) , you would have a code similar to this:
-For example, Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> v2, you would have a code similar to this:
+For example for the [AliExpress DRV8302 board](https://fr.aliexpress.com/wholesale?catId=0&initiative_id=SB_20211003032006&SearchText=bldc+drv8302), you would have code similar to this:
 ```cpp
 // one possible combination of current sensing pins for SimpleFOCShield v2
 // shunt - 5milliOhm
@@ -273,7 +271,7 @@ See the full example for the Aliexpress DRB8302 based board in the library examp
 ## Standalone current sense
 
 Since the low-side current sense has to be synchornised with PWM of a driver of interest it does not make sense to use it as a stand-alone sensor.
-But once when you linked the current sense with the `BLDCMotor` you can use it to read your phase currents, overall current magnitude and DQ currents.
+But once you have linked the current sense with the `BLDCMotor` you can use it to read your phase currents, overall current magnitude and DQ currents.
 
 Reading the phase currents can be done by calling:
 ```cpp

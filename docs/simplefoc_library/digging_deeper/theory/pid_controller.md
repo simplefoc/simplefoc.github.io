@@ -15,7 +15,7 @@ Transfer function of the PID controller this library implements is:
 
 <p><img src="./extras/Images/contPID.png" /></p>
 
-Continuos PID is transformed to the discrete domain and can be described as a sum of three components:
+Continuous PID is transformed to the discrete domain and can be described as a sum of three components:
 
 <p><img src="./extras/Images/PID_eq.png" /></p>
 

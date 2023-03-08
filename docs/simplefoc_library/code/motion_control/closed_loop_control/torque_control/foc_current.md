@@ -27,7 +27,7 @@ The FOC current torque control algorithm reads the phase currents of the BLDC mo
 The torque generated in the motor is proportional to the q-axis current <i>i<sub>q</sub></i>, making this torque control mode the *true torque control* of a BLDC motor.  
 
 ## Configuration parameters
-In order to make this loop run smoothly the user needs to configure the PID controller parameters of teh `PID_current_q` and Low pass filter `LPF_current_q` time constant.
+In order to make this loop run smoothly the user needs to configure the PID controller parameters of the `PID_current_q` and Low pass filter `LPF_current_q` time constant.
 ```cpp
 // Q axis
 // PID parameters - default 

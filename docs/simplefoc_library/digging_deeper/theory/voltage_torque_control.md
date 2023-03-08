@@ -18,21 +18,21 @@ In this library we are using the voltage as a substitute for the torque control,
 
 The voltage control algorithm reads the angle <i>a</i> from the position sensor and the gets target <i>U<sub>q</sub></i> voltage value from the user and using the FOC algorithm sets the appropriate <i>u<sub>a</sub></i>, <i>u<sub>b</sub></i> and <i>u<sub>c</sub></i> voltages to the motor. FOC algorithm ensures that these voltages generate the magnetic force in the motor rotor exactly with <i>90 degree</i> offset from its permanent magnetic field, which guarantees maximal torque, this is called commutation.
 
-This is a hard way of achieving exactly the principle of the DC motor. Because, for DC motors, the 90degree angle in between generated magnetic field in rotor and the permanent magnetic field of the stator is performed in hardware, making it trivial for end-user. 
-Now when you have the 90degree constraint ensured by software (FOC algorithm) you can use this motor as any other voltage controlled DC motor.
+This is a hard way of achieving exactly the principle of the DC motor. Because, for DC motors, the 90 degree angle in between generated magnetic field in rotor and the permanent magnetic field of the stator is performed in hardware, making it trivial for end-user. 
+Now when you have the 90 degree constraint ensured by software (FOC algorithm) you can use this motor as any other voltage controlled DC motor.
 
 Therefore as for the DC motor we know that the motor torque `T` is directly proportional to the current `I`:
 ```cpp
 T = I*K 
 ```
 Where `K` is the motor constant defined by its hardware.
-And we also know that the curren is proportional to the set voltage `U`:
+And we also know that the current is proportional to the set voltage `U`:
 
 ```cpp
 I  = (U - EMF)/R
 ```
 
-Where `R` is the motor resistance and `EMF` is the generated back EMF voltage. Thi equation doesn't take in consideration any dynamics but in general it works good enough. 
+Where `R` is the motor resistance and `EMF` is the generated back EMF voltage. This equation doesn't take in consideration any dynamics but in general it works well enough. 
 
 So what we can conclude from all this is that (if we neglect the EMF):
 ```cpp

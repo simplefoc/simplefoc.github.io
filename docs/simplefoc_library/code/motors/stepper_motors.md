@@ -29,8 +29,8 @@ To create a stepper motor instance you need to specify the number of `pole pairs
 StepperMotor motor = StepperMotor(50, 1.5, 20.6);
 ```
 <blockquote class="info"><p class="heading">Pole pair number </p>
-Most of the stepper motors are 200 step per rotation motors making them 50 pole pair motors. In practice you can know the <code class="highlighter-rouge">pole_paris</code> number by dividing the number of steps per rotation by <code class="highlighter-rouge">4</code>.<br><br>
-If you are not sure what your <code class="highlighter-rouge">pole_paris</code> number is. The library provides you an example code to estimate your <code class="highlighter-rouge">pole_paris</code> number in the examples <code class="highlighter-rouge">examples/utils/calibration/find_pole_pairs_number.ino</code>.
+Most of the stepper motors are 200 step per rotation motors making them 50 pole pair motors. In practice you can know the <code class="highlighter-rouge">pole_pairs</code> number by dividing the number of steps per rotation by <code class="highlighter-rouge">4</code>.<br><br>
+If you are not sure what your <code class="highlighter-rouge">pole_pairs</code> number is. The library provides you an example code to estimate your <code class="highlighter-rouge">pole_pairs</code> number in the examples <code class="highlighter-rouge">examples/utils/calibration/find_pole_pairs_number.ino</code>.
  </blockquote>
 
 <blockquote class="warning" markdown="1">
@@ -50,7 +50,7 @@ You can also use the provided libray examples `examples/utils/calibration/find_K
 
 </blockquote>
 
-### Motor phase reistance and KV rating 
+### Motor phase resistance and KV rating 
 Providing the KV rating in combination with the phase resistance (not very used for current based torque modes `foc_current` and `dc_current`) will enable the user to control the motor's current without measuring it. The user will be able to control (and limit) the estimated current of the motor using the voltage control mode. Read more in the [torque control docs](voltage_torque_mode).
 
 Working with currents instead of voltages is better in may ways, since the torque of the BLDC motor is proportional to the current and not voltages and especially since the same voltage value will produce very different currents for different motors (due to the different phase resistance). Once when the phase resistance is provided the user will be able to set current limit for its BLDC motor instead of voltage limit which is much easier to understand. 

@@ -32,13 +32,13 @@ Even though <span class="simple">Simple<span class="foc">FOC</span>library</span
 
 This is the comparison of the PWM features implemented for different microcontroller families:
 
-MCU | 2 PWM mode | 4PWM mode | 3 PWM mode | 6 PWM mode | pwm frequency config 
+MCU | 2 PWM mode | 4 PWM mode | 3 PWM mode | 6 PWM mode | pwm frequency config 
 --- | --- |--- |--- |--- |--- 
 Arduino (8-bit) | ✔️ | ✔️ | ✔️ | ✔️ | ❌ (32kHz)
 Arduino DUE  | ✔️ | ✔️ | ✔️ | ❌ | ✔️
 stm32 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
-esp32/esp32s3 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
-esp32s2/esp32c3 | ✔️ | ✔️ | ✔️ | ❌ | ✔️
+esp32 MCPWM | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
+esp32 LEDC | ✔️ | ✔️ | ✔️ | ❌ | ✔️ 
 esp8266 | ✔️ | ✔️ | ✔️ | ❌ | ✔️ 
 samd21/51 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
 teensy | ✔️ | ✔️ | ✔️ | ❌ | ✔️ 
@@ -46,7 +46,9 @@ Raspberry Pi Pico | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
 Portenta H7 | ✔️ | ✔️ | ✔️ | ❌ | ✔️ 
 nRF52 |✔️ | ✔️ | ✔️ | ✔️ | ✔️
 
-From this table you can see that if you need teh 6PWM mode for your application you should avoid using Teensy and Arduino DUE boards for now.
+From this table you can see that if you need the 6 PWM mode for your application you should avoid using Teensy and Arduino DUE boards for now.
+
+Also, for ESP32 board the situation is confusing as only those ESP32 chips with a built-in MCPWM peripheral can do the 6 PWM mode. While most ESP32 chips do support it, a few of them (like the C3), don't have MCPWM support. These chips are still supported via their LEDC peripheral, but can't do 6 PWM.
 
 Even though all the MCUs from the table above (and many more) are supported in the library and all of the will work with most of the BLDC motors+BLDC driver+sensor combinations, their performance will not be the same. So here is a quick guide how to choose which MCU to use.
 
@@ -88,17 +90,17 @@ Raspberry Pi Pico | ✔️ | ❌ |  ❌
 Portenta H7 | ✔️ | ❌ |  ❌
 nRF52 | ✔️ | ❌ |  ❌
 
-Most of the boards will support inline current sensing, and initial support for the low-side current sensing is available for esp32, samd21 and the stm32 B_G431B_ESC1 board.
+Most of the boards will support inline current sensing, and initial support for the low-side current sensing is available for esp32, samd21, stm32 and the stm32 B_G431B_ESC1 board.
 
 ## Gimbal controllers
-Gimbal controllers are the most simple and surely the cheapest solution for running FOC algorithm with your gimbal motor. They are perfect for smooth position/velocity controlling two BLDC motors with sensors if you don't have high constraints on dynamics. Their main disadvantage is that they use all the external interrupt pins for PWM signals and therefore you cannot access them from outside. That would mean that even if you only need one motor (3PWMs) you will still not be able to use pin `2` and `3` for encoder `A` and `B` signals. This means, if you are planing to use encoders with these boards you will need to use software interrupts. The good news is that this will work, the bad news is that the performance of counting encoder signals will be impaired. So I would suggest you to use Magnetic sensors with communication interface (SPI, I2C...) with these boards if possible.  
+Gimbal controllers are the most simple and surely the cheapest solution for running FOC algorithm with your gimbal motor. They are perfect for smooth position/velocity controlling two BLDC motors with sensors if you don't have high constraints on dynamics. Their main disadvantage is that they use all the external interrupt pins for PWM signals and therefore you cannot access them from outside. That would mean that even if you only need one motor (3 PWMs) you will still not be able to use pin `2` and `3` for encoder `A` and `B` signals. This means, if you are planing to use encoders with these boards you will need to use software interrupts. The good news is that this will work, the bad news is that the performance of counting encoder signals will be impaired. So I would suggest you to use Magnetic sensors with communication interface (SPI, I2C...) with these boards if possible.  
 
 Don't let this discourage you from using the gimbal controllers with FOC, just be aware of possible side-effects when deciding which motor and sensor to use. 
 
 <blockquote class="warning"> Make sure your gimbal controller has communication interface pins you need, available before buying it. </blockquote>
 
 ## Arduino MCUs
-Arduino devices, such as UNO,MEGA,NANO and similar, are probably the most commonly used microcontrollers there is, and therefore probably with this library as well. The simplicity of using these boards si incomparable. If you are planning to run this library with the Arduino device I would certainly suggest you to think about using Magnetic sensors instead of encoders. Encoders are highly inefficient sensors (at least their implementation for Arduino UNO & MEGA) and due to constant counting the interrupt signals of the encoder produces a large difference of execution time depending on velocities you are driving your motor. 
+Arduino devices, such as UNO, MEGA, NANO and similar, are probably the most commonly used microcontrollers there is, and therefore probably with this library as well. The simplicity of using these boards si incomparable. If you are planning to run this library with the Arduino device I would certainly suggest you to think about using Magnetic sensors instead of encoders. Encoders are highly inefficient sensors (at least their implementation for Arduino UNO & MEGA) and due to constant counting the interrupt signals of the encoder produces a large difference of execution time depending on velocities you are driving your motor. 
 
 <blockquote class="warning">
 <p class="heading">Encoder CPR: Rule of thumb for Arduino UNO/MEGA</p>

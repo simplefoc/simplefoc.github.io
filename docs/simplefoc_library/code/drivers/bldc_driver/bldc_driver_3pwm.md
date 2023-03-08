@@ -9,7 +9,7 @@ grand_grand_parent: Writing the Code
 grand_grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 ---
 
-# BLDC driver 3PWM - `BLDCDriver3PWM`
+# BLDC driver 3 PWM - `BLDCDriver3PWM`
 
 This is the class which provides an abstraction layer of most of the common 3PWM bldc drivers out there. Basically any BLDC driver board that can be run using 3PWM signals can be represented with this class.
 Examples:
@@ -17,7 +17,7 @@ Examples:
 - Arduino <span class="simple">Simple<span class="foc">FOC</span> <span class="power">Power</span>Shield</span>
 - L6234 breakout board
 - HMBGC v2.2
-- DRV830x ( can be run in 3pwm or 6pwm mode )
+- DRV830x ( can be run in 3 PWM or 6 PWM mode )
 - X-NUCLEO-IHM07M1
 - etc.
 
@@ -180,7 +180,7 @@ void loop() {
 }
 ```
 
-An example code of the BLDC driver with three enable pins, one for each phase. This code will put one phase at the time to the high-impedance mode and pun 3 and 6 Volts on the remaining two. 
+An example code of the BLDC driver with three enable pins, one for each phase. This code will put one phase at the time to the high-impedance mode and put 3 and 6 Volts on the remaining two. 
 ```cpp
 // BLDC driver standalone example
 #include <SimpleFOC.h>

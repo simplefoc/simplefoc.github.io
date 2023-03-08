@@ -12,7 +12,7 @@ has_toc: false
 
 # Commander interface
 
-Commander is a simple and flexible interface monitoring, supervision, configuration and control using the G-code like communication protocol. The communication is based on `ASCII` character command ids which makes simple and efficient to parse on any mcu. After the command id has been received the function attached to this command is called and provided the remaining string of characters received which follows the command character. 
+Commander is a simple and flexible interface monitoring, supervision, configuration and control using the G-code like communication protocol. The communication is based on `ASCII` character command ids which makes simple and efficient to parse on any MCU. After the command id has been received the function attached to this command is called and provided the remaining string of characters received which follows the command character. 
 
 <img src="extras/Images/cmd_motor.gif" class="img100">
 <img src="extras/Images/cmd_motor_get.gif" class="img100">
@@ -166,7 +166,6 @@ void loop(){
 }
 ```
 Or maybe you wish to tune the velocity PID and you and change the target value of the motor and you wish to remove unnecessary memory overhead due to the other functionalities you do nto necessarily need, then your code could look something like:
-something like this:
 ```cpp
 BLDCMotor motor = .....
 Commander commander = ....

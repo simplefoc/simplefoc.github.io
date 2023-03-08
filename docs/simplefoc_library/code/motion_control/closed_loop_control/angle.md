@@ -20,7 +20,7 @@ You can test this algorithm by running the examples in `motion_control/position_
 
 ## How it works
 
-The angle/position control closes the control loop around the velocity control loop. And the velocity control closes the control loop around the torque control, regardless which one it is. If it is the voltage mode without phase resistance set, the velocity motion control will set the the torque command using the voltage <i>U<sub>q</sub></i>::
+The angle/position control closes the control loop around the velocity control loop. And the velocity control closes the control loop around the torque control, regardless which one it is. If it is the voltage mode without phase resistance set, the velocity motion control will set the the torque command using the voltage <i>U<sub>q</sub></i>:
 <img src="extras/Images/angle_loop_v.png">
 
 And if it is any of the current torque control modes (FOC or DC current) or voltage mode with provided phase resistance, the angle motion control will be setting the target current <i>i<sub>q</sub></i> to the torque controller:
@@ -89,7 +89,7 @@ For the angle control you will be able to see the influence of the velocity LPF 
 Additionally you can configure the `velocity_limit` value of the controller. This value prevents the controller to set too high velocities <i>v<sub>d</sub></i> to the motor. 
 - If you make your `velocity_limit` very low your motor will be moving in between desired positions with exactly this velocity. If you keep it high, you will not notice that this variable even exists. 😃 
 
-Finally, each application is a bit different and the chances are you will have to tune the controller values a bit to reach desired behavior.
+Finally, each application is a bit different and the chances are you will have to tune the controller values a bit to reach desired behaviour.
 
 For more theory about this approach and the source code documentation check the [digging deeper section](digging_deeper).
 
