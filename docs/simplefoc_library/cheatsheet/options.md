@@ -35,7 +35,8 @@ motor.controller | MotionControlType::torque | Motion control mode
 motor.torque_controller | TorqueControlType::voltage | Torque control mode
 motor.motion_downsample | 0 | Set to values > 1 to reduce how often move() is executed compared to loopFOC(). On fast MCUs it makes sense to reduce how often move() gets called.
 motor.phase_resistance | NOT SET | Motor phase resistance. If set, used to calculate current limits based on voltage limits. Value in Ohms.
-motor.K_bemf | NOT SET | motor back emf constant, as 1/KV. Units 1/rad/s/V. Set via motor constructor, where you can specify KV in RPM/V.
+motor.KV_rating | NOT SET | motor KV rating, RMS value. Can also be set via motor constructor, where you can specify KV in RPM/V.
+motor.phase_inductance | NOT SET | motor inductance, in H. Units Henry. Can also be set via motor constructor.
 motor.voltage_limit | 12V | Global voltage limit. Limits Q-axis voltage.
 motor.current_limit | 2A | Global current limit. Limits Q-axis current.
 motor.velocity_limit | 20rad/s | Global velocity limit. Value in rad/s.

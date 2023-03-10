@@ -18,7 +18,7 @@ Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> su
 - [ESP32 and ESP8266](esp_mcu)
 - [Teensy](teensy_mcu)
 - [SAMD21/SAMD51](samd_mcu)
-- [Raspberry Pi Pico](rpi_mcu) - *initial support*
+- [Raspberry Pi Pico](rpi_mcu)
 - [Portenta H7](portenta_mcu) - *initial support*
 - [nRF52](nrf52_mcu) - *initial support*
 
