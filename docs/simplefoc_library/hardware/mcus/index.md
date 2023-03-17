@@ -34,7 +34,7 @@ This is the comparison of the PWM features implemented for different microcontro
 
 MCU | 2 PWM mode | 4 PWM mode | 3 PWM mode | 6 PWM mode | pwm frequency config 
 --- | --- |--- |--- |--- |--- 
-Arduino (8-bit) | ✔️ | ✔️ | ✔️ | ✔️ | ❌ (32kHz)
+Arduino (8-bit) | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ (either 4kHz or 32kHz)
 Arduino DUE  | ✔️ | ✔️ | ✔️ | ❌ | ✔️
 stm32 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
 esp32 MCPWM | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 

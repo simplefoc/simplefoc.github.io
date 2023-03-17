@@ -13,7 +13,7 @@ grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</sp
 
 MCU | 2 PWM mode | 4 PWM mode | 3 PWM mode | 6 PWM mode | pwm frequency config 
 --- | --- |--- |--- |--- |--- 
-Arduino (8-bit) | ✔️ | ✔️ | ✔️ | ✔️ | ❌
+Arduino (8-bit) | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ (either 4kHz or 32kHz)
 
 This table shows the 8-bit Arduino supported features. Basically everything except the frequency setting, the PWM frequency is fixed to 32kHz.
 

@@ -100,28 +100,6 @@ commander.run(my_string); // reads the string
 <blockquote class="warning"><p class="heading"> Serial output</p>
 The <code class="highlighter-rouge">Commander</code> class will always try to print the output to the serial instance provided in the constructor. If it did not receive one in the constructor, then it will use the one provided in the <code class="highlighter-rouge">run()</code> function. If it does not any of the two, it will not output anywhere, but the user can still use it.</blockquote>
 
-### Configuration 
-Commander class has two configuration parameters:
-- `verbose` - Serial output mode
-- `decimal_places` - Number of decimal places for floating point numbers 
-
-Number of decimal places for floating point numbers can be changed easily by setting the parameter `decimal_places`:
-```cpp
-commander.decimal_places = 4; // default 3
-```
-
-Serial output mode can be easily changed by setting the parameter `verbose`
-```cpp
-// VerboseMode::nothing        - display nothing - good for monitoring
-// VerboseMode::on_request     - display only on user request
-// VerboseMode::user_friendly  - display textual messages to the user (default)
-commander.verbose = VerboseMode::user_friendly;
-```
-
-There are three types of output modes:
--  `VerboseMode::nothing` - this mode does not output anything to the serial terminal - it is very useful when `Commander` is used in combination with [monitoring](monitoring) to avoid unkonwn values in the Arduino's Serial Plotter for example
-- `VerboseMode::on_request` - this mode outputs only there resutls of get and set commands and will not output any additional unnecessary (human readable) text.
-- `VerboseMode::user_friendly` - this mode is the default mode and is intended for the cases when it is the user who sends the commands using the serial monitor. This mode will in addition to all the necessary get and set values output additional text for easier comprehension for human user.
 
 ### Adding commands
 In order to add the callback for a given command character to the `Commander` you will need to call the function `add()` that receives the command character, the function pointer and the commands label:
@@ -192,7 +170,7 @@ This simple interface provides the user a simple way to make communicate and con
 It also makes the tuning of the custom control loops much easier since you can close the loop with a pid controller `PIDController` very easily and just add it to the commander to tune it in real time. 
 
 You can find more examples in library examples `examples/utils/communication_test/commander` folder.
-## Commander commands
+## Commander built-in commands
 When using the `Commander` in your program the user will have three built-in default commands he can use:
 - `?` - list all the commands available
 - `#` - get/set decimal point number
@@ -202,7 +180,7 @@ When using the `Commander` in your program the user will have three built-in def
 - `@` - get/set verbose output mode
   - Examples:
     - get mode: `@`
-    - set user frinedly mode : `@3`
+    - set user friendly mode : `@2`
     - set noting mode : `@0`
     - set on request mode : `@1`
 
@@ -224,6 +202,46 @@ P: some pid
 R: some other motor
 ``` 
 
+### Configuration commands
+Commander class has two configuration parameters:
+- `verbose` - Serial output mode
+- `decimal_places` - Number of decimal places for floating point numbers 
+
+Number of decimal places for floating point numbers can be changed easily by setting the parameter `decimal_places`:
+```cpp
+commander.decimal_places = 4; // default 3
+```
+
+Serial output mode can be easily changed by setting the parameter `verbose`
+```cpp
+// VerboseMode::nothing           - display nothing - good for monitoring
+// VerboseMode::on_request        - display only on user request
+// VerboseMode::user_friendly     - display textual messages to the user (default)
+// VerboseMode::machine_readable  - display machine readable messages 
+commander.verbose = VerboseMode::user_friendly;
+```
+
+There are four types of output modes:
+-  `VerboseMode::nothing` - this mode does not output anything to the serial terminal - it is very useful when `Commander` is used in combination with [monitoring](monitoring) to avoid unknown values in the Arduino's Serial Plotter for example
+```shell
+$ MLU1.2 # set voltage limit to 1.2V for the motor with the command id 'M'
+$        # no response   
+```
+- `VerboseMode::on_request` - this mode outputs only the results of get and set commands and will not output any additional unnecessary (human readable) text.
+```shell
+$ MLU1.2 # set voltage limit to 1.2V for the motor with the command id 'M'
+$ 1.2    # set value is 1.2  
+```
+- `VerboseMode::user_friendly` - this mode is the default mode and is intended for the cases when it is the user who sends the commands using the serial monitor. This mode will in addition to all the necessary get and set values output additional text for easier comprehension for human user.
+```shell
+$ MLU1.2                  # set voltage limit to 1.2V for the motor with the command id 'M'
+$ Limits| volt: 1.2000    # human readable return - value is 1.2  
+```
+- `VerboseMode::machine_readable` - this mode is there for easier parsing returned values by software. This mode is essentially the same as the `VerboseMode::on_request`, however it will repeat the command characters before returning values.
+```shell
+$ MLU1.2 # set voltage limit to 1.2V for the motor with the command id 'M'
+$ MLU1.2 # machine readable format, command repeated + set value is 1.2  
+```
 
 ## List of available commands
 
