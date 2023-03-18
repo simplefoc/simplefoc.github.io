@@ -41,7 +41,7 @@ Therefore this is an attempt to:
    - start, end and separator characters
    - decimal places (settable through commander)
  - Added machine readable verbose mode in `Commander` [#233](https://github.com/simplefoc/Arduino-FOC/pull/233)
- - *Simple**FOC**WebController* - Web based user interface for SimpleFOC by [@geekuillaume](https://github.com/geekuillaume) - [webcontroller.simplefoc.com](webcontroller.simplefoc.com)
+ - *Simple**FOC**WebController* - Web based user interface for SimpleFOC by [@geekuillaume](https://github.com/geekuillaume) - [webcontroller.simplefoc.com](https://webcontroller.simplefoc.com)
  - bugfix - `MagneticSensorPWM` multiple occasions - [#258](https://github.com/simplefoc/Arduino-FOC/pull/258)
  - bugfix - current sense align - added offset exchange when exchanging pins
  - bugfix - trapezoid 150 fixed
