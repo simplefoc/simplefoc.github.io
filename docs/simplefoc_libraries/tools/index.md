@@ -26,7 +26,7 @@ In the context of the <span class="simple">Simple<span class="foc">FOC</span>pro
 
    This is a controller interface for the <span class="simple">Simple<span class="foc">FOC</span>library</span>. It uses WebSerial to communicate with a suitable micro-controller using serial port communications and the [Commander](commander_interface) interface. [Read more ... ](webcontroller)
 
-   <a href ="https://github.com/geekuillaume/simplefoc-webcontroller" class="btn btn"><i class="fa fa-github"></i> Github repo</a> <a href ="https://docs.simplefoc.com/simplefoc-webcontroller/" class="btn btn-primary"><i class="fa fa-github"></i> Open <span class="simple">Simple<span class="foc">FOC</span>webcontroller</span></a>   
+   <a href ="https://github.com/geekuillaume/simplefoc-webcontroller" class="btn btn"><i class="fa fa-github"></i> Github repo</a> <a href ="https://webcontroller.simplefoc.com/" class="btn btn-primary"><i class="fa fa-github"></i> Open <span class="simple">Simple<span class="foc">FOC</span>webcontroller</span></a>   
    
 - ###  <span class="simple">Simple<span class="foc">FOC</span>Generator</span> by [@stijnsprojects](https://github.com/stijnsprojects)
 

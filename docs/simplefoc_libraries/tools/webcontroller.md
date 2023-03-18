@@ -14,7 +14,7 @@ This is a controller interface for the <span class="simple">Simple<span class="f
 Most of the code for this application was provided by [@geekuillaume](https://github.com/geekuillaume), his github repository can be found [here](https://github.com/geekuillaume/simplefoc-webcontroller) and his application can be found [here](https://simplefoc.besson.co/). 
 Our app is a fork of his code, that has been further extended to support more devices and configuration parameters, as well as to ease the monitoring visualisation. 
 
-<a href ="https://github.com/geekuillaume/simplefoc-webcontroller" class="btn btn"><i class="fa fa-github"></i> Github repo</a> <a href ="https://docs.simplefoc.com/simplefoc-webcontroller/" class="btn btn-primary"><i class="fa fa-github"></i> Open <span class="simple">Simple<span class="foc">FOC</span>webcontroller</span></a>   
+<a href ="https://github.com/geekuillaume/simplefoc-webcontroller" class="btn btn"><i class="fa fa-github"></i> Github repo</a> <a href ="https://webcontroller.simplefoc.com/" class="btn btn-primary"><i class="fa fa-github"></i> Open <span class="simple">Simple<span class="foc">FOC</span>webcontroller</span></a>   
 
 
 
@@ -22,7 +22,7 @@ Our app is a fork of his code, that has been further extended to support more de
 
 <blockquote class="info">
 <p class="heading">📢 Early stage project</p>
-This project is still in its early stage, we are counting on your patience and looking forward to hear your feedback. As there are many people in the community with far more knowledge about these kinds of apps than we do, don't hesitate to leve the issues and do the pull requests. 
+This project is still in its early stage, we are counting on your patience and looking forward to hear your feedback. As there are many people in the community with far more knowledge about these kinds of apps than we do, don't hesitate to leave the issues and do the pull requests. 
 </blockquote>
 
 ### Features:
@@ -34,7 +34,7 @@ This project is still in its early stage, we are counting on your patience and l
 
 ## Using the *Simple**FOC**WebController*
 
-<a href ="https://docs.simplefoc.com/simplefoc-webcontroller/" class="btn btn-primary"><i class="fa fa-github"></i> Open <span class="simple">Simple<span class="foc">FOC</span>webcontroller</span></a>  
+<a href ="https://webcontroller.simplefoc.com/" class="btn btn-primary"><i class="fa fa-github"></i> Open <span class="simple">Simple<span class="foc">FOC</span>webcontroller</span></a>  
 
 *Simple**FOC**WebController* does not require any installation, its only requirement is that your browser has `WebSerial` support. Check the supportedd browsers [here](https://caniuse.com/web-serial).
 

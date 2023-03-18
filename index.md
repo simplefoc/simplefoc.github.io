@@ -21,54 +21,44 @@ We live in very exciting times 😃! BLDC motors are entering the hobby communit
 The solutions that can be found on-line are almost exclusively very specific for certain hardware configuration and the microcontroller architecture used.
 Additionally, most of the efforts at this moment are still channeled towards the high-power applications of the BLDC motors and proper low-cost and low-power FOC supporting boards are very hard to find today and even may not exist. <br>
 Therefore this is an attempt to: 
-- 🎯 Demystify FOC algorithm and make a robust but simple Arduino library: [Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> ](#arduino-simplefoclibrary-v160)
+- 🎯 Demystify FOC algorithm and make a robust but simple Arduino library: [Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> ](arduino_simplefoc_library_showcase)
   - <i>Support as many <b>motor + sensor + current sense + driver + mcu</b> combinations out there</i>
 - 🎯 Develop a modular FOC supporting BLDC driver boards:
    - ***NEW*** 📢: *Minimalistic* BLDC driver (<3Amps) :   [<span class="simple">Simple<b>FOC</b>Mini</span> ](simplefocmini).
    - *Low-power* gimbal driver (<5Amps) :   [Arduino <span class="simple">Simple<b>FOC</b>Shield</span> ](arduino_simplefoc_shield_showcase).
    - *Medium-power* BLDC driver (<30Amps): [Arduino <span class="simple">Simple<b>FOC</b>PowerShield</span> ](https://github.com/simplefoc/Arduino-SimpleFOC-PowerShield).
-   - See also [@byDagor](https://github.com/byDagor)'s *fully-integrated* ESP32 based board: [Dagor Brushless Controller](https://github.com/byDagor/Dagor-Brushless-Controller)
-
-
-<blockquote class="success">
-<p class="heading">NEWS 📢: <span class="simple">Simple<span class="foc">FOC</span>library</span> has been published in the Journal of Open Source Software <a href="citing">read more</a></p>
-
-SimpleFOC: A Field Oriented Control (FOC) Library for Controlling Brushless Direct Current (BLDC) and Stepper Motors.<br>
-A. Skuric, HS. Bank, R. Unger, O. Williams, D. González-Reyes<br>
-Journal of Open Source Software, 7(74), 4232<br>
-</blockquote>
 
 <blockquote class="info" markdown="1">
-   <p class="heading">NEW RELEASE 📢: <span class="simple">Simple<span class="foc">FOC</span>library</span> v2.2.3 <a href="https://github.com/simplefoc/Arduino-FOC/releases/tag/v2.2.3">see release</a></p>
-- stm32 low-side current sensing 
-   - g4 supported
-   - thoroughly tested f1/f4/g4 - [#187](https://github.com/simplefoc/Arduino-FOC/issues/187)
-   - bg431b: added support for VBAT and TEMPERATURE readings [#222](https://github.com/simplefoc/Arduino-FOC/pull/222)
-- bugfixing
-   - leonardo
-   - mega2560 [#190](https://github.com/simplefoc/Arduino-FOC/issues/190)
-   - inline current sense without driver [#188](https://github.com/simplefoc/Arduino-FOC/issues/188)
-   - bg431b support current sense fix [#210](https://github.com/simplefoc/Arduino-FOC/pull/210)
-   - `StepperDriver4PWM` wrong init  [#182](https://github.com/simplefoc/Arduino-FOC/issues/182)
-   - open loop back-emf voltage issue [#219](https://github.com/simplefoc/Arduino-FOC/issues/219)
-   - SAMD51 compile issue [#217](https://github.com/simplefoc/Arduino-FOC/issues/217)
-   - ESP32-S3 compile issue [#198](https://github.com/simplefoc/Arduino-FOC/issues/198)
-   - ESP32 compile issue [#208](https://github.com/simplefoc/Arduino-FOC/issues/208), [#207](https://github.com/simplefoc/Arduino-FOC/issues/207)
-   - magnetic sensor direction finding more robust [#173](https://github.com/simplefoc/Arduino-FOC/issues/173), [#164](https://github.com/simplefoc/Arduino-FOC/pull/164)
-   - `StepDirListener` improved timing [#169](https://github.com/simplefoc/Arduino-FOC/issues/169), [#209](https://github.com/simplefoc/Arduino-FOC/pull/209)
-   - `HallSensor` velocity calculation fix [#192](https://github.com/simplefoc/Arduino-FOC/issues/192) 
-- API changes
-   - `setPhaseVoltage` is now public function 
-   - `getVelocity` can now be called as many times as necessary - [see in docs](encoder#standalone-sensor)
-      - it recalculates the velocity if the time between calls is longer then `min_elapsed_time` - default 0.1ms
-   - `HallSensor` velocity calculation outlier removal using max expected velocity `velocity_max` - [see in docs](hall_sensors#step-21-velocity-outlier-removal)
-   - BG431 board can be used only with `LowsideCurrentSense` class! - [see in docs](current_sense#current-sensing-support-per-mcu-architecture)
-   - `initFOC` fails if current sense not initialised - [see in docs](bldcdriver3pwm#step-23-initialisation)
-      - driver and current sense have to be well initialised for `initFOC` to start - [see in docs](bldcmotor#step-6-align-motor-and-all-the-sensors---field-oriented-control-init)
-      - `cs.init()` and `driver.init()` return `1` if well initialised and `0` if failed 
+   <p class="heading">NEW RELEASE 📢: <span class="simple">Simple<span class="foc">FOC</span>library</span> v2.3.0 <a href="https://github.com/simplefoc/Arduino-FOC/releases/tag/v2.3.0">see release</a></p>
+ - Arduino Mega 6pwm more timers supported 
+ - Arduino boards - frequency change support either 32kHz or 4kHz
+ - Arduino Uno -   synched timers in 3pwm and 6pwm mode [#71](https://github.com/simplefoc/Arduino-FOC/issues/71)
+ - Teensy 3.x initial support for 6pwm
+ - Teensy 4.x initial support for 6pwm
+ - Example for v3.1 SimpleFOCShield 
+ - RP2040 compatibility for earlehillpower core [#234](https://github.com/simplefoc/Arduino-FOC/pull/234) [#236](https://github.com/simplefoc/Arduino-FOC/pull/236)
+ - More flexible monitoring API 
+   - start, end and separator characters
+   - decimal places (settable through commander)
+ - Added machine readable verbose mode in `Commander` [#233](https://github.com/simplefoc/Arduino-FOC/pull/233)
+ - *Simple**FOC**WebController* - Web based user interface for SimpleFOC by [@geekuillaume](https://github.com/geekuillaume) - [webcontroller.simplefoc.com](webcontroller.simplefoc.com)
+ - bugfix - `MagneticSensorPWM` multiple occasions - [#258](https://github.com/simplefoc/Arduino-FOC/pull/258)
+ - bugfix - current sense align - added offset exchange when exchanging pins
+ - bugfix - trapezoid 150 fixed
+ - bugfix - 4pwm on ESP8266 [#224](https://github.com/simplefoc/Arduino-FOC/pull/224)
+ - Additional `InlineCurrentSense` and `LowsideCurrentSense` constructor using milliVolts per Amp [#253](https://github.com/simplefoc/Arduino-FOC/pull/253)
+ - STM32L4xx current sense support by [@Triple6](https://github.com/Triple6) (discord) [#257](https://github.com/simplefoc/Arduino-FOC/pull/257)
+ - phase disable in 6pwm mode 
+   - stm32 - software and hardware 6pwm
+   - atmega328 
+   - atmega2560
+ - Lag compensation using motor inductance [#246](https://github.com/simplefoc/Arduino-FOC/issues/246)
+   - current control through voltage torque mode enhancement
+   - extended `BLDCMotor` and `StepperMotor` constructors to receive the inductance paramerer
+   - can also be set using `motor.phase_inductance` or through `Commander`
 </blockquote>
 
-## Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> <i><small>v2.2.3</small></i>
+## Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> <i><small>v2.3.0</small></i>
 <iframe class="youtube"  src="https://www.youtube.com/embed/Y5kLeqTc6Zk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 This video demonstrates the Simple FOC library basic usage, electronic connections and shows its capabilities.
 
