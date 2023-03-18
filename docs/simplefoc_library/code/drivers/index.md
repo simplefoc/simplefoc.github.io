@@ -31,14 +31,16 @@ These classes can be used as stand-alone classes and they can be used to set cer
 
 ## Driver support per MCU architecture
     
-MCU | 2 PWM mode | 4PWM mode | 3 PWM mode | 6 PWM mode | pwm frequency config 
+MCU | 2 PWM mode | 4 PWM mode | 3 PWM mode | 6 PWM mode | pwm frequency config 
 --- | --- |--- |--- |--- |--- 
 Arduino (8-bit) | ✔️ | ✔️ | ✔️ | ✔️ | ❌ (32kHz)
 Arduino DUE  | ✔️ | ✔️ | ✔️ | ❌ | ✔️
 stm32 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
-esp32 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
+esp32 | ✔️ | ✔️ | ✔️ | ✔️ / ❌<sup>*</sup> | ✔️ 
 esp8266 | ✔️ | ✔️ | ✔️ | ❌ | ✔️ 
 samd21/51 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
 teensy | ✔️ | ✔️ | ✔️ | ❌ | ✔️ 
 Raspberry Pi Pico | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
 Portenta H7 | ✔️ | ✔️ | ✔️ | ❌ | ✔️ 
+
+<sup>*</sup> For ESP32, the support for 6 PWM depends on the model of ESP32. The models that have a MCPWM peripheral support 6 PWM, the ones that do not only support the other PWM modes.

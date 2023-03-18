@@ -20,7 +20,7 @@ Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> ha
 
 <img src="extras/Images/comparison_cs.png" class="width40">
 
-up to this moment ( [check the releases <i class="fa fa-tag"></i>](https://github.com/simplefoc/Arduino-FOC/releases) ), Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> supports in-line current sensing for almost all platforms and low-side current sensing on ESP32 boards, stm32 (f1, f4 and g4 families - one motor), samd21 (one motor) and on the stm32 based B_G431B_ESC1 boards (one motor). 
+up to this moment ( [check the releases <i class="fa fa-tag"></i>](https://github.com/simplefoc/Arduino-FOC/releases) ), Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> supports in-line current sensing for almost all platforms and low-side current sensing on ESP32 boards, stm32 (f1, f4 and g4 families - one motor), SAMD21 (one motor) and on the STM32 based B-G431B-ESC1 boards (one motor). 
 
 Each one of the current sensing classes will implement all the necessary functionalities for simple and robust implementation of FOC algorithm:
 - Hardware config
@@ -31,7 +31,7 @@ Each one of the current sensing classes will implement all the necessary functio
   - Adaptive alignment with driver phases
 - Reading the phase currents
   - Calculation of the current vector magnitude 
-  - Calculation of the FOC d and q currents 
+  - Calculation of the FOC D and Q currents 
 
 Each of the implemented classes can be used as stand-alone classes and they can be used to read current values on BLDC driver outputs out of scope of the Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>, see example codes in `utils > current_sense_test`.
 In order for FOC algorithm to work the current sense classes are linked to a `BLDCMotor` class which uses the driver to read the FOC currents.   
@@ -63,4 +63,5 @@ Portenta H7 | ✔️ | ❌ |  ❌
 nRF52 | ✔️ | ❌ |  ❌
 
 ## Digging deeper
+
 For more theoretical explanations and source code implementations of the current sensing and its integration into the FOC and motion  check out the [digging deeper section](digging_deeper).

@@ -52,7 +52,7 @@ Block diagrams of the three torque control techniques based on voltage control c
 
 The voltage control algorithm reads the angle $$a$$ from the position sensor and the gets target $$U_q$$ voltage value from the user and using the FOC algorithm sets the appropriate $$u_a$$, $$u_b$$ and $$u_c$$ voltages to the motor. FOC algorithm ensures that these voltages generate the magnetic force in the motor rotor exactly with <i>90 degree</i> offset from its permanent magnetic field, which guarantees maximal torque, this is called commutation.
 
-The assumption of the pure voltage control is that the torque generated (which is proportional to the current $$I = k \tau $$) in the motor is proportional the voltage as $$U_q$$ set buy user. Maximal torque corresponds to the maximal $$U_q$$ which is conditioned by the power supply voltage available, and the minimal torque is of course for $$U_q= 0$$.
+The assumption of the pure voltage control is that the torque generated (which is proportional to the current $$I = k \tau $$) in the motor is proportional the voltage as $$U_q$$ set by the user. Maximal torque corresponds to the maximal $$U_q$$ which is conditioned by the power supply voltage available, and the minimal torque is of course for $$U_q= 0$$.
 
 $$
 U_q \approx I = k\tau

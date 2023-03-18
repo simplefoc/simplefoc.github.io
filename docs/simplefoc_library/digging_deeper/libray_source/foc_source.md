@@ -35,7 +35,7 @@ motor.foc_modulation = FOCModulationType::SinePWM; // default
 motor.foc_modulation = FOCModulationType::SpaceVectorPWM;
 ```
 
-<blockquote class="info"> <p class="heading">NOTE: </p>For more info about the FOC algorithm theory visit <a href="foc_theory"> foc theory corner</a>. </blockquote>
+<blockquote class="info"> <p class="heading">NOTE: </p>For more info about the FOC algorithm theory visit <a href="foc_theory"> FOC theory corner</a>. </blockquote>
 
 The two modulation types and phase voltage calculation is fully implemented in the `setPhaseVoltage()` function. Here's how it looks.
 ```cpp
@@ -256,7 +256,7 @@ int BLDCMotor::absoluteZeroAlign() {
 
 
 ## Real-time execution `loopFOC()`
-Finally the only thing that is left to do is run the real-time FOC routine. The code needs to get motor position (form sensor), calculate the electrical angle (`electricAngle()`) from it and set the desired voltage (`motor.voltage_q`) to the motor phases by using `setPhaseVoltage()` function. 
+Finally the only thing that is left to do is run the real-time FOC routine. The code needs to get motor position (from sensor), calculate the electrical angle (`electricAngle()`) from it and set the desired voltage (`motor.voltage_q`) to the motor phases by using `setPhaseVoltage()` function. 
 
 
  <a name="foc_image"></a><img src="extras/Images/voltage_loop.png">

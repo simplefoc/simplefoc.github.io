@@ -241,7 +241,7 @@ void setup() {
   motor.initFOC();
   
   // add target command T
-  command.add('T', doTarget, "target velocity");
+  command.add('T', onTarget, "target velocity");
 
   // monitoring port
   Serial.begin(115200);

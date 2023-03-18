@@ -20,13 +20,13 @@ Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> im
 - [4PWM <i class="fa fa-external-link"></i>](stepper_driver_4pwm) - class `StepperDriver4PWM`
 - [2PWM <i class="fa fa-external-link"></i>](stepper_driver_2pwm) - class `StepperDriver2PWM`
 
-Classes `StepperDriver2PWM` and  `StepperDriver4PWM` provide an abstraction layer of all the hardware/platform specific code for all the supported platforms: atmega328, esp32, stm32, sam, samd and teensy. 
+Classes `StepperDriver2PWM` and  `StepperDriver4PWM` provide an abstraction layer of all the hardware/platform specific code for all the supported platforms: ATMega328, ESP32, STM32, SAM, SAMD and Teensy. 
 They implement:
 - PWM configuration
     - PWM frequency
     - PWM center-alignment 
-    - Direction channel handling (2PWM)
-    - Complementary direction channel  (2PWM)
+    - Direction channel handling (2 PWM)
+    - Complementary direction channel  (2 PWM)
 - PWM duty cycle setting 
 - Voltage limiting
 

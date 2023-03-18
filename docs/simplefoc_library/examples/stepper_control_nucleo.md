@@ -32,7 +32,7 @@ Here is an example of the connection scheme using the L298N and Nucleo-64:
 
 ## Encoder 
 - Channels `A` and `B` are connected to the pins `A0` qnd `A1` 
-- Index channel is not used in this example but you cqn easily modify this example to support it
+- Index channel is not used in this example but you can easily modify this example to support it
 
 ## Motor
 - Motor phases `A1`, `A2`, `B1`and `B2` are connected directly the motor connectors of the L298N chip.
