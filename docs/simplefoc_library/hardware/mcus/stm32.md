@@ -12,11 +12,24 @@ grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</sp
 # STM32 boards support
 
 
+Driver support
+
 MCU | 2 PWM mode | 4PWM mode | 3 PWM mode | 6 PWM mode | pwm frequency config 
 --- | --- |--- |--- |--- |--- 
 stm32 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
 
-Stm32 devices have full coagulability using the <span class="simple">Simple<span class="foc">FOC</span>library</span> and will work with all driver types.
+Current sensing support
+
+MCU | In-line | Low-side | High-side
+--- | --- |--- |--- 
+stm32 (in general) | ✔️ | ❌ |  ❌
+stm32f1 family | ✔️ | ✔️ (one motor) |  ❌
+stm32f4 family | ✔️ | ✔️ (one motor) |  ❌
+stm32g4 family | ✔️ | ✔️ (one motor) |  ❌
+stm32l4 family | ✔️ | ✔️ (initial) |  ❌
+stm32 B_G431B_ESC1 | ❌ | ✔️ (one motor) |  ❌
+
+Stm32 devices have full compatibility using the <span class="simple">Simple<span class="foc">FOC</span>library</span> and will work with all driver types.
 
 Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> will support most of the stm32 boards out there. Stm32 boards are very powerful and they are the most common choice for implementing motion control applications. Here are two most commonly used families of boards with this library. 
 

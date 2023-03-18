@@ -109,7 +109,9 @@ var classProps = [
     "index_search_velocity",
     "controller",
     "velocity_limit",
-    "skip_align"
+    "skip_align",
+    "monitor_start_char",
+    "monitor_end_char"
 ];
 
 var funcNames = [
@@ -217,7 +219,8 @@ var structProps = [
     "CCW",
     "nothing",
     "on_request",
-    "user_friendly"
+    "user_friendly",
+    "machine_readable"
 ];
 jtd.onReady(function(){
     document.querySelectorAll('.n').forEach(function(e) {

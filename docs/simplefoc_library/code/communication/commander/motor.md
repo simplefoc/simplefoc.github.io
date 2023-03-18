@@ -29,8 +29,9 @@ When using a standard callback for `BLDCMotor` and `StepperMotor` classes:`comma
   -  **C** - Current  
   -  **U** - Voltage   
   -  **V** - Velocity  
-- **R** - Motor phase resistance                
-- **K** - Motor KV rating              
+- **R** - Motor phase resistance    
+- **I** - Motor phase inductance                
+- **K** - Motor KV rating            
 - **S** - Sensor offsets     
   - **M** - sensor offset          
   - **E** - sensor electrical zero             

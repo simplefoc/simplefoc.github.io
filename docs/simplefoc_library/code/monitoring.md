@@ -24,8 +24,8 @@ motor.useMonitoring(Serial);
 Note: you can also use other serial ports, e.g. Serial1, Serial2, as supported by your MCU.
 </blockquote>
 
-<blockquote class="warning">
-At the moment, enabling monitoring using <code class="highlighter-rouge">motor.useMonitoring</code> will <i>also</i> enable debug output - see [debugging] for details.
+<blockquote class="warning" markdown=1>
+At the moment, enabling monitoring using <code class="highlighter-rouge">motor.useMonitoring</code> will <i>also</i> enable debug output - see [debugging](debugging) for details.
 
 In a future release, debug output and telemetry output will be seperated and the <code class="highlighter-rouge">motor.useMonitoring</code> function will likely be deprecated.
 
@@ -73,6 +73,7 @@ Furthermore, outputting the real-time execution variables using `motor.monitor()
 // downsampling
 motor.monitor_downsample = 100; // default 10
 ```
+
 This variable tells `motor.monitor()` to output the variables to the serial each `monitor_downsample` number of calls. So in short, it will output the variables to the serial each `monitor_downsample` loop calls.
 
 Here is an example of a full configuration code:
@@ -135,6 +136,33 @@ voltage,target,velocity
 <blockquote class="warning"><p class="heading"> Execution time impairment</p>
 The intention of this method is to be called in main loop function along the <code class="highlighter-rouge">loopFOC()</code> and <code class="highlighter-rouge">move()</code> function. Therefore, <code class="highlighter-rouge">motor.monitor()</code> is going to impact the execution performance and reduce the sampling frequency of the FOC algorithm so therefore take it in consideration when running the code.  </blockquote>
 
+
+## Monitor output formatting
+
+<span class="simple">Simple<span class="foc">FOC</span>library</span> allows to format the monitoring output. It allows you to set the starting character, ending character, value separator character and the number of decimal places to be used for variable monitoring.
+
+```cpp
+motor.monitor_start_char = '\0'; //!< monitor starting character
+motor.monitor_end_char = '\0'; //!< monitor outputs ending character 
+motor.monitor_separator = '\t'; //!< monitor outputs separation character
+```
+The initial parameters are set so that the Arduino IDE's serial plotter parses well the variables. However if you wish to use some other serial plotter application, for example [CieNTi/serial_port_plotter](https://github.com/CieNTi/serial_port_plotter), you can easily adapt the monitoring format so that you can visualise motor variables in it
+
+```cpp
+motor.monitor_separator= ' ';
+motor.monitor_end_char= ';';
+motor.monitor_start_char= '$';
+```
+
+Or for example for [nathandunk/BetterSerialPlotter](https://github.com/nathandunk/BetterSerialPlotter), we only need to change the separator value to the space character.
+```cpp
+motor.monitor_separator= ' ';
+```
+
+Additionally, it is possible to change the number of decimal places used for the display monitored variables using the `monitor_decimals` variable. By default it's set to `4`.
+```cpp
+motor.monitor_decimals = 4; //!< monitor outputs decimal places
+``` 
 ## Custom serial terminal monitoring
 
 If you wish to implement you own monitoring functions or just output the motor variables to the `Serial` terminal here are the public variables of the `BLDCMotor` and `StepperMotor` class that you can access at any time.
