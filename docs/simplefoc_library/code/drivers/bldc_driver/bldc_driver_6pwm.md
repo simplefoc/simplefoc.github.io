@@ -32,7 +32,7 @@ To create the interface to the BLDC driver you need to specify the 6 `PWM` pin n
 //  - phB_h, phB_l - B phase pwm pin high/low pair
 //  - phB_h, phC_l - C phase pwm pin high/low pair
 //  - enable pin    - (optional input)
-BLDCDriver6PWM motor = BLDCDriver6PWM(5,6, 9,10, 3,11, 8);
+BLDCDriver6PWM driver = BLDCDriver6PWM(5,6, 9,10, 3,11, 8);
 ```
 <blockquote class="warning">
 ⚠️ 6 PWM configuration is very hardware specific and please make sure to respect certain guidelines in order for it to work properly!
@@ -65,7 +65,7 @@ In hardware 6 PWM mode the user uses only one timer, usually Timer 1 for all the
 Where `T1Cx` are the Timer 1 channels and `T1CxN` are their complementary channels (inverted channels). Each pair of `T1Cx` and `T1CxN` is used for one pair of the high/low PWM pins. The library will configure the necessary timers and registers if you provide these pins to the constrictor of the `BLDCDriver6PWM` class. For example:
 ```cpp
 //  BLDCDriver6PWM( int phA_h, int phA_l, int phB_h, int phB_l, int phC_h, int phC_l, int en)
-BLDCDriver6PWM motor = BLDCDriver6PWM(PA8, PB13, PA9, PB14, PA10, PB15);
+BLDCDriver6PWM driver = BLDCDriver6PWM(PA8, PB13, PA9, PB14, PA10, PB15);
 ```
 
 ####  Software 6 PWM mode
@@ -73,7 +73,7 @@ If it is not possible to use the hardware 6 PWM mode with your board  <span clas
 For example, if we take STM32 Nucleo F401RE board we can take for example:
 ```cpp
 //  BLDCDriver6PWM( int phA_h, int phA_l, int phB_h, int phB_l, int phC_h, int phC_l, int en)
-BLDCDriver6PWM motor = BLDCDriver6PWM(7, 2, 6, 3, 5, 4);
+BLDCDriver6PWM driver = BLDCDriver6PWM(7, 2, 6, 3, 5, 4);
 ```
 Where
 
@@ -84,7 +84,7 @@ Where
 On Bluepill we could use:
 ```cpp
 //  BLDCDriver6PWM( int phA_h, int phA_l, int phB_h, int phB_l, int phC_h, int phC_l, int en)
-BLDCDriver6PWM motor = BLDCDriver6PWM(PA8, PA9, PB6, PB7, PB8, PB9);
+BLDCDriver6PWM driver = BLDCDriver6PWM(PA8, PA9, PB6, PB7, PB8, PB9);
 ```
 Where
 
@@ -124,7 +124,7 @@ Here is a list of different microcontrollers and their PWM frequency and resolut
 
 MCU | default frequency | MAX frequency | PWM resolution | Center-aligned | Configurable freq
 --- | --- | --- | --- | ---
-Arduino UNO(Atmega328) | 32 kHz | 32 kHz | 8bit | yes | no
+Arduino UNO(Atmega328) | 32 kHz | 32 kHz | 8bit | yes | yes (either 4kHz or 32kHz)
 STM32 | 25kHz | 50kHz | 14bit | yes | yes
 ESP32 | 30kHz | 50kHz | 10bit | yes | yes
 Teensy | 25kHz | 50kHz | 8bit | yes | yes

@@ -46,7 +46,7 @@ Here is a list of different microcontrollers and their PWM frequency and resolut
 
 MCU | default frequency | MAX frequency | PWM resolution | Center-aligned | Configurable freq
 --- | --- | --- | --- | ---
-Arduino UNO(Atmega328) | 32 kHz | 32 kHz | 8bit | yes | no
+Arduino UNO(Atmega328) | 32 kHz | 32 kHz | 8bit | yes | yes (either 4kHz or 32kHz)
 STM32 | 50kHz | 100kHz | 14bit | yes | yes
 ESP32 | 40kHz | 100kHz | 10bit | yes | yes
 Teensy | 50kHz | 100kHz | 8bit | yes | yes

@@ -34,7 +34,7 @@ Raspberry Pi Pico | ✔️
 Portenta H7 | ✔️ 
 
 ## Hardware configuration
-
+To instantiate the inline current sensor using the <span class="simple">Simple<span class="foc">FOC</span>library</span> just create an instance of the class `InlineCurrentSense`. 
 ```cpp
 // InlineCurrentSensor constructor
 //  - shunt_resistor  - shunt resistor value
@@ -44,7 +44,18 @@ Portenta H7 | ✔️
 //  - phC   - C phase adc pin (optional)
 InlineCurrentSense current_sense  = InlineCurrentSense(0.01, 20, A0, A1, A2);
 ```
-To instantiate the inline current sensor using the <span class="simple">Simple<span class="foc">FOC</span>library</span> just create an instance of the class `InlineCurrentSense`. This class takes as a parameter shunt resistance value `shunt_resistor`, amplification gain `gain` and two or three ADC channel pins depending on the available measuring hardware that you might have. It is important to specify right adc channels for right driver/motor phase. So if your pin `A0` measures the phase current `A` and pin `A1` measures the phase current `B` make sure to provide them to the constructor in that order. 
+
+This class takes as a parameter either shunt resistance value `shunt_resistor`, amplification gain `gain` and two or three ADC channel pins depending on the available measuring hardware that you might have. It is important to specify right adc channels for right driver/motor phase. So if your pin `A0` measures the phase current `A` and pin `A1` measures the phase current `B` make sure to provide them to the constructor in that order. 
+
+Alternatively `InlineCurrentSense` can be created by specifying the mV per Amp ratio `mVpA`, more common with hall sensor based current sense like ACS712.
+```cpp
+// InlineCurrentSensor constructor
+//  - mVpA  - mV per Amp ratio
+//  - phA   - A phase adc pin
+//  - phB   - B phase adc pin
+//  - phC   - C phase adc pin (optional)
+InlineCurrentSense current_sense  = InlineCurrentSense(66.0,  A0, A1, A2);
+```
 
 ### Measuring 2 out of 3 currents
 Field Oriented Control algorithm can run with both 2 or 3 phase current measurements.  If measuring 2 out of 3 currents, when defining your `InlineCurrentSense` class put the flag `_NC` (not connected) to the phase value you are not using.
