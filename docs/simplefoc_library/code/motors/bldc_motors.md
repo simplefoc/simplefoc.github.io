@@ -258,22 +258,20 @@ The alignment procedure will have to move your motor several times and might not
 
 ### Step 6.1 Skip alignment - position sensor
 
-If you are using absolute sensors such as magnetic sensors or hall sensors, once you have done the alignment procedure and once you have the motor's zero electrical offset sensor direction you no longer need the full calibration sequence. Therefore, to the `motor.initFOC()` you can provide the sensor offset `zero_electric_offset` and sensor direction `sensor_direction` to avoid alignment procedure:
+If you are using absolute sensors such as magnetic sensors or hall sensors, once you have done the alignment procedure and once you have the motor's zero electrical offset sensor direction you no longer need the full calibration sequence. 
+
+In this case you can set the sensor offset `zero_electric_offset` and sensor direction `sensor_direction` in the motor parameters to avoid the alignment procedure:
 ```cpp
-// align sensor and start FOC
-//motor.initFOC(zero_electric_offset, sensor_direction);
-motor.initFOC(2.15, Direction::CW);
-```
-The same can be done by using the motor parameters:
-```cpp
-// align sensor and start FOC
+// set calibration values
 motor.zero_electric_offset  = 2.15; // rad
 motor.sensor_direction = Direction::CW; // CW or CCW
+// then call initFOC()
 motor.initFOC();
 ```
 You can find these values by running the `find_sensor_offset_and_direction.ino` example.
 
-More generally, if you know any of these two values make sure to provide and the `iniFOC` will skip that part of the calibration. For example, for encoder sensors the zero electrical offset changes all the time but the sensor direction will stay the same so you can provide it and skip a large part of the calibration sequence.
+If you set either of these two values the `initFOC` will skip that part of the calibration. For example, for encoder sensors the zero electrical offset changes all the time but the sensor direction will stay the same so you can provide it and skip a large part of the calibration sequence.
+
 ### Step 6.2 Skip alignment - current sense
 
 For the current sensors it is as well possible to avoid the calibration procedure an that is done by specifying the curren sense flag called `skip_align`:
