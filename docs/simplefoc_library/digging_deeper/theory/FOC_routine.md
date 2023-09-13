@@ -50,7 +50,9 @@ Sinusoidal modulation is based on two transformation equations.
 <img src="../extras/Images/foc_modulation.png" >
 
 Inverse Park transformation:<br>
+
 $$U_{\alpha} = U_q sin(\theta)$$
+
 $$U_{\beta} = U_q cos(\theta)$$
 
 Inverse Clarke transformation:<br>
