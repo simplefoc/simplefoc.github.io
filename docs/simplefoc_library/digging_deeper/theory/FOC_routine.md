@@ -54,9 +54,11 @@ Inverse Park transformation:<br>
 Inverse Clarke transformation:<br>
 <img src="../extras/Images/inverse_clarke.png" style="margin-left:50px;margin-top:10px;margin-bottom:10px;width:180px">
 
-$u_a = U_{\alpha}$
-$u_b = \frac{-U_{\alpha} + \sqrt{3}U_{\beta}}{2}$
-$u_c = \frac{-U_{\alpha} - \sqrt{3}U_{\beta}}{2}$
+$$u_a = U_{\alpha}$$
+
+$$u_b = \frac{-U_{\alpha} + \sqrt{3}U_{\beta}}{2}$$
+
+$$u_c = \frac{-U_{\alpha} - \sqrt{3}U_{\beta}}{2}$$
 
 Here is the code of implementation of the Sinusoidal PWM in the <span class="simple">Simple<span class="foc">FOC</span>library</span>:
 ```cpp
