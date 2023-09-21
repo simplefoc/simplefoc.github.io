@@ -42,5 +42,6 @@ samd21/51 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
 teensy | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
 Raspberry Pi Pico | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
 Portenta H7 | ✔️ | ✔️ | ✔️ | ❌ | ✔️ 
+Renesas (UNO R4 Minima) | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
 
 <sup>*</sup> For ESP32, the support for 6 PWM depends on the model of ESP32. The models that have a MCPWM peripheral support 6 PWM, the ones that do not only support the other PWM modes.
