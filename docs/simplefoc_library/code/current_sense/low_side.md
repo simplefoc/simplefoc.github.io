@@ -39,6 +39,7 @@ SAMD51 | ❌
 Teensy |  ❌
 Raspberry Pi Pico | ❌
 Portenta H7 |  ❌
+Renesas (UNO R4) | ❌ (TBD)
 
 
 ### Important hardware considerations 
@@ -182,7 +183,7 @@ motor.linkCurrentSense(&current_sense);
 
 ### Where to place the `current_sense` configuration in your FOC code?
 
-It is very important that the the current sensing `init` function is called after the `BLDCMotor` and `BLDCDriver` init functions are called. Which will make sure that the driver is enabled when current sense calibration is taking place. Also, it is important that the current sense `init` function is called before starting the foc algorithm with the `initFOC` function.
+It is very important that the the current sensing `init` function is called after the `BLDCDriver` init function is called. This will make sure that the driver is enabled when current sense calibration is taking place. Also, it is important that the current sense `init` function is called before initializing the motor and starting the foc algorithm with the `initFOC` function.
 
 So the suggested code structure would be:
 
@@ -207,6 +208,7 @@ void setup(){
 }
 ```
 Function `initFOC()` will make sure that the `BLDCDriver` and `LowsideCurrentSense` classes are both well aligned, it is very important that the phase `A` of the current sense is exactly the phase `A` of the driver, phase `B` of the current sense exactly pahse `B` of the driver and the same for the phase `C`. To verify this, the `initFOC` will be calling the current sense's function `current_sense.driverAlign(...)`.
+
 ### Alignment with the motor phases `driverAlign(...)`
 
 The current sense and the driver alignment inside `initFOC` is done by calling the function:

@@ -62,6 +62,9 @@ teensy | ✔️ | ❌ |  ❌
 Raspberry Pi Pico | ✔️ | ❌ |  ❌
 Portenta H7 | ✔️ | ❌ |  ❌
 nRF52 | ✔️ | ❌ |  ❌
+Renesas (UNO R4)  | ❌ | ❌ |  ❌ 
+
+Note: current sensing on Renesas MCUs will be added in a future release.
 
 ## Digging deeper
 

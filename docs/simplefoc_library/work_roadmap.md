@@ -49,6 +49,7 @@ For more info about the features of library releases visit the [github releases 
 ## MCU support
 - [ ] ESP8266 - initial 
 - [ ] Portenta H7 - initial 
+- [ ] Renesas support - initial
 - [x] Arduino leonardo 
 - [x] Raspberry pi Pico - [PR #78](https://github.com/simplefoc/Arduino-FOC/pull/78)
 - [x] SAM - Arduino DUE
@@ -56,11 +57,12 @@ For more info about the features of library releases visit the [github releases 
 - [x] Teensy support
 - [x] ESP32 support
 - [x] STM32 Nucleo support
-- [x] STM32 BLuepill support
+- [x] STM32 Bluepill support
+- [x] nRF52 support
 - [x] Hardware specific code separation : easier porting in between devices `hardware_utils.cpp/.h`
 
 ## Driver support
-- [ ] Driver support: Disable the pahses in 6PWM mode
+- [x] Driver support: Disable the phases in 6PWM mode
 - [x] Driver support: Implement support for MOSFET control low and high pairs
 - [x] Driver support: DRV8302 borads
 
