@@ -32,6 +32,7 @@ SAMD51 | ✔️
 Teensy | ✔️ 
 Raspberry Pi Pico | ✔️ 
 Portenta H7 | ✔️ 
+Renesas (UNO R4) | ❌ (TBD)
 
 ## Hardware configuration
 To instantiate the inline current sensor using the <span class="simple">Simple<span class="foc">FOC</span>library</span> just create an instance of the class `InlineCurrentSense`. 
