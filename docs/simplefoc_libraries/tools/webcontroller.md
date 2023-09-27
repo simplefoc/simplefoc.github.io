@@ -72,14 +72,14 @@ void setup(){
   // add the motor to the commander interface
   // The letter id (here 'M') of the motor
   char motor_id = 'M';
-  command.add(motor_id,doMotor,'motor');
+  command.add(motor_id,doMotor,"motor");
   // tell the motor to use the monitoring
   motor.useMonitoring(Serial);
   // configuring the monitoring to be well parsed by the webcontroller
   motor.monitor_start_char = motor_id; // the same latter as the motor id in the commander 
   motor.monitor_end_char = motor_id; // the same latter as the motor id in the commander 
 
-  commander.verbose = VerboseMode::machine_readable; // can be set using the webcontroller - optional
+  command.verbose = VerboseMode::machine_readable; // can be set using the webcontroller - optional
   ...
 
 }
