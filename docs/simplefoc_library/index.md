@@ -30,7 +30,7 @@ The library is intended both for:
 - **Easy install**: 
    - Arduino IDE: Arduino Library Manager integration
    - PlatformIO
-- **Open-Source**: Full code and documentation available on github
+- **Open-Source**: Full code and documentation available on GitHub
 - **Goal**: 
    - Support as many [sensor](position_sensors) + [motor](motors) + [driver](drivers) + [current sense](current_sense)   combination as possible.
    - Provide the up-to-date and in-depth documentation with API references and the examples
@@ -124,7 +124,7 @@ GBM4108-120T <a class="pull-right" href="https://www.robotshop.com/en/ipower-gbm
 
 
 ## Installation
-There are two ways to install this Arduino library, depending of your plans with the code and your particular application.
+There are two ways to install this Arduino library, depending on your plans with the code and your particular application.
 - [Full library installation](library_download) - for plug & play functionality with many examples 
 - [Minimal project builder](minimal_download) - Arduino sketch with integrated complete library
     - Easier experimentation and interaction with the library code directly

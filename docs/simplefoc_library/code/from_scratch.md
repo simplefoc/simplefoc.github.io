@@ -10,7 +10,7 @@ grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>lib
 
 # Let's get started
 
-Once when you have your <span class="simple">Simple<span class="foc">FOC</span>library</span> [installed](installation) and you have all the necessary [hardware](supported_hardware), we can finally start the fun part, let's white the code and move the motor!
+Once you have your <span class="simple">Simple<span class="foc">FOC</span>library</span> [installed](installation) and you have all the necessary [hardware](supported_hardware), we can finally start the fun part, let's write the code and move the motor!
 
 ## Step 1. Testing the sensor
 The first sign that tells us that everything is well connected is if the sensor readings are good. To test the sensor please browse the library examples `examples/utils/sensor_test` and find the example for your sensor. 
@@ -19,7 +19,7 @@ The example will have a structure something like this:
 #include <SimpleFOC.h>
 
 Encoder encoder = Encoder(2, 3, 500);
-// interrupt routine intialisation
+// interrupt routine initialisation
 void doA(){encoder.handleA();}
 void doB(){encoder.handleB();}
 
@@ -46,15 +46,15 @@ void loop() {
   Serial.println(sensor.getVelocity());
 }
 ```
-Make sure to change the sensor parameters to suite your application, such as pin numbers, impulses per revolution, bus addresses and similar. Make sure to go through the [sensor docs](sensors) if you are not sure in some of the parameters.  
+Make sure to change the sensor parameters to suit your application, such as pin numbers, impulses per revolution, bus addresses and similar. Make sure to go through the [sensor docs](sensors) if you are not sure about some of the parameters.  
 
 
 If your sensor is well connected and if everything works well, you should have in your serial terminal an output of your sensor angle and velocity. 
 
 <blockquote class="info"> <p class="heading">☑️ Simple test</p> Make sure to test that one rotation of the motor gives you <b>6.28</b> radians of sensor angle.</blockquote>
 
-## Step 2. Testing the driver
-Once your sensor is working you can proceed to the driver test. The simplest way to test the driver is to use the library examples. If you have a luxury of time you can test the driver using the examples in `examples/utils/driver_standalone_test` folder. These examples test the driver as a standalone module and with them you can set any voltage value to any of the driver phases. 
+## Step 2. Testing just the driver
+Once your sensor is working you can proceed to the driver test. The simplest way to test the driver is to use the library examples. If you have the luxury of time you can test the driver using the examples in the `examples/utils/driver_standalone_test` folder. These examples test the driver as a standalone module and with them you can set any voltage value to any of the driver phases. 
 ```cpp
 #include <SimpleFOC.h>
 // BLDC driver instance
@@ -86,9 +86,13 @@ void loop() {
 Make sure that all phases output PWM signals, you can try to connect a small led light in between each phase and ground or just measure it with the multimeter.</blockquote>
 
 ## Step 2. Testing the driver + motor combination - open-loop
-If you already have your motor connected and if you are sure your driver works well we advise you to test the motor+driver combination using the Open-Loop control examples in the `examples/motion_control/open_loop_motion_control`. If your driver is not the same as the ones provided in the examples go though the [driver docs](drivers_config) and find the driver and the code that will work for you. Additionally you can browse through the examples in teh `examples/utils/driver_standalone_test` folder and see the used in there.
+If you already have your motor connected and if you are sure your driver works well we advise you to test the motor+driver combination using the Open-Loop control examples in the `examples/motion_control/open_loop_motion_control`. If your driver is not the same as the ones provided in the examples, go though the [driver docs](drivers_config) and find the driver and the code that will work for you. Additionally you can browse through the examples in the `examples/utils/driver_standalone_test` folder and see the used in there.
 
-Now here is an example of the open-loop velocity control for the `BLDCDriver3PWM`:
+<blockquote class="info"> <p class="heading">Please Note</p>
+
+Before you try this example, please take at least a short look at the rules just below the code. From here on, actual current is flowing through your electronics and your driver has no way of measuring it (at least not in this example). </blockquote>
+
+Now, here is an example of the open-loop velocity control for the `BLDCDriver3PWM`:
 ```cpp
 // Open loop motor control example
 #include <SimpleFOC.h>
@@ -144,7 +148,8 @@ void loop() {
 ```
 This example code has few very important rules. 
 1. Make sure you use the right driver class and right pwm pins, this one is usually very simple and you can find a lot of docs about these things in our [driver docs](drivers_config). If you are not sure and cannot seem to make it work please do not hesitate to ask in our [community forum](https://community.simplefoc.com).
-2. Make sure to use proper voltage limit. `motor.voltage_limit` will directly determine the current passing through the motor: `current = phase_resistance*motor.voltage_limit`. So to avoid too high currents please try to find what is the phase resistance of your motor and set the `motor.voltage_limit` such that the current does not surpass 2 Amps for example: `motor.voltage_limit = 2*phase_resistance`. The best option would be to provide your phase resistance value to the motor by setting the parameter `motor.phase_resistance` and then you can use `motor.current_limit` instead of the `motor.voltage_limit` making this issue much simpler. If you cannot find the phase resistance of your motor and cannot measure it with your multimeter start small: `motor.voltage_limit < 1;`
+2. Make sure to use a proper voltage limit. All of these examples assume you are using a gimbal type motor with high phase resistance (~10 Ohms). For higher power motors, the current will propably be too high, putting your motor+driver at risk. As a rule of thumb, if your motor has a servo type plug, you should be fine.
+`motor.voltage_limit` will directly determine the current passing through the motor: `current = phase_resistance*motor.voltage_limit`. So to avoid too high currents please try to find what is the phase resistance of your motor and set the `motor.voltage_limit` such that the current does not surpass 2 Amps for example: `motor.voltage_limit = 2*phase_resistance`. The best option would be to provide your phase resistance value to the motor by setting the parameter `motor.phase_resistance` and then you can use `motor.current_limit` instead of the `motor.voltage_limit` making this issue much simpler. If you cannot find the phase resistance of your motor and cannot measure it with your multimeter start small: `motor.voltage_limit < 1;`
 3. Make sure to put the right pole pair number. This you can find in most data-sheets, if you are not sure what is the true number don't worry this step in intended to test exactly this value. 😄
 
 <blockquote class="info"> <p class="heading">☑️ Simple tests</p> 1. In velocity mode, set your target velocity of your motor to <b>6.28 rad/s</b>, this should be exactly one rotation per second.<br>2. In position mode, set the target position of <b>6.28 rad</b>, it should be exactly one rotation <br> If it is not that means your pole pairs number is probably not good,, try changing it until you get exactly one rotation (or one rotation per second in velocity mode)</blockquote>
@@ -234,17 +239,17 @@ Until now, you already know the good configuration of your sensor, your driver a
 
 There are only two important steps to be taken here, make sure you use not too high `motor.voltage_sensor_align` value to prevent too high currents. The rule is the same as for the `motor.voltage_limit` for the open loop. If you are not sure what is your phase resistance, start small: `motor.voltage_sensor_align < 1`. Additionally, you can define the motor phase resistance as well and then use the `motor.current_limit` variable, this variable will limit the `motor.voltage_sensor_align` and you will not have to worry about it any more. But if you specify the phase resistance value you will no longer be setting voltage command to the motor but current command, see [torque control docs](voltage_torque_mode) for more info.
 
-Second important tip is to use [monitoring](monitoring) functionality. This will help you to debug the possible issues that might arise and it will output the motor status during the initialization and the alignment. If the initialisation fails the motor will be disabled you will be able to move the motor by hand without any resistance, if the code works your motor will start spinning and you will be abele to set the voltage (current if `motor.phase_resistance` set) through the serial terminal.
+Second important tip is to use [monitoring](monitoring) functionality. This will help you to debug the possible issues that might arise and it will output the motor status during the initialization and the alignment. If the initialisation fails the motor will be disabled you will be able to move the motor by hand without any resistance, if the code works your motor will start spinning and you will be able to set the voltage (current if `motor.phase_resistance` set) through the serial terminal.
 
 <blockquote class="info"> <p class="heading">☑️ Simple test</p> 
-Make sure that the motor intialisation has finished well. Monitoring will tell you the sensnor offset, direciton, pole pairs check and it will tell you if it has been successful or if it failed. </blockquote>
+Make sure that the motor intialisation has finished well. Monitoring will tell you the sensor offset, direction, pole pairs check and it will tell you if it has been successful or if it failed. </blockquote>
 
 ## Step 5. Testing the current sense - if available
 If your setup has current sensing that is supported by the <span class="simple">Simple<span class="foc">FOC</span>library</span> then we would suggest you to still make sure that you can run at least closed-loop torque control using voltage (Step 3.) before doing this step. 
 
-The best way to start is to add the current sensing to the code of the torque control using voltage (step 3.) and output the d and q currents to the serial terminal using monitoring.
+The best way to start is to add the current sensing to the code of the torque control using voltage (Step 3.) and output the d and q currents to the serial terminal using monitoring.
 
-Here is the an example of a such code:
+Here is the an example of such a code:
 ```cpp
 #include <SimpleFOC.h>
 
@@ -335,18 +340,18 @@ void loop() {
   command.run();
 }
 ```
-This example code is almost exactly the same as the step 3. code so you should not have much troubles configuring motor, sensor and driver. In this step you will be testing if your current sense is working well. In the call of the `motor.monitor()` function the current sense will be read and the current d and q are going to be outputted to the serial terminal. You can open the Serial Plotter to visualise them. 
+This example code is almost exactly the same as the Step 3. code so you should not have much trouble configuring motor, sensor and driver. In this step you will be testing if your current sense is working well. In the call of the `motor.monitor()` function the current sense will be read and the current d and q are going to be printed to the serial terminal. You can open the Serial Plotter to visualise them. 
 
 <blockquote class="info"> <p class="heading">☑️ Simple tests</p> 
-1. Hold the motor with your hand and chaneg different target voltage/current values. Make sure that the current d is very close to 0 when the motor is static. And make sure that the current q is proportional to the voltage you are setting to the motor. <br>
-2. Leave the motor to rotate. See that your currents d and q drop to a lower level then for static motor. Also try to see that the current d is almost 0 for low velocities and starts rising proportionally to the motor velocity. 
+1. Hold the motor with your hand and set different target voltage/current values. Make sure that the current d is very close to 0 when the motor is static. And make sure that the current q is proportional to the voltage you are setting to the motor. <br>
+2. Leave the motor to rotate. See that your currents d and q drop to a lower level than for static motor. Also try to see that the current d is almost 0 for low velocities and starts rising proportionally to the motor velocity. 
 </blockquote>
 
 Please go through the [current sense docs](current_sense) to see the supported sensors and all the configuration parameters.
 
 
 ## Step 6. Full FOC motion control using current sensing - if available
-Once you have your motor, position sensor, driver and current sense configured and tested you can got proceed to the true foc control. 
+Once you have your motor, position sensor, driver and current sense configured and tested you can now proceed to try out true field oriented control (FOC). 
 ```cpp
 #include <SimpleFOC.h>
 
@@ -423,7 +428,7 @@ void setup() {
   // subscribe motor to the commander
   command.add('M', doMotor, "motor");
 
-  // Run user commands to configure and the motor (find the full command list in docs.simplefoc.com)
+  // Run user commands to configure and monitor the motor (find the full command list in docs.simplefoc.com)
   Serial.println(F("Motor commands sketch | Initial motion control > torque/current : target 0Amps."));
   
   _delay(1000);
@@ -443,9 +448,9 @@ void loop() {
 }
 ```
 
-To see all of the FOC torque control parameters please visit the [torque control docs](torque_control). The goon news is that if you have set the phase resistance during the tuning the velocity and position motion control loops in step 4. you will most probably not need to retune them. 
+To see all of the FOC torque control parameters please visit the [torque control docs](torque_control). The good news is that if you have set the phase resistance during tuning the velocity and position motion control loops in step 4, you will most probably not need to retune them. 
 
-However the most important tip is still to use the [commander interface](commander_interface) to tune hte torque control PID controller and Low pas filter parameters, this way you will be able to test quickly and change the parameters of controllers in real-time and see what will happen. One time you are satisfied you can write these values in code and quit using the commander. 
+However the most important tip is still to use the [commander interface](commander_interface) to tune the torque control PID controller and Low pass filter parameters. This way you will be able to change and test the parameters of controllers in real-time and see what will happen. Once you are satisfied, you can write these values into your code and quit using the commander. 
 
 <blockquote class="info"> <p class="heading">☑️ Simple test</p> 
 Set your target current to <b>0Amps</b> and try to move the motor by hand, make sure it feels like there is absolutely no resistance, like the motor is disabled. Then try to set a small current (<b><0.5A</b>) value and see if you can feel the motor force acting on your hand. If you can feel it you should be ready to go! 

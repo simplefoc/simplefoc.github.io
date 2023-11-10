@@ -13,7 +13,7 @@ has_toc: false
 # Installing the <span class="simple">Simple<span class="foc">FOC</span>library</span> 
 
 
-There are two ways to install this Arduino library, depending of your plans with the code and your particular application.
+There are two ways to install this Arduino library, depending on your plans with the code and your particular application.
 
 - [Full Arduino library installation](library_download)
     - Plug & play functionality 
@@ -31,7 +31,7 @@ There are two ways to install this Arduino library, depending of your plans with
     <a href="library_download" >
         <img src="extras/Images/library_.png" >
         <i class="fa fa-external-link-square fa-2x"></i>
-        <p >Full  Arduino library installation</p>
+        <p >Full Arduino library installation</p>
     </a>
 </div>
 

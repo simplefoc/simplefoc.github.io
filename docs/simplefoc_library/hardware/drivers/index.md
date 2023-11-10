@@ -36,5 +36,5 @@ I_max = V_dc/R
 Finally check the value of the maximum current `I_max` with the datasheet of your driver board. If the `I_max` is too high you can lower the power supply voltage `V_dc` in order prevent too high peaks of the current. If you are not able to change your power supply voltage you can limit the voltage set to motor in software. 
 <blockquote class="warning">
     <p class="heading">NOTE</p>
-    The equation above calculates the worst case maximum current <code class="highlighter-rouge">I_max</code> and in most cases calculated <code class="highlighter-rouge">I_max</code> is higher than the actual value. Maximum current depends both of the motor hardware such as winding configuration and the control algorithm.  
+    The equation above calculates the worst case maximum current <code class="highlighter-rouge">I_max</code> and in most cases calculated <code class="highlighter-rouge">I_max</code> is higher than the actual value. Maximum current depends both on the motor hardware such as winding configuration and the control algorithm.  
 </blockquote>

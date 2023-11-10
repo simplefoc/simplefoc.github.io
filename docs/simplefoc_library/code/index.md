@@ -11,7 +11,7 @@ parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</
 
 # Getting to know the <span class="simple">Simple<span class="foc">FOC</span>library</span> code
 
-Once when you have your <span class="simple">Simple<span class="foc">FOC</span>library</span> [installed](installation) and you have all the necessary [hardware](supported_hardware), we can finally start to get to know with the Arduino code that will run your motor. Here are all the most important steps when writing the code!
+Once you have your <span class="simple">Simple<span class="foc">FOC</span>library</span> [installed](installation) and you have all the necessary [hardware](supported_hardware), we can finally start to get familiar with the Arduino code that will run your motor. Here are all the most important steps when writing the code!
 
 ## Step 0. Include the library
 Let's start by including the library header file:
@@ -25,10 +25,10 @@ First step when writing the code is initializing and configuring the position se
 The library supports these position sensors:
  - [Encoders](encoder): Optical, Capacitive, Magnetic encoders (ABI)
  - [Magnetic sensors](magnetic_sensor): SPI, I2C, Analog or PWM
- - [Hall sensors](hall_sensors): 3xHall sonde, Magnetic sensor (UVW interface) 
+ - [Hall sensors](hall_sensors): 3xHall sensing, Magnetic sensor (UVW interface) 
  - [Generic sensors](generic_sensor) **NEW📢**: A simplified sensor implementation for adding custom sensors 
 
-Choose position sensor to use with this example:
+Choose a position sensor to use with this example:
 
 
 <script type="text/javascript">
@@ -100,10 +100,10 @@ void loop() {
 }
 ```
 
-This is an example initialisation of the 14 bit SPI based magnetic sensor such as <a href="https://www.mouser.fr/ProductDetail/ams/AS5X47U-TS_EK_AB?qs=sGAEpiMZZMve4%2FbfQkoj%252BBDLPCj82ZLyYIPEtADg0FE%3D">AS5047u <i class="fa fa-external-link"></i></a>, connected to the pin `10`.<br>
-Magnetic sensors using the SPI communication are implemented in the class `MagneticSensorSPI` and are defined by its
+This is an example initialisation of a 14 bit SPI based magnetic sensor such as the <a href="https://www.mouser.fr/ProductDetail/ams/AS5X47U-TS_EK_AB?qs=sGAEpiMZZMve4%2FbfQkoj%252BBDLPCj82ZLyYIPEtADg0FE%3D">AS5047u <i class="fa fa-external-link"></i></a>, connected to pin `10`.<br>
+Magnetic sensors using the SPI protocol are implemented in the class `MagneticSensorSPI` and are defined with their
  - `chip_select` pin: `10`
- - bit resoluion of ht sensor overall `12`  the `CPR` can be calculated as `CPR = 2^14bit =16384`
+ - bit resoluion of the sensor overall `12`  the `CPR` can be calculated as `CPR = 2^14bit =16384`
  - `angle` SPI register: `0x3FFF`
 
 </div>
@@ -138,21 +138,21 @@ void loop() {
 }
 ```
 
-This is an example of a hall position sensors bit connecter to the `11` pole pair motor.<br>
-Hall sensors implemented in the class `HallSensors` and are defined by its
+This is an example of a 3xHall position sensor connected to a `11` pole pair motor.<br>
+Hall sensors are implemented in the class `HallSensors` and are defined by their
  - pins `hallA`, `hallB` and `hallC`: `2`, `3` and `4`
- - motor pole pairs number: `11``
+ - motor pole pair number: `11``
 
 </div>
 
 
-Sensor is initialized hardware pins by running `sensor.init()`.
+Initialize the hardware pins by running `sensor.init()`.
 
 For full documentation of the setup and all configuration parameters please visit the <a href="sensors"> position sensors docs <i class="fa fa-external-link"></i></a>.
 
 
 ## Step 2. <a href="drivers_config" class="remove_dec"> Driver setup</a>
-After the position sensor we proceed to initializing and configuring the driver. The library supports [BLDC drivers](bldcdriver) handled by `BLDCDriver3PWM` and `BLDCDriver6PWM`  classes as well as the [stepper drivers](stepperdriver) handled by the `StepperDriver2PWM` and `StepperDriver4PWM` classes. 
+After setting up the position sensor we proceed to initializing and configuring the driver. The library supports [BLDC drivers](bldcdriver) handled by `BLDCDriver3PWM` and `BLDCDriver6PWM`  classes as well as [stepper drivers](stepperdriver) handled by the `StepperDriver2PWM` and `StepperDriver4PWM` classes. 
 
 
 <a href="javascript:show('0d','driver');" id="btn-0d" class="btn-driver btn btn-primary">BLDC Driver - 3PWM</a> 
@@ -161,7 +161,7 @@ After the position sensor we proceed to initializing and configuring the driver.
 
 <div id="0d" class="driver" markdown="1" style="display:block">
 
-`BLDCDriver3PWM` class instantiated by providing:
+`BLDCDriver3PWM` class is instantiated by providing:
 - pwm pins for phases `A`, `B` and `C` 
 - `enable` pin number *(optional)*
 
@@ -328,7 +328,7 @@ For full documentation of the setup and all configuration parameters please visi
 
 
 ## Step 4. <a href="motors_config" class="remove_dec"> Motor setup </a>
-After the position sensor and the driver we proceed to initializing and configuring the motor. The library supports BLDC motors handled by `BLDCMotor` class as well as the stepper motors handled by `StepperMotor` class. Both classes are instantiated by providing just the `pole_pairs` number of the motor and optionally motors phase resistance and the KV rating.
+After the position sensor and the driver we proceed to initializing and configuring the motor. The library supports BLDC motors handled by the `BLDCMotor` class as well as stepper motors handled by the `StepperMotor` class. Both classes are instantiated by providing just the `pole_pairs` number of the motor and optionally the motors´ phase resistance and the KV rating.
 
 
 <a href="javascript:show('0m','motor');" id="btn-0m" class="btn-motor btn btn-primary">BLDC motor</a> 
@@ -424,12 +424,12 @@ For full documentation of the setup and all configuration parameters please visi
 
 
 ## Step 5. [FOC routine and real-time motion control](motion_control)
-Once when we have initialized the position sensor, driver and the motor, and before we can run the FOC algorithm we need to align the motor and sensor. This is done by calling `motor.initFOC()`. 
-After this step we have a functional position sensor, we have configured motor and our FOC algorithm knows how to set the appropriate voltages based on position sensor measurements.
+When we have initialized the position sensor, driver and the motor, and before we can run the FOC algorithm, we need to align the motor and sensor. This is done by calling `motor.initFOC()`. 
+After this step we have a functional position sensor, we have configured the motor and our FOC algorithm knows how to set the appropriate voltages based on position sensor measurements.
 
 For the real-time routine of the FOC algorithm we need to add the `motor.loopFOC()` and `motor.move(target)` functions in the Arduino `loop()`.
 - `motor.loopFOC()`:  FOC algorithm execution - should be executed as fast as possible `> 1kHz`
-- `motor.move(target)`: motion control routine - depends of the `motor.controller` parameter
+- `motor.move(target)`: motion control routine - depends on the `motor.controller` parameter
 
 Here is how it looks in code:
 
@@ -466,7 +466,7 @@ void loop() {
   motor.loopFOC();
 
   // velocity control loop function
-  // setting the target velocity or 2rad/s
+  // setting the target velocity to 2rad/s
   motor.move(2);
 }
 ```
@@ -478,7 +478,7 @@ For full documentation of the setup and all configuration parameters for BLDC mo
 
 `BLDCMotor` and `StepperMotor` classes provide monitoring functionality. For enabling the monitoring feature make sure you call `motor.useMonitoring()` with the `Serial` port instance you want to output to. It uses `Serial` class to output motor initialization status during the `motor.init()` function, as well as in `motor.initFOC()` function.
 
-If you are interested to output motors state variables in real-time (even though it will impact the performance - writing the Serial port is slow!) add the `motor.monitor()` function call to the Arduino `loop()` function. 
+If you are interested in outputting motors state variables in real-time (even though it will impact the performance - writing the Serial port is slow!) add the `motor.monitor()` function call to the Arduino `loop()` function. 
 
 ```cpp
 #include <SimpleFOC.h>
@@ -487,7 +487,7 @@ If you are interested to output motors state variables in real-time (even though
 // instantiate driver
 // instantiate senor
 
-void setup() {  lly in order to configure the control algorithm, set the target values and get the state variables in the user-friendly way (not just dumping as using motor.monitor()) Arduino SimpleFOClibrary provides you wit
+void setup() {
   
   // init sensor
   // link motor and sensor
@@ -527,7 +527,7 @@ For full documentation of the setup and all configuration parameters please visi
 
 ## Step 7. <a href="communication" class="remove_dec"> Commander Interface</a>
 
-Finally in order to configure the control algorithm, set the target values and get the state variables in the user-friendly way (not just dumping as using `motor.monitor()`)  Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>  provides you with the g-code like communication interface in a form of `Commander` class. 
+Finally, in order to configure the control algorithm, set the target values and get the state variables in the user-friendly way, (not just dumping as when using `motor.monitor()`) <span class="simple">Simple<span class="foc">FOC</span>library</span> provides you with a g-code like communication interface in form of the `Commander` class. 
 
 
 
@@ -640,7 +640,7 @@ void loop() {
 
 <div id="2c" class="commander" markdown="1" style="display:none">
 
-The following code is one basic example of usiong commander interface for motion control in combination with turning a led light on and off.  
+The following code is one basic example of using the commander interface for motion control in combination with turning a led light on and off.  
 
 ```cpp
 #include <SimpleFOC.h>
@@ -703,11 +703,11 @@ For full documentation of the setup and all configuration parameters please visi
 
 ## Step 8. [Getting started step by step guide](example_from_scratch)
 
-Now when you are familiar with the structure of the <span class="simple">Simple<span class="foc">FOC</span>library</span> code you can finally start writing your own application. In order to make this step less complicated we have provided you a detailed step by step guide. Make sure to go through our step by step getting started guide when first time dealing with the library.  
+Now that you are familiar with the structure of the <span class="simple">Simple<span class="foc">FOC</span>library</span> code you can finally start writing your own applications. In order to make this step less complicated, we have provided you a detailed step by step guide. Make sure to go through our step by step getting started guide when dealing with the library for the first time.  
 
 ## 🎨 Full Arduino code of the example 
 
-Now when you have learned what are all the parts of the Arduino program and what are they for, here is the full code example with some additional configuration. Please go through the code to better understand how to integrate all previously introduced parts together. This is the code of the library example `motor_full_control_serial_examples/magnetic_sensor/full_control_serial.ino`. 
+Above, you have learned about all the parts of the Arduino program and what they are used for. Here is the full code example with some additional configuration. Please go through the code to better understand how to integrate all previously introduced parts into one. This is the code of the library example `motor_full_control_serial_examples/magnetic_sensor/full_control_serial.ino`. 
 
 ```cpp
 #include <SimpleFOC.h>
@@ -780,12 +780,12 @@ void setup() {
 
 
 void loop() {
-  // iterative setting FOC phase voltage
+  // iterative setting of the FOC phase voltage
   motor.loopFOC();
 
   // iterative function setting the outter loop target
   // velocity, position or voltage
-  // if tatget not set in parameter uses motor.target variable
+  // if target not set in parameter uses motor.target variable
   motor.move();
   
   // user communication
@@ -794,4 +794,4 @@ void loop() {
 ```
 
 ## Library source code
-If you are interested in extending and adapting the <span class="simple">Simple<span class="foc">FOC</span>library</span> source code you can find full documentation on <a href="source_code">library source docs</a>
+If you are interested in extending and adapting the <span class="simple">Simple<span class="foc">FOC</span>library</span> source code you can find full documentation in the <a href="source_code">library source docs</a>
