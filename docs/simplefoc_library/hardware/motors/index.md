@@ -28,7 +28,7 @@ Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> su
 
 Before running any BLDC motor with the <span class="simple">Simple<span class="foc">FOC</span>library</span> please make sure your hardware can handle the currents your motor requires. 
 
-The simplest way to do it is by checking the motor phase resistance `R`. Either check the datasheet of your motor and search for the resistance value or [measure it yourself using a multimeter](./phase_resistance.md).
+The simplest way to do it is by checking the motor phase resistance `R`. Either check the datasheet of your motor and search for the resistance value or [measure it yourself using a multimeter](phase_resistance).
 
 Then check the value of your power supply voltage `V_dc` and once when you have the values you can find the maximum current `I_max` value by calculating:
 

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Phase resistance measurement
+title: Phase resistance
 nav_order: 3
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 permalink: /phase_resistance
@@ -21,7 +21,7 @@ In the case of 3-phase BLDC motors, you first need to learn whether the motor is
 
 Additionally, a 3-phase motor may expose 3 or 4 leads, which will affect how phase resistance is measured. In the case of a wye/star motor, the fourth lead corresponds to the center point (a.k.a. "star point"), and will show the least resistance when measured against the other leads.
 
-![3-phase-configurations.svg](./3-phase-configurations.svg)
+![3-phase-configurations.svg](extras/Images/3-phase-configurations.svg)
 
 > Common configurations for 3-phase motors ([source](https://en.wikipedia.org/wiki/File:Delta-Star_Transformation.svg)).
 
@@ -33,7 +33,7 @@ Steps to measure phase resistance for different coil configurations and number o
 
 Diagram:
 
-![3-phase-3-wire-star.svg](./3-phase-3-wire-star.svg "3-phase-3-wire-star.svg")
+![3-phase-3-wire-star.svg](extras/Images/3-phase-3-wire-star.svg "3-phase-3-wire-star.svg")
 
 Procedure:
 
@@ -46,7 +46,7 @@ Procedure:
 
 Diagram:
 
-![3-phase-4-wire-star.svg](./3-phase-4-wire-star.svg)
+![3-phase-4-wire-star.svg](extras/Images/3-phase-4-wire-star.svg)
 
 In this case, you'll need to first identify the lead connected to the "center point" (labeled `N_abc` in the diagram above).
 
@@ -61,7 +61,8 @@ Procedure:
 ### 3-wire Delta
 
 Diagram:
-![3-phase-3-wire-delta.svg](./3-phase-3-wire-delta.svg)
+
+![3-phase-3-wire-delta.svg](extras/Images/3-phase-3-wire-delta.svg)
 
 Procedure:
 
