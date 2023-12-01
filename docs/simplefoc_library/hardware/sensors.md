@@ -9,16 +9,16 @@ grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>lib
 ---
 
 # Position sensors
-The library currently supports ([releases <i class="fa fa-tag"></i>](https://github.com/simplefoc/Arduino-FOC/releases)) types of position sensors: 
+The library currently supports the following types of position sensors: 
 - [Encoder](#encoders) 
 - [Magnetic sensor](#magnetic-sensors).
 - [Hall sensors](#hall-sensors)
 - *IMU (in development)*
 
 ## Encoders
-Encoders are by far most popular position sensors, both in industry and in hobby community. The main benefits are the precision, standardization and very low noise level. The <span class="simple">Simple<span class="foc">FOC</span>library</span> support just about any type of encoder you can find.  Here is nice short video which explains the main working principles of encoders: [YouTube video](https://www.youtube.com/watch?v=qT6FdvcEsMs)
+Encoders are by far the most popular position sensors, both in industry and in the hobby community. The main benefits are the precision, standardization and very low noise level. The <span class="simple">Simple<span class="foc">FOC</span>library</span> supports just about any type of encoder you can find.  Here is a nice short video which explains the main working principles of encoders: [YouTube video](https://www.youtube.com/watch?v=qT6FdvcEsMs)
 
-The encoder position tracking (pulse counting) algorithm code efficiency, and especially its implementation on Arduino devices, is one of the main limitations for both performance and smoothness of the FOC algorithm. There is a clear tradeoff in between encoder precision and execution efficiency, therefore it very is important to find a suitable encoder to your application.
+The encoder position tracking (pulse counting) algorithm code efficiency, and especially its implementation on Arduino devices, is one of the main limitations for both performance and smoothness of the FOC algorithm. There is a clear tradeoff between encoder precision and execution efficiency, therefore it very is important to find a suitable encoder to your application.
 
 Examples  | Description | Link | Price
 ---- | ---- | ---- | ----
@@ -33,17 +33,17 @@ Examples  | Description | Link | Price
 For Arduino UNO, the maximum number of pulses/second should not exceed 20,000. After this value it start to have execution issues. 
 Please take this in consideration when choosing the encoder and especially if using more than one motor.<br>
 <p class="heading">Example</p>
-If your CPR value is 10000, you will be able to spin your motor with max velocity 120rpm - 2 rotations/second 
+If your CPR value is 10000, you will be able to spin your motor with a max velocity of 120rpm - 2 rotations/second 
 </blockquote>
 
       
 ## Magnetic sensors
-Magnetic position sensor has many benefits over the encoders:
+Magnetic position sensors have many benefits over encoders:
 - Very efficient position calculation ( no counting ) 
 - Time of execution doesn't depend on velocity or number of sensors
 - No need for interrupt hardware
 - Absolute position value
-- Lower price then encoders
+- Lower price than encoders
 - Simple to mount
 
 Magnetic sensors usually come with several different communication protocols:
@@ -80,7 +80,7 @@ If you desire to use UVW interface of the magnetic sensor please be sure to conf
       
 ## Hall sensors
 
-Hall sensors for FOC control used to be very common in past due to their commutation simplicity. Motor is usually fitted with 3 hall sensors which read the rotor magnet position and can determine electrical angle of the motor with the resolution of 60 degrees. 
+Hall sensors for FOC control used to be very common in past due to their commutation simplicity. Motors are usually fitted with 3 hall sensors which read the rotor magnet position and can determine electrical angle of the motor with a resolution of 60 degrees. 
 
 Sector | Electrical angle | Hall A | Hall B | Hall C
 --- | ---| -- | - | - 
@@ -91,17 +91,17 @@ Sector | Electrical angle | Hall A | Hall B | Hall C
  5| 240-300 | 0 | 1 | 1  
  3| 300-360 | 0 | 0 | 1
 
-The main benefit of these sensors is that they are really cheap and they can be added on just about any BLDC motor. But nowdays, with emergence of magnetic sensors they are less and less used. One of the main disadvantages of these sensors is that the low speed operation is not smooth due to the relatively high quantization of the angle measurement. 
+The main benefit of these sensors is that they are really cheap and they can be added on just about any BLDC motor. But nowadays, with the emergence of magnetic sensors they are less and less used. One of the main disadvantages of these sensors is that the low speed operation is not smooth due to the relatively high quantization of the angle measurement. 
 
-The main area of application of these senors are electrical motors in all kinds of transportation vehicles. Their motors are often very high-power and relaying on any kind of communication (I2C, SPI, SSI ... ) with such high currents and magnetic fieds is just not an option. Another reason why use hall sensors is if you cannot access the shaft of the motor, or if you cannot mount the sensor coaxial to the motor shaft. Hall sensors are mounted around the motor rotor, which makes them very non-intrusive and easy to integrate. 
+The main area of application of these sensors are electrical motors in all kinds of transportation vehicles. Their motors are often very high-power and relying on any kind of communication (I2C, SPI, SSI ... ) with such high currents and magnetic fieds is just not an option. Another reason to use hall sensors is if you cannot access the shaft of the motor, or if you cannot mount the sensor coaxial to the motor shaft. Hall sensors are mounted around the motor rotor, which makes them very non-intrusive and easy to integrate. 
 
-Hall sensors ICs you can find at any electronics supplier, all the way from Ebay and Aliexpress to Mouser and Digikey but also in most of local electronics shops.
+You can find hall sensor ICs at any electronics supplier, all the way from Ebay and Aliexpress to Mouser and Digikey but also in most local electronics shops.
 
 Examples  | Description | Link | Price
 ---- | ---- | ---- | ----
 [<img src="extras/Images/hall.png"  style="height:100px">](https://fr.aliexpress.com/item/32590021901.html?spm=a2g0o.productlist.0.0.6eec671cZA32JT&algo_pvid=5729f98b-72a0-4cf8-b80a-adac9ecbbd2a&algo_expid=5729f98b-72a0-4cf8-b80a-adac9ecbbd2a-58&btsid=0b8b035915993735716435630eb78b&ws_ab_test=searchweb0_0,searchweb201602_,searchweb201603_) |  49E Hall Sensor (10x) |  [Aliexpress](https://fr.aliexpress.com/item/32590021901.html?spm=a2g0o.productlist.0.0.6eec671cZA32JT&algo_pvid=5729f98b-72a0-4cf8-b80a-adac9ecbbd2a&algo_expid=5729f98b-72a0-4cf8-b80a-adac9ecbbd2a-58&btsid=0b8b035915993735716435630eb78b&ws_ab_test=searchweb0_0,searchweb201602_,searchweb201603_) | 1$
 
-You can also consider buying a BLDC motor with integrated Hall effect sensors if this suites your application. 
+You can also consider buying a BLDC motor with integrated Hall effect sensors if this suits your application. 
 
 Examples  | Description | Link | Price
 ---- | ---- | ---- | ----

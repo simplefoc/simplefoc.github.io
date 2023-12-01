@@ -10,22 +10,22 @@ grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</sp
 ---
 
 # BLDC motor drivers
-This library will be compatible with the most of 3 phase BLDC motor drivers. Such as [<i class="fa fa-file"></i> L6234](https://www.st.com/en/motor-drivers/l6234.html), [<i class="fa fa-file"></i> DRV8305](https://www.ti.com/product/DRV8305), [<i class="fa fa-file"></i> DRV8313](https://www.ti.com/product/DRV8313)  or even [<i class="fa fa-file"></i> L293](http://www.ti.com/lit/ds/symlink/l293.pdf). 
+This library will be compatible with most 3 phase BLDC motor drivers. Such as [<i class="fa fa-file"></i> L6234](https://www.st.com/en/motor-drivers/l6234.html), [<i class="fa fa-file"></i> DRV8305](https://www.ti.com/product/DRV8305), [<i class="fa fa-file"></i> DRV8313](https://www.ti.com/product/DRV8313)  or even [<i class="fa fa-file"></i> L293](http://www.ti.com/lit/ds/symlink/l293.pdf). 
 
-At this moment, a low-cost BLDC driver board is still reasonably hard to find making our choice of hardware is quite restricted. This is the one of the motivations to develop the <span class="simple">Simple<span class="foc">FOC</span>Shield</span>, a versatile and simple BLDC driver. Fortunately, the community is starting to gain momentum in this direction and it is probably a matter of time before BLDC motors become a standard in the hobby community as well, what is really exciting! 😃
+At this moment, a low-cost BLDC driver board is still reasonably hard to find, making our choice of hardware quite restricted. This is the one of the motivations to develop the <span class="simple">Simple<span class="foc">FOC</span>Shield</span>, a versatile and simple BLDC driver. Fortunately, the community is starting to gain momentum in this direction and it is probably a matter of time before BLDC motors become a standard in the hobby community as well, what is really exciting! 😃
 
-The choice what kind of BLDC driver you will need in your project directly depends of the BLDC motor you are using. Therefore we can divide them in two groups:
+The choice what kind of BLDC driver you will need in your project directly depends on the BLDC motor you are using. Therefore we can divide them in two groups:
 - [Low power BLDC drivers](#low-power-boards---gimbal-motors-) - *Gimbal motors (R>10Ω)* 
 - [High performance BLDC drivers](#high-performance-boards) - *High-power BLDC motors (R<1Ω)*
 
 ## Low power boards  ( gimbal motors )
-Here are some BLDC driver boards that are designed for gimbal motors and work with the library *off-the-shelf*. Gimbal motors usually have more than 10 pole pairs and have internal resistance >10Ω. They are designed for very smooth performance on low speeds.  Gimbal motors are very versatile and are perfect for high-quality replacement of stepper motors and DC servo motors. 
+Here are some BLDC driver boards that are designed for gimbal motors and work with the library *off-the-shelf*. Gimbal motors usually have more than 10 pole pairs and have an internal resistance >10Ω. They are designed for very smooth performance at low speeds.  Gimbal motors are very versatile and are perfect for high-quality replacement of stepper motors and DC servo motors. 
 
 Examples | Description | Specifications | Link | Price
 ---- | ---- | ---- | ---
 [<img src="https://simplefoc.com/assets/img/v1.jpg" style="height:100px">](https://simplefoc.com/simplefoc_shield_product)| Arduino<br> <span class="simple">Simple<span class="foc">FOC</span>Shield</span> v1| - L6234 chip <br> - 8-24V <br> - up to 5 Amps <br> - 1 motor <br>- Arduino Shield <br> - Encoder+I2C Pullups | [More info](https://simplefoc.com/simplefoc_shield_product) | 15€
 [<img src="https://simplefoc.com/assets/img/v2.jpg" style="height:100px">](https://simplefoc.com/simplefoc_shield_product)| Arduino<br> <span class="simple">Simple<span class="foc">FOC</span>Shield</span> v2| - L6234 chip <br> - 8-24V <br> - up to 5 Amps <br> - 1 motor <br>- Arduino Shield <br> - Encoder+I2C Pullups <br> - In-line current sensing <br> - On-board voltage regulator | [SimpleFOC store](https://simplefoc.com/simplefoc_shield_product_v2) <br> [Aliexpress](https://fr.aliexpress.com/item/1005002496275228.html?spm=a2g0o.productlist.0.0.51b44925t9nr53&algo_pvid=42a7dd52-305b-4cb0-af17-60a892aaad3a&algo_exp_id=42a7dd52-305b-4cb0-af17-60a892aaad3a-0&pdp_ext_f=%7B%22sku_id%22%3A%2212000020877377792%22%7D#feedback) <br> [Ebay](https://www.ebay.com/itm/165027599242?hash=item266c69538a:g:bZIAAOSw8QJg9mvD)| ~20€
-[<img src="extras/Images/mini.png" style="height:100px">](https://github.com/simplefoc/SimpleFOCMini) | <span class="simple">Simple<span class="foc">FOC</span>Mini</span> v1 | - DRV8313 chip <br> - 8-30V <br> - up to 2.5 Amps <br> - 3.3V LDO onboard <br> - 1 motor <br> - 21x26mm | [SimpleFOC store](https://simplefoc.com/shop)<br><i>(comming soon)</i> | 5-7€
+[<img src="extras/Images/mini.png" style="height:100px">](https://github.com/simplefoc/SimpleFOCMini) | <span class="simple">Simple<span class="foc">FOC</span>Mini</span> v1 | - DRV8313 chip <br> - 8-30V <br> - up to 2.5 Amps <br> - 3.3V LDO onboard <br> - 1 motor <br> - 21x26mm | [SimpleFOC store](https://simplefoc.com/shop)<br><i>(coming soon)</i> | 5-7€
 [<img src="extras/Images/l6234.jpg" style="height:100px">](https://www.ebay.com/itm/L6234-Breakout-Board/153204519965?hash=item23abb3741d:g:LE4AAOSwe35bctgg) | Drotek L6234<br> breakout board | - L6234 chip <br> - 1 motor <br> - 25x25mm | [Drotek](https://store-drotek.com/212-brushless-gimbal-controller-l6234.html)<br> [Ebay](https://www.ebay.fr/itm/L6234-Breakout-Board-/153204519965) | 30€
 [<img src="extras/Images/dual_simplefoc.jpg" style="height:100px">](https://github.com/ToanTech/Deng-s-foc-controller) | Deng FOC controller<br> breakout board | - L6234 chip <br> - 8-24V <br> - up to 5 Amps <br> - 2 motor <br> - 39x56mm | [Aliexpress](https://store-drotek.com/212-brushless-gimbal-controller-l6234.html)<br> [Ebay](https://www.ebay.com/itm/373690016017?hash=item5701a92111:g:YkYAAOSwF8ZhHgi3) | 35-50€
 
@@ -38,7 +38,7 @@ Examples | Description | Specifications | Link | Price
 [<img src="extras/Images/bgc31.jpg" style="height:100px">](https://www.ebay.com/itm/BGC-3-1-MOS-Large-Current-Two-Axis-Brushless-Gimbal-Controller-Driver-Alexmos/302692769869?hash=item4679e5204d:g:m9AAAOSweHtdzM8o) | BGC 3.1  | - l6234<br> - 2 motors  <br> - 50x50mm <br> - Atmega328 | [Ebay](https://www.ebay.com/itm/BGC-3-1-MOS-Large-Current-Two-Axis-Brushless-Gimbal-Controller-Driver-Alexmos/302692769869?hash=item4679e5204d:g:m9AAAOSweHtdzM8o) | 10€
 [<img src="extras/Images/strom.jpg" style="height:100px">](https://www.ebay.com/itm/Storm32-BGC-32Bit-3-Axis-Brushless-Gimbal-Controller-V1-32-DRV8313-Motor-Driver/174343022855?hash=item2897a76907:g:20YAAOSwbEhfBo28) | Storm32 BGC | - DRV8313 <br> - 3 motors  <br> - 50x50mm <br> - Stm32f103 | [Ebay](https://www.ebay.com/itm/Storm32-BGC-32Bit-3-Axis-Brushless-Gimbal-Controller-V1-32-DRV8313-Motor-Driver/174343022855?hash=item2897a76907:g:20YAAOSwbEhfBo28) | 25€
 
-Finally one of the cheapest possible solutions for running a gimbal BLDC motor is to use one of the dual DC motor motor drivers such as:
+Finally, one of the cheapest possible solutions for running a gimbal BLDC motor is to use one of the dual DC motor motor drivers such as:
 
 Examples | Description | Specifications | Link | Price
 ---- | ---- | ---- | ---
@@ -52,7 +52,7 @@ It can also be a good board for beginner users, to get familiar with the FOC as 
 </blockquote>
 
 ## High performance boards
-<span class="simple">Simple<span class="foc">FOC</span>library</span> will support basically any BLDC motor driver which can be controlled using 3 PWM or 6 PWM signals. Up to this moment ([version 1.3.1](https://github.com/simplefoc/Arduino-FOC/releases)) the library doesn't implement the current control loop. The motor torque is controlled via voltage directly ([more info](voltage_torque_control))
+<span class="simple">Simple<span class="foc">FOC</span>library</span> will support basically any BLDC motor driver which can be controlled using 3 PWM or 6 PWM signals. Additionally, drivers with current sensing can directly control torque, whereas all other drivers can use estimated current ([more info](voltage_torque_control)).
 
 Here are the boards that have been tested and are compatible with the library:
 
