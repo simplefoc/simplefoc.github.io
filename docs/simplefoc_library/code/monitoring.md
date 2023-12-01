@@ -14,7 +14,7 @@ Both `BLDCMotor` and `StepperMotor` classes support a basic telemetry function u
 
 This telemetry (also called *monitoring* in the following documentation), will allow you to visualize key parameters from the motor using tools like the Arduino IDE serial plotter, or our [<span class="simple">Simple<span class="foc">FOC</span>Studio</span> tool](/studio).
 
-<span class="simple">Simple<span class="foc">FOC</span>library</span> monitoring is the real-time tab separated output of the motor variables to the serial terminal. And it is enabled by including this line in your `setup` function:
+<span class="simple">Simple<span class="foc">FOC</span>library</span> monitoring is the real-time tab separated output of the motor variables to the serial terminal. It is enabled by including this line in your `setup` function:
 
 ```cpp
 motor.useMonitoring(Serial);
@@ -57,7 +57,7 @@ To set the preferred values to be monitored you can just change the `motor.monit
 ```cpp
 motor.monitor_variables = _MON_TARGET | _MON_VEL | _MON_ANGLE; // default _MON_TARGET | _MON_VOLT_Q | _MON_VEL | _MON_ANGLE
 ```
-By default the monitored variables are `target`,`voltage.q`,`velocity`,`angle`.  This parameter is a bitmap with seven bit number where each bit represents `bool` flag signaling if the variable should be outputted (`1`) of not (`0`). Therefore we have defined a set of helping monitoring constants you can combine to easier handling of monitoring:
+By default the monitored variables are `target`,`voltage.q`,`velocity`,`angle`.  This parameter is a bitmap with seven bit number where each bit represents a `bool` flag signaling if the variable should be outputted (`1`) or not (`0`). Therefore we have defined a set of helpful monitoring constants you can combine to easier handle monitoring:
 ```cpp
 #define _MON_TARGET 0b1000000 // monitor target value
 #define _MON_VOLT_Q 0b0100000 // monitor voltage q value
@@ -68,7 +68,7 @@ By default the monitored variables are `target`,`voltage.q`,`velocity`,`angle`. 
 #define _MON_ANGLE  0b0000001 // monitor angle value
 ```
 
-Furthermore, outputting the real-time execution variables using `motor.monitor()` function can in many cases have a negative effect of the motor performance  therefore it is important reduce the number of calls of this function as much as possible, especially if displaying many variables with lower baudrates. This you can easily do by setting the parameter `motor.monitor_downsample`:
+Furthermore, outputting the real-time execution variables using `motor.monitor()` function can in many cases have a negative effect on the motor performance  therefore it is important to reduce the number of calls of this function as much as possible, especially if displaying many variables with lower baudrates. You can do this easily by setting the parameter `motor.monitor_downsample`:
 ```cpp
 // downsampling
 motor.monitor_downsample = 100; // default 10
@@ -146,7 +146,7 @@ motor.monitor_start_char = '\0'; //!< monitor starting character
 motor.monitor_end_char = '\0'; //!< monitor outputs ending character 
 motor.monitor_separator = '\t'; //!< monitor outputs separation character
 ```
-The initial parameters are set so that the Arduino IDE's serial plotter parses well the variables. However if you wish to use some other serial plotter application, for example [CieNTi/serial_port_plotter](https://github.com/CieNTi/serial_port_plotter), you can easily adapt the monitoring format so that you can visualise motor variables in it
+The initial parameters are set so that the Arduino IDE's serial plotter can nicely parse the variables. However if you wish to use some other serial plotter application, for example [CieNTi/serial_port_plotter](https://github.com/CieNTi/serial_port_plotter), you can easily adapt the monitoring format so that you can visualise motor variables in it
 
 ```cpp
 motor.monitor_separator= ' ';
@@ -193,7 +193,7 @@ Serial.println(motor.shaft_angle);// print current motor position to the serial 
 Serial.println(motor.Ua); // print phase voltage Ua to the serial terminal
 ```
 
-As you can see monitoring works only in one direction and it assumes you will implement the user communication on your own.
+As you can see, monitoring works only in one direction and it assumes you will implement the user communication on your own.
 
 ## Real-time user communication using motor commands
   
