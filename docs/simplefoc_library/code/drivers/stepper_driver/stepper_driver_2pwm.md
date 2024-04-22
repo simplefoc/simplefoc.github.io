@@ -34,13 +34,13 @@ To create the interface to the stepper driver you need to specify the 2 `PWM` pi
 
 For two direction pins per phase use the constructor:
 ```cpp
-      // pwm1  PWM1 phase pwm pin
-      // in1   IN1A phase dir pins
-      // pwm2  PWM2 phase pwm pin
-      // in2   IN2A phase dir pins
-      // en1 enable pin phase 1 (optional input)
-      // en2 enable pin phase 2 (optional input)
-      // StepperDriver2PWM(int pwm1, int* in1, int pwm2, int* in2, int en1 = NOT_SET, int en2 = NOT_SET);
+// pwm1  PWM1 phase pwm pin
+// in1   IN1A phase dir pins
+// pwm2  PWM2 phase pwm pin
+// in2   IN2A phase dir pins
+// en1 enable pin phase 1 (optional input)
+// en2 enable pin phase 2 (optional input)
+// StepperDriver2PWM(int pwm1, int* in1, int pwm2, int* in2, int en1 = NOT_SET, int en2 = NOT_SET);
 StepperDriver2PWM driver = StepperDriver2PWM(3, {4,5}, 10, {9,8}, 11, 12);
 ```
 
@@ -55,16 +55,15 @@ For only one direction pin per phase use the constructor:
 StepperDriver2PWM driver = StepperDriver2PWM(3, 4, 5, 6, 11, 12);
 ```
 
+<blockquote class="info"> 📢 Here is a quick guide to choosing appropriate PWM pins for different MCU architectures <a href="choosing_pwm_pins">see in docs</a>.</blockquote>
+
 ## Step 2.1 PWM Configuration
 ```cpp
 // pwm frequency to be used [Hz]
-// for atmega328 fixed to 32kHz
+// for atmega328 either 4k or 32kHz
 // esp32/stm32/teensy configurable
 driver.pwm_frequency = 20000;
 ```
-<blockquote class="warning">
-⚠️ Arduino devices based on ATMega328 chips have fixed PWM frequency of 32kHz.
-</blockquote>
 
 Here is a list of different microcontrollers and their PWM frequency and resolution used with the  Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>.
 
@@ -75,7 +74,7 @@ STM32 | 50kHz | 100kHz | 14bit | yes | yes
 ESP32 | 40kHz | 100kHz | 10bit | yes | yes
 Teensy | 50kHz | 100kHz | 8bit | yes | yes
 
-All of these settings are defined in the `drivers/hardware_specific/x_mcu.cpp/h` of the library source. 
+All of these settings are defined in the `drivers/hardware_specific/x/x_mcu.cpp/h` of the library source. 
 
 
 ## Step 2.2 Voltages

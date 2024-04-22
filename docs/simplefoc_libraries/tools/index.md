@@ -3,7 +3,7 @@ layout: default
 title: tools
 parent: <span class="simple">Simple<span class="foc">FOC</span>utils</span>
 description: "Arduino Simple Field Oriented Control (FOC) library ."
-nav_order: 2
+nav_order: 3
 permalink: /additional_tools
 has_children: True
 has_toc: False

@@ -22,28 +22,29 @@ There are two ways to install this Arduino library, depending on your plans with
 - [PlatformIO](library_platformio)
     - Integration into the VSCode 
     - Easier experimentation and interaction with the library source code directly
-- [Minimal project builder](minimal_download)
+
+<!-- - [Minimal project builder](minimal_download)
     - Arduino sketch with integrated complete library
-    - Easier experimentation and interaction with the library source code directly
+    - Easier experimentation and interaction with the library source code directly -->
 
 
-<div class="image_icon width30" >
+<div class="image_icon width40" >
     <a href="library_download" >
         <img src="extras/Images/library_.png" >
         <i class="fa fa-external-link-square fa-2x"></i>
         <p >Full Arduino library installation</p>
     </a>
 </div>
-
+<!-- 
 <div class="image_icon width30" >
     <a href="minimal_download" >
         <img src="extras/Images/library_min_.png" >
         <i class="fa fa-external-link-square fa-2x"></i>
-        <p >Minimal project builder</p>
+        <p >Minimal project builder - DEPRECATED</p>
     </a>
-</div>
+</div> -->
 
-<div class="image_icon width30" >
+<div class="image_icon width40" >
     <a href="library_platformio" >
         <img src="extras/Images/platformio.png">
         <i class="fa fa-external-link-square fa-2x"></i>

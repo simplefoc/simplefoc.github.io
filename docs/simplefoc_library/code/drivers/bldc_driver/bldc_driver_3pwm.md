@@ -42,6 +42,7 @@ Additionally this bldc driver class enables the user to provide enable signal fo
 BLDCDriver3PWM driver = BLDCDriver3PWM(9, 10, 11, 8, 7, 6);
 ```
 
+<blockquote class="info"> 📢 Here is a quick guide to choosing appropriate PWM pins for different MCU architectures <a href="choosing_pwm_pins">see in docs</a>.</blockquote>
 
 ### Low-side current sensing considerations
 
@@ -59,13 +60,10 @@ You can also always ask the community for help - <a href="https://community.simp
 ## Step 2.1 PWM Configuration
 ```cpp
 // pwm frequency to be used [Hz]
-// for atmega328 fixed to 32kHz
+// for atmega328 either 4k or 32kHz
 // esp32/stm32/teensy configurable
 driver.pwm_frequency = 20000;
 ```
-<blockquote class="warning">
-⚠️ Arduino devices based on ATMega328 chips have fixed pwm frequency of 32kHz.
-</blockquote>
 
 Here is a list of different microcontrollers and their PWM frequency and resolution used with the  Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>.
 
@@ -77,7 +75,6 @@ ESP32 | 30kHz | 50kHz | 10bit | yes | yes
 Teensy | 25kHz | 50kHz | 8bit | yes | yes
 
 All of these settings are defined in the `drivers/hardware_specific/x_mcu.cpp/h` of the library source. 
-
 
 ### Low-side current sensing considerations
  

@@ -8,8 +8,8 @@ parent: Microcontrollers
 grand_parent: Supported Hardware
 grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 ---
-# Arduino 8-bit support
 
+# Arduino 8-bit support
 
 MCU | 2 PWM mode | 4 PWM mode | 3 PWM mode | 6 PWM mode | pwm frequency config 
 --- | --- |--- |--- |--- |--- 
@@ -48,6 +48,21 @@ At this moment Arduino DUE does not support 6pwm mode. If you are interested in 
 
 Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> will support ARM based Arduino DUE board as well!
 
+## Arduino IDE support package
+In order to use the Arduino DUE in the Arduino IDE please install the Arduino DUE boards support package using Arduino IDE board manager.
+
+# Arudino UNO R4
+
+MCU | 2 PWM mode | 4PWM mode | 3 PWM mode | 6 PWM mode | pwm frequency config 
+--- | --- |--- |--- |--- |--- 
+Renesas (UNO R4 Minima) | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
+
+
+At this moment Arduino UNO R4 does not support current sensing. If you are interested in this support please do no hesitate to post on our [community forum](https://community.simplefoc.com).
+
+ Board | Name | Specifications | Link | Price
+---- | --- | --- | --- | --- | ---
+[<img src="https://store.arduino.cc/cdn/shop/products/ABX00080_00.default_915d4754-8188-471c-aeb8-b3967aba76e5_643x483.jpg" class="imgtable150">](https://store.arduino.cc/pages/uno-r4) | Arduino UNO R4 Minima | ARM Cortex-M4 <br>- 5V logic<br> - 6 PWMs<br>- nterrupts on all pins <br> -6 analog inputs <br>- 48Mhz|  [Arudino Store](https://store.arduino.cc/products/uno-r4-minima) | 18€ 
 
 ## Arduino IDE support package
-In order to use the Arduino DUE in the Arduino IDE please instal the Arduino DUE boards support package using Arduino IDE board manager.
+In order to use the Arduino UNO R4 in the Arduino IDE please install the corresponding support package using Arduino IDE board manager.

@@ -31,12 +31,15 @@ STM32 (in general) |❌
 STM32f1 family | ✔️ (one motor) 
 STM32f4 family | ✔️ (one motor) 
 STM32g4 family | ✔️ (one motor) 
+STM32l4 family | ✔️ (one motor) 
+STM32f7 family | ✔️ (one motor) 
 STM32 B_G431B_ESC1 | ✔️ 
 ESP32 |✔️ 
 ESP8266 | ❌ 
 SAMD21 | ✔️/❌ (one motor, poorly tested) 
 SAMD51 | ❌ 
-Teensy |  ❌
+Teensy3 |  ❌
+Teensy4 |  ✔️ (inital)
 Raspberry Pi Pico | ❌
 Portenta H7 |  ❌
 Renesas (UNO R4) | ❌ (TBD)

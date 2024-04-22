@@ -13,7 +13,14 @@ grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</sp
 
 MCU | 2 PWM mode | 4PWM mode | 3 PWM mode | 6 PWM mode | pwm frequency config 
 --- | --- |--- |--- |--- |--- 
-teensy | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
+teensy3 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
+teensy4 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
+
+
+MCU | In-line | Low-side | High-side
+--- | --- |--- |--- 
+teensy3 | ✔️ | ❌ |  ❌
+teensy4 | ✔️ | ✔️ (one motor) |  ❌
 
 Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> has recently started to support Teensy boards as well. The most commonly tested boards are Teensy 4.1 and Teensy 3.2, but most of the boards in 4.x and 3.x series should work out of the box with the library. 
 

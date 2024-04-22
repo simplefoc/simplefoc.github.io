@@ -27,5 +27,12 @@ To better understand what is going on under the hood of this algorithm and to ge
         </a>
         <p> A discussion about the theory of different parts of the FOC algorithm and <span class="simple">Simple<span class="foc">FOC</span>library</span> </p>
     </div>
+    <div style="width:50%;text-align:center;" class="">
+        <a href="practical_guides">
+            <i class="fa fa-4x fa-cubes"></i>
+            <h4 style="color:inherit">Practical guides</h4>
+        </a>
+        <p> A collection of practical guides and explanations of different procedures when it comes to interacting with BLDC motors </p>
+    </div>
 </div>
 

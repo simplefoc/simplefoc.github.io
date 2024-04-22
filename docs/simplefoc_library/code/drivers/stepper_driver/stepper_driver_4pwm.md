@@ -31,18 +31,17 @@ To create the interface to the stepper driver you need to specify the 4 `pwm` pi
 StepperDriver4PWM driver = StepperDriver4PWM(5, 6, 9, 10, 7,  8);
 ```
 
+<blockquote class="info"> 📢 Here is a quick guide to choosing appropriate PWM pins for different MCU architectures <a href="choosing_pwm_pins">see in docs</a>.</blockquote>
+
 ## Step 2.1 PWM Configuration
 ```cpp
 // pwm frequency to be used [Hz]
-// for atmega328 fixed to 32kHz
+// for atmega328 either 4k or 32kHz
 // esp32/stm32/teensy configurable
 driver.pwm_frequency = 20000;
 ```
-<blockquote class="warning">
-⚠️ Arduino devices based on ATMega328 chips have fixed pwm frequency of 32kHz.
-</blockquote>
 
-Here is a list of different microcontrollers and their PWM frequency and resolution used with the  Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>.
+Here is a list of different microcontrollers and their PWM frequency and resolution used with the Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>.
 
 MCU | default frequency | MAX frequency | PWM resolution | Center-aligned | Configurable freq
 --- | --- | --- | --- | ---

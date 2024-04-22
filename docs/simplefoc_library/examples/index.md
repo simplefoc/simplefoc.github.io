@@ -10,6 +10,11 @@ parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</
 ---
 #  <span class="simple">Simple<span class="foc">FOC</span>library</span> example projects
 
+We will try to populate this section with as much material as possible to help you with your projects. This is also a section with a lot of potential for community contributions. If you have a project that you think would be useful to the community, please feel free to contribute! 
+
+There are many different projects <span class="simple">Simple<span class="foc">FOC</span>library</span> has been used for, and many of them have been discussed on our community servers - <a href="https://community.simplefoc.com">read more</a>. We encourage you to check it out and feel free to ask any questions you might have.
+
+
 <div class="image_icon">
     <a href="position_control_example">
         <img src="extras/Images/position_control_example.jpg">

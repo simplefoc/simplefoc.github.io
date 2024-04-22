@@ -4,8 +4,8 @@ title: Phase resistance
 nav_order: 3
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 permalink: /phase_resistance
-parent: Motors
-grand_parent: Supported Hardware
+parent: Practical guides
+grand_parent: Digging deeper
 grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 ---
 

@@ -38,6 +38,8 @@ BLDCDriver6PWM driver = BLDCDriver6PWM(5,6, 9,10, 3,11, 8);
 ⚠️ 6 PWM configuration is very hardware specific and please make sure to respect certain guidelines in order for it to work properly!
 </blockquote>
 
+<blockquote class="info"> 📢 Here is a quick guide to choosing appropriate PWM pins for different MCU architectures <a href="choosing_pwm_pins">see in docs</a>.</blockquote>
+
 ### Arduino UNO support
 Arduino UNO and all the atmega328 based boards have only 6 PWM pins and in order to use the `BLDCDrievr6PWM` we need to use all of them. Those are `3`,`5`,`6`,`9`,`10` and `11`. 
 Furthermore in order for the algorithm to work well we need to use the PWM pins that belong to the same timer for each high/low side pair of each phase.
@@ -106,20 +108,17 @@ As ADC conversion has to be synchronised with the PWM generated on ALL the phase
 In order to maximise your chances for the low-side current sensing to work well we suggest to make sure that the PWM pins chosen for your driver all belong to the same timer.
 
 Finding out which pins belong to different timers might require some time to be spent in the MCU datasheet 😄
+To try to save you some time, we have created a quick guide to choosing appropriate PWM pins for different MCU architectures <a href="choosing_pwm_pins">see in docs</a>.
 You can also always ask the community for help - <a href="https://community.simplefoc.com/">community link</a>!
 </blockquote>
 
 ## Step 2.1 PWM Configuration
 ```cpp
 // pwm frequency to be used [Hz]
-// for atmega328 fixed to 32kHz
+// for atmega328 either 4k or 32kHz
 // esp32/stm32/teensy configurable
 driver.pwm_frequency = 20000;
 ```
-<blockquote class="warning">
-⚠️ Arduino devices based on ATMega328 chips have fixed PWM frequency of 32kHz.
-</blockquote>
-
 Here is a list of different microcontrollers and their PWM frequency and resolution used with the  Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>.
 
 MCU | default frequency | MAX frequency | PWM resolution | Center-aligned | Configurable freq

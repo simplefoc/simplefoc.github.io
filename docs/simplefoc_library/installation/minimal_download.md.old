@@ -8,7 +8,9 @@ permalink: /minimal_download
 grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 ---
 
-# <span class="simple">Simple<span class="foc">FOC</span>library</span> minimal project builder
+# <span class="simple">Simple<span class="foc">FOC</span>library</span> minimal project builder - DEPRECATED
+
+<blockquote class="warning"> 📢 This method is deprecated and is very out of date.</blockquote>
 
 For those willing to experiment and to modify the code I suggest using the [<i class="fa fa-code-fork"></i> minimal](https://github.com/simplefoc/Arduino-FOC/tree/minimal) code version. 
 <blockquote class="info"><p class="heading">Note</p>This code is completely independent and you can run it as any other Arduino Sketch without the need for any libraries.</blockquote> 

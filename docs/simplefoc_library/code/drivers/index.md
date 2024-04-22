@@ -33,10 +33,11 @@ These classes can be used as stand-alone classes and they can be used to set cer
     
 MCU | 2 PWM mode | 4 PWM mode | 3 PWM mode | 6 PWM mode | pwm frequency config 
 --- | --- |--- |--- |--- |--- 
-Arduino (8-bit) | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ (either 4kHz or 32kHz)
+Arduino AVR (8-bit) | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ (either 4kHz or 32kHz)
 Arduino DUE  | ✔️ | ✔️ | ✔️ | ❌ | ✔️
 stm32 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
-esp32 | ✔️ | ✔️ | ✔️ | ✔️ / ❌<sup>*</sup> | ✔️ 
+esp32 `MCPWM` | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
+esp32 `LEDC`| ✔️ | ✔️ | ✔️ |  ❌ | ✔️ 
 esp8266 | ✔️ | ✔️ | ✔️ | ❌ | ✔️ 
 samd21/51 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
 teensy | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
@@ -44,4 +45,4 @@ Raspberry Pi Pico | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
 Portenta H7 | ✔️ | ✔️ | ✔️ | ❌ | ✔️ 
 Renesas (UNO R4 Minima) | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
 
-<sup>*</sup> For ESP32, the support for 6 PWM depends on the model of ESP32. The models that have a MCPWM peripheral support 6 PWM, the ones that do not only support the other PWM modes.
+<blockquote class="info"> 📢 Here is a quick guide to choosing appropriate PWM pins for different MCU architectures <a href="choosing_pwm_pins">see in docs</a>.</blockquote>

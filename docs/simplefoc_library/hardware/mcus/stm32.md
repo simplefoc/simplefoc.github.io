@@ -26,7 +26,8 @@ stm32 (in general) | ✔️ | ❌ |  ❌
 stm32f1 family | ✔️ | ✔️ (one motor) |  ❌
 stm32f4 family | ✔️ | ✔️ (one motor) |  ❌
 stm32g4 family | ✔️ | ✔️ (one motor) |  ❌
-stm32l4 family | ✔️ | ✔️ (initial) |  ❌
+stm32l4 family | ✔️ | ✔️ (one motor) |  ❌
+stm32f7 family | ✔️ | ✔️ (initial) |  ❌
 stm32 B_G431B_ESC1 | ❌ | ✔️ (one motor) |  ❌
 
 Stm32 devices have full compatibility using the <span class="simple">Simple<span class="foc">FOC</span>library</span> and will work with all driver types.
