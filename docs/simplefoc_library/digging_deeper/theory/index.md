@@ -40,4 +40,10 @@ This is the section intended to explain some interesting theoretical features of
         </a>
         <p> PID controller differential equation and implementation details.</p>
     </div>
+    <div>
+        <a href="alignment_procedure">
+            <h3 style="color:inherit"> <i class="fa fa-lg fa-graduation-cap" style="padding:10px"></i> Alignment procedure</h3>
+        </a>
+        <p> Explanation of the alignment procedure and the importance of the initial rotor position.</p>
+    </div>
 <div>
