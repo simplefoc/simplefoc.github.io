@@ -73,7 +73,7 @@ The current sensing support for all the architectures is shown in the table belo
     
 MCU | In-line | Low-side | High-side
 --- | --- |--- |--- 
-Arduino (8-bit) | ✔️ | ❌ |  ❌
+Arduino AVR (8-bit) | ✔️ | ❌ |  ❌
 Arduino DUE  | ✔️ | ❌ |  ❌
 stm32 (in general) | ✔️ | ❌ |  ❌
 stm32f1 family | ✔️ | ✔️ (one motor) |  ❌

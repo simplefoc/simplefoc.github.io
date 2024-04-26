@@ -28,6 +28,12 @@ Additionally, there are many different useful practical information already avai
         <a href="choosing_pwm_pins">
             <h3 style="color:inherit"> <i class="fa fa-lg fa-wrench" style="padding:10px"></i> Choosing PWM pins for you application</h3>
         </a>
-        <p> A short guide to choosing appropriate pins for your application </p>
+        <p> A short guide to choosing appropriate PWM pins for your application </p>
+    </div>
+    <div >
+        <a href="choosing_adc_pins">
+            <h3 style="color:inherit"> <i class="fa fa-lg fa-wrench" style="padding:10px"></i> Choosing Analog pins for you application</h3>
+        </a>
+        <p> A short guide to choosing appropriate analog pins for your application </p>
     </div>
 <div>
