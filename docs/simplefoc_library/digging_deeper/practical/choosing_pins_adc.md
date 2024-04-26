@@ -109,5 +109,5 @@ Teensy 4.1 |	24, 25 | 26, 27, 38, 39 | 14, 15,..., 22,23
 
 
 <blockquote class="info" markdown="1"><p class="heading">Important</p>
-For low-side current sensing with Teensy4 boards, it is required to use the analog pins that belong to the `ADC1`.
+For low-side current sensing with Teensy4 boards, it is required to use the analog pins that belong to the `ADC1`. So you can use any analog pin except the ones that belong only to the `ADC2`.
 </blockquote>
