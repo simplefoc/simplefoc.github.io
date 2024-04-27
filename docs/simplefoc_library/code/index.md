@@ -42,7 +42,7 @@ Choose a position sensor to use with this example:
     }
 </script>
 
-<a href="javascript:show(0,'sensor');" id="bnt-0 " class="btn btn-sensor btn-primary">Encoder</a> 
+<a href="javascript:show(0,'sensor');" id="btn-0" class="btn btn-sensor btn-primary">Encoder</a> 
 <a href ="javascript:show(1,'sensor');" id="btn-1" class="btn btn-sensor">Magnetic sensor</a> 
 <a href ="javascript:show(2,'sensor');" id="btn-2" class="btn btn-sensor">Hall sensors</a> 
 

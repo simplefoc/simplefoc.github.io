@@ -10,7 +10,9 @@ has_toc: false
 ---
 
 
-# <span class="simple">Simple<span class="foc">FOC</span>Mini</span>  <small><i>v1.0</i></small>
+# <span class="simple">Simple<span class="foc">FOC</span>Mini</span>  <small><i>v1.1</i></small>
+
+<img src="https://raw.githubusercontent.com/simplefoc/SimpleFOCMini/main/images/side.png" class="width20"/><img src="https://raw.githubusercontent.com/simplefoc/SimpleFOCMini/main/images/top.png" class="width20"/><img src="https://raw.githubusercontent.com/simplefoc/SimpleFOCMini/main/images/bottom.png" class="width20"/>
 
 <span class="simple">Simple<span class="foc">FOC</span>Mini</span> is a small-package, low-cost, modular and user-friendly driver for running gimbal BLDC motors with FOC algorithm. As for the <span class="simple">Simple<span class="foc">FOC</span>Shields</span>, the main motivation of this board is to make using low-power BLDC motors in hobby applications more accessible.
 The main goals of this board however are:
@@ -24,16 +26,17 @@ The main goals of this board however are:
 This board in combination with the <span class="simple">Simple<span class="foc">FOC</span>library</span> will give you a simple and intuitive way to control the BLDC motors' current, torque, velocity and position. And this board can be used as a drop in replacement for the <span class="simple">Simple<span class="foc">FOC</span>Shield</span> v1.
 
 
-<img src="extras/Images/mini.png" class="width20"/><img  src="https://simplefoc.com/assets/img/mini.jpg"  class="width20"/><img  src="https://simplefoc.com/assets/img/mini_front.jpg"  class="width20"/><img  src="https://simplefoc.com/assets/img/mini_back.jpg"  class="width20"/>
+
+<img  src="https://simplefoc.com/assets/img/mini.jpg"  class="width20"/><img  src="https://simplefoc.com/assets/img/mini_front.jpg"  class="width20"/><img  src="https://simplefoc.com/assets/img/mini_back.jpg"  class="width20"/>
 
 
 ## Features
 - **Plug & play**: In combination with Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 - **DRV8313 based** - [datasheet](https://www.ti.com/lit/ds/symlink/drv8313.pdf?ts=1650461862269&ref_url=https%253A%252F%252Fwww.google.com%252F)
-  - Power supply: 8-24V
+  - Power supply: 8-35V
   - Max current: 2.5A per phase
   - Onboard 3.3V LDO
-- **Small size**: 26x20 mm
+- **Small size**: 26x21 mm
 - **Fully open-source**:
   - [EasyEDA](https://easyeda.com/the.skuric/simplefocmini)
   - [GitHub](https://github.com/simplefoc/SimpleFOCMini) 
@@ -49,6 +52,13 @@ This BLDC driver board is primarily designed for gimbal motors with the internal
 </blockquote>
 
 <img src="https://simplefoc.com/assets/img/shield_vs_mini.jpg" class="img300"><img src="https://user-images.githubusercontent.com/36178713/164240473-5abd7453-9d38-4f25-9195-378c39180054.jpg" class="img300">
+
+### Release log
+
+Release | Date | Description
+--- | --- | ---
+v1.1 | 2024-04 | A quick iteration with a few changes:<br> 1. Aligned motor output header with the input header so that it can be stacked in the protoboard<br>2. Input header updated to be easier to use with arduino UNO, nucleos, but also with qtpy...<br> - Changed the order of the IN1,IN2,IN3 and EN:<br> - Added an additional GND pin <br>
+v1.0 | 2022-04 | Initial release
 
 ### Connection schematic
 An electrical connection example of a BLDC motor with an encoder as position sensor. 

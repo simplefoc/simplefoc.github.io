@@ -15,7 +15,7 @@ has_toc: false
 
 ## Step 1: [Connecting the hardware](mini_connect_hardware)
 
-<img src="extras/Images/mini_where.png" class="width40">
+
 
 Connecting the <span class="simple">Simple<span class="foc">FOC</span>Mini</span> to the microcontroller, BLDC motor and power-supply is straight forward. 
 

@@ -20,9 +20,34 @@ For this BLDC motor position control example we are going to be using this hardw
 # Connecting everything together
 <p><img src="extras/Images/connection_mini_nucleo.jpg" class="width60"></p>
 
-For more information about the <span class="simple">Simple<span class="foc">FOC</span>Mini</span> check the [docs](simplefocmini).
+For more information about the <span class="simple">Simple<span class="foc">FOC</span>Mini</span> check the [docs](simplefocmini). Currently, there are two versions of the <span class="simple">Simple<span class="foc">FOC</span>Mini</span> board available v1.0 and v1.1. The main difference between the two versions is the order of the pins. This example can be used with both versions of the board, however there are slight differences in the pinout.<br>
+Choose your <span class="simple">Simple<span class="foc">FOC</span>Mini</span> version: 
 
-<p><img src="extras/Images/mini_connection_mucleo.png"></p>
+
+
+<script type="text/javascript">
+    function show(id,cls){
+        Array.from(document.getElementsByClassName(cls)).forEach(
+        function(e){e.style.display = "none";});
+        Array.from(document.getElementsByClassName(cls+"-"+id)).forEach(
+        function(e){e.style.display = "block";});
+        Array.from(document.getElementsByClassName("btn-"+cls)).forEach(
+        function(e){e.classList.remove("btn-primary");});
+        document.getElementById("btn-"+id).classList.add("btn-primary");
+    }
+</script>
+
+<style>
+    .mini-1{
+        display: none;
+    }
+</style>
+
+<a href="javascript:show(0,'mini');" id="btn-0" class="btn btn-mini btn-primary"><span class="simple">Simple<span class="foc">FOC</span>Mini</span> V1.0</a> 
+<a href ="javascript:show(1,'mini');" id="btn-1" class="btn btn-mini"><span class="simple">Simple<span class="foc">FOC</span>Mini</span> V1.1</a> 
+
+<p class="mini mini-0" ><img src="extras/Images/mini_connection_mucleo.png" class="width60"></p>
+<p class="mini  mini-1" ><img src="extras/Images/miniv11_connection_mucleo.png" class="width60"></p>
 
 ## Encoder 
 - Channels `A` and `B` are connected to the Arduino  UNO pins `2` and `3`. 
@@ -30,13 +55,33 @@ For more information about the <span class="simple">Simple<span class="foc">FOC<
 ## Motor
 - Motor phases `a`, `b` and `c` are connected directly the motor terminal connector connectors `M1`, `M2` and `M3` of the <span class="simple">Simple<span class="foc">FOC</span>Mini</span> board
 
-## <span class="simple">Simple<span class="foc">FOC</span>Mini</span>
-- The most convenient way of plugging the <span class="simple">Simple<span class="foc">FOC</span>Mini</span> board to the Nucleo board is to stack it on its pins `12-8`.
+
+<div markdown="1" class="mini mini-0">
+
+## <span class="simple">Simple<span class="foc">FOC</span>Mini</span> v1.0
+
+- The most convenient way of plugging the <span class="simple">Simple<span class="foc">FOC</span>Mini</span> board to the Nucleo board is to stack it on its pins `10-13`.
    - `GND` - `GND`
    - `IN1` - `13`
    - `IN2` - `12`
    - `IN3` - `11`
    - `EN` - `10`
+
+</div>
+
+
+<div markdown="1" class="mini mini-1">
+
+## <span class="simple">Simple<span class="foc">FOC</span>Mini</span> v1.1
+
+- The most convenient way of plugging the <span class="simple">Simple<span class="foc">FOC</span>Mini</span> board to the Nucleo board is to stack it on its pins `10-13`.
+   - `GND` - `GND`
+   - `EN` - `13`
+   - `IN3` - `12`
+   - `IN2` - `11`
+   - `IN1` - `10`
+
+</div>
 
 # Arduino code 
 Let's go through the full code for this example and write it together.
@@ -82,10 +127,23 @@ BLDCMotor motor = BLDCMotor(11);
 
 
 Next we need to define the `BLDCDriver3PWM` class with the PWM pin numbers of the motor and the driver enable pin
+
+
+<div markdown="1" class="mini mini-0">
+
 ```cpp
 // define BLDC driver
 BLDCDriver3PWM driver = BLDCDriver3PWM(13, 12, 11, 10);
 ```
+</div>
+<div markdown="1" class="mini mini-1">
+
+```cpp
+// define BLDC driver
+BLDCDriver3PWM driver = BLDCDriver3PWM(10, 11, 12, 13);
+```
+</div>
+
 
 Then in the `setup()` we configure first the voltage of the power supply if it is not `12` Volts and init the driver.
 ```cpp
@@ -159,6 +217,9 @@ That is it, let's see the full code now!
 
 ## Full Arduino code
 To the full code I have added a small serial [commander interface](commander_interface),  to be able to change position/angle target value in real time.
+
+
+<div markdown="1" class="mini mini-0">
 
 ```cpp
 #include <SimpleFOC.h>
@@ -244,3 +305,94 @@ void loop() {
 
 }
 ```
+
+</div>
+
+
+<div markdown="1" class="mini mini-1">
+
+```cpp
+#include <SimpleFOC.h>
+
+// init BLDC motor
+BLDCMotor motor = BLDCMotor( 11 );
+// init driver
+BLDCDriver3PWM driver = BLDCDriver3PWM(10, 11, 12, 13);
+//  init encoder
+Encoder encoder = Encoder(2, 3, 2048);
+// channel A and B callbacks
+void doA(){encoder.handleA();}
+void doB(){encoder.handleB();}
+
+// commander interface
+Commander command = Commander(Serial);
+void onTarget(char* cmd){ command.motion(&motor, cmd); }
+
+void setup() {
+
+  // initialize encoder hardware
+  encoder.init();
+  // hardware interrupt enable
+  encoder.enableInterrupts(doA, doB);
+  // link the motor to the sensor
+  motor.linkSensor(&encoder);
+
+  // power supply voltage
+  // default 12V
+  driver.voltage_power_supply = 12;
+  driver.init();
+  // link the motor to the driver
+  motor.linkDriver(&driver);
+
+  // set control loop to be used
+  motor.controller = MotionControlType::angle;
+  
+  // controller configuration based on the control type 
+  // velocity PI controller parameters
+  // default P=0.5 I = 10
+  motor.PID_velocity.P = 0.2;
+  motor.PID_velocity.I = 20;
+  
+  //default voltage_power_supply
+  motor.voltage_limit = 6;
+
+  // velocity low pass filtering
+  // default 5ms - try different values to see what is the best. 
+  // the lower the less filtered
+  motor.LPF_velocity.Tf = 0.02;
+
+  // angle P controller 
+  // default P=20
+  motor.P_angle.P = 20;
+  //  maximal velocity of the position control
+  // default 20
+  motor.velocity_limit = 4;
+  
+  // initialize motor
+  motor.init();
+  // align encoder and start FOC
+  motor.initFOC();
+
+  // add target command T
+  command.add('T', doTarget, "motion control");
+
+  // monitoring port
+  Serial.begin(115200);
+  Serial.println("Motor ready.");
+  Serial.println("Set the target angle using serial terminal:");
+  _delay(1000);
+}
+
+void loop() {
+  // iterative FOC function
+  motor.loopFOC();
+
+  // function calculating the outer position loop and setting the target position 
+  motor.move();
+
+  // commander interface with the user
+  commander.run();
+
+}
+```
+</div>

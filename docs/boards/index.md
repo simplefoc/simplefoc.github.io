@@ -43,12 +43,12 @@ The <span class="simple">Simple<span class="foc">FOC</span>Shield</span>, in com
 - **Open Source**: Fully available fabrication files - [how to make it yourself](https://docs.simplefoc.com/arduino_simplefoc_shield_fabrication)
 
 
-## 📢**NEW**: <span class="simple">Simple<span class="foc">FOC</span>Mini</span> <small>v1.0</small> - <small>[Find out more](simplefocmini)</small>
+## 📢**NEW**: <span class="simple">Simple<span class="foc">FOC</span>Mini</span> <small>v1.1</small> - <small>[Find out more](simplefocmini)</small>
 
 Small package, low-cost BLDC driver board fully compatible with the <span class="simple">Simple<span class="foc">FOC</span>library</span>
 
 
-<img src="extras/Images/mini.png" class="width40"/><img  src="https://user-images.githubusercontent.com/36178713/164240473-5abd7453-9d38-4f25-9195-378c39180054.jpg"  class="width40"/>
+<img src="https://raw.githubusercontent.com/simplefoc/SimpleFOCMini/main/images/top.png" class="width40"/><img  src="https://user-images.githubusercontent.com/36178713/164240473-5abd7453-9d38-4f25-9195-378c39180054.jpg"  class="width40"/>
 
 
 
@@ -56,10 +56,10 @@ Small package, low-cost BLDC driver board fully compatible with the <span class=
 ## Features
 - **Plug & play**: In combination with Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 - **DRV8313 based** - [datasheet](https://www.ti.com/lit/ds/symlink/drv8313.pdf?ts=1650461862269&ref_url=https%253A%252F%252Fwww.google.com%252F)
-  - Power supply: 8-24V
+  - Power supply: 8-35V
   - Max current: 2.5A per phase
   - Onboard 3.3V LDO
-- **Small size**: 26x20 mm
+- **Small size**: 26x21 mm
 - **Fully open-source**:
   - [EasyEDA](https://easyeda.com/the.skuric/simplefocmini)
   - [GitHub](https://github.com/simplefoc/SimpleFOCMini) 
