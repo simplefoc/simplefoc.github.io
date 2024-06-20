@@ -126,7 +126,7 @@ There are two ways to use magnetic sensor implemented within this library:
 
 ### Position sensor for FOC algorithm
 
-To use the ensor with the FOC algorithm implemented in this library, once when you have initialized `sensor.init()` (and possibly started the interrupts) you just need to link it to the motor by executing:
+To use the sensor with the FOC algorithm implemented in this library, once when you have initialized `sensor.init()` (and possibly started the interrupts) you just need to link it to the motor by executing:
 ```cpp
 motor.linkSensor(&sensor);
 ```
@@ -146,35 +146,12 @@ class MagneticSensorPWM{
 
 <blockquote markdown="1" class="info">
 <p class="heading" markdown="1">Calling `getVelocity` multiple times</p>
-When calling `getVelocity` it will only calculate the velocity if the elapsed time from the previous call is longer than the time specified in teh variable `min_elapsed_time` (default 100us). If the elapsed time from the last call is shorter than `min_elapsed_time` the function will return previously calculated value. Variable `min_elapsed_time` can be changed easily if necessary:
+When calling `getVelocity` it will only calculate the velocity if the elapsed time from the previous call is longer than the time specified in the variable `min_elapsed_time` (default 100us). If the elapsed time from the last call is shorter than `min_elapsed_time` the function will return previously calculated value. Variable `min_elapsed_time` can be changed easily if necessary:
 
 ```cpp
 sensor.min_elapsed_time = 0.0001; // 100us by default
 ```
 </blockquote>
-
-
-
-<blockquote markdown="1" class="info">
-<p class="heading" markdown="1">Calling `getVelocity` multiple times</p>
-When calling `getVelocity` it will only calculate the velocity if the elapsed time from the previous call is longer than the time specified in teh variable `min_elapsed_time` (default 100us). If the elapsed time from the last call is shorter than `min_elapsed_time` the function will return previously calculated value. Variable `min_elapsed_time` can be changed easily if necessary:
-
-```cpp
-sensor.min_elapsed_time = 0.0001; // 100us by default
-```
-</blockquote>
-
-
-
-<blockquote markdown="1" class="info">
-<p class="heading" markdown="1">Calling `getVelocity` multiple times</p>
-When calling `getVelocity` it will only calculate the velocity if the elapsed time from the previous call is longer than the time specified in teh variable `min_elapsed_time` (default 100us). If the elapsed time from the last call is shorter than `min_elapsed_time` the function will return previously calculated value. Variable `min_elapsed_time` can be changed easily if necessary:
-
-```cpp
-sensor.min_elapsed_time = 0.0001; // 100us by default
-```
-</blockquote>
-
 
 
 Here is a quick example for AS5048A magnetic sensor using its PWM output:
