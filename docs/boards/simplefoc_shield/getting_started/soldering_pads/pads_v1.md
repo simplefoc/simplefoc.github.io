@@ -1,6 +1,6 @@
 ---
 layout: default
-title: v1.3.3
+title: Soldering Pads v1.x
 parent: Soldering pads
 grand_parent: Getting Started
 description: "Configuring your SimpleFOCShield by soldering the pads."

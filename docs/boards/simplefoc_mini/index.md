@@ -12,6 +12,11 @@ has_toc: false
 
 # <span class="simple">Simple<span class="foc">FOC</span>Mini</span>  <small><i>v1.1</i></small>
 
+
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?color=blue)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/simplefoc/simplefocmini)
+![GitHub Release Date](https://img.shields.io/github/release-date/simplefoc/simplefocmini?color=blue)
+
 <img src="https://raw.githubusercontent.com/simplefoc/SimpleFOCMini/main/images/side.png" class="width20"/><img src="https://raw.githubusercontent.com/simplefoc/SimpleFOCMini/main/images/top.png" class="width20"/><img src="https://raw.githubusercontent.com/simplefoc/SimpleFOCMini/main/images/bottom.png" class="width20"/>
 
 <span class="simple">Simple<span class="foc">FOC</span>Mini</span> is a small-package, low-cost, modular and user-friendly driver for running gimbal BLDC motors with FOC algorithm. As for the <span class="simple">Simple<span class="foc">FOC</span>Shields</span>, the main motivation of this board is to make using low-power BLDC motors in hobby applications more accessible.
@@ -27,7 +32,7 @@ This board in combination with the <span class="simple">Simple<span class="foc">
 
 
 
-<img  src="https://simplefoc.com/assets/img/mini.jpg"  class="width20"/><img  src="https://simplefoc.com/assets/img/mini_front.jpg"  class="width20"/><img  src="https://simplefoc.com/assets/img/mini_back.jpg"  class="width20"/>
+<img  src="https://simplefoc.com/assets/img/miniv11_exploded.jpg"  class="width20"/><img  src="https://simplefoc.com/assets/img/miniv11_front.jpg"  class="width20"/><img  src="https://simplefoc.com/assets/img/miniv11_back.jpg"  class="width20"/>
 
 
 ## Features

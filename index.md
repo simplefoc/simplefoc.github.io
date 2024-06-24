@@ -44,7 +44,12 @@ Therefore this is an attempt to:
    - Added docs on stm32 PWM and ADC pinouts - [ <i class="fa fa-sm fa-book"></i> stm32 pinouts](https://docs.simplefoc.com/stm32pinouts/)
 </blockquote>
 
-## Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+# Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> <small>- [Read more ...](arduino_simplefoc_library_showcase)</small>
+
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?color=blue)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/simplefoc/arduino-foc)
+![GitHub Release Date](https://img.shields.io/github/release-date/simplefoc/arduino-foc?color=blue)
+
 <iframe class="youtube"  src="https://www.youtube.com/embed/Y5kLeqTc6Zk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 This video demonstrates the Simple FOC library basic usage, electronic connections and shows its capabilities.
 
@@ -72,29 +77,80 @@ This video demonstrates the Simple FOC library basic usage, electronic connectio
       - many more ...
 
 
-## Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> <i><small>v2.0.4</small></i>
-<iframe class="youtube"  src="https://www.youtube.com/embed/G5pbo0C6ujE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+# <span class="simple">Simple<span class="foc">FOC</span>Boards</span>  <small>- [Read more ...](boards)</small>
+
+One of the goals of the  <span class="simple">Simple<span class="foc">FOC</span>project</span> is to develop low-cost easy to use BLDC driver boards compatible with the <span class="simple">Simple<span class="foc">FOC</span>library</span>and completely open source! Therefore, <span class="simple">Simple<span class="foc">FOC</span></span> team members have developed a set of boards, designed specifically for ease of use, to help you kickstart your FOC journey. In addition to being easy to use, the goal of these boards is serve as a reference design for the community to build upon. And finally, even though some of these boards are available in our [shop](https://www.simplefoc.com/shop), our docs provide a lot of documentation and step-by-step guides on how to fabricate the boards yourself.
+
+
+In addition to the official boards, there are many other boards compatible with <span class="simple">Simple<span class="foc">FOC</span>library</span>  that you can explore, see the [docs](supported_hardware). Additionally, some other cool hardware designs have been proposed by the community. Check out our [community forum](https://community.simplefoc.com/) for more info.
+
+Here are some of the official boards developed by the <span class="simple">Simple<span class="foc">FOC</span></span> team:
+
+<div class="width40 inline_block_top" markdown="1">
+
+## <span class="simple">Simple<span class="foc">FOC</span>Shield</span>
+
+<img src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/master/images/top.png"  class="img200"/>
+
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?color=blue)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/simplefoc/arduino-simplefocshield)
+![GitHub Release Date](https://img.shields.io/github/release-date/simplefoc/arduino-simplefocshield?color=blue)
 
 ### Features
-- **Plug & play**: In combination with Arduino *Simple**FOC**library* - [github](https://github.com/simplefoc/Arduino-FOC)
-- **Low-cost**: Price of €15 - [Check the pricing](https://www.simplefoc.com/shop) 
-- **In-line current sensing**: Up to 3Amps/5Amps bidirectional
-   - configurable: 3.3Amps - 3.3V adc, 5Amps - 5V adc
+- **DRV8313 based** - [datasheet](https://www.ti.com/lit/ds/symlink/drv8313.pdf)
+  - Power supply: 8-35V
+  - Max current: 2A per phase (3Amp peak)
+- **Absolute max ratings** - Designed for Gimbal motors with the internal resistance >10 Ωs. 
+   - Max current: 3A, 
+   - Max input voltage: 35V
+- **In-line current sensing**: Up to 5Amps bidirectional
+   - ACS712 hall current sensor
 - **Integrated 8V regulator**: 
    - Enable/disable by soldering pads
-- **Max power 120W** - max current 5A, power-supply 12-35V
-   - Designed for Gimbal motors with the internal resistance >10 Ωs. 
 - **Stackable**: running 2 motors in the same time
 - **Encoder/Hall sensors interface**: Integrated 3.3kΩ pullups (configurable)
 - **I2C interface**: Integrated 4.7kΩ pullups (configurable)
 - **Configurable pinout**: Hardware configuration - soldering connections
 - **Arduino headers**: Arduino UNO, Arduino MEGA, STM32 Nucleo boards...
-- **Open Source**: Fully available fabrication files - [how to make it yourself](arduino_simplefoc_shield_fabrication)
+- **Open Source**: 
+   - Fully designed in **EasyEDA**: [EasyEDA project](https://oshwlab.com/the.skuric/simplefocshield_copy_copy)
+   - Fully available fabrication files - [how to make it yourself](arduino_simplefoc_shield_fabrication)
+- **Low-cost**: 
+   - JLCPCB production cost ~10-15€
+   - Available in the [shop](https://www.simplefoc.com/shop): 15-30€ 
 
-##### If you are interested in this board as a product, find more information on this link: [Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span>](https://simplefoc.com/simplefoc_shield_product)
+</div><div class="width40 inline_block_top" style  markdown="1">
 
+## <span class="simple">Simple<span class="foc">FOC</span>Mini</span>
 
-<p><img src="extras/Images/simple_foc_shield_v13_small.gif" class="img200" ><img src="https://simplefoc.com/assets/img/v1.jpg" class="img200 img_half" ><img src="https://simplefoc.com/assets/img/v2.jpg" class="img200 img_half" ></p>
+<img src="https://raw.githubusercontent.com/simplefoc/SimpleFOCMini/main/images/top.png" class="img200"/>
+
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?color=blue)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/simplefoc/simplefocmini)
+![GitHub Release Date](https://img.shields.io/github/release-date/simplefoc/simplefocmini?color=blue)
+
+### Features
+- **DRV8313 based** - [datasheet](https://www.ti.com/lit/ds/symlink/drv8313.pdf)
+  - Power supply: 8-35V
+  - Max current: 2A per phase (3Amp peak)
+- **Absolute max ratings** - Designed for Gimbal motors with the internal resistance >10 Ωs. 
+   - Max current: 3A, 
+   - Max input voltage: 35V
+- **Small size**: 26x21 mm
+- **Open Source**: 
+   - Fully designed in **EasyEDA**: [EasyEDA project](https://easyeda.com/the.skuric/simplefocmini)
+   - Fully available fabrication files - [how to make it yourself](mini_fabrication)
+- **Low-cost**: 
+   - JLCPCB production cost ~3-5€
+   - Available in the [shop](https://www.simplefoc.com/shop): 7-15€ 
+
+</div>
+
+A short demo video for the <span class="simple">Simple<span class="foc">FOC</span>Shield</span> (its a bit outdated but still relevant)
+
+<iframe class="youtube"  src="https://www.youtube.com/embed/G5pbo0C6ujE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+Find out more about the boards and how to make them yourself in the [boards](boards) section. 
 
 ## Alternative FOC supporting projects
 Over the period of the past few years several cool FOC supporting projects which provide hardware and software solutions have emerged, here are some of them. None of the projects listed uses <span class="simple">Simple<span class="foc">FOC</span></span>. 

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: v2.0.2
+title: Soldering Pads v2.x
 parent: Soldering pads
 grand_parent: Getting Started
 description: "Configuring your SimpleFOCShield by soldering the pads."
@@ -16,12 +16,12 @@ One of the very important features of the Arduino <span class="simple">Simple<sp
 
 Each board has a set of solder pads on the bottom side which are used for configuration. These solder pads enable board to:
 
-- Configure BLDC driver pinout (PWM pins A,B,C and enable pin)
-- Enable / Disable pull-up resistors for encoder A,B and Index channel
-- Configure encoder/hall sensor connections
-- Enable / Disable the linear regulator
-- Configure the range of the ADC 
-- Configure the pinout of current sensing 
+- Configure BLDC driver pinout (PWM pins A,B,C and enable pin) - [Read more .. ](#customizing-pinout)
+- Enable / Disable pull-up resistors for encoder A,B and Index channel - [Read more .. ](#enabling-encoderhall-sensor-pull-up-resistors
+- Configure encoder/hall sensor connections - [Read more .. ](#enabling-encoderhall-sensor-pull-up-resistors)
+- Enable / Disable the linear regulator - [Read more .. ](#enabling-on-board-voltage-regulator-to-power-the-mcu)
+- Configure the range of the ADC - [Read more .. ](#configuring-the-current-sensing-adc-range)
+- Configure the pinout of current sensing - [Read more .. ](#configuring-the-current-sensing-pinout)
 
 <blockquote class="info"> <p class="heading">BEWARE 📢: Conductive ink </p>
 Many Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> boards will be initially tested and they will be shipped with initial configuration. The testing configuration will be done with use of conductive ink instead of soldering connections. Therefore once you have the board, if you wish to change configuration all you need to do is remove the ink with some wet paper wipe.
@@ -73,6 +73,9 @@ Signal | Possible pins
 Current phase A | A0, A1
 Current phase B | A2, A3
 
+<blockquote class="info" markdown="1">
+📢 If not sure which pins to use, check our [guide to choosing ADC pins](choosing_adc_pins)!
+</blockquote>
 
 ## Customizing pinout
 
@@ -95,7 +98,9 @@ For example, Arduino UNO only has 2 external interrupt pins, and they are pin  `
 
 Another example is when stacking two boards with the STM32 Nucleo. Nucleo board cannot have pwm generation on pins `11` and `6` therefore you cannot combine those pins at the same time. Therefore whn using Nucleo board, the rule of thumb is to avoid using pin `11` but use pin `13` instead.
 
-<blockquote class="info"><p class="heading">Pin 13 or pin 11</p> We advise you to try first with the  pin 13 configured and then with pin 11 if this does not work. Tested boards are Nucleo-F401RE - pin 13 works / pin 11 doesn't and  Nucleo-F466RE pin 11 works/ pin 13 doesn't.</blockquote>
+<blockquote class="info" markdown="1">
+📢If not sure which pins to use, check our [guide to choosing PWM pins](choosing_pwm_pins)!
+</blockquote>
 
 Therefore in the following text you can find the suggested pinout configuration based on the stacking necessity and the microcontroller used.
 

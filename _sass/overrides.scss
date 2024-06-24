@@ -422,3 +422,15 @@ a.remove_dec{
     text-decoration: none;
     background-image: none;
 }
+
+.shrink-table{
+    background-color: #ff684a;
+}
+.shrink-table > * td, .shrink-table  > * td{
+    min-width: 50px !important;
+}
+
+.inline_block_top{
+    display: inline-block;
+    vertical-align: top;
+}

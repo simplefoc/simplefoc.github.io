@@ -10,14 +10,34 @@ has_toc: false
 
 # <span class="simple">Simple<span class="foc">FOC</span> Boards</span>
 
-One of the goals of the  <span class="simple">Simple<span class="foc">FOC</span>project</span> is to develop low-cost easy to use BLDC driver boards compatible with the <span class="simple">Simple<span class="foc">FOC</span>library</span>and completely open source!
+One of the goals of the  <span class="simple">Simple<span class="foc">FOC</span>project</span> is to develop low-cost easy to use BLDC driver boards compatible with the <span class="simple">Simple<span class="foc">FOC</span>library</span>and completely open source! Therefore, <span class="simple">Simple<span class="foc">FOC</span></span> team members have developed a set of boards, designed specifically for ease of use, to help you kickstart your FOC journey. In addition to being easy to use, the goal of these boards is serve as a reference design for the community to build upon. And finally, even though some of these boards are available in our [shop](https://www.simplefoc.com/shop), our docs provide a lot of documentation and step-by-step guides on how to fabricate the boards yourself.
 
-For now there have been three official BLDC drivers developed by the <span class="simple">Simple<span class="foc">FOC</span>project</span>:
-- <span class="simple">Simple<span class="foc">FOC</span>Shield</span>  - <small>[Find out more](arduino_simplefoc_shield_showcase)</small>
-- <span class="simple">Simple<span class="foc">FOC</span>Mini</span> 📢**NEW**  - <small>[Find out more](simplefocmini)</small>
-- <span class="simple">Simple<span class="foc">FOC</span> <b>Power</b>Shield</span>
 
-## Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> <small>v2.0.4</small> - <small>[Find out more](arduino_simplefoc_shield_showcase)</small>
+There two main formats of the official drivers boards developed by the <span class="simple">Simple<span class="foc">FOC</span></span> team:
+
+- <span class="simple">Shield</span> form factor: These boards are designed to be compatible with the Arduino ecosystem and are intended to be used with the <span class="simple">Simple<span class="foc">FOC</span>library</span> and the Arduino IDE. They are designed to be easy to use and are intended for low to mid power applications.
+   - <span class="simple">Simple<span class="foc">FOC</span>Shield</span> - <small>[Find out more](arduino_simplefoc_shield_showcase)</small> 
+   - <span class="simple">Simple<span class="foc">FOC</span> <b>Power</b>Shield</span> - <small>⚠️<i>( development abandoned )</i></small> - <small>[Find out more](#arduino-simplefoc-powershield-v02-️-development-abandoned-)</small>
+
+- <span class="simple">Mini</span> form factor: These boards are designed to be small, low-cost, and easy to use. They are intended for low power applications and are designed to be compatible with the <span class="simple">Simple<span class="foc">FOC</span>library</span>.
+   - <span class="simple">Simple<span class="foc">FOC</span>Mini</span> - <small>[Find out more](simplefocmini)</small> 
+   - <span class="simple">Simple<span class="foc">FOC</span> <b>Step</b>Mini</span> (📢**NEW**)  - <small> [Find out more](#simplefoc-stepmini-v10---see-on-github)
+
+
+In addition to the official boards, there are many other boards compatible with <span class="simple">Simple<span class="foc">FOC</span>library</span>  that you can explore, see the [docs](supported_hardware). Additionally, some other cool hardware designs have been proposed by the community. Check out our [community forum](https://community.simplefoc.com/) for more info.
+
+
+
+## Boards in the <span class="simple">Shield</span> form factor
+
+These boards are designed to be compatible with the Arduino UNO R3 headers, enabling an easy to start experience with the <span class="simple">Simple<span class="foc">FOC</span>library</span> and the Arduino IDE. The boards can be used with any board with the standard Arduino headers, such as the Arduino MEGA, STM32 Nucleo boards, Adafruit Metro, ESP32 D1 R3, Arudino UNO R4 and many others. This format enables usesr to easily exchange the microcontrollers and find the best solution for their application. The boards are fully open-source and the fabrication files are available in the respective repositories, as well as detailed guides on how to fabricate the boards yourself. The boards are additionally available in the [shop](https://www.simplefoc.com/shop) for those who prefer to buy them, as well as on other mainstream platforms like Aliexpress and Ebay (no relation to the <span class="simple">Simple<span class="foc">FOC</span>project</span>).
+
+
+## <span class="simple">Simple<span class="foc">FOC</span>Shield</span> <small>v3.2</small> - <small>[Find out more](arduino_simplefoc_shield_showcase)</small>
+
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?color=blue)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/simplefoc/arduino-simplefocshield)
+![GitHub Release Date](https://img.shields.io/github/release-date/simplefoc/arduino-simplefocshield?color=blue)
 
 This is an open-source low-cost Brushless DC (BLDC) motor driver board intended primarily for low-power FOC applications up to 5Amps. The board is fully compatible with the Arduino UNO and all the boards with the standard Arduino headers.
 The <span class="simple">Simple<span class="foc">FOC</span>Shield</span>, in combination with  the <span class="simple">Simple<span class="foc">FOC</span>library</span> provides *user-friendly* way to control BLDC motors both in hardware and software.  
@@ -26,50 +46,33 @@ The <span class="simple">Simple<span class="foc">FOC</span>Shield</span>, in com
 <img src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/master/images/top.png"/>
 </div>
 
+
 ### Features
-- **Plug & play**: In combination with Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
-- **Low-cost**: Price of 15-20€ - [Check the pricing](https://www.simplefoc.com/shop) 
-- **In-line current sensing**: Up to 3Amps/5Amps bidirectional
-   - configurable: 3.3Amps - 3.3V adc, 5Amps - 5V adc
+- **Plug & play**: In combination with Arduino *Simple**FOC**library* - [github](https://github.com/simplefoc/Arduino-FOC)
+- **Low-cost**: Price of 15-30€ - [Check the pricing](https://www.simplefoc.com/shop) 
+- **In-line current sensing**: Up to 5Amps bidirectional
+   - ACS712 hall current sensor
 - **Integrated 8V regulator**: 
    - Enable/disable by soldering pads
-- **Max power 120W** - max current 5A, power-supply 12-24V **(35V max)**
-   - Designed for Gimbal motors with the internal resistance >10 Ωs. 
+- **Absolute max ratings** - Designed for Gimbal motors with the internal resistance >10 Ωs. 
+   - Max current: 3A, 
+   - Max input voltage: 35V
 - **Stackable**: running 2 motors in the same time
 - **Encoder/Hall sensors interface**: Integrated 3.3kΩ pullups (configurable)
 - **I2C interface**: Integrated 4.7kΩ pullups (configurable)
 - **Configurable pinout**: Hardware configuration - soldering connections
 - **Arduino headers**: Arduino UNO, Arduino MEGA, STM32 Nucleo boards...
-- **Open Source**: Fully available fabrication files - [how to make it yourself](https://docs.simplefoc.com/arduino_simplefoc_shield_fabrication)
+- **Open Source**: 
+   - Fully designed in **EasyEDA**: [EasyEDA project](https://oshwlab.com/the.skuric/simplefocshield_copy_copy) 🎉
+   - Fully available fabrication files - [how to make it yourself](https://docs.simplefoc.com/arduino_simplefoc_shield_fabrication)
 
-
-## 📢**NEW**: <span class="simple">Simple<span class="foc">FOC</span>Mini</span> <small>v1.1</small> - <small>[Find out more](simplefocmini)</small>
-
-Small package, low-cost BLDC driver board fully compatible with the <span class="simple">Simple<span class="foc">FOC</span>library</span>
-
-
-<img src="https://raw.githubusercontent.com/simplefoc/SimpleFOCMini/main/images/top.png" class="width40"/><img  src="https://user-images.githubusercontent.com/36178713/164240473-5abd7453-9d38-4f25-9195-378c39180054.jpg"  class="width40"/>
-
+<blockquote class="info">
+📢<b>NEWS</b>: <span class="simple">Simple<span class="foc">FOC</span>Shield</span> v3.2 is now out!
+</blockquote>
 
 
 
-## Features
-- **Plug & play**: In combination with Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
-- **DRV8313 based** - [datasheet](https://www.ti.com/lit/ds/symlink/drv8313.pdf?ts=1650461862269&ref_url=https%253A%252F%252Fwww.google.com%252F)
-  - Power supply: 8-35V
-  - Max current: 2.5A per phase
-  - Onboard 3.3V LDO
-- **Small size**: 26x21 mm
-- **Fully open-source**:
-  - [EasyEDA](https://easyeda.com/the.skuric/simplefocmini)
-  - [GitHub](https://github.com/simplefoc/SimpleFOCMini) 
-- **Low-cost**: 
-   - JLCPCB production cost ~3-5€
-   - Will be available in the [shop](https://www.simplefoc.com/shop) soon: 7-10€ 
-
-   Read more about this board at [link](https://github.com/simplefoc/SimpleFOCMini)
-
-## Arduino <span class="simple">Simple<span class="foc">FOC</span> <b>Power</b>Shield</span> <small>v0.2</small> <small>⚠️<i>( under developement)</i></small>
+## <span class="simple">Simple<span class="foc">FOC</span> <b>Power</b>Shield</span> <small>v0.2</small> <small>⚠️<i>( development abandoned )</i></small>
 
 A powerful arduino shield for running BLDC motors using the FOC algorithm. This board is based on the [BTN8982](https://www.infineon.com/dgdl/Infineon-BTN8982TA-DS-v01_00-EN.pdf?fileId=db3a30433fa9412f013fbe32289b7c17) half bridges and can support currents up to 30 Amps continuos and 50Amps peak. Making it a board that can run virtually any BLDC motor.
 
@@ -104,3 +107,72 @@ This does not mean that the board itself is not functional or that it will not w
    - schematics
 
 Read more about this board at [link](https://github.com/simplefoc/Arduino-SimpleFOC-PowerShield)
+
+
+## Boards in the <span class="simple">Mini</span> form factor
+
+This is a set of miniature boards designed to be small, low-cost, and easy to use. They are intended for low power applications and are designed to be compatible with the <span class="simple">Simple<span class="foc">FOC</span>library</span>. The boards are created as minimal working examples and are intended to be used as a reference design for the community to build upon. The boards are fully open-source and the fabrication files are available in the respective repositories, as well as detailed guides on how to fabricate the boards yourself. The boards are additionally available in the [shop](https://www.simplefoc.com/shop) for those who prefer to buy them, as well as on other mainstream platforms like Aliexpress and Ebay (no relation to the <span class="simple">Simple<span class="foc">FOC</span>project</span>).
+
+<div class="width40 inline_block_top" markdown="1">
+## <span class="simple">Simple<span class="foc">FOC</span>Mini</span> <small>v1.1</small> - <small>[Find out more](simplefocmini)</small>
+
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?color=blue)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/simplefoc/simplefocmini)
+![GitHub Release Date](https://img.shields.io/github/release-date/simplefoc/simplefocmini?color=blue)
+
+Small package, low-cost BLDC driver board fully compatible with the <span class="simple">Simple<span class="foc">FOC</span>library</span>
+
+
+<img src="https://raw.githubusercontent.com/simplefoc/SimpleFOCMini/main/images/top.png" class="img200"/>
+
+
+
+
+## Features
+- **Plug & play**: In combination with Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+- **DRV8313 based** - [datasheet](https://www.ti.com/lit/ds/symlink/drv8313.pdf?ts=1650461862269&ref_url=https%253A%252F%252Fwww.google.com%252F)
+  - Power supply: 8-35V
+  - Max current: 2.5A per phase
+  - Onboard 3.3V LDO
+      - up to 10mA 
+      - Can power a sensor like AS5600 or CUI AMT102 
+- **Small size**: 26x21 mm
+- **Fully open-source**:
+  - [EasyEDA](https://easyeda.com/the.skuric/simplefocmini)
+  - [GitHub](https://github.com/simplefoc/SimpleFOCMini) 
+- **Low-cost**: 
+   - JLCPCB production cost ~3-5€
+   - Available in the [shop](https://www.simplefoc.com/shop): 7-15€ 
+
+Read more about this board at [link](https://github.com/simplefoc/SimpleFOCMini)
+
+
+</div><div class="width40 inline_block_top" style  markdown="1">
+
+## <span class="simple">Simple<span class="foc">FOC</span> <b>Step</b>Mini</span> <small>v1.0</small> - <small>[See on Github](https://github.com/simplefoc/SimpleFOC-StepMini)</small>
+
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?color=blue)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/simplefoc/simplefoc-stepmini)
+![GitHub Release Date](https://img.shields.io/github/release-date/simplefoc/simplefoc-stepmini?color=blue)
+
+Small package, low-cost Stepper driver board fully compatible with the <span class="simple">Simple<span class="foc">FOC</span>library</span>
+
+<img src="https://raw.githubusercontent.com/simplefoc/SimpleFOC-StepMini/main/docs/top.png" class="img200"/>
+
+
+## Features
+- **Plug & play**: In combination with Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+- **DRV8844 based** - [datasheet](https://www.ti.com/lit/ds/symlink/drv8844.pdf)
+    - Power supply: 8-35V
+    - Max current: 2.5A per phase
+    - Onboard 3.3V LDO 
+        - up to 10mA 
+        - Can power a sensor like AS5600 or CUI AMT102 
+- **Small size:** 26x21 mm
+- **Fully open-source:** 
+   - [EasyEDA link](https://easyeda.com/the.skuric/simplefocmini_copy)
+   - Project and fabrication files: [Github](https://github.com/simplefoc/SimpleFOC-StepMini)
+- **Low-cost:** 
+   - JLCPCB production cost ~3-5€
+   - Will be available in the [shop](https://www.simplefoc.com/shop) 10-15€
+</div>

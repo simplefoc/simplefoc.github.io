@@ -1,6 +1,6 @@
 ---
 layout: default
-title: v2.0.4
+title: Shield v2.x
 description: "Arduino SimpleFOCShield board fabrication"
 parent: Board Fabrication
 grand_parent: <span class="simple">Simple<span class="foc">FOC</span>Shield</span>
@@ -8,7 +8,7 @@ grand_grand_parent: <span class="simple">Simple<span class="foc">FOC</span> Boar
 nav_order: 2
 permalink: /arduino_simplefoc_shield_fabrication_v2
 ---
-# Fabrication guide for <span class="simple">Simple<span class="foc">FOC</span>Shield</span> <small><i>v2.0.4</i></small> 
+# Fabrication guide for <span class="simple">Simple<span class="foc">FOC</span>Shield</span> <small><i>v2.x</i></small> 
 Here is a quick guide how to fabricate the Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> [version <i class="fa fa-tag"></i>V2.0.4](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases) 
 
 
@@ -235,5 +235,5 @@ To order the boards, download the [<i class="fa fa-file"></i> Gerber files](http
 <iframe class="youtube"  src="https://www.youtube.com/embed/sax_9sUgBuk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Fully assembled versions
-Order your own fully tested and assembled Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span>  from our [shop](https://simplefoc.com/simplefoc_shield_product).
+Order your own fully tested and assembled Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span>  from our [shop](https://simplefoc.com/shop).
 
