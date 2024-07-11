@@ -14,7 +14,7 @@ has_toc: False
 
 ![Library Compile](https://github.com/simplefoc/Arduino-FOC-Drivers/workflows/Library%20Compile/badge.svg)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-![arduino-library-badge](https://www.ardu-badge.com/badge/SimpleFOCDrivers.svg?)
+![arduino-library-badge](https://ardubadge.simplefoc.com?lib=SimpleFOCDrivers.svg?)
 
 
 The <span class="simple">Simple<span class="foc">FOC</span>library</span>'s main objective is to provide an efficient low level motion motor control for BLDC and stepper motors.

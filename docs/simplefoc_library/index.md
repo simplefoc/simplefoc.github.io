@@ -12,7 +12,7 @@ has_toc: False
 # Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-![arduino-library-badge](https://www.ardu-badge.com/badge/Simple%20FOC.svg?)
+![arduino-library-badge](https://ardubadge.simplefoc.com?lib=Simple%20FOC)
 [![status](https://joss.theoj.org/papers/4382445f249e064e9f0a7f6c1bb06b1d/status.svg)](https://joss.theoj.org/papers/4382445f249e064e9f0a7f6c1bb06b1d)
 
 

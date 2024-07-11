@@ -8,7 +8,7 @@ permalink: /
 # Arduino Simple Field Oriented Control (FOC) project
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-![arduino-library-badge](https://www.ardu-badge.com/badge/Simple%20FOC.svg?)
+![arduino-library-badge](https://ardubadge.simplefoc.com?lib=Simple%20FOC.svg?)
 [![status](https://joss.theoj.org/papers/4382445f249e064e9f0a7f6c1bb06b1d/status.svg)](https://joss.theoj.org/papers/4382445f249e064e9f0a7f6c1bb06b1d)
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/simplefoc/arduino-foc)
