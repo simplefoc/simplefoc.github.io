@@ -7,7 +7,9 @@ permalink: /stepper_motors
 parent: Motors
 grand_parent: Supported Hardware
 grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+toc: true
 ---
+
 
 # Stepper motors 
 

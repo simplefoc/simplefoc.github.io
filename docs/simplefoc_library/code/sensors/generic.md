@@ -7,7 +7,9 @@ nav_order: 4
 parent: Position Sensors
 grand_parent: Writing the Code
 grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+toc: true
 ---
+
 
 
 # Implementing a custom sensor
@@ -40,6 +42,19 @@ To initialize the sensor class you need to provide it the pointer to your functi
 //  - initCallback pointer to the function initialising the sensor (optional)
 GenericSensor sensor = GenericSensor(readMySensorCallback, initMySensorCallback);
 ```
+
+And you will be able to access the angle and velocity of the motor using the motor instance:
+```cpp
+motor.shaft_angle; // motor angle
+motor.shaft_velocity; // motor velocity
+```
+
+or through the sensor instance:
+```cpp
+sensor.getAngle(); // motor angle
+sensor.getVelocity(); // motor velocity
+```
+
 
 ## Step 3. Using your sensor in real-time
 

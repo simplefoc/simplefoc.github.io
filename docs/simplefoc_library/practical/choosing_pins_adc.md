@@ -5,9 +5,10 @@ nav_order: 4
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 permalink: /choosing_adc_pins
 parent: Practical guides
-grand_parent: Digging deeper
-grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+toc: true
 ---
+
 
 # A short guide to choosing Analog pins for your application
 

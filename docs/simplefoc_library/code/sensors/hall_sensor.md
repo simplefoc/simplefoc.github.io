@@ -7,7 +7,9 @@ nav_order: 2
 parent: Position Sensors
 grand_parent: Writing the Code
 grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+toc: true
 ---
+
 
 
 # Hall sensors setup
@@ -42,16 +44,27 @@ From the release v2.2.3 `HallSensor` class implements the outlier removal for it
 // maximal expected velocity
 sensor.velocity_max = 1000; // 1000rad/s by default ~10,000 rpm
 ```
-## Step 3. Interrupt setup
-There are two ways you can run hall sensors with Simple FOC library.
+## Step 3. Interrupt setup (optional)
+
+From the release v2.3.4 the `HallSensor` class does no longer require interrupt based operation. The interrupt based operation is still available and might be more performant in certain applications, but it is no longer required. If you are not using interrupts you can skip this step and go directly to [Step 4. Using hall sensors in real-time](#step-4-using-hall-sensors-in-real-time).
+
+There are two ways you can run hall sensors using interrupts with <span class="simple">Simple<span class="foc">FOC</span>library</span>:
 - Using [hardware external interrupt](#hardware-external-interrupt) 
    - Arduino UNO(ATmega328) pins `2` and `3`
    - STM32 boards any pin
    - ESP32 any pin
+   - Teensy any pin
+   ...
 - Using [software pin change interrupt](#software-pin-change-interrupt) by using a library such as [PciManager library](https://github.com/prampec/arduino-pcimanager)
    - Only for Arduino devices (ATmega328 and ATmega2560)
 
 <blockquote class="warning"><p class="heading">Software interrupts</p> Using the hardware external interrupts usually results in better and more reliable performance but software interrupts will work very well for lower velocities. Especially on boards that just don't have enough hardware interrupt pins, having this functionality basically enables FOC on these boards.</blockquote>
+
+<blockquote class="info" markdown="1"> <p class="heading">RULE OF THUMB: Hardware/Software or No interrupts?</p> 
+1. Start with the no interrupts and see if the performance is good enough for your application.
+2. If the performance is not good enough and if you have enough hardware interrupt pins, try using hardware interrupts.
+3. Otherwise, if you are using Arduino boards, try using software interrupts. (worst performance solution to be expected)
+</blockquote>
 
 ### Hardware external interrupt
 Arduino UNO has two hardware external interrupt pins, pin `2` and `3`,  Arduino Mega has 6 interrupt pins, pins `2`, `3`, `18`, `19`, `20`and `2` whereas ESP32 and STM32 boards can use all their digital pins as interrupt pins, which makes implementation much easier.
@@ -176,6 +189,204 @@ To use the hall sensor with the foc algorithm implemented in this library, once 
 motor.linkSensor(&sensor);
 ```
 
+And you will be able to access the angle and velocity of the motor using the motor instance:
+```cpp
+motor.shaft_angle; // motor angle
+motor.shaft_velocity; // motor velocity
+```
+
+or through the sensor instance:
+```cpp
+sensor.getAngle(); // motor angle
+sensor.getVelocity(); // motor velocity
+```
+
+#### Example code 
+
+
+<a href ="javascript:show('noint','type');" class="btn btn-type  btn-noint  btn-primary">Without interrupts</a>
+<a href="javascript:show('hint','type');" class="btn btn-type btn-hint">Hardware interrupts</a> 
+<a href ="javascript:show('sint','type');"  class="btn btn-type btn-sint"> Software interrupts</a>
+
+
+<div class="type type-hint hide"  markdown="1">
+
+Here is a quick example using **hardware interrupts**:
+```cpp
+#include <SimpleFOC.h>
+
+// Motor instance
+BLDCMotor motor = BLDCMotor(11);
+// driver instance
+BLDCDriver3PWM driver = BLDCDriver3PWM(9, 5, 6, 10);
+
+// Hall sensor instance
+// HallSensor(int hallA, int hallB , int hallC , int pp)
+//  - hallA, hallB, hallC    - HallSensor A, B and C pins
+//  - pp                     - pole pairs
+HallSensor sensor = HallSensor(2, 3, 4, 11);
+
+// Interrupt routine initialization
+// channel A, B and C callbacks
+void doA(){sensor.handleA();}
+void doB(){sensor.handleB();}
+void doC(){sensor.handleC();}
+
+void setup() {
+  // monitoring port
+  Serial.begin(115200);
+
+  // driver config
+  driver.init();
+  motor.linkDriver(&driver);
+  
+  // initialize sensor hardware
+  sensor.init();
+  // hardware interrupt enable
+  sensor.enableInterrupts(doA, doB, doC);
+  // link the motor and the sensor
+  motor.linkSensor(&sensor);
+
+  // enable motor
+  motor.init();
+  // align sensor and start FOC 
+  motor.initFOC();
+
+  Serial.println("Sensor ready");
+  _delay(1000);
+}
+
+void loop() {
+  // FOC algorithm function
+  motor.loopFOC();
+
+  // motion control
+  motor.move();
+}
+```
+
+</div>
+
+
+<div class="type type-sint hide"  markdown="1">
+
+Here is a quick example using **software interrupts**:
+```cpp
+#include <SimpleFOC.h>
+
+// Motor instance
+BLDCMotor motor = BLDCMotor(11);
+// driver instance
+BLDCDriver3PWM driver = BLDCDriver3PWM(9, 5, 6, 10);
+
+// Hall sensor instance
+// HallSensor(int hallA, int hallB , int hallC , int pp)
+//  - hallA, hallB, hallC    - HallSensor A, B and C pins
+//  - pp                     - pole pairs
+HallSensor sensor = HallSensor(2, 3, 4, 11);
+
+// Interrupt routine initialization
+// channel A, B and C callbacks
+void doA(){sensor.handleA();}
+void doB(){sensor.handleB();}
+void doC(){sensor.handleC();}
+
+// sensor interrupt init
+PciListenerImp listenA(sensor.pinA, doA);
+PciListenerImp listenB(sensor.pinB, doB);
+PciListenerImp listenC(sensor.pinC, doC);
+
+void setup() {
+  // monitoring port
+  Serial.begin(115200);
+
+  // driver config
+  driver.init();
+  motor.linkDriver(&driver);
+  
+  // initialize sensor hardware
+  sensor.init();
+  // interrupt initialization
+  PciManager.registerListener(&listenA);
+  PciManager.registerListener(&listenB);
+  PciManager.registerListener(&listenC);
+  
+  // link the motor and the sensor
+  motor.linkSensor(&sensor);
+
+  // enable motor
+  motor.init();
+  // align sensor and start FOC 
+  motor.initFOC();
+
+  Serial.println("Sensor ready");
+  _delay(1000);
+}
+
+void loop() {
+  // FOC algorithm function
+  motor.loopFOC();
+
+  // motion control
+  motor.move();
+}
+```
+
+</div>
+
+
+<div class="type type-noint"  markdown="1">
+
+Here is a quick example hall sensor code **without interrupts**:
+```cpp
+#include <SimpleFOC.h>
+
+// Motor instance
+BLDCMotor motor = BLDCMotor(11);
+// driver instance
+BLDCDriver3PWM driver = BLDCDriver3PWM(9, 5, 6, 10);
+
+// Hall sensor instance
+// HallSensor(int hallA, int hallB , int hallC , int pp)
+//  - hallA, hallB, hallC    - HallSensor A, B and C pins
+//  - pp                     - pole pairs
+HallSensor sensor = HallSensor(2, 3, 4, 11);
+
+void setup() {
+  // monitoring port
+  Serial.begin(115200);
+
+  // driver config
+  driver.init();
+  motor.linkDriver(&driver);
+  
+  // initialize sensor hardware
+  sensor.init();
+  // link the motor and the sensor
+  motor.linkSensor(&sensor);
+
+  // enable motor
+  motor.init();
+  // align sensor and start FOC 
+  motor.initFOC();
+
+  Serial.println("Sensor ready");
+  _delay(1000);
+}
+
+void loop() {
+  // FOC algorithm function
+  motor.loopFOC();
+
+  // motion control
+  motor.move();
+}
+```
+
+</div>
+
+
+
 ### Standalone sensor 
 
 To get the hall sensor angle and velocity at any given time you can use the public methods:
@@ -198,7 +409,17 @@ sensor.min_elapsed_time = 0.0001; // 100us by default
 ```
 </blockquote>
 
-Here is a quick example using only hardware interrupts:
+#### Example Code
+
+
+<a href ="javascript:show('noint','type');" class="btn btn-type  btn-noint  btn-primary">Without interrupts</a>
+<a href="javascript:show('hint','type');" class="btn btn-type btn-hint">Hardware interrupts</a> 
+<a href ="javascript:show('sint','type');"  class="btn btn-type btn-sint"> Software interrupts</a>
+
+
+<div class="type type-hint hide"  markdown="1">
+
+Here is a quick example using **hardware interrupts**:
 ```cpp
 #include <SimpleFOC.h>
 
@@ -209,7 +430,7 @@ Here is a quick example using only hardware interrupts:
 HallSensor sensor = HallSensor(2, 3, 4, 11);
 
 // Interrupt routine initialization
-// channel A and B callbacks
+// channel A, B and C callbacks
 void doA(){sensor.handleA();}
 void doB(){sensor.handleB();}
 void doC(){sensor.handleC();}
@@ -241,8 +462,11 @@ void loop() {
 }
 ```
 
+</div>
 
-Here is a quick example using software interrupts:
+<div class="type type-sint hide"  markdown="1">
+
+Here is a quick example using **software interrupts**:
 ```cpp
 #include <SimpleFOC.h>
 
@@ -253,7 +477,7 @@ Here is a quick example using software interrupts:
 HallSensor sensor = HallSensor(2, 3, 4, 11);
 
 // Interrupt routine initialization
-// channel A and B callbacks
+// channel A, B and C callbacks
 void doA(){sensor.handleA();}
 void doB(){sensor.handleB();}
 void doC(){sensor.handleC();}
@@ -291,3 +515,39 @@ void loop() {
   Serial.println(sensor.getVelocity());
 }
 ```
+</div>
+<div class="type type-noint"  markdown="1">
+
+Here is a quick example hall sensor code **without interrupts**:
+```cpp
+#include <SimpleFOC.h>
+
+// Hall sensor instance
+// HallSensor(int hallA, int hallB , int hallC , int pp)
+//  - hallA, hallB, hallC    - HallSensor A, B and C pins
+//  - pp                     - pole pairs
+HallSensor sensor = HallSensor(2, 3, 4, 11);
+
+void setup() {
+  // monitoring port
+  Serial.begin(115200);
+  
+  // initialize sensor hardware
+  sensor.init();
+
+  Serial.println("Sensor ready");
+  _delay(1000);
+}
+
+void loop() {
+  // IMPORTANT - call as frequently as possible
+  // update the sensor values 
+  sensor.update();
+  // display the angle and the angular velocity to the terminal
+  Serial.print(sensor.getAngle());
+  Serial.print("\t");
+  Serial.println(sensor.getVelocity());
+}
+```
+
+</div>

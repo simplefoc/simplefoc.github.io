@@ -11,18 +11,30 @@ grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</sp
 
 # ESP32 boards support
 
-MCU | 2 PWM mode | 4 PWM mode | 3 PWM mode | 6 PWM mode | pwm frequency config 
---- | --- |--- |--- |--- |--- 
-esp32 | ✔️ | ✔️ | ✔️ | ✔️  | ✔️ 
-esp32-s2 | ✔️ | ✔️ | ✔️ | ❌  | ✔️ 
-esp32-s3 | ✔️ | ✔️ | ✔️ | ✔️  | ✔️ 
-esp32-c3 | ✔️ | ✔️ | ✔️ | ❌  | ✔️ 
+MCU | 2 PWM mode | 4 PWM mode | 3 PWM mode | 6 PWM mode | pwm frequency config | MCPWM | LEDC
+--- | --- |--- |--- |--- |--- |--- |--- 
+esp32 | ✔️ | ✔️ | ✔️ | ✔️  | ✔️| ✔️ | ✔️ 
+esp32-s2 | ✔️ | ✔️ | ✔️ | ✔️ (LEDC only)  | ✔️ | ❌| ✔️ 
+esp32-s3 | ✔️ | ✔️ | ✔️ | ✔️  | ✔️ | ✔️| ✔️ 
+esp32-c3 | ✔️ | ✔️ | ✔️ | ✔️ (LEDC only)  | ✔️ | ❌| ✔️ 
+
+
 
 Esp32 devices are fully configurable using the <span class="simple">Simple<span class="foc">FOC</span>library</span> and will work with all driver types.
 
-<blockquote class='info'>
+### PWM drivers
+
+Esp32 mcus have two different low-level drivers for PWM generation: `MCPWM` and `LEDC`. The `MCPWM` driver (**M**otor **C**ontrol **PWM**) is a more advanced driver that allows more control over the PWM signals and is used by default in the <span class="simple">Simple<span class="foc">FOC</span>library</span>. The `LEDC` driver is a simpler driver that is by default intended for LED control but can also be used for motor control. The `LEDC` driver is a lot les flexible than the `MCPWM` driver but <span class="simple">Simple<span class="foc">FOC</span>library</span> supports it as well.  By default the `MCPWM` driver is used on all other esp32 devices if available, if not the `LEDC` driver is used (ex. esp32-s2 and esp32-c3 devices).
+If you are using an esp32 device that supports the `MCPWM` driver and you want to use the `LEDC` driver, you can force the use of the `LEDC` driver by defining the `SIMPLEFOC_ESP32_USELEDC` build flag.
+
+<blockquote class='info' markdown="1"><p class="heading" markdown="1">RULE OF THUMB: `MCPWM` vs `LEDC`</p>
+If you are using an esp32 device that supports the `MCPWM` driver, it is recommended to use it. The `MCPWM` driver is more flexible and allows more control over the PWM signals. If you are using an esp32 device that does not support the `MCPWM` driver, the `LEDC` driver can be used as well. 
+</blockquote>
+
+
+<blockquote class='warning'>
 <p class="heading">BEWARE </p>
-From the <span class="simple">Simple<span class="foc">FOC</span>library</span> version v2.2.1,  the library requires the <a href='https://github.com/espressif/arduino-esp32/releases'>esp32 arduino package version <b>v2.0.1+</b></a>
+From the <span class="simple">Simple<span class="foc">FOC</span>library</span> version <a href="https://github.com/simplefoc/Arduino-FOC/releases">v2.3.4</a>,  the library requires the <a href='https://github.com/espressif/arduino-esp32/releases'>esp32 arduino package version <b>v3.x</b></a>
 </blockquote>
 
 Some example esp32 based boards:

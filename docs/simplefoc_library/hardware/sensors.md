@@ -6,7 +6,9 @@ parent: Supported Hardware
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 permalink: /position_sensors
 grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+toc: true
 ---
+
 
 # Position sensors
 The library currently supports the following types of position sensors: 

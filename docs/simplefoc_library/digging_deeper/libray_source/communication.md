@@ -6,7 +6,9 @@ nav_order: 4
 permalink: /commands_source
 grand_parent: Digging deeper
 grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+toc: true
 ---
+
 
 # Motor commands list [v2.1](https://github.com/simplefoc/Arduino-FOC/releases)
 

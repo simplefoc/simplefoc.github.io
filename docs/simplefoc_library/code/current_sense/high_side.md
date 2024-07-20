@@ -8,6 +8,7 @@ grand_parent: Writing the Code
 grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 ---
 
+
 # High-side current sensing
 
 High-side current sensing is probably the least common current sensing technique form the three discussed in this library. The main reason why is because it requires high-voltage supporting amplifiers. The shunt resistors are placed in between high-side mosfets and the DC power supply voltage, making the amplifiers always have high voltages on their terminals. The other drawback of this approach is that since the current passing through the shunt resistors is phase current only if the  corresponding high side mosfet is on we can only measure it in those moments. The PWM frequency is usually 20 to 50 kHz, which means that the high-side mosfets turns on and off 20,000 to 50,000 times per second, therefore the synchronization in between PWM setting and ADC acquisition is very very important.

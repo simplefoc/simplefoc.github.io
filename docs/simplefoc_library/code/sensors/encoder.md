@@ -7,7 +7,9 @@ nav_order: 1
 parent: Position Sensors
 grand_parent: Writing the Code
 grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+toc: true
 ---
+
 
 
 # Encoder setup
@@ -241,6 +243,19 @@ To use the encoder sensor with the foc algorithm implemented in this library, on
 motor.linkSensor(&encoder);
 ```
 
+And you will be able to access the angle and velocity of the motor using the motor instance:
+```cpp
+motor.shaft_angle; // motor angle
+motor.shaft_velocity; // motor velocity
+```
+
+or through the sensor instance:
+```cpp
+encoder.getAngle(); // motor angle
+encoder.getVelocity(); // motor velocity
+```
+
+
 ### Standalone sensor 
 
 To get the encoder angle and velocity at any given time you can use the public methods:
@@ -263,8 +278,17 @@ encoder.min_elapsed_time = 0.0001; // 100us by default
 ```
 </blockquote>
 
+#### Example code
 
-Here is a quick example:
+
+<a href="javascript:show('hint','type');" class="btn btn-type btn-hint btn-primary">Hardware interrupts</a> 
+<a href ="javascript:show('sint','type');"  class="btn btn-type btn-sint"> Software interrupts</a>
+
+
+<div class="type type-hint"  markdown="1">
+
+Here is a quick example using **hardware interrupts**:
+
 ```cpp
 #include <SimpleFOC.h>
 
@@ -302,3 +326,55 @@ void loop() {
   Serial.println(encoder.getVelocity());
 }
 ```
+
+</div>
+
+
+<div class="type type-sint hide"  markdown="1">
+
+Here is a quick example using **software interrupts**:
+```cpp
+#include <SimpleFOC.h>
+#include <PciManager.h>
+#include <PciListenerImp.h>
+
+Encoder encoder = Encoder(2, 3, 8192);
+// interrupt routine initialization
+void doA(){encoder.handleA();}
+void doB(){encoder.handleB();}
+
+// sensor interrupt init
+PciListenerImp listenA(encoder.pinA, doA);
+PciListenerImp listenB(encoder.pinB, doB);
+
+void setup() {
+  // monitoring port
+  Serial.begin(115200);
+
+  // enable/disable quadrature mode
+  encoder.quadrature = Quadrature::ON;
+
+  // check if you need internal pullups
+  encoder.pullup = Pullup::USE_EXTERN;
+  
+  // initialize encoder hardware
+  encoder.init();
+  // interrupt initialization
+  PciManager.registerListener(&listenA);
+  PciManager.registerListener(&listenB);
+
+  Serial.println("Encoder ready");
+  _delay(1000);
+}
+
+void loop() {
+  // IMPORTANT - call as frequently as possible
+  // update the sensor values 
+  encoder.update();
+  // display the angle and the angular velocity to the terminal
+  Serial.print(encoder.getAngle());
+  Serial.print("\t");
+  Serial.println(encoder.getVelocity());
+}
+```
+</div>

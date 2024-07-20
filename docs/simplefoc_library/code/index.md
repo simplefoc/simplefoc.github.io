@@ -7,6 +7,7 @@ permalink: /code
 has_children: True
 has_toc: False
 parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> 
+toc: true
 ---
 
 # Getting to know the <span class="simple">Simple<span class="foc">FOC</span>library</span> code
@@ -30,24 +31,11 @@ The library supports these position sensors:
 
 Choose a position sensor to use with this example:
 
-
-<script type="text/javascript">
-    function show(id,cls){
-        Array.from(document.getElementsByClassName(cls)).forEach(
-        function(e){e.style.display = "none";});
-        document.getElementById(id).style.display = "block";
-        Array.from(document.getElementsByClassName("btn-"+cls)).forEach(
-        function(e){e.classList.remove("btn-primary");});
-        document.getElementById("btn-"+id).classList.add("btn-primary");
-    }
-</script>
-
 <a href="javascript:show(0,'sensor');" id="btn-0" class="btn btn-sensor btn-primary">Encoder</a> 
 <a href ="javascript:show(1,'sensor');" id="btn-1" class="btn btn-sensor">Magnetic sensor</a> 
 <a href ="javascript:show(2,'sensor');" id="btn-2" class="btn btn-sensor">Hall sensors</a> 
 
-
-<div id="0" class="sensor" markdown="1" style="display:block">
+<div class="sensor-0 sensor" markdown="1" style="display:block">
 
 ```cpp
 #include <SimpleFOC.h>
@@ -80,7 +68,7 @@ Encoders as position sensors are implemented in the class `Encoder` and are defi
    
 </div>
 
-<div id="1" class="sensor" markdown="1" style="display:none">
+<div class="sensor sensor-1" markdown="1" style="display:none">
 
 
 ```cpp
@@ -108,7 +96,7 @@ Magnetic sensors using the SPI protocol are implemented in the class `MagneticSe
 
 </div>
 
-<div id="2" class="sensor" markdown="1" style="display:none">
+<div class="sensor sensor-2" markdown="1" style="display:none">
 
 
 ```cpp
@@ -159,7 +147,7 @@ After setting up the position sensor we proceed to initializing and configuring 
 <a href ="javascript:show('1d','driver');" id="btn-1d" class="btn-driver btn">Stepper Driver 4PWM</a>
 
 
-<div id="0d" class="driver" markdown="1" style="display:block">
+<div class="driver driver-0d" markdown="1" style="display:block">
 
 `BLDCDriver3PWM` class is instantiated by providing:
 - pwm pins for phases `A`, `B` and `C` 
@@ -195,7 +183,7 @@ void loop() {
 ```
 </div>
 
-<div id="1d" class="driver" markdown="1" style="display:none">
+<div class="driver driver-1d" markdown="1" style="display:none">
 
 `StepperDriver4PWM` class instantiated by providing:
 - pwm pins of the phase `1`: `1A`, `1B`
@@ -248,7 +236,7 @@ After the position sensor and the driver we can proceed to initializing and conf
 <a href ="javascript:show('1cs','cs');" id="btn-1cs" class="btn-cs btn">Low side current sensing</a>
 
 
-<div id="0cs" class="cs" markdown="1" style="display:block">
+<div  class="cs cs-0cs" markdown="1" style="display:block">
 
 `InlineCurrentSense` class is instantiated by providing:
 - shunt resistor value `shunt_resistance`
@@ -286,7 +274,7 @@ void loop() {
 </div>
 
 
-<div id="1cs" class="cs" markdown="1" style="display:none">
+<div class="cs cs-1cs" markdown="1" style="display:none">
 
 `LowsideCurrentSense` class is instantiated by providing:
 - shunt resistor value `shunt_resistance`
@@ -335,7 +323,7 @@ After the position sensor and the driver we proceed to initializing and configur
 <a href ="javascript:show('1m','motor');" id="btn-1m" class="btn-motor btn">Stepper motor</a>
 
 
-<div id="0m" class="motor" markdown="1" style="display:block">
+<div class="motor motor-0m" markdown="1" style="display:block">
 
 In this example we will use BLDC motor:
 ```cpp
@@ -377,7 +365,7 @@ void loop() {
 ```
 </div>
 
-<div id="1m" class="motor" markdown="1" style="display:none">
+<div class="motor motor-1m" markdown="1" style="display:none">
 
 In this example we will use Stepper motor:
 ```cpp
@@ -489,6 +477,9 @@ If you are interested in outputting motors state variables in real-time (even th
 
 void setup() {
   
+  // init the serial port
+  Serial.begin(115200);
+
   // init sensor
   // link motor and sensor
 
@@ -522,10 +513,79 @@ void loop() {
   motor.monitor();
 }
 ```
-For full documentation of the setup and all configuration parameters please visit the <a href="monitoring"> Monitoring docs</a>.
+For more docs on the `BLDCMotor` and `StepperMotor` monitoring see the <a href="monitoring"> Monitoring docs</a>.
 
 
-## Step 7. <a href="communication" class="remove_dec"> Commander Interface</a>
+## Step 7. <a href="debugging" class="remove_dec"> Debugging output</a>
+
+
+<span class="simple">Simple<span class="foc">FOC</span>library</span> provides an informative debugging interface that can be enabled by calling `SimpleFOCDebug::enable(&Serial)` function. This function enables the debugging output of the library to the `Serial` port. 
+This debugging interface will output a more detailed information about:
+- driver initialization (during the `driver.init()` function)
+- current sense initialization (during the `current_sense.init()` function)
+- motor initialization (during the `motor.init()` function)
+- motor FOC initialization (during the `motor.initFOC()` function)
+
+The debugging output will provide more information about the state of the motor, driver and current sense during and after the initialization process and will help you to debug your setup. 
+It will also provide MCU architecture specific information such as which Timers and channels are used for PWM generation, which ADC is used for current sensing, did the TIME-ADC synchronisation work, etc.
+
+<blockquote class="info"> 
+📢 We strongly advise to use the debugging mode when starting with the <span class="simple">Simple<span class="foc">FOC</span>library</span>. 
+It provides much more information than the standard monitoring output and can help troubleshooting potentially problems, even MCU architecture specific ones.
+</blockquote>
+
+<blockquote class="warning">  
+<p class="heading"> Memory usage </p>
+Debugging outputs are strings which can take a considerable amount of memory space, so it's not recommended to use it in the final application.
+</blockquote>
+
+Debugging output is disabled by default and can be enabled by calling the `SimpleFOCDebug::enable(&Serial)` function before any of the `driver`, `sensor`, `current_sense` or `motor` initalisation (`init` calls). Preferably put the `SimpleFOCDebug::enable(&Serial)` function call at the beginning of the `setup()` function.
+
+```cpp
+#include <SimpleFOC.h>
+
+// instantiate motor
+// instantiate driver
+// instantiate senor
+
+void setup() {
+  
+  // init the serial port
+  // enable the debugging output
+  SimpleFOCDebug::enable(&Serial);
+
+  // init sensor
+  // link motor and sensor
+
+  // init driver
+  // link motor and driver
+  // link driver and the current sense
+
+
+  // init current sense
+  // link motor and current sense
+
+  // enable monitoring
+  
+  // configure motor
+  // init motor
+
+  // init current sense
+  
+  // align encoder and start FOC
+}
+
+void loop() {
+  
+  // FOC execution
+  // motion control loop
+  // monitor variables
+}
+```
+For more docs on the debugging capabilities of the <span class="simple">Simple<span class="foc">FOC</span>library</span> see the <a href="debugging"> Debugging docs</a>.
+
+
+## Step 8. <a href="communication" class="remove_dec"> Commander Interface</a>
 
 Finally, in order to configure the control algorithm, set the target values and get the state variables in the user-friendly way, (not just dumping as when using `motor.monitor()`) <span class="simple">Simple<span class="foc">FOC</span>library</span> provides you with a g-code like communication interface in form of the `Commander` class. 
 
@@ -536,7 +596,7 @@ Finally, in order to configure the control algorithm, set the target values and 
 <a href ="javascript:show('2c','commander');" id="btn-2c" class="btn-commander btn">Motion control target + Led control</a>
 
 
-<div id="0c" class="commander" markdown="1" style="display:block">
+<div class="commander commander-0c" markdown="1" style="display:block">
 
 The following code is one basic implementations of the full communication interface with the user:
 
@@ -552,6 +612,9 @@ void doMotor(char* cmd){commander.motor(&motor, cmd);}
 
 void setup() {  
   
+  // init the serial port
+  // enable the debugging output
+
   // init sensor
   // link motor and sensor
 
@@ -587,7 +650,7 @@ void loop() {
 ```
 </div>
 
-<div id="1c" class="commander" markdown="1" style="display:none">
+<div class="commander commander-1c" markdown="1" style="display:none">
 
 The following code is one basic implementation of using commander to set the motor's target value:
 
@@ -603,6 +666,9 @@ void doTarget(char* cmd){commander.scalar(&motor.target, cmd);}
 
 void setup() {  
   
+  // init the serial port
+  // enable the debugging output
+
   // init sensor
   // link motor and sensor
 
@@ -638,7 +704,7 @@ void loop() {
 ```
 </div>
 
-<div id="2c" class="commander" markdown="1" style="display:none">
+<div class="commander commander-2c" markdown="1" style="display:none">
 
 The following code is one basic example of using the commander interface for motion control in combination with turning a led light on and off.  
 
@@ -660,6 +726,9 @@ void doLed(char* cmd){
 
 void setup() {  
   
+  // init the serial port
+  // enable the debugging output
+
   // init sensor
   // link motor and sensor
 
@@ -701,7 +770,7 @@ void loop() {
 
 For full documentation of the setup and all configuration parameters please visit the <a href="commander_interface"> Communication docs</a>. 
 
-## Step 8. [Getting started step by step guide](example_from_scratch)
+## Step 9. [Getting started step by step guide](example_from_scratch)
 
 Now that you are familiar with the structure of the <span class="simple">Simple<span class="foc">FOC</span>library</span> code you can finally start writing your own applications. In order to make this step less complicated, we have provided you a detailed step by step guide. Make sure to go through our step by step getting started guide when dealing with the library for the first time.  
 
@@ -724,6 +793,10 @@ Commander command = Commander(Serial);
 void onMotor(char* cmd){ command.motor(&motor, cmd); }
 
 void setup() {
+  // monitoring port
+  Serial.begin(115200);
+  // enable the debugging output
+  SimpleFOCDebug::enable(&Serial);
 
   // initialise magnetic sensor hardware
   sensor.init();
@@ -756,8 +829,6 @@ void setup() {
   motor.velocity_limit = 50;
 
   // use monitoring with serial for motor init
-  // monitoring port
-  Serial.begin(115200);
   // comment out if not needed
   motor.useMonitoring(Serial);
 

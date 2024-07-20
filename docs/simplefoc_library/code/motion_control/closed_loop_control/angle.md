@@ -8,7 +8,9 @@ parent: Closed-Loop control
 grand_parent: Motion Control
 grand_grand_parent: Writing the Code
 grand_grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+toc: true
 ---
+
 
 # Position control loop
 This control loop allows you to move your motor to the desired angle in real-time. This mode is enabled by:
@@ -20,12 +22,26 @@ You can test this algorithm by running the examples in `motion_control/position_
 
 ## How it works
 
+<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
+<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
+
 The angle/position control closes the control loop around the velocity control loop. And the velocity control closes the control loop around the torque control, regardless which one it is. If it is the voltage mode without phase resistance set, the velocity motion control will set the the torque command using the voltage <i>U<sub>q</sub></i>:
-<img src="extras/Images/angle_loop_v.png">
+
+<div class="type type-b">
+ <img class="width60" src="extras/Images/angle_loop_v.png">
+</div>
+<div class="type type-s hide">
+<img class="width60" src="extras/Images/angle_loop_stepper_volt.png">
+</div>
+
 
 And if it is any of the current torque control modes (FOC or DC current) or voltage mode with provided phase resistance, the angle motion control will be setting the target current <i>i<sub>q</sub></i> to the torque controller:
-
-<img src="extras/Images/angle_loop_i.png">
+<div class="type type-b">
+<img class="width60" src="extras/Images/angle_loop_i.png">
+</div>
+<div class="type type-s hide">
+<img class="width60" src="extras/Images/angle_loop_stepper_curr.png">
+</div>
 
 The angle control loop is therefore created by adding one more control loop in cascade on the [velocity control loop](velocity_loop) like showed on the figure above. The loop is closed by using additional PID controller and an optional low pass filter. The controller reads the angle <i>a</i> from the motor (filters is optionally) and determines which velocity <i>v<sub>d</sub></i> the motor should move to reach the desired angle <i>a<sub>d</sub></i> set by the user. And then the velocity controller reads the current filtered velocity from the motor <i>v<sub>f</sub></i> and sets the torque target (<i>u<sub>q</sub></i> voltage or <i>i<sub>q</sub></i> current) to the torque control loop, needed to reach the velocity <i>v<sub>d</sub></i>, set by the angle loop. 
 
@@ -95,7 +111,13 @@ For more theory about this approach and the source code documentation check the 
 
 ## Position control example code
 
+
+<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
+<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
+
 This is a very basic example of the position motion control program, based on voltage torque control with the complete configuration. When running this code the motor will move in between angles `-1 RAD` and `1 RAD` each `1 sec`. 
+
+<div class="type type-b" markdown="1">
 
 ```cpp
 #include <SimpleFOC.h>
@@ -189,6 +211,104 @@ void loop() {
   motor.move(target_angle);
 }
 ```
+
+</div>
+
+<div class="type type-s hide" markdown="1">
+
+```cpp
+#include <SimpleFOC.h>
+
+// motor instance
+StepperMotor motor = StepperMotor(50);
+// driver instance
+StepperDriver2PWM driver = StepperDriver2PWM(9, 10, 11, 8);
+
+// encoder instance
+Encoder encoder = Encoder(2, 3, 500);
+// channel A and B callbacks
+void doA(){encoder.handleA();}
+void doB(){encoder.handleB();}
+
+void setup() {
+  
+  // initialize encoder sensor hardware
+  encoder.init();
+  encoder.enableInterrupts(doA, doB); 
+  // link the motor to the sensor
+  motor.linkSensor(&encoder);
+
+  // driver config
+  driver.init();
+  motor.linkDriver(&driver);
+
+  // set motion control loop to be used
+  motor.controller = MotionControlType::angle;
+
+  // controller configuration 
+  // default parameters in defaults.h
+
+  // controller configuration based on the control type 
+  // velocity PID controller parameters
+  // default P=0.5 I = 10 D =0
+  motor.PID_velocity.P = 0.2;
+  motor.PID_velocity.I = 20;
+  motor.PID_velocity.D = 0.001;
+  // jerk control using voltage voltage ramp
+  // default value is 300 volts per sec  ~ 0.3V per millisecond
+  motor.PID_velocity.output_ramp = 1000;
+
+  // velocity low pass filtering
+  // default 5ms - try different values to see what is the best. 
+  // the lower the less filtered
+  motor.LPF_velocity.Tf = 0.01;
+
+  // angle P controller -  default P=20
+  motor.P_angle.P = 20;
+
+  //  maximal velocity of the position control
+  // default 20
+  motor.velocity_limit = 4;
+  // default voltage_power_supply
+  motor.voltage_limit = 10;
+
+  // use monitoring with serial 
+  Serial.begin(115200);
+  // comment out if not needed
+  motor.useMonitoring(Serial);
+  
+  // initialize motor
+  motor.init();
+  // align encoder and start FOC
+  motor.initFOC();
+
+
+  Serial.println("Motor ready.");
+  _delay(1000);
+}
+
+// angle set point variable
+float target_angle = 1;
+// timestamp for changing direction
+long timestamp_us = _micros();
+
+void loop() {
+
+  // each one second
+  if(_micros() - timestamp_us > 1e6) {
+      timestamp_us = _micros();
+      // inverse angle
+      target_angle = -target_angle;   
+  }
+
+  // main FOC algorithm function
+  motor.loopFOC();
+
+  // Motion control function
+  motor.move(target_angle);
+}
+```
+</div>
 
 
 ## Project examples

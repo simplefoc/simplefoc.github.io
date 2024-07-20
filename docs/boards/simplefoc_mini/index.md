@@ -7,6 +7,7 @@ nav_order: 2
 permalink: /simplefocmini
 has_children: true
 has_toc: false
+toc: true
 ---
 
 

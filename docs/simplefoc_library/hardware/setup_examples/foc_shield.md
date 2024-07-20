@@ -7,7 +7,9 @@ nav_order: 1
 permalink: /arduino_simplefoc_shield
 grand_parent: Supported Hardware
 grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+toc: true
 ---
+
 
 
 # Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> example

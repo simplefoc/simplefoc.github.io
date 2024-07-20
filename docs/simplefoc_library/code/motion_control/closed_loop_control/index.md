@@ -13,31 +13,38 @@ grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</sp
 # Motion control 
 
 
-<script type="text/javascript">
-    function show(id){
-        Array.from(document.getElementsByClassName('gallery_img')).forEach(
-        function(e){e.style.display = "none";});
-        document.getElementById(id).style.display = "block";
-        Array.from(document.getElementsByClassName("btn-primary")).forEach(
-        function(e){e.classList.remove("btn-primary");});
-        document.getElementById("btn-"+id).classList.add("btn-primary");
-    }
-</script>
+Choose the motor type: 
 
-<a href ="javascript:show(0);" id="btn-0" class="btn">Position control</a>
-<a href ="javascript:show(1);" id="btn-1" class="btn">Velocity control</a>
-<a href ="javascript:show(2);" id="btn-2" class="btn  btn-primary">Torque control</a>
+<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
+<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
 
-<img style="display:none" id="0" class="gallery_img" src="extras/Images/closedloop_0000_Layer 3.jpg"/>
-<img style="display:none" id="1" class="gallery_img" src="extras/Images/closedloop_0001_Layer 2.jpg"/>
-<img style="display:block" id="2"  class="gallery_img" src="extras/Images/closedloop_0002_Layer 1.jpg"/>
+Choose the voltage control type: 
+
+<a href ="javascript:show(0,'loop');" id="btn-0" class="btn btn-loop btn-primary">Position control</a>
+<a href ="javascript:show(1,'loop');" id="btn-1" class="btn btn-loop">Velocity control</a>
+<a href ="javascript:show(2,'loop');" id="btn-2" class="btn btn-loop">Torque control</a>
+
+<div class="type type-b">
+<img class="loop loop-0 width80" src="extras/Images/closedloop_0000_Layer 3.jpg"/>
+<img class="loop loop-1 width80 hide" src="extras/Images/closedloop_0001_Layer 2.jpg"/>
+<img  class="loop loop-2 width80 hide" src="extras/Images/closedloop_0002_Layer 1.jpg"/>
+
+</div>
+<div class="type type-s hide">
+
+<img id="4" class="loop width80 loop-0" src="extras/Images/closed_loop_stepper3.jpg"/>
+<img id="5" class="loop width80 loop-1 hide" src="extras/Images/closed_loop_stepper2.jpg"/>
+<img id="6" class="loop width80 loop-2 hide" src="extras/Images/closed_loop_stepper1.jpg"/>
+
+</div>
+
 
 <span class="simple">Simple<span class="foc">FOC</span>library</span> gives you the choice of using 3 different Closed-Loop control strategies: 
 - [Torque control loop](torque_control)
 - [Velocity motion control](velocity_loop)
 - [Position/angle motion control](angle_loop)
 
-You set it by changing the `motor.controller` variable. If you want to control the motor angle you will set the `controller` to `MotionControlType::angle`, if you seek the torque of the BLDC motor either through voltage or the current use `MotionControlType::torque`, if you wish to control motor angular velocity `MotionControlType::velocity`. 
+You set it by changing the `motor.controller` variable. If you want to control the motor angle you will set the `controller` to `MotionControlType::angle`, if you seek the torque of the BLDC or Stepper motors either through voltage or the current use `MotionControlType::torque`, if you wish to control motor angular velocity `MotionControlType::velocity`. 
 
 ```cpp
 // set FOC loop to be used

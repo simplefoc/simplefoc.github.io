@@ -7,7 +7,9 @@ parent: libraries
 grand_parent: <span class="simple">Simple<span class="foc">FOC</span>utils</span>
 has_children: False
 has_toc: False
+toc: true
 ---
+
 
 
 # <span class="simple">Simple<span class="foc">DC</span> Motor</span> library

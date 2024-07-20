@@ -8,10 +8,15 @@ grand_grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">F
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 nav_order: 3
 permalink: /magnetic_sensor_pwm
+toc: true
 ---
 
 
+
 # PWM output Magnetic sensor setup
+
+## Step 1. Instantiate `MagneticSensorPWM` class
+
 <img src="./extras/Images/pwm_sensor.png">
 
 In order to use your PWM output magnetic position sensor with <span class="simple">Simple<span class="foc">FOC</span>library</span> first create an instance of the `MagneticSensorPWM` class:
@@ -34,6 +39,8 @@ Every mcu is a bit different and every sensor as well so we advise you to use th
 
 <blockquote class="info"> 📚 See page 27 of the AS5048 datasheet or AS5600 datasheet for more in depth explanation about how the PWM sensors encode the angle. <a href="https://ams.com/documents/20143/36005/AS5048_DS000298_4-00.pdf">AS5048 </a>, <a href="https://ams.com/documents/20143/36005/AS5600_DS000365_5-00.pdf">AS5600</a>   </blockquote>
 
+
+## Step 2. Choose the operation mode
 
 There are two ways to use the PWM sensors implemented in this library:
 - Blocking way - based on `pulseln` function
@@ -118,11 +125,11 @@ void setup(){
 Make sure to look into the examples `magnetic_sensor_pwm` and `magnetic_sensor_pwm_software_interrupt` for an example of using software interrupts if you run out of hardware interrupt pins. 
 
 
-## Using magnetic sensor in real-time
+## Step 3. Using magnetic sensor in real-time
 
 There are two ways to use magnetic sensor implemented within this library:
-- As motor position sensor for FOC algorithm
-- As standalone position sensor
+- As a motor position sensor for FOC algorithm
+- As a standalone position sensor
 
 ### Position sensor for FOC algorithm
 
@@ -130,6 +137,113 @@ To use the sensor with the FOC algorithm implemented in this library, once when 
 ```cpp
 motor.linkSensor(&sensor);
 ```
+
+And you will be able to access the angle and velocity of the motor using the motor instance:
+```cpp
+motor.shaft_angle; // motor angle
+motor.shaft_velocity; // motor velocity
+```
+
+or through the sensor instance:
+```cpp
+sensor.getAngle(); // motor angle
+sensor.getVelocity(); // motor velocity
+```
+
+#### Example code
+
+
+
+<a href ="javascript:show('int','type');"  class="btn btn-type btn-int btn-primary"> Interrupt</a>
+<a href="javascript:show('block','type');" class="btn btn-type btn-block">Blocking</a> 
+
+
+<div class="type type-int"  markdown="1">
+
+
+Here is a quick example code for PWM magnetic sensor with a BLDC motor and driver with **interrupt based sensor implementation**:
+
+
+```cpp
+#include <SimpleFOC.h>
+
+// motor and driver
+BLDCMotor motor = BLDCMotor(7);
+BLDCDriver3PWM driver = BLDCDriver3PWM(9, 5, 6, 8);
+ 
+// MagneticSensorPWM(uint8_t _pinPWM, int _min, int _max)
+// - _pinPWM:         the pin that is reading the pwm from magnetic sensor
+// - _min_raw_count:  the minimal length of the pulse (in microseconds)
+// - _max_raw_count:  the maximal length of the pulse (in microseconds)
+MagneticSensorPWM sensor = MagneticSensorPWM(2, 4, 904);
+void doPWM(){sensor.handlePWM();}
+
+void setup() {
+  // driver
+  driver.init()
+  motor.linkDriver(&driver);
+
+  // init magnetic sensor hardware
+  sensor.init();
+  //enable interrupts
+  sensor.enableInterrupt(doPWM);
+  motor.linkSensor(&sensor);
+
+  // init motor hardware
+  motor.init();
+  motor.initFOC();
+
+  Serial.println("Motor ready");
+  _delay(1000);
+}
+void loop(){
+  motor.loopFOC();
+  motor.move();
+}
+```
+
+</div>
+
+<div class="type type-block hide"  markdown="1">
+
+
+Here is a quick example code for PWM magnetic sensor with a BLDC motor and driver with **blocking sensor implementation**:
+
+```cpp
+#include <SimpleFOC.h>
+
+// motor and driver
+BLDCMotor motor = BLDCMotor(7);
+BLDCDriver3PWM driver = BLDCDriver3PWM(9, 5, 6, 8);
+ 
+// MagneticSensorPWM(uint8_t _pinPWM, int _min, int _max)
+// - _pinPWM:         the pin that is reading the pwm from magnetic sensor
+// - _min_raw_count:  the minimal length of the pulse (in microseconds)
+// - _max_raw_count:  the maximal length of the pulse (in microseconds)
+MagneticSensorPWM sensor = MagneticSensorPWM(2, 4, 904);
+
+void setup() {
+  // driver
+  driver.init()
+  motor.linkDriver(&driver);
+
+  // init magnetic sensor hardware
+  sensor.init();
+  motor.linkSensor(&sensor);
+
+  // init motor hardware
+  motor.init();
+  motor.initFOC();
+
+  Serial.println("Motor ready");
+  _delay(1000);
+}
+void loop(){
+  motor.loopFOC();
+  motor.move();
+}
+```
+</div>
 
 ### Standalone sensor 
 
@@ -153,6 +267,14 @@ sensor.min_elapsed_time = 0.0001; // 100us by default
 ```
 </blockquote>
 
+#### Example code
+
+
+<a href ="javascript:show('int','type');"  class="btn btn-type btn-int btn-primary"> Interrupt</a>
+<a href="javascript:show('block','type');" class="btn btn-type btn-block">Blocking</a> 
+
+
+<div class="type type-int"  markdown="1">
 
 Here is a quick example for AS5048A magnetic sensor using its PWM output:
 ```cpp
@@ -188,3 +310,39 @@ void loop() {
   Serial.println(sensor.getVelocity());
 }
 ```
+</div>
+
+<div class="type type-block hide"  markdown="1">
+
+Here is a quick example for AS5048A magnetic sensor using its PWM output:
+```cpp
+#include <SimpleFOC.h>
+
+// MagneticSensorPWM(uint8_t _pinPWM, int _min, int _max)
+// - _pinPWM:         the pin that is reading the pwm from magnetic sensor
+// - _min_raw_count:  the minimal length of the pulse (in microseconds)
+// - _max_raw_count:  the maximal length of the pulse (in microseconds)
+MagneticSensorPWM sensor = MagneticSensorPWM(2, 4, 904);
+
+void setup() {
+  // monitoring port
+  Serial.begin(115200);
+
+  // initialise magnetic sensor hardware
+  sensor.init();
+
+  Serial.println("Sensor ready");
+  _delay(1000);
+}
+
+void loop() {
+  // IMPORTANT - call as frequently as possible
+  // update the sensor values 
+  sensor.update();
+  // display the angle and the angular velocity to the terminal
+  Serial.print(sensor.getAngle());
+  Serial.print("\t");
+  Serial.println(sensor.getVelocity());
+}
+```
+</div>

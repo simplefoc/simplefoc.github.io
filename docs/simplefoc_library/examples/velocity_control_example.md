@@ -6,7 +6,9 @@ description: "Arduino Simple Field Oriented Control (FOC) library ."
 nav_order: 2
 permalink: /velocity_control_example
 grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> 
+toc: true
 ---
+
 
 # Velocity control example<br>using Drotek's L6234 driver
 [Drotek's L6234 breakout board](https://store-drotek.com/212-brushless-gimbal-controller-l6234.html) is a very minimalistic 3-phase BLDC motor driver and is very suitable for jump-starting your FOC experience. Here we the velocity control example project using the <span class="simple">Simple<span class="foc">FOC</span>library</span> and this hardware:

@@ -8,7 +8,9 @@ nav_order: 1
 permalink: /pads_soldering_v1
 grand_grand_parent: <span class="simple">Simple<span class="foc">FOC</span>Shield</span>
 grand_grand_grand_parent: <span class="simple">Simple<span class="foc">FOC</span> Boards</span>
+toc: true
 ---
+
 # Hardware configuration using soldering pads <br> <span class="simple">Simple<span class="foc">FOC</span>Shield</span> <small>v1</small>
 One of the very important features of the Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> is the hardware configuration. 
 

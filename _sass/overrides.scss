@@ -434,3 +434,79 @@ a.remove_dec{
     display: inline-block;
     vertical-align: top;
 }
+
+.hide {
+    display: none;
+}
+
+
+
+// custom inpage toc
+.inpage_toc {
+    position:fixed;
+    right:20px;
+    background-color: rgb(252, 252, 252);
+    padding: 10px;
+    max-width: 300px;
+    z-index: 100;
+}  
+.inpage_toc a {
+    text-overflow: ellipsis;
+    white-space: normal !important;
+}
+
+.inpage_toc {
+    margin: 0.2em;
+    margin-left: 0.7em;
+    padding: 5px;
+    padding-left: 10px;
+    border-right: 5px solid;
+    border-radius: 3px;
+    color: #686969;
+    opacity: 0.95;
+}
+.inpage_toc summary{
+    cursor: pointer;
+    font-size: 1em !important;
+    // text-transform: none !important;
+    color: #686969;
+    margin: 10px;
+}
+.inpage_toc ul{
+    list-style-type: none; /* Remove bullets */
+}
+details[open] .marker-open {
+    display: inline;
+}
+details[open] .marker-closed {
+    display: none;
+}
+details .marker-open {
+    display: none;
+}
+details .marker-closed {
+    display: inline;
+}
+
+.inpage_toc .marker-closed{
+float: right;
+}
+.inpage_toc .marker-open{
+    float: right;
+}
+#toc li {
+    // margin: 0px;
+    font-size: 0.95em;
+}
+ /* Styles for larger screens (default open) */
+ @media (min-width: 768px) {
+    .inpage_toc{
+        display: block;
+    }
+}
+/* Styles for smaller screens (default closed) */
+@media (max-width: 767px) {
+    .inpage_toc{
+        display: none;
+    }    
+}

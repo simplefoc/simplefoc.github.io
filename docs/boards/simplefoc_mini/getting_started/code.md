@@ -7,7 +7,9 @@ nav_order: 2
 permalink: /mini_code
 grand_parent: <span class="simple">Simple<span class="foc">FOC</span>Mini</span>
 grand_grand_parent: <span class="simple">Simple<span class="foc">FOC</span> Boards</span>
+toc: true
 ---
+
 
 # Writing the code
 Once you have all the [hardware connected](mini_connect_hardware): 

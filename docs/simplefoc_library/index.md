@@ -6,13 +6,16 @@ nav_order: 3
 permalink: /arduino_simplefoc_library_showcase
 has_children: True
 has_toc: False
+toc: true
 ---
+
 
 
 # Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![arduino-library-badge](https://ardubadge.simplefoc.com?lib=Simple%20FOC)
+![PlatformIO Registry](https://badges.registry.platformio.org/packages/askuric/library/Simple%20FOC.svg)
 [![status](https://joss.theoj.org/papers/4382445f249e064e9f0a7f6c1bb06b1d/status.svg)](https://joss.theoj.org/papers/4382445f249e064e9f0a7f6c1bb06b1d)
 
 
@@ -132,10 +135,8 @@ GBM4108-120T <a class="pull-right" href="https://www.robotshop.com/en/ipower-gbm
 
 
 ## Installation
-There are two ways to install this Arduino library, depending on your plans with the code and your particular application.
-- [Full library installation](library_download) - for plug & play functionality with many examples 
-- [Minimal project builder](minimal_download) - Arduino sketch with integrated complete library
-    - Easier experimentation and interaction with the library code directly
+There are multiple ways of installing this Arduino library, depending on your plans with the code and your particular application. 
+Check our [installation guide](installation) for more information.
 
 <img src="extras/Images/alm.gif" class="width50">
 

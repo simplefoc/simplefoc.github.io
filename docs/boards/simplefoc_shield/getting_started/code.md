@@ -7,6 +7,7 @@ nav_order: 3
 permalink: /foc_shield_code
 grand_parent: <span class="simple">Simple<span class="foc">FOC</span>Shield</span>
 grand_grand_parent: <span class="simple">Simple<span class="foc">FOC</span> Boards</span>
+toc: true
 ---
 
 # Writing the code

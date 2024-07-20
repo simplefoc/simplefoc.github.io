@@ -6,7 +6,9 @@ description: "Arduino Simple Field Oriented Control (FOC) library ."
 nav_order: 5
 permalink: /position_control_nucleo_example
 grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> 
+toc: true
 ---
+
 
 
 # Position control example<br>using <span class="simple">Simple<span class="foc">FOC</span>Shield</span> and Stm32 Nucleo-64
