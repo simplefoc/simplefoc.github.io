@@ -43,7 +43,7 @@ Therefore this is an attempt to:
    - More verbose and informative 
  - Support for HallSensors without interrupts [#4224](https://github.com/simplefoc/Arduino-FOC/pull/424) - [see in docs](hall_sensors) 
  - Docs
-   - A short guide to debugging of common issues
+   - A short guide to debugging of common issues - [see in docs](example_from_scratch)
    - A short guide to the units in the library - [see in docs](library_units)
  - See the complete list of bugfixes and new features of v2.3.4 [fixes and PRs](https://github.com/simplefoc/Arduino-FOC/milestone/11) 
 </blockquote>
