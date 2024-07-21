@@ -825,7 +825,10 @@ void setup() {
     return;
   }
   // align sensor and start FOC
-  motor.initFOC();
+  if(!motor.initFOC()){
+    Serial.println("FOC init failed!");
+    return;
+  }
 
   // set the initial motor target
   motor.target = 2; // Volts 
@@ -913,7 +916,10 @@ void setup() {
     return;
   }
   // align sensor and start FOC
-  motor.initFOC();
+  if(!motor.initFOC()){
+    Serial.println("FOC init failed!");
+    return;
+  }
 
   // set the initial motor target
   motor.target = 2; // Volts 
@@ -998,7 +1004,10 @@ void setup() {
   // initialize motor
   motor.init();
   // align sensor and start FOC
-  motor.initFOC();
+  if(!motor.initFOC()){
+    Serial.println("FOC init failed!");
+    return;
+  }
 
   // set the initial motor target
   motor.target = 2; // Volts 
@@ -1144,7 +1153,10 @@ void setup() {
     return;
   }
   // align sensor and start FOC
-  motor.initFOC();
+  if(!motor.initFOC()){
+    Serial.println("FOC init failed!");
+    return;
+  }
 
   // set the initial motor target
   motor.target = 2; // Volts 
@@ -1250,7 +1262,10 @@ void setup() {
     return;
   }
   // align sensor and start FOC
-  motor.initFOC();
+  if(!motor.initFOC()){
+    Serial.println("FOC init failed!");
+    return;
+  }
 
   // set the initial motor target
   motor.target = 2; // Volts 
@@ -1355,7 +1370,10 @@ void setup() {
     return;
   }
   // align sensor and start FOC
-  motor.initFOC();
+  if(!motor.initFOC()){
+    Serial.println("FOC init failed!");
+    return;
+  }
 
   // set the initial motor target
   motor.target = 2; // Volts 
@@ -1428,3 +1446,5 @@ Once the current control works well you can proceed to the velocity and angle mo
 - To go from the current control to the velocity control you just need to change the `motor.controller` variable to `MotionControlType::velocity` and set the `motor.target` to the desired velocity (in radians per second `RAD/s`).
 - To go from the current control to the angle control you just need to change the `motor.controller` variable to `MotionControlType::angle` and set the `motor.target` to the desired angle (in radians `RAD`).
 - You can also use the `Commander` interface to transition to the velocity and angle control modes using the `MC1` and `MC2` commands.
+
+The velocity and angle motion control modes have additional configuration parameters that might be needed to obtain a smooth and stable operation of your motor. You can find more info about these parameters in the [motion control docs](closed_loop_motion_control).
