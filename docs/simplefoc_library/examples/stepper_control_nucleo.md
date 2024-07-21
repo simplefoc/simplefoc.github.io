@@ -6,7 +6,9 @@ description: "Arduino Simple Field Oriented Control (FOC) library ."
 nav_order: 8
 permalink: /stepper_control_nucleo
 grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> 
+toc: true
 ---
+
 
 
 # Stepper motor control example<br>using L298N and Stm32 Nucleo-64

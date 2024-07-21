@@ -8,10 +8,13 @@ grand_grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">F
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 nav_order: 1
 permalink: /magnetic_sensor_spi
+toc: true
 ---
 
 
 # SPI Magnetic sensor setup
+
+## Step 1. Instantiate `MagneticSensorSPI` class
 
 In order to use your SPI magnetic position sensor with <span class="simple">Simple<span class="foc">FOC</span>library</span> first create an instance of the `MagneticSensorSPI` class:
 ```cpp
@@ -116,17 +119,65 @@ void setup(){
 Please check the `magnetic_sensor_spi_example.ino` example for a quick test of your sensor. All the features of SPI magnetic sensors are implemented in the `MagneticSensorSPI.cpp/h` files. 
 
 
-## Using magnetic sensor in real-time
+## Step 2. Using magnetic sensor in real-time
 
 There are two ways to use magnetic sensor implemented within this library:
-- As motor position sensor for FOC algorithm
-- As standalone position sensor
+- As a motor position sensor for FOC algorithm
+- As a standalone position sensor
 
 ### Position sensor for FOC algorithm
 
 To use the ensor with the FOC algorithm implemented in this library, once when you have initialized `sensor.init()` you just need to link it to the BLDC motor by executing:
 ```cpp
 motor.linkSensor(&sensor);
+```
+
+And you will be able to access the angle and velocity of the motor using the motor instance:
+```cpp
+motor.shaft_angle; // motor angle
+motor.shaft_velocity; // motor velocity
+```
+
+or through the sensor instance:
+```cpp
+sensor.getAngle(); // motor angle
+sensor.getVelocity(); // motor velocity
+```
+
+#### Example code
+
+Here is a quick example for AS5047 magnetic sensor with a BLDC motor and driver:
+
+```cpp
+#include <SimpleFOC.h>
+
+// motor and driver
+BLDCMotor motor = BLDCMotor(7);
+BLDCDriver3PWM driver = BLDCDriver3PWM(9, 5, 6, 8);
+ 
+// as5600 sensor quick config
+MagneticSensorSPI sensor = MagneticSensorSPI(AS5047_SPI);
+
+void setup() {
+  // driver
+  driver.init()
+  motor.linkDriver(&driver);
+
+  // init magnetic sensor hardware
+  sensor.init();
+  motor.linkSensor(&sensor);
+
+  // init motor hardware
+  motor.init();
+  motor.initFOC();
+
+  Serial.println("Motor ready");
+  _delay(1000);
+}
+void loop(){
+  motor.loopFOC();
+  motor.move();
+}
 ```
 
 ### Standalone sensor 
@@ -152,6 +203,7 @@ sensor.min_elapsed_time = 0.0001; // 100us by default
 </blockquote>
 
 
+#### Example code
 
 Here is a quick example for the AS5047U magnetic sensor with SPI communication:
 ```cpp

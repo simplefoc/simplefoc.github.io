@@ -8,6 +8,7 @@ nav_order: 2
 permalink: /mini_fabrication
 has_children: true
 has_toc: false
+toc: true
 ---
 
 

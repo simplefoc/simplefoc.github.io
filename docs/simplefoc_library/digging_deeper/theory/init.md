@@ -1,27 +1,34 @@
 ---
 layout: default
-title: Alignment procedure
+title: Motor-Sensor align
 parent: Theory corner
 grand_parent: Digging deeper
 grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 nav_order: 4
 permalink: /alignment_procedure
+toc: true
 ---
+
 
 <blockquote class="info" markdown="1">
 This page has been extracted from the [SimpleFOC Community forum](https://community.simplefoc.com/t/motor-init-procedure-questions/1668/3)
 
 </blockquote>
 
-# Basic principles of the BLDC
+# Motor and sensor alignment procedure
+
+The motor and sensor alignment procedure is a crucial part of the motor control. It is the procedure that is used to find the correspondence in between the electrical angle of the motor and the angle of the sensor. This is a very important step because it is the first step in the motor control and it has to be done correctly in order for BLDC or Stepper motor to be able to move at all. 😃
+
+
+## Basic principles of the BLDC
 Every BLDC motor has windings in its stator and permanent magnets in its rotor. Here is a quick graphic of a very simple 1 pole pair motor. This motor has three phases and each phase has one pair windings. 
 
 <img src="extras/Images/init1.png" class="width30">
 
 Once the current is passed through the winding coils the motor phases it induces a magnetic field in the windings with a polarity depending on the current polarity. In my figures I am going to simplify this effect and draw the coils in color red/blue - north/south as if they were magnets.
 
-So whenever you apply certain current through the motor coils, they will generate the magnetic field and the motor's rotor will try to align with the coils magnetic filed. Here is an example of the motor behavior for two different initial positions by applying current in the phase \cdot \cdot a\cdot \cdot 
+So whenever you apply certain current through the motor coils, they will generate the magnetic field and the motor's rotor will try to align with the coils magnetic filed. Here is an example of the motor behavior for two different initial positions by applying current in the phase `a` 
 
 <img src="extras/Images/init2.png">
 
@@ -82,9 +89,9 @@ One simpler variant of bldc motor control is trapezoidal control (or six-step) t
 
 As you can see the idea is very similar as the FOC (field oriented control) but the angle in between the vectors is not always kept at 90 degrees as we do using the FOC. 
 
-## \cdot SimpleFOClibrary\cdot  init procedure
+## SimpleFOClibrary init procedure
 
-In the init procedure we are searching to find the correspondence in between the 0 angle to the position sensor we are using and the electrical 0 angle of out motor which is usually defined by the magnetic field vector of the phase  \cdot \cdot a\cdot \cdot . As shown on the second image and on the one below we could set the stators magnetic field orientation to -180 degrees and we will be sure that the motor will always align to the 0 electric angle.
+In the init procedure we are searching to find the correspondence in between the 0 angle to the position sensor we are using and the electrical 0 angle of out motor which is usually defined by the magnetic field vector of the phase `a` . As shown on the second image and on the one below we could set the stators magnetic field orientation to -180 degrees and we will be sure that the motor will always align to the 0 electric angle.
 
 <img src="extras/Images/init6.png">
 

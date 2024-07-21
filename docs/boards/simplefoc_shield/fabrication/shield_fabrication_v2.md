@@ -7,7 +7,9 @@ grand_parent: <span class="simple">Simple<span class="foc">FOC</span>Shield</spa
 grand_grand_parent: <span class="simple">Simple<span class="foc">FOC</span> Boards</span>
 nav_order: 2
 permalink: /arduino_simplefoc_shield_fabrication_v2
+toc: true
 ---
+
 # Fabrication guide for <span class="simple">Simple<span class="foc">FOC</span>Shield</span> <small><i>v2.x</i></small> 
 Here is a quick guide how to fabricate the Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> [version <i class="fa fa-tag"></i>V2.0.4](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases) 
 

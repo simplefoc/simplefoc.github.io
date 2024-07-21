@@ -5,7 +5,9 @@ nav_order: 2
 permalink: /studio
 parent: tools
 grand_parent: <span class="simple">Simple<span class="foc">FOC</span>utils</span>
+toc: true
 ---
+
 
 # *Simple**FOC**Studio*  <small>by [@JorgeMaker](https://github.com/JorgeMaker) </small>
 

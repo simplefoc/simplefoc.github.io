@@ -7,7 +7,9 @@ nav_order: 5
 permalink: /bluepill_connection
 grand_parent: Supported Hardware
 grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+toc: true
 ---
+
 
 
 # Stm32 Bluepill using the Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span>

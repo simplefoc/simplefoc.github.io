@@ -6,7 +6,9 @@ description: "Arduino Simple Field Oriented Control (FOC) library ."
 nav_order: 4
 permalink: /simplefoc_pendulum
 grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> 
+toc: true
 ---
+
 
 
 # Reaction Wheel Inverted Pendulum project<br>using <span class="simple">Simple<span class="foc">FOC</span>Shield</span>

@@ -8,7 +8,9 @@ grand_parent: Writing the Code
 grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 has_children: true
 has_toc: false
+toc: true
 ---
+
 
 # Commander interface
 

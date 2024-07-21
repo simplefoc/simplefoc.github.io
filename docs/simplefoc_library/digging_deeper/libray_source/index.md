@@ -8,7 +8,9 @@ description: "Arduino Simple Field Oriented Control (FOC) library ."
 permalink: /source_code
 has_children: True
 has_toc: false
+toc: true
 ---
+
 
 # Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> source code [v2.1](https://github.com/simplefoc/Arduino-FOC/releases)
 The arduino library code is organized into the standard [Arduino library structure](https://github.com/arduino/Arduino/wiki/Library-Manager-FAQ). 

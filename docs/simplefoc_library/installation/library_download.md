@@ -6,7 +6,9 @@ nav_order: 1
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 permalink: /library_download
 grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+toc: true
 ---
+
 
 # Installing <span class="simple">Simple<span class="foc">FOC</span>library</span>
 

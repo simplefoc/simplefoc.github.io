@@ -5,7 +5,9 @@ nav_order: 3
 permalink: /webcontroller
 parent: tools
 grand_parent: <span class="simple">Simple<span class="foc">FOC</span>utils</span>
+toc: true
 ---
+
 
 #  *Simple**FOC**WebController*  <small>by [@geekuillaume](https://github.com/geekuillaume) </small>
 

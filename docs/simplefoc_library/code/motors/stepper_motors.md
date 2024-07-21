@@ -6,7 +6,9 @@ permalink: /steppermotor
 parent: Motor code
 grand_parent: Writing the Code
 grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+toc: true
 ---
+
 
 # Stepper Motor configuration
 

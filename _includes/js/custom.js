@@ -65,9 +65,12 @@ var classNames = [
     "BLDCMotor",
     "StepperMotor",
     "BLDCDriver3PWM",
+    "SimpleFOCDebug",
     "BLDCDriver6PWM",
     "StepperDriver4PWM",
     "StepperDriver2PWM",
+    "BLCDriverXPWM",
+    "StepperDriverXPWM",
     "Encoder",
     "MagneticSensor",
     "MagneticSensorSPI",
@@ -178,7 +181,8 @@ var funcNames = [
     "scalar",
     "motion",
     "target",
-    "motor"
+    "motor",
+    "SIMPLEFOC_DEBUG"
 
 ];
 var structNames = [
@@ -272,3 +276,19 @@ jtd.onReady(function(){
         e.innerHTML = str;
     });
 });
+
+
+
+function show(id,cls){
+    Array.from(document.getElementsByClassName(cls)).forEach(
+    function(e){e.style.display = "none";});
+    console.log(Array.from(document.getElementsByClassName(cls+"-"+id)));
+    Array.from(document.getElementsByClassName(cls+"-"+id)).forEach(
+    function(e){e.style.display = "block";});
+    Array.from(document.getElementsByClassName("btn-"+cls)).forEach(
+    function(e){e.classList.remove("btn-primary");});
+    Array.from(document.getElementsByClassName("btn-"+id)).forEach(
+    function(e){e.classList.add("btn-primary");});
+    var elmnt = document.getElementById("btn-"+id);
+    if(elmnt) elmnt.classList.add("btn-primary");
+}

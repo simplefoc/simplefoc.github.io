@@ -8,7 +8,9 @@ parent: Supported Hardware
 grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 has_children: true
 has_toc: false
+toc: true
 ---
+
 
 # Supported microcontrollers
 
@@ -37,7 +39,7 @@ Arduino (8-bit) | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ (either 4kHz or 32k
 Arduino DUE  | ✔️ | ✔️ | ✔️ | ❌ | ✔️
 stm32 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
 esp32 MCPWM | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
-esp32 LEDC | ✔️ | ✔️ | ✔️ | ❌ | ✔️ 
+esp32 LEDC | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
 esp8266 | ✔️ | ✔️ | ✔️ | ❌ | ✔️ 
 samd21/51 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
 teensy | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 

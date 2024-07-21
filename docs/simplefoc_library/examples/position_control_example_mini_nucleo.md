@@ -6,7 +6,9 @@ description: "Arduino Simple Field Oriented Control (FOC) library ."
 nav_order: 10
 permalink: /mini_example_nucleo
 grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> 
+toc: true
 ---
+
 
 
 # Position control example<br>using <span class="simple">Simple<span class="foc">FOC</span>Mini</span>
@@ -24,30 +26,11 @@ For more information about the <span class="simple">Simple<span class="foc">FOC<
 Choose your <span class="simple">Simple<span class="foc">FOC</span>Mini</span> version: 
 
 
-
-<script type="text/javascript">
-    function show(id,cls){
-        Array.from(document.getElementsByClassName(cls)).forEach(
-        function(e){e.style.display = "none";});
-        Array.from(document.getElementsByClassName(cls+"-"+id)).forEach(
-        function(e){e.style.display = "block";});
-        Array.from(document.getElementsByClassName("btn-"+cls)).forEach(
-        function(e){e.classList.remove("btn-primary");});
-        document.getElementById("btn-"+id).classList.add("btn-primary");
-    }
-</script>
-
-<style>
-    .mini-1{
-        display: none;
-    }
-</style>
-
-<a href="javascript:show(0,'mini');" id="btn-0" class="btn btn-mini btn-primary"><span class="simple">Simple<span class="foc">FOC</span>Mini</span> V1.0</a> 
-<a href ="javascript:show(1,'mini');" id="btn-1" class="btn btn-mini"><span class="simple">Simple<span class="foc">FOC</span>Mini</span> V1.1</a> 
+<a href="javascript:show(0,'mini');" class="btn btn-mini btn-0 btn-primary"><span class="simple">Simple<span class="foc">FOC</span>Mini</span> V1.0</a> 
+<a href ="javascript:show(1,'mini');" class="btn btn-mini  btn-1"><span class="simple">Simple<span class="foc">FOC</span>Mini</span> V1.1</a> 
 
 <p class="mini mini-0" ><img src="extras/Images/mini_connection_mucleo.png" class="width60"></p>
-<p class="mini  mini-1" ><img src="extras/Images/miniv11_connection_mucleo.png" class="width60"></p>
+<p class="mini mini-1 hide" ><img src="extras/Images/miniv11_connection_mucleo.png" class="width60"></p>
 
 ## Encoder 
 - Channels `A` and `B` are connected to the Arduino  UNO pins `2` and `3`. 
@@ -55,10 +38,12 @@ Choose your <span class="simple">Simple<span class="foc">FOC</span>Mini</span> v
 ## Motor
 - Motor phases `a`, `b` and `c` are connected directly the motor terminal connector connectors `M1`, `M2` and `M3` of the <span class="simple">Simple<span class="foc">FOC</span>Mini</span> board
 
+## <span class="simple">Simple<span class="foc">FOC</span>Mini</span>
+
+<a href="javascript:show(0,'mini');" class="btn btn-mini btn-0 btn-primary"><span class="simple">Simple<span class="foc">FOC</span>Mini</span> V1.0</a> 
+<a href ="javascript:show(1,'mini');" class="btn btn-mini  btn-1"><span class="simple">Simple<span class="foc">FOC</span>Mini</span> V1.1</a> 
 
 <div markdown="1" class="mini mini-0">
-
-## <span class="simple">Simple<span class="foc">FOC</span>Mini</span> v1.0
 
 - The most convenient way of plugging the <span class="simple">Simple<span class="foc">FOC</span>Mini</span> board to the Nucleo board is to stack it on its pins `10-13`.
    - `GND` - `GND`
@@ -70,9 +55,7 @@ Choose your <span class="simple">Simple<span class="foc">FOC</span>Mini</span> v
 </div>
 
 
-<div markdown="1" class="mini mini-1">
-
-## <span class="simple">Simple<span class="foc">FOC</span>Mini</span> v1.1
+<div markdown="1" class="mini mini-1 hide">
 
 - The most convenient way of plugging the <span class="simple">Simple<span class="foc">FOC</span>Mini</span> board to the Nucleo board is to stack it on its pins `10-13`.
    - `GND` - `GND`
@@ -118,6 +101,11 @@ And that is it, let's setup the motor.
 
 
 ## Motor code
+
+
+<a href="javascript:show(0,'mini');" class="btn btn-mini btn-0 btn-primary"><span class="simple">Simple<span class="foc">FOC</span>Mini</span> V1.0</a> 
+<a href ="javascript:show(1,'mini');" class="btn btn-mini  btn-1"><span class="simple">Simple<span class="foc">FOC</span>Mini</span> V1.1</a> 
+
 First we need to define the `BLDCMotor` class with the  number od pole pairs (`11`)
 ```cpp
 // define BLDC motor
@@ -136,7 +124,7 @@ Next we need to define the `BLDCDriver3PWM` class with the PWM pin numbers of th
 BLDCDriver3PWM driver = BLDCDriver3PWM(13, 12, 11, 10);
 ```
 </div>
-<div markdown="1" class="mini mini-1">
+<div markdown="1" class="mini mini-1 hide">
 
 ```cpp
 // define BLDC driver
@@ -218,6 +206,10 @@ That is it, let's see the full code now!
 ## Full Arduino code
 To the full code I have added a small serial [commander interface](commander_interface),  to be able to change position/angle target value in real time.
 
+
+
+<a href="javascript:show(0,'mini');" class="btn btn-mini btn-0 btn-primary"><span class="simple">Simple<span class="foc">FOC</span>Mini</span> V1.0</a> 
+<a href ="javascript:show(1,'mini');" class="btn btn-mini  btn-1"><span class="simple">Simple<span class="foc">FOC</span>Mini</span> V1.1</a> 
 
 <div markdown="1" class="mini mini-0">
 
@@ -309,7 +301,7 @@ void loop() {
 </div>
 
 
-<div markdown="1" class="mini mini-1">
+<div markdown="1" class="mini mini-1 hide">
 
 ```cpp
 #include <SimpleFOC.h>

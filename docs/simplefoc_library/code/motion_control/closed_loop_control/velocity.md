@@ -8,7 +8,9 @@ parent: Closed-Loop control
 grand_parent: Motion Control
 grand_grand_parent: Writing the Code
 grand_grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+toc: true
 ---
+
 
 # Velocity control loop
 This control loop allows you to spin your motor with desired velocity. This mode is enabled by:
@@ -20,13 +22,28 @@ You can test this algorithm by running the examples in the `motion_control/veloc
 
 
 ## How it works
+
+<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
+<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
+
 The velocity control closes the control loop around the torque control, regardless which one it is. If it is the voltage mode without phase resistance set, the velocity motion control will set the the torque command using the voltage <i>U<sub>q</sub></i>:
 
-<img src="extras/Images/velocity_loop_v.png" >
+<div class="type type-b">
+ <img class="width60" src="extras/Images/velocity_loop_v.png" >
+</div>
+<div class="type type-s hide">
+<img class="width60" src="extras/Images/velocity_loop_stepper_volt.png">
+</div>
+
 
 And if it is any of the current torque control modes (FOC or DC current) or voltage mode with provided phase resistance, the velocity motion control will be setting the target current <i>i<sub>q</sub></i>:
+<div class="type type-b">
+<img class="width60" src="extras/Images/velocity_loop_i.png" >
+</div>
+<div class="type type-s hide">
+<img class="width60" src="extras/Images/velocity_loop_stepper_curr.png">
+</div>
 
-<img src="extras/Images/velocity_loop_i.png" >
 
 
 The velocity control is created by adding a PID velocity controller to the [torque control loop](torque_control). PID controller reads the motor velocity <i>v</i>, filters it to <i>v<sub>f</sub></i> and sets the torque target (<i>u<sub>q</sub></i> voltage or <i>i<sub>q</sub></i> current) to the torque control loop in a such manner that it reaches and maintains the target velocity <i>v<sub>d</sub></i>, set by the user. 
@@ -72,7 +89,13 @@ For more theory about this approach and the source code documentation check the 
 
 ## Velocity motion control example
 
+<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
+<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
+
+
 Here is one basic example of the velocity motion control with the voltage mode torque control with the complete configuration. The program will set the target velocity of `2 RAD/s` and maintain it (resist disturbances) .
+
+<div class="type type-b" markdown="1">
 
 ```cpp
 #include <SimpleFOC.h>
@@ -146,6 +169,84 @@ void loop() {
   motor.move(target_velocity);
 }
 ```
+
+</div>
+
+<div class="type type-s hide" markdown="1">
+
+```cpp
+#include <SimpleFOC.h>
+
+// motor instance
+StepperMotor motor = StepperMotor( pole_pairs , phase_resistance );
+// driver instance
+StepperDriver4PWM driver = StepperDriver4PWM(pwmA, pwmB, pwmC, pwmD);
+
+// Magnetic sensor instance
+MagneticSensorSPI AS5x4x = MagneticSensorSPI(chip_select, 14, 0x3FFF);
+
+void setup() {
+ 
+  // initialize magnetic sensor hardware
+  AS5x4x.init();
+  // link the motor to the sensor
+  motor.linkSensor(&AS5x4x);
+
+  // driver config
+  driver.init();
+  motor.linkDriver(&driver);
+
+  // set motion control loop to be used
+  motor.controller = MotionControlType::velocity;
+
+  // controller configuration 
+  // default parameters in defaults.h
+
+  // controller configuration based on the control type 
+  // velocity PID controller parameters
+  // default P=0.5 I = 10 D =0
+  motor.PID_velocity.P = 0.2;
+  motor.PID_velocity.I = 20;
+  motor.PID_velocity.D = 0.001;
+  // jerk control using voltage voltage ramp
+  // default value is 300 volts per sec  ~ 0.3V per millisecond
+  motor.PID_velocity.output_ramp = 1000;
+
+  // velocity low pass filtering
+  // default 5ms - try different values to see what is the best. 
+  // the lower the less filtered
+  motor.LPF_velocity.Tf = 0.01;
+
+  // since the phase resistance is provided we set the current limit not voltage
+  // default 0.2
+  motor.current_limit = 1; // Amps
+
+  // use monitoring with serial 
+  Serial.begin(115200);
+  // comment out if not needed
+  motor.useMonitoring(Serial);
+
+  // initialize motor
+  motor.init();
+  // align sensor and start FOC
+  motor.initFOC();
+
+  Serial.println("Motor ready.");
+  _delay(1000);
+}
+
+// velocity set point variable
+float target_velocity = 2; // 2Rad/s ~ 20rpm
+
+void loop() {
+  // main FOC algorithm function
+  motor.loopFOC();
+
+  // Motion control function
+  motor.move(target_velocity);
+}
+```
+</div>
 
 ## Project examples
 Here are two project examples which use velocity motion control and describe the full hardware + software setup needed.

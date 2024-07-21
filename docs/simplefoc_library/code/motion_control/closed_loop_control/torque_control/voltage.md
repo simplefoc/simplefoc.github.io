@@ -9,10 +9,12 @@ grand_grand_grand_grand_parent: Arduino <span class="simple">Simple<span class="
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 permalink: /voltage_torque_mode
 nav_order: 1
+toc: true
 ---
 
+
 # Torque control using voltage 
-This torque control approach allows you to run the BLDC motor as it is simple DC motor, where you set the target voltage $$U_q$$ to be set to the motor and the FOC algorithm calculates the necessary phase voltages $$u_a$$ ,$$u_b$$ and $$u_c$$ for smooth operation. This mode is enabled by:
+This torque control approach allows you to run the BLDC and Stepper motor as it is simple DC motor, where you set the target voltage $$U_q$$ to be set to the motor and the FOC algorithm calculates the necessary phase voltages $$u_a$$ ,$$u_b$$ and $$u_c$$ for smooth operation. This mode is enabled by:
 ```cpp
 // voltage torque control mode
 motor.torque_controller = TorqueControlType::voltage;
@@ -25,30 +27,46 @@ There are three different ways to control the torque of your motor using voltage
 - [Estimated current control with Back-EMF and lag compensation](#voltage-control-with-current-estimation-and-back-emf-compensation) - required phase resistance $$R$$, inductance $$L$$ and $$KV$$ rating of the motor
 
 Block diagrams of the three torque control techniques based on voltage control can be represented as:
-<script type="text/javascript">
-    function show(id){
-        Array.from(document.getElementsByClassName('gallery_img')).forEach(
-        function(e){e.style.display = "none";});
-        document.getElementById(id).style.display = "block";
-        Array.from(document.getElementsByClassName("btn-primary")).forEach(
-        function(e){e.classList.remove("btn-primary");});
-        document.getElementById("btn-"+id).classList.add("btn-primary");
-    }
-</script>
 
-<a href ="javascript:show(0);" id="btn-0" class="btn btn-primary">Voltage control</a>
-<a href ="javascript:show(1);" id="btn-1" class="btn"> + Phase resistance</a>
-<a href ="javascript:show(2);" id="btn-2" class="btn"> + KV rating</a>
-<a href ="javascript:show(3);" id="btn-3" class="btn"> + Phase inductance</a>
+Choose the motor type: 
 
-<img style="display:block" id="0" class="gallery_img width80" src="extras/Images/vm0.jpg"/>
-<img style="display:none" id="1" class="gallery_img width80" src="extras/Images/vm1.jpg"/>
-<img style="display:none" id="2" class="gallery_img width80" src="extras/Images/vm2.jpg"/>
-<img style="display:none" id="3" class="gallery_img width80" src="extras/Images/vm3.jpg"/>
+<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
+<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
+
+Choose the voltage control type: 
+
+<a href ="javascript:show(0,'loop');" id="btn-0" class="btn btn-loop btn-primary">Voltage control</a>
+<a href ="javascript:show(1,'loop');" id="btn-1" class="btn btn-loop"> + Phase resistance</a>
+<a href ="javascript:show(2,'loop');" id="btn-2" class="btn btn-loop"> + KV rating</a>
+<a href ="javascript:show(3,'loop');" id="btn-3" class="btn btn-loop"> + Phase inductance</a>
+
+<div class="type type-b">
+<img class="loop loop-0 width60" src="extras/Images/vm0.jpg"/>
+<img class="loop loop-1 width60 hide" src="extras/Images/vm1.jpg"/>
+<img  class="loop loop-2 width60 hide" src="extras/Images/vm2.jpg"/>
+<img  class="loop loop-3 width60 hide" src="extras/Images/vm3.jpg"/>
+
+</div>
+<div class="type type-s hide">
+
+<img id="4" class="loop width60 loop-0" src="extras/Images/voltage_loop_stepper1.jpg"/>
+<img id="5" class="loop width60  loop-1 hide" src="extras/Images/voltage_loop_stepper2.jpg"/>
+<img id="6" class="loop width60 loop-2 hide" src="extras/Images/voltage_loop_stepper3.jpg"/>
+<img id="7"  class="loop width60 loop-3 hide" src="extras/Images/voltage_loop_stepper4.jpg"/>
+
+</div>
 
 ## Pure voltage control
 
-<a name="foc_image"></a><img class="width80" src="extras/Images/vm0.jpg">
+<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
+<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
+<div class="type type-b">
+<a name="foc_image"></a><img class="width60" src="extras/Images/vm0.jpg">
+</div>
+<div class="type type-s hide">
+<a name="foc_image"></a><img class="width60" src="extras/Images/voltage_loop_stepper1.jpg">
+</div>
+
 
 The voltage control algorithm reads the angle $$a$$ from the position sensor and the gets target $$U_q$$ voltage value from the user and using the FOC algorithm sets the appropriate $$u_a$$, $$u_b$$ and $$u_c$$ voltages to the motor. FOC algorithm ensures that these voltages generate the magnetic force in the motor rotor exactly with <i>90 degree</i> offset from its permanent magnetic field, which guarantees maximal torque, this is called commutation.
 
@@ -75,7 +93,14 @@ If you set a certain desired voltage $$U_g$$ your motor should start moving and 
 
 Block diagram of this torque control strategy is as follows
 
-<a name="foc_image"></a><img class="width80" src="extras/Images/vm1.jpg">
+<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
+<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
+<div class="type type-b">
+<a name="foc_image"></a><img class="width60" src="extras/Images/vm1.jpg">
+</div>
+<div class="type type-s hide">
+<a name="foc_image"></a><img class="width60" src="extras/Images/voltage_loop_stepper2.jpg">
+</div>
 
 If the user provides the phase resistance $$R$$ value of the motor, the user can set the desired current $$I_d$$ (that generates the desired torque $$I_d = k\tau_d$$) and the library will automatically calculate the appropriate voltage $$U_q$$.
 
@@ -84,13 +109,29 @@ U_q = I_d R = (k\tau_d) R
 $$
 
 User can specify the phase resistance of the motor either through the constructor for example
+
+<div class="type type-b" markdown="1">
+
+
 ```cpp
 // BLDCMotor(pole pair number, phase resistance)
 BLDCMotor motor = BLDCMotor( 11, 2.5 );
 ```
+
+</div>
+<div class="type type-s hide"  markdown="1">
+
+```cpp
+// StepperMotor(pole pair number, phase resistance)
+StepperMotor motor = StepperMotor( 50, 1.0 );
+```
+</div>
+
+
+
 or just setting the parameter:
 ```cpp
-motor.phase_resistance = 2.5; // ex. 2.5 Ohms
+motor.phase_resistance = 1.5; // ex. 1.5 Ohms
 ```
 
 
@@ -117,7 +158,14 @@ If your desired current is set to some value that is not 0, but your motor does 
 
 Block diagram of this torque control strategy is as follows
 
-<a name="foc_image"></a><img class="width80" src="extras/Images/vm2.jpg" >
+<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
+<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
+<div class="type type-b">
+<a name="foc_image"></a><img class="width60" src="extras/Images/vm2.jpg">
+</div>
+<div class="type type-s hide">
+<a name="foc_image"></a><img class="width60" src="extras/Images/voltage_loop_stepper3.jpg">
+</div>
 
 If the user provides the phase resistance $$R$$ value and the motor's $$KV$$ rating of the motor, the user can set the desired current $$I_d$$ (that generates the desired torque $$I_d = k\tau_d$$) directly. The library will automatically calculate the appropriate voltage $$U_q$$ while compensating for the generated Back EMF voltage by keeping track of the motor velocity $$v$$.
 
@@ -126,11 +174,23 @@ U_q = I_d R + U_{bemf}= (k\tau_d) R + \frac{v}{KV}
 $$
 
 User can specify the phase resistance and the KV rating of the motor either through the constructor for example
+
+<div class="type type-b"  markdown="1">
+
 ```cpp
 // BLDCMotor(pole pair number, phase resistance [Ohms], KV rating [rpm/V])
 BLDCMotor motor = BLDCMotor( 11, 2.5, 120 );
 ```
 
+</div>
+<div class="type type-s hide"  markdown="1">
+
+```cpp
+// StepperMotor(pole pair number, phase resistance [Ohms], KV rating [rpm/V])
+StepperMotor motor = StepperMotor( 50, 1.5, 20 );
+```
+
+</div>
 
 <blockquote class="info">
 <p class="heading"> RULE OF THUMB: KV value</p> 
@@ -172,7 +232,15 @@ If your desired current is set to some value that is not 0, but your motor does 
 
 Block diagram of this torque control strategy is as follows
 
-<a name="foc_image"></a><img class="width80" src="extras/Images/vm3.jpg" >
+<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
+<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
+<div class="type type-b">
+<a name="foc_image"></a><img class="width60" src="extras/Images/vm3.jpg">
+</div>
+<div class="type type-s hide">
+<a name="foc_image"></a><img class="width60" src="extras/Images/voltage_loop_stepper4.jpg">
+</div>
+
 
 If the user provides the phase resistance $$R$$ value and the motor's $$KV$$ rating of the motor, the user can set the desired current $$I_d$$ (that generates the desired torque $$I_d = k\tau_d$$) directly. The library will automatically calculate the appropriate voltage $$U_q$$ while compensating for the generated Back EMF voltage by keeping track of the motor velocity $$v$$.
 
@@ -189,10 +257,23 @@ $$
 where $$n_{pp}$$ is the number of motor's pole pairs. By compensating the lag of the torque vector due to the motor rotation velocity $$v$$, the motor will be able to spin with higher max velocity. Therefore the lag compensation will have the most effect if application requires going to the maximal motor velocity.
 
 User can specify the phase resistance and the KV rating of the motor either through the constructor for example
+<div class="type type-b"  markdown="1">
+
+
 ```cpp
 // BLDCMotor(pole pair number, phase resistance [Ohms], KV rating [rpm/V], phase inductance [H])
 BLDCMotor motor = BLDCMotor( 11, 2.5, 120, 0.01 );
 ```
+
+</div>
+<div class="type type-s hide"  markdown="1">
+
+```cpp
+// StepperMotor(pole pair number, phase resistance [Ohms], KV rating [rpm/V], phase inductance [H])
+StepperMotor motor = StepperMotor( 50, 1.5, 20, 0.01 );
+```
+
+</div>
 
 
 <blockquote class="info">
@@ -242,6 +323,10 @@ For more info about the theory of the torque control check the section [Digging 
 
 ## Torque control example code
 A simple example of the voltage based torque control and setting the target **current** by serial command interface. 
+
+<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
+<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
+<div class="type type-b" markdown="1">
 
 ```cpp
 #include <SimpleFOC.h>
@@ -311,3 +396,80 @@ void loop() {
   command.run();
 }
 ```
+
+
+</div>
+
+<div class="type type-s hide" markdown="1">
+
+```cpp
+#include <SimpleFOC.h>
+
+// Stepper motor & driver instance
+StepperMotor motor = StepperMotor(50); // nema17 200 steps per revolution
+StepperDriver2PWM driver = StepperDriver2PWM(9, 5, 6, 8);
+
+// encoder instance
+Encoder encoder = Encoder(2, 3, 500);
+// channel A and B callbacks
+void doA(){encoder.handleA();}
+void doB(){encoder.handleB();}
+
+// instantiate the commander
+Commander command = Commander(Serial);
+void doMotor(char* cmd) { command.motor(&motor, cmd); }
+
+void setup() { 
+  
+  // initialize encoder sensor hardware
+  encoder.init();
+  encoder.enableInterrupts(doA, doB); 
+  // link the motor to the sensor
+  motor.linkSensor(&encoder);
+
+  // driver config
+  // power supply voltage [V]
+  driver.voltage_power_supply = 12;
+  driver.init();
+  // link driver
+  motor.linkDriver(&driver);
+
+  // set the torque control type
+  motor.phase_resistance = 1.5; // 1.5 Ohms
+  motor.torque_controller = TorqueControlType::voltage;
+  // set motion control loop to be used
+  motor.controller = MotionControlType::torque;
+
+  // use monitoring with serial 
+  Serial.begin(115200);
+  // comment out if not needed
+  motor.useMonitoring(Serial);
+
+  // initialize motor
+  motor.init();
+  // align sensor and start FOC
+  motor.initFOC();
+
+  // add target command M
+  command.add('M', doMotor, "motor");
+
+  Serial.println(F("Motor ready."));
+  Serial.println(F("Set the target current using serial terminal:"));
+  _delay(1000);
+}
+
+void loop() {
+
+  // main FOC algorithm function
+  motor.loopFOC();
+
+  // Motion control function
+  motor.move();
+
+  // user communication
+  command.run();
+}
+```
+
+
+</div>

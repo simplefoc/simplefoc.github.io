@@ -6,6 +6,7 @@ description: "Arduino Simple Field Oriented Control (FOC) library ."
 nav_order: 7
 permalink: /haptics_examples
 grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> 
+toc: true
 ---
 
 

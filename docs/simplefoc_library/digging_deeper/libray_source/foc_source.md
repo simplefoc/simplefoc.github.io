@@ -6,7 +6,9 @@ grand_parent: Digging deeper
 grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 nav_order: 1
 permalink: /foc_implementation
+toc: true
 ---
+
 
 
 # FOC Algorithm implementation  [v1.6](https://github.com/simplefoc/Arduino-FOC/releases)

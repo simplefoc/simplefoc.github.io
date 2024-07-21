@@ -5,7 +5,9 @@ nav_order: 9
 permalink: /debugging
 parent: Writing the Code
 grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> 
+toc: true
 ---
+
 
 # Debugging <span class="simple">Simple<span class="foc">FOC</span>library</span>  sketches
 

@@ -8,6 +8,7 @@ parent: Connecting the hardware
 grand_parent: Starting with Mini
 grand_grand_parent: <span class="simple">Simple<span class="foc">FOC</span>Mini</span>
 grand_grand_grand_parent: <span class="simple">Simple<span class="foc">FOC</span> Boards</span>
+toc: true
 ---
 
 # Connecting the hardware to <span class="simple">Simple<span class="foc">FOC</span>Mini</span> v1.1

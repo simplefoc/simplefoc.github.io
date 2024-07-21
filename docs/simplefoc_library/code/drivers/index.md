@@ -37,12 +37,14 @@ Arduino AVR (8-bit) | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ (either 4kHz or
 Arduino DUE  | ✔️ | ✔️ | ✔️ | ❌ | ✔️
 stm32 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
 esp32 `MCPWM` | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
-esp32 `LEDC`| ✔️ | ✔️ | ✔️ |  ❌ | ✔️ 
+esp32 `LEDC`| ✔️ | ✔️ | ✔️ |  ✔️ | ✔️ 
 esp8266 | ✔️ | ✔️ | ✔️ | ❌ | ✔️ 
 samd21/51 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
-teensy | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
+teensy3 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
+teensy4 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
 Raspberry Pi Pico | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
 Portenta H7 | ✔️ | ✔️ | ✔️ | ❌ | ✔️ 
 Renesas (UNO R4 Minima) | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
+nRF52 |✔️ | ✔️ | ✔️ | ✔️ | ✔️
 
 <blockquote class="info"> 📢 Here is a quick guide to choosing appropriate PWM pins for different MCU architectures <a href="choosing_pwm_pins">see in docs</a>.</blockquote>

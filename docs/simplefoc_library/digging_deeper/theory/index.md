@@ -8,6 +8,7 @@ nav_order: 1
 permalink: /theory_corner
 has_children: True
 has_toc: False
+toc: true
 ---
 
 # Theory lovers corner
@@ -42,8 +43,14 @@ This is the section intended to explain some interesting theoretical features of
     </div>
     <div>
         <a href="alignment_procedure">
-            <h3 style="color:inherit"> <i class="fa fa-lg fa-graduation-cap" style="padding:10px"></i> Alignment procedure</h3>
+            <h3 style="color:inherit"> <i class="fa fa-lg fa-graduation-cap" style="padding:10px"></i> Sensor-Motor alignment procedure</h3>
         </a>
-        <p> Explanation of the alignment procedure and the importance of the initial rotor position.</p>
+        <p> Explanation of the motor and the position sensor alignment procedure and the importance of the initial rotor position.</p>
+    </div>
+    <div>
+        <a href="current_sense_align">
+            <h3 style="color:inherit"> <i class="fa fa-lg fa-graduation-cap" style="padding:10px"></i> Current sense alignment procedure</h3>
+        </a>
+        <p> Explanation of the automatic current sense alignment procedure.</p>
     </div>
 <div>

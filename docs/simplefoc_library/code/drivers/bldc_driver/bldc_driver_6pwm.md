@@ -7,7 +7,9 @@ parent: BLDCDriver
 grand_parent: Driver code
 grand_grand_parent: Writing the Code
 grand_grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+toc: true
 ---
+
 
 # BLDC driver 6PWM - `BLDCDriver6PWM`
 
@@ -200,6 +202,20 @@ else{
   return;
 }
 ```
+
+### Enable debugging output
+If you wish to see a more verbose debugging output of the driver configuration during the `driver.init()` and see more details about the driver configuration and possible errors, you can use the `SimpleFOCDebug` class. 
+In order to enable the verbose debugging mode make sure to enable debugging before the `driver.init()` call, preferably at the top of the `setup()` function.
+```cpp
+Serial.begin(115200); // to output the debug information to the serial
+SimpleFOCDebug::enable(&Serial);
+```
+See more in the [SimpleFOCDebug documentation](debugging).
+
+<blockquote class="info"> 
+📢 We strongly advise to use the debugging mode when starting with the <span class="simple">Simple<span class="foc">FOC</span>library</span>. 
+It provides much more information than the standard monitoring output and can help troubleshooting potentially problems, even MCU architecture specific ones.
+</blockquote>
 
 ## Step 3. Using  `BLDCDriver6PWM` in real-time
 

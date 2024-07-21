@@ -8,7 +8,9 @@ nav_order: 6
 has_children: True
 has_toc: False
 grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+toc: true
 ---
+
 # Motion control 
 <span class="simple">Simple<span class="foc">FOC</span>library</span> has two main parameters that define the motion control architecture to be used (and each of them can be modified in real-time):
 - Motion control mode - `motor.controller`
@@ -16,6 +18,17 @@ grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>lib
     - [Open-Loop control](open_loop_motion_control) - no position sensor
 - [Torque control mode](torque_control) - `motor.torque_controller`
     - Used only in the closed-loop control modes
+
+## Units in the library
+
+All the motor/driver/sensor parameters and control variables are defined in the following units:
+
+Physical value | Units | Description | Conversion to other units
+--- | --- | --- | ---
+Position/angle | `Radians` | Motor and sensor position in radians |  2$$\pi$$(6.14) radians = 360 degrees = 1 motor rotation
+Velocity | `Rad/s` | Motor and sensor velocity in radians per second |  2$$\pi$$(6.14) rad/s = 1 motor rotation per second = 60 RPM
+Torque/Current | `Amps` | Motor torque or current in Amperes |  1 Nm = $$K_t$$ Amps ($$K_t$$ is the motor torque constant)
+
 
 ## Torque control modes
 There are three torque control types implemented in the <span class="simple">Simple<span class="foc">FOC</span>library</span>:

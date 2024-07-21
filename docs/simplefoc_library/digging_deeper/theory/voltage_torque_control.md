@@ -7,7 +7,9 @@ grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</sp
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 nav_order: 1
 permalink: /voltage_torque_control
+toc: true
 ---
+
 
 # Torque control using voltage [v2.0.2](https://github.com/simplefoc/Arduino-FOC/releases)
 In this library we are using the voltage as a substitute for the torque control, why is that and how does it work exactly?

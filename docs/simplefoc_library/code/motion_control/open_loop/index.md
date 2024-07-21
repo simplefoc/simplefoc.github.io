@@ -11,30 +11,36 @@ grand_parent: Writing the Code
 grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 ---
 # Open loop Motion control 
+Choose the motor type: 
 
-<script type="text/javascript">
-    function show(id){
-        Array.from(document.getElementsByClassName('gallery_img')).forEach(
-        function(e){e.style.display = "none";});
-        document.getElementById(id).style.display = "block";
-        Array.from(document.getElementsByClassName("btn-primary")).forEach(
-        function(e){e.classList.remove("btn-primary");});
-        document.getElementById("btn-"+id).classList.add("btn-primary");
-    }
-</script>
+<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
+<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
 
-<a href ="javascript:show(0);" id="btn-0" class="btn">Position control</a>
-<a href ="javascript:show(1);" id="btn-1" class="btn  btn-primary">Velocity control</a>
+Choose the voltage control type: 
 
-<img style="display:none" id="0" class="gallery_img width80" src="extras/Images/opneloop_0001_Layer 0.jpg"/>
-<img style="display:block" id="1" class="gallery_img  width80" src="extras/Images/opneloop_0000_Layer 2.jpg"/>
+<a href ="javascript:show(0,'loop');" id="btn-0" class="btn btn-loop btn-primary">Position control</a>
+<a href ="javascript:show(1,'loop');" id="btn-1" class="btn btn-loop">Velocity control</a>
+
+<div class="type type-b">
+<img class="loop loop-0 width80" src="extras/Images/opneloop_0001_Layer 0.jpg"/>
+<img class="loop loop-1 width80 hide" src="extras/Images/opneloop_0000_Layer 2.jpg"/>
+
+</div>
+<div class="type type-s hide">
+
+<img  class="loop width80 loop-0" src="extras/Images/open_loop_stepper_angle.jpg"/>
+<img class="loop width80 loop-1 hide" src="extras/Images/open_loop_stepper_vel.jpg"/>
+
+</div>
 
 <span class="simple">Simple<span class="foc">FOC</span>library</span> gives you the choice of using 2 different open-loop control strategies, control strategies that do not require a position sensor
 - [Velocity open-loop control](velocity_openloop)
 - [Position open-loop control](angle_openloop)
 
-<blockquote class="info"> Index search uses also uses open-loop position control, but has some additional parameters, see <a href="index_search_loop">index search</a></blockquote>
+<blockquote class="info"> Index search uses also uses open-loop velocity control, but has some additional parameters, see <a href="index_search_loop">index search</a></blockquote><br>
 
+
+You set the open-loop modes by changing the `motor.controller` variable. If you want to control the motor angle you will set the `controller` to `MotionControlType::angle_openloop` and if you want to control motor angular velocity `MotionControlType::velocity_openloop`. 
 ```cpp
 // MotionControlType::velocity_openloop    - velocity open-loop control
 // MotionControlType::angle_openloop       - position open-loop control

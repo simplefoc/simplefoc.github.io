@@ -7,6 +7,7 @@ nav_order: 1
 permalink: /arduino_simplefoc_shield_showcase
 has_children: true
 has_toc: false
+toc: true
 ---
 
 

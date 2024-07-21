@@ -7,7 +7,9 @@ grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</sp
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 nav_order: 4
 permalink: /low_pass_filter
+toc: true
 ---
+
 
 # Low-Pass velocity filter theory[v2.0.2](https://github.com/simplefoc/Arduino-FOC/releases)
 Transfer function of the Low pass filter is controller is:

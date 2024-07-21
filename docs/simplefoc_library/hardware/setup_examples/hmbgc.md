@@ -7,7 +7,9 @@ nav_order: 3
 permalink: /hmbgc
 grand_parent: Supported Hardware
 grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+toc: true
 ---
+
 
 
 # HMBGC V2.2 example

@@ -7,7 +7,9 @@ grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</sp
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 nav_order: 3
 permalink: /pi_controller
+toc: true
 ---
+
 
  
 # PID controller theory [v2.1](https://github.com/simplefoc/Arduino-FOC/releases)

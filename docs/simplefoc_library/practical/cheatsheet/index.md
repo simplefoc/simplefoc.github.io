@@ -3,7 +3,8 @@ layout: default
 title: Options Cheat Sheet
 nav_order: 9
 permalink: /options_cheetsheet
-parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+parent: Practical guides
+grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 has_children: True
 has_toc: False
 ---

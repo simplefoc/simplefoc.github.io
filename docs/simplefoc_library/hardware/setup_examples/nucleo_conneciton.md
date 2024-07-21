@@ -7,7 +7,9 @@ nav_order: 4
 permalink: /nucleo_connection
 grand_parent: Supported Hardware
 grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+toc: true
 ---
+
 
 
 # Stm32 Nucleo-64 using the Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span>

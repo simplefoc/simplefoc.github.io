@@ -53,6 +53,7 @@ ga_tracking: UA-55976594-3
 
 plugins:
   - jekyll-seo-tag
+  - jekyll-toc
 
 compress_html:
   clippings: all
@@ -61,3 +62,8 @@ compress_html:
   startings: []
   blanklines: false
   profile: false
+
+toc:
+  ordered_list: false
+  list_class: toc-li
+  sublist_class: toc-li

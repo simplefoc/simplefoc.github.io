@@ -127,10 +127,23 @@ layout: table_wrappers
               </nav>
             {% endif %}
           {% endunless %}
-          <div id="main-content" class="page-content" role="main"  tabindex="0">
-            {% if site.heading_anchors != false %}
+          <div id="main-content" class="page-content" role="main"  tabindex="0">  
+              {% if page.toc == true %}
+              <details open markdown="block" class="inpage_toc">
+                <summary class="text-delta">                 
+                  <span class="on_this_page_big">On this page</span>
+                  <span class="marker-closed hide">
+                    <i class="fa fa-chevron-down"></i>
+                  </span><span class="marker-open">
+                    <i class="fa fa-chevron-left"></i>
+                  </span>
+                </summary>
+                  {{ content | toc_only  }}
+              </details>
+            {% endif %}
+            {% if site.heading_anchors != false %}     
               {% include vendor/anchor_headings.html html=content beforeHeading="true" anchorBody="<svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><use xlink:href=\"#link\"></use></svg>" anchorClass="anchor-heading" %}
-            {% else %}
+            {% else %}     
               {{ content }}
             {% endif %}
           {% if page.has_children == true and page.has_toc != false %}
