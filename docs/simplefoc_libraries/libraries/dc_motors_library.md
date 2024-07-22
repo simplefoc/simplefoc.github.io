@@ -16,7 +16,7 @@ toc: true
 
 ![Library Compile](https://github.com/simplefoc/Arduino-FOC-dcmotor/workflows/Library%20Compile/badge.svg)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-![arduino-library-badge](https://ardubadge.simplefoc.com?lib=SimpleDCMotor.svg?)
+![arduino-library-badge](https://ardubadge.simplefoc.com?lib=SimpleDCMotor)
 
 
 The <span class="simple">Simple<span class="foc">DC</span>Motor library</span> extends  <span class="simple">Simple<span class="foc">FOC</span> library to handle DC motors via their commonly used driver types. 
