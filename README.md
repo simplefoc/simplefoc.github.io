@@ -1,4 +1,4 @@
-# simplefoc.github.io
+# simplefoc.github.io 
 
 Documentation website for SimpleFOCproject
  
