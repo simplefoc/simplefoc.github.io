@@ -2,7 +2,6 @@
 .bundle
 .sass-cache
 _site
-Gemfile.lock
 node_modules
 .jekyll-cache
 bin/just-the-docs
