@@ -155,7 +155,7 @@ void setup() {
   // monitoring port
   Serial.begin(115200);
   
-  // initialise encoder hardware
+  // initialise sensor hardware
   sensor.init();
 
   Serial.println("Sensor ready");
@@ -192,7 +192,7 @@ void setup() {
   Serial.begin(115200);
   
   // initialise encoder hardware
-  sensor.init();
+  encoder.init();
   // hardware interrupt enable
   encoder.enableInterrupts(doA, doB);
 
@@ -203,9 +203,9 @@ void setup() {
 void loop() {
   // IMPORTANT
   // read sensor and update the internal variables
-  sensor.update();
+  encoder.update();
   // display the angle and the angular velocity to the terminal
-  Serial.print(sensor.getAngle());
+  Serial.print(encoder.getAngle());
   Serial.print("\t");
   Serial.println(sensor.getVelocity());
 }
