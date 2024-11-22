@@ -20,7 +20,7 @@ In the context of the <span class="simple">Simple<span class="foc">FOC</span>pro
 
    Graphical user interface for the <span class="simple">Simple<span class="foc">FOC</span>library</span> based on python3 and PyQt5. This application allows to tune and configure any BLDC/Stepper  <span class="simple">Simple<span class="foc">FOC</span>library</span> controlled device, using serial port communications and the [Commander](commander_interface) interface. [Read more ... ](studio)
 
-   <a href ="https://github.com/simplefoc/Arduino-FOC-dcmotor" class="btn"><i class="fa fa-github"></i> Github repo</a>   
+   <a href ="https://github.com/JorgeMaker/SimpleFOCStudio" class="btn"><i class="fa fa-github"></i> Github repo</a>   
 
 - ###  <span class="simple">Simple<span class="foc">FOC</span>webcontroller</span> by [@geekuillaume](https://github.com/geekuillaume)
 
