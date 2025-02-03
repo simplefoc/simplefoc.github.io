@@ -69,7 +69,7 @@ And that is it, let's setup the motor.
 
 
 ## Motor code
-First we need to define the `BLDCMotor` class with the  number od pole pairs (`14`)
+First we need to define the `BLDCMotor` class with the  number of pole pairs (`14`)
 ```cpp
 // define BLDC motor
 BLDCMotor motor = BLDCMotor(14);

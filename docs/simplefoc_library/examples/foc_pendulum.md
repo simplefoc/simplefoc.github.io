@@ -142,7 +142,7 @@ PciManager.registerListener(&listenerPB);
 And that is it the pendulum is ready, let's setup the motor.
 
 ### Motor code
-First we need to define the `BLDCMotor` class with the number od pole pairs(`11`).
+First we need to define the `BLDCMotor` class with the number of pole pairs(`11`).
 ```cpp
 // define BLDC motor
 BLDCMotor motor = BLDCMotor(11);
