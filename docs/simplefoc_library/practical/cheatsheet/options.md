@@ -48,8 +48,8 @@ motor.modulation_centered | 1 (true) | 1/True: centered modulation around driver
 motor.sensor_offset | 0 | Offset of motor zero to sensor zero. Can be used to make position 0 take on a specific motor orientation. For user convenience. Value in rad.
 motor.voltage_sensor_align | motor.voltage_limit | Limits voltage (and therefore current) during motor alignment. Value in Volts.
 motor.velocity_index_search | NOT SET | Limits motor velocity during motor initialization. Give value in rad/s.
-motor.zero_electric_angle | NOT SET | Needed for FOC control. Normally set during motor FOC initialization. Can be stored and supplied as a parameter to motor.initFOC().
-motor.sensor_direction | NOT SET | Normally set during motor FOC initialization. Determines sensor direction vs positive motor direction (can be opposite, depending how you connect your motor cables). Can be stored and supplied as a parameter to motor.initFOC().
+motor.zero_electric_angle | NOT SET | Needed for FOC control. Normally set during motor FOC initialization. If set before motor.initFOC(), measurement of zero electric angle is skipped during alignment.
+motor.sensor_direction | NOT SET | Normally set during motor FOC initialization. Determines sensor direction vs positive motor direction (can be opposite, depending how you connect your motor cables). If set before motor.initFOC(), measurement of sensor's natural direction is skipped during alignment.
 motor.motor_status | FOCMotorStatus::motor_uninitialized | Read-only. Tracks the motor initialization status. You can check it to see if initialization succeeded, calibration is complete, etc.
 
 ## PID Tuning Options
