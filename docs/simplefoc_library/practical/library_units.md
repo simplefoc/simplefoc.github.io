@@ -21,7 +21,7 @@ Torque/Current | `Amperes` | `A`  | Motor torque or current
 Voltage | `Volts` | `V` | Motor/Driver voltage
 Phase resistance | `Ohms` | `Ω` | Motor phase resistance
 Phase inductance | `Henries` | `H` | Motor phase inductance
-KV rating | `Radians per second per volt` | `RAD/s/V` | Motor velocity constant
+KV rating | `Rotations per minute per volt` | `rpm/V` | Motor velocity constant
 PWM frequency | `Hertz` | `Hz` | Motor/driver PWM frequency
 PMW duty cycle | `No unit` | - | All duty cycles have the range: `0 - 1.0`
 
