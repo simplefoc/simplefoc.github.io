@@ -316,11 +316,12 @@ For full documentation of the setup and all configuration parameters please visi
 
 
 ## Step 4. <a href="motors_config" class="remove_dec"> Motor setup </a>
-After the position sensor and the driver we proceed to initializing and configuring the motor. The library supports BLDC motors handled by the `BLDCMotor` class as well as stepper motors handled by the `StepperMotor` class. Both classes are instantiated by providing just the `pole_pairs` number of the motor and optionally the motors´ phase resistance and the KV rating.
+After the position sensor and the driver we proceed to initializing and configuring the motor. The library supports BLDC motors handled by the `BLDCMotor` class as well as stepper motors handled by the `StepperMotor` and `HybridStepperMotor` classes. Both classes are instantiated by providing just the `pole_pairs` number of the motor and optionally the motors'   phase resistance and the KV rating.
 
 
 <a href="javascript:show('0m','motor');" id="btn-0m" class="btn-motor btn btn-primary">BLDC motor</a> 
 <a href ="javascript:show('1m','motor');" id="btn-1m" class="btn-motor btn">Stepper motor</a>
+<a href ="javascript:show('2m','motor');" id="btn-2m" class="btn-motor btn">HybridStepper motor</a>
 
 
 <div class="motor motor-0m" markdown="1" style="display:block">
@@ -386,11 +387,59 @@ void setup() {
   // init driver
   // link the motor to the driver
   motor.linkDriver(&driver);
+  // link driver and the current sense
   
+  // link the motor to current sense
+  motor.linkCurrentSense(&current_sese);
+
   // set control loop type to be used
   motor.controller = MotionControlType::velocity;
   // initialize motor
   motor.init();
+  
+  // init current sense
+
+}
+
+void loop() {
+
+}
+```
+</div>
+
+
+<div class="motor motor-2m" markdown="1" style="display:none">
+
+In this example we will use HybridStepper motor (Stepper motor coupled with a BLDC driver):
+```cpp
+#include <SimpleFOC.h>
+
+//  HybridStepperMotor( int pole_pairs , (phase_resistance, KV_rating optional))
+HybridStepperMotor motor = HybridStepperMotor(50);
+
+// instantiate driver
+// instantiate sensor 
+// instantiate current sensor   
+
+void setup() {  
+  // init sensor
+  // link the motor to the sensor
+  motor.linkSensor(&sensor);
+
+  // init driver
+  // link the motor to the driver
+  motor.linkDriver(&driver);
+  // link driver and the current sense
+  
+  // link the motor to current sense
+  motor.linkCurrentSense(&current_sese);
+
+  // set control loop type to be used
+  motor.controller = MotionControlType::velocity;
+  // initialize motor
+  motor.init();
+
+  // init current sense
 
 }
 

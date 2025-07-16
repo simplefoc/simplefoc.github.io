@@ -21,7 +21,15 @@ Low side current sensing for all the architectures is on our road-map and we are
 <a href ="javascript:show('stepper','type');" id="btn-stepper" class="btn btn-type btn-stepper"> Stepper motors</a> 
 
 <p class="type type-bldc" ><img src="extras/Images/low-side.png" class="width50"></p>
-<p class="type type-stepper hide" ><img src="extras/Images/lowside_stepper.png" class="width60"></p>
+<div class="type type-stepper hide" >
+
+<img src="extras/Images/lowside_stepper.png" class="width60">
+
+<blockquote class="info">
+<p class="heading">Other topologies for low-side current sensing for Steppers</p>
+See the link <a href="https://community.simplefoc.com/t/low-side-current-sensing-for-stepper-motors/7235">Low-side current sensing for stepper motors</a> in the community forum for more information about other topologies for low-side current sensing for stepper motors.
+</blockquote>
+</div>
 
 
 <blockquote class="info" markdown="1">
@@ -44,6 +52,7 @@ STM32f4 family | ✔️ (one motor) | DMA| ~25kHz| all
 STM32g4 family | ✔️ (one motor) | DMA| ~25kHz| all
 STM32l4 family | ✔️ (one motor) | DMA| ~25kHz| all
 STM32f7 family | ✔️ (one motor) | DMA| ~25kHz | all
+STM32h7 family | ✔️ (one motor) | DMA| ~25kHz | all
 STM32 B_G431B_ESC1 | ✔️ | DMA| ~25kHz| all
 ESP32 with MCPWM |✔️ | Interrupts| ~20kHz| all
 ESP32 with LEDC | ❌ | -| -| -

@@ -21,8 +21,22 @@ Examples:
 - ODrive 3.6
 - etc.
 
+<a href="javascript:show('bldc','motor');" class="btn btn-bldc btn-motor btn-primary">BLDCMotor</a> 
+<a href="javascript:show('stepper','motor');" class="btn btn-stepper btn-motor">HybridStepperMotor</a> 
 
+<div class="motor motor-bldc"  markdown="1">
 <img src="extras/Images/6pwm_driver.png" class="width40">
+</div>
+
+<div class="motor motor-stepper hide"  markdown="1">
+<img src="extras/Images/hybrid_6pwm.jpg" class="width40">
+
+
+<blockquote class="warning" markdown="1">
+⚠️ **Note:** When using the 3PWM BLDC driver with a stepper motor, ensure that the common phase `Uo` is connected to the driver's C phase pin.
+</blockquote>
+
+</div>
 
 6 PWM control mode gives much more freedom for BLDC motor control than 3PWM control since each of the 6 half-bride mosfets can be controlled separately. 
 
@@ -41,6 +55,43 @@ BLDCDriver6PWM driver = BLDCDriver6PWM(5,6, 9,10, 3,11, 8);
 </blockquote>
 
 <blockquote class="info"> 📢 Here is a quick guide to choosing appropriate PWM pins for different MCU architectures <a href="choosing_pwm_pins">see in docs</a>.</blockquote>
+
+
+<blockquote class="warning" markdown="1">
+<p class="heading">⚠️ <b>Note:</b> When using the 6PWM BLDC driver with a stepper motor, ensure that the common phase `Uo` is connected to the driver's C phase pin.</p>
+
+Even if the common phase `Uo` is physically connected to some other driver output (`A` or `B`), please provide it as the `C` phase pin in the driver constructor. This is important for the correct operation of the stepper motor. 
+
+Consider an example of the driver connected to the MCU pins as follows:
+
+```cpp
+#define PIN_A_H 9
+#define PIN_A_L 10
+#define PIN_B_H 11
+#define PIN_B_L 12
+#define PIN_C_H 13
+#define PIN_C_L 14
+#define ENABLE 8
+```
+
+If the common phase `Uo` is connected to the driver pin `A`, you should still provide it as the `C` phase pin in the driver constructor:
+```cpp
+// common phase `Uo` connected to driver pin `A` so it is provided as the `C` phase pin
+BLDCDriver6PWM driver = BLDCDriver6PWM(PIN_C_H, PIN_C_L, PIN_B_H, PIN_B_L, PIN_A_H, PIN_A_L, ENABLE);
+```
+
+If the common phase `Uo` is connected to the driver pin `B`, you should provide it as the `C` phase pin in the driver constructor:
+```cpp
+// common phase `Uo` connected to driver pin `B` so it is provided as the `C` phase pin
+BLDCDriver6PWM driver = BLDCDriver6PWM(PIN_A_H, PIN_A_L, PIN_C_H, PIN_C_L, PIN_B_H, PIN_B_L, ENABLE);
+```
+
+Or if the common phase `Uo` is connected to the driver pin `C`, you should provide it as the `C` phase pin in the driver constructor:
+```cpp
+// common phase `Uo` connected to driver pin `C` so it is provided as the `C` phase pin
+BLDCDriver6PWM driver = BLDCDriver6PWM(PIN_A_H, PIN_A_L, PIN_B_H, PIN_B_L, PIN_C_H, PIN_C_L, ENABLE);
+``` 
+</blockquote>
 
 ### Arduino UNO support
 Arduino UNO and all the atmega328 based boards have only 6 PWM pins and in order to use the `BLDCDrievr6PWM` we need to use all of them. Those are `3`,`5`,`6`,`9`,`10` and `11`. 
@@ -174,7 +225,16 @@ driver.voltage_power_supply = 12;
 driver.voltage_limit = 12;
 ```
 
+<a href="javascript:show('bldc','motor');" class="btn btn-bldc btn-motor btn-primary">BLDCMotor</a> 
+<a href="javascript:show('stepper','motor');" class="btn btn-stepper btn-motor">HybridStepperMotor</a> 
+
+<div class="motor motor-bldc"  markdown="1">
+
 <img src="extras/Images/limits.png" class="width60">
+</div>
+<div class="motor motor-stepper hide"  markdown="1">
+<img src="extras/Images/hybrid_limits.jpg" class="width60">
+</div>
 
 This parameter is used by the `BLDCMotor` class as well. As shown on the figure above the once the voltage limit `driver.voltage_limit` is set, it will be communicated to the FOC algorithm in `BLDCMotor` class and the phase voltages will be centered around the `driver.voltage_limit/2`.
 

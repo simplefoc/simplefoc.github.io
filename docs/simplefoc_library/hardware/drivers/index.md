@@ -24,6 +24,7 @@ Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> ha
     - gimbal motor drivers or high-performance boards
 - [Stepper drivers <i class="fa fa-external-link"></i>](stepper_drivers)
     - **4 PWM signals** ( 2 phase )
+    - **2 PWM signals + 2 direction signals** ( 2 phase )
     - Stepper drivers or double DC motor drivers
 
 ## 📢 Make sure to read this before settling for a driver!

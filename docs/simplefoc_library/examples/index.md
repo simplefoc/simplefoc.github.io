@@ -75,3 +75,15 @@ There are many different projects <span class="simple">Simple<span class="foc">F
         <i class="fa fa-external-link-square fa-2x"></i>
     </a>
 </div>
+<div class="image_icon">
+     <a href="stepper_control_shield">
+        <img src="extras/Images/hybrid_shield.jpg">
+        <i class="fa fa-external-link-square fa-2x"></i>
+    </a>
+</div>
+<div class="image_icon">
+     <a href="sensorless_foc_nucleo_example">
+        <img src="extras/Images/sensorless_gimbal.jpg">
+        <i class="fa fa-external-link-square fa-2x"></i>
+    </a>
+</div>

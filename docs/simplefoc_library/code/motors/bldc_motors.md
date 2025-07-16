@@ -1,6 +1,6 @@
 ---
 layout: default
-title: BLDCMotor
+title: BLDC Motors
 nav_order: 1
 permalink: /bldcmotor
 parent: Motor code

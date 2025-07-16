@@ -1,6 +1,6 @@
 ---
 layout: default
-title: StepperMotor
+title: Stepper Motors
 nav_order: 2
 permalink: /steppermotor
 parent: Motor code
@@ -21,15 +21,46 @@ All stepper motor are handled by `StepperMotor` class. The class implements:
 - Motion control loops
 - Monitoring
 
+There are two main types of driving the stepper motors with the <span class="simple">Simple<span class="foc">FOC</span>library</span>:
+
+Class | Driver type | Pros | Cons 
+---- | ---- | ----
+`StepperMotor` | `StepperDriver4PWM` <br> `StepperDriver2PWM` | ✔️ Using full voltage capacity (speed) of the motor <br> ✔️ Easy to understand | ❌ The choice of 2/4 PWM stepper driver is very limited 
+`HybridStepperMotor` | `BLDCDriver3PWM` <br> `BLDCDriver6PWM` | ✔️ Can use any regular BLDC driver | ❌ Reduced voltage capacity (speed) of the motor (max 70%) <br> ❌ A bit more complex to understand
+
+Both classes implement the FOC algorithm and motion control loops, as well as the current sensing so the choice of the class depends on the hardware you have available.
+
+
 ## Step 1. Creating the instance of the stepper motor
 To create a stepper motor instance you need to specify the number of `pole pairs` of the motor.
+
+
+<a href="javascript:show('stepper','motor');" class="btn btn-stepper btn-motor btn-primary">StepperMotor</a> 
+<a href="javascript:show('hybrid','motor');" class="btn btn-hybrid btn-motor">HybridStepperMotor</a> 
+
+
+<div class="motor motor-stepper"  markdown="1">
 ```cpp
-// StepperMotor(  int pp, (optional R, KV))
-//  - pp  - pole pair number
-//  - R   - phase resistance value - optional
-//  - KV  - motor KV rating [rpm/V] - optional
-StepperMotor motor = StepperMotor(50, 1.5, 20.6);
+// StepperMotor(  int pp, (optional R, KV, L))
+// - pp            - pole pair number 
+// - R             - motor phase resistance - optional
+// - KV            - motor kv rating (rmp/v) - optional
+// - L             - motor phase inductance [H] - optional
+StepperMotor motor = StepperMotor(50, 1.5, 20.6, 0.01);
 ```
+</div>
+
+<div class="motor motor-hybrid hide"  markdown="1">
+```cpp
+// HybridStepperMotor(  int pp, (optional R, KV, L))
+// - pp            - pole pair number
+// - R             - motor phase resistance - optional
+// - KV            - motor kv rating (rmp/v) - optional
+// - L             - motor phase inductance [H] - optional
+HybridStepperMotor motor = HybridStepperMotor(50, 1.5, 20.6, 0.01);
+```
+</div>
+
 <blockquote class="info"><p class="heading">Pole pair number </p>
 Most of the stepper motors are 200 step per rotation motors making them 50 pole pair motors. In practice you can know the <code class="highlighter-rouge">pole_pairs</code> number by dividing the number of steps per rotation by <code class="highlighter-rouge">4</code>.<br><br>
 If you are not sure what your <code class="highlighter-rouge">pole_pairs</code> number is. The library provides you an example code to estimate your <code class="highlighter-rouge">pole_pairs</code> number in the examples <code class="highlighter-rouge">examples/utils/calibration/find_pole_pairs_number.ino</code>.
@@ -84,7 +115,12 @@ Once when you have the `motor` defined and the driver initialized you need to li
 motor.linkDriver(&driver);
 ```
 
-The `StepperMotor` class expect to receive a `StepperDriver` class instance, implemented by default with the `StepperDriver4PWM` class. The `driver` deals with all the hardware specific operations related to specific microcontroller architecture and driver hardware. See the [stepper driver docs](stepperdriver) for more info!
+The `StepperMotor` class expect to receive a `StepperDriver` class instance, while `HybridStepperMotor` can expects the `BLDCDriver` instance. The `driver` deals with all the hardware specific operations related to specific microcontroller architecture and driver hardware. See the [stepper driver docs](stepperdriver) for more info!
+
+Class | Driver types
+---- | ----
+`StepperMotor` | `StepperDriver4PWM` <br> `StepperDriver2PWM`
+`HybridStepperMotor` | `BLDCDriver3PWM` <br> `BLDCDriver6PWM`
 
 ## Step 4. Configuration
 
@@ -99,7 +135,12 @@ You can set them by changing the `motor.foc_modulation` variable:
 // FOCModulationType::SinePWM;
 motor.foc_modulation = FOCModulationType::SinePWM;
 ```
-`StepperMotor` class has only Sinusoidal PWM modulation implemented for the moment <a href="https://github.com/simplefoc/Arduino-FOC/releases"> <i class="fa fa-tag"> current version</i></a>.
+`StepperMotor` class has only Sinusoidal PWM modulation implemented for the moment <a href="https://github.com/simplefoc/Arduino-FOC/releases"> <i class="fa fa-tag"> current version</i></a>, while the `HybridStepperMotor` class supports both Sinusoidal PWM and Space Vector PWM modulation, where the Space Vector PWM is more significantly more efficient and can provide better performance.
+
+Class | FOC Modulation types
+---- | ----
+`StepperMotor` | `FOCModulationType::SinePWM`
+`HybridStepperMotor` | `FOCModulationType::SinePWM` <br> `FOCModulationType::SpaceVectorPWM` (recommended)
 
 For more information about the theory of these approaches please and source code implementation check the [FOC implementation docs](foc_implementation) or visit the [digging deeper section](digging_deeper).
 
@@ -316,7 +357,16 @@ And that is it, you have your complete Field Oriented Controlled BLDC motor with
 For more theoretical explanations and source code implementations of the FOC algorithm and the motion control approaches check out the [digging deeper section](digging_deeper).
 
 ## Example code
+
+
 A simple stepper motor torque control using voltage based on the FOC algorithm.
+
+<a href="javascript:show('stepper','motor');" class="btn btn-stepper btn-motor btn-primary">StepperMotor</a> 
+<a href="javascript:show('hybrid','motor');" class="btn btn-hybrid btn-motor">HybridStepperMotor</a> 
+
+
+<div class="motor motor-stepper"  markdown="1">
+
 ```cpp
 /**
  * Torque control example using voltage control loop.
@@ -367,3 +417,61 @@ void loop() {
   motor.move();
 }
 ```
+</div>
+
+<div class="motor motor-hybrid dide"  markdown="1">
+
+```cpp
+/**
+ * Torque control example using voltage control loop.
+ */
+#include <SimpleFOC.h>
+
+// Stepper motor instance
+HybridStepperMotor motor = HybridStepperMotor( 50 );
+// BLDC driver instance
+BLDCDriver3PWM driver = BLDCDriver3PWM(9, 10, 5, 8);
+// sensor instance
+MagneticSensorI2C sensor = MagneticSensorI2C(AS5600_I2C);
+
+void setup() { 
+  
+  // initialize encoder sensor hardware
+  sensor.init();
+  // link the motor to the sensor
+  motor.linkSensor(&sensor);
+
+  // much more efficient than SinePWM
+  motor.foc_modulation = FOCModulationType::SpaceVectorPWM;
+
+  // driver config
+  // power supply voltage [V]
+  driver.voltage_power_supply = 12;
+  driver.init();
+  // link driver
+  motor.linkDriver(&driver);
+
+  // set motion control loop to be used
+  motor.controller = MotionControlType::torque;
+
+  // initialize motor
+  motor.init();
+  // align sensor and start FOC
+  motor.initFOC();
+
+  // setting target voltage
+  motor.target = 2;
+
+  _delay(1000);
+}
+
+void loop() {
+
+  // main FOC algorithm function
+  motor.loopFOC();
+
+  // Motion control function
+  motor.move();
+}
+```
+</div>

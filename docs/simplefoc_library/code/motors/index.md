@@ -21,8 +21,8 @@ Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> su
   - 3 phase (3 wire):
   - Gimbal and High-performance BLDC motors
 - [Stepper motors <i class="fa fa-external-link"></i>](steppermotor) 
-  - 2 phase (4 wire)
-
+  - StepperMotor: 2 phase (4 wire)
+  - 📢 NEW: HybridStepperMotor: 2 phase (3 wire)
 
 The motor code is written in a way to support as many different motors out there as possible and in a way to be fully interchangeable. 
 

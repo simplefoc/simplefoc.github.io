@@ -52,7 +52,8 @@ stm32f1 family | ✔️ | ✔️ (one motor) |  ❌
 stm32f4 family | ✔️ | ✔️ (one motor) |  ❌
 stm32g4 family | ✔️ | ✔️ (one motor) |  ❌
 stm32l4 family | ✔️ | ✔️ (one motor) |  ❌
-stm32f7 family | ✔️ | ✔️ (initial) |  ❌
+stm32f7 family | ✔️ | ✔️ (one motor) |  ❌
+stm32h7 family | ✔️ | ✔️ (one motor) |  ❌
 stm32 B_G431B_ESC1 | ❌ | ✔️ (one motor) |  ❌
 esp32/esp32s3 | ✔️ | ✔️ |  ❌
 esp32s2/esp32c3 |  ✔️ | ❌ |  ❌ 
