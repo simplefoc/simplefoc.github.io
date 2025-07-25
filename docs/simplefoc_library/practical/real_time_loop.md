@@ -82,6 +82,12 @@ void loop() {
 
 ```
 
+<blockquote class="info">
+  <p class="heading">ℹ️ Which timer to use?</p>
+  You can use any timer that is available on the microcontroller, but make sure not to use the timers that are used by the motor driver or the position sensor. For the STM32 family, the timers used with the PWM will be displayed in the serial monitor when you run the `motor.init()` function. You can aslo see the timers used by the pins in the docs (find your mcufamily and pins) [see here](https://docs.simplefoc.com/stm32pinouts/)
+</blockquote>
+
+
 ## ESP32 
 
 Esp32 microcontrollers have a similar approach to the STM32 family, but the implementation is a bit different. You can use the `hw_timer` library to create a timer that will call the `motor.loopFOC()` and `motor.move()` functions at a fixed frequency. Here is an example of how to do this:
@@ -93,6 +99,8 @@ Esp32 microcontrollers have a similar approach to the STM32 family, but the impl
 // instatiate the motor, dirver, sensor and other components
 ...
 
+hw_timer_t *timer = NULL;
+
 void IRAM_ATTR foc_loop() {
   // call the loopFOC and move functions
   motor.loopFOC();
@@ -103,16 +111,14 @@ void setup() {
 
   // iniitalise all the components
 
-
   // create a hardware timer
-  // For example, we will use the timer 0 that runs at 10kHz
-  hw_timer_t * timer = timerBegin(0, 80, true);
+  // 1mhz timer
+  timer = timerBegin(1000000);
   // attach the interrupt
-  timerAttachInterrupt(timer, &foc_loop, true);
-  // set the timer frequency to 10kHz
-  timerAlarmWrite(timer, 10000, true);
-  // start the timer
-  timerAlarmEnable(timer);
+  timerAttachInterrupt(timer, &foc_loop);
+  // Set alarm to call foc_loop every 100us (10kHz)
+  timerAlarm(timer, 100, true, 0);
+
 
   _delay(1000);
 }
@@ -125,6 +131,16 @@ void loop() {
   command.run();
 }
 ```
+
+<blockquote class="info">
+  See more info in the <a href="https://espressif-docs.readthedocs-hosted.com/projects/arduino-esp32/en/latest/api/timer.html#example-applications">ESP32 Espressif API documentation</a>.
+</blockquote>
+
+<blockquote class="warning" markdown="1">
+  <p class="heading">⚠️ Warning:</p>
+  Make sure not to set the timer frequency too high. If the `motor.loopFOC()` and `motor.move()` functions take longer to execute than the timer interval, the timer may miss calls or overload the microcontroller. This can cause the motor to malfunction or even crash the microcontroller.
+</blockquote>
+
 ## Other microcontrollers
 
 Most of the other microcontrollers have similar approaches to the STM32 and ESP32 families, but the implementation might be different. You can check the documentation of the specific microcontroller you are using to see how to create a timer that will call the `motor.loopFOC()` and `motor.move()` functions at a fixed frequency.
@@ -137,10 +153,6 @@ Examples:
 
 ## Troubleshooting
 
-
-
-### Which timer to use?
-You can use any timer that is available on the microcontroller, but make sure not to use the timers that are used by the motor driver or the position sensor. For the STM32 family, the timers used with the PWM will be displayed in the serial monitor when you run the `motor.init()` function. For the ESP32 family, you can use any of the available timers, but make sure to check the documentation for the specific timer you are using. 
 
 
 ### Monitoring and user communication no longer working (or any other functionality)

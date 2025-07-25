@@ -51,7 +51,7 @@ You can also use the provided libray examples `examples/utils/calibration/find_K
 </blockquote>
 
 
-### Motor phase resistance and KV rating 
+### Motor phase resistance, inductance and KV rating 
 Providing the KV rating in combination with the phase resistance (not very used for current based torque modes `foc_current` and `dc_current`) will enable the user to control the motor's current without measuring it. The user will be able to control (and limit) the estimated current of the motor using the voltage control mode. Read more in the [torque control docs](voltage_torque_mode).
 
 Working with currents instead of voltages is better in may ways, since the torque of the BLDC motor is proportional to the current and not voltages and especially since the same voltage value will produce very different currents for different motors (due to the different phase resistance). Once when the phase resistance is provided the user will be able to set current limit for its BLDC motor instead of voltage limit which is much easier to understand. 
@@ -64,6 +64,90 @@ Finally, this parameter is suggested to be used if one whats to switch in real t
 <p class="heading">Open-loop motion control will use KV and phase resitance values  </p>
 KV rating and the pahse resitance values will be used in te open loop contol as well to let the user to limit the current drawn by the motor instead of limitting the volatge. Read more in the <a href="open_loop_motion_control">open-loop motion control docs</a>.
 </blockquote>
+
+### How can I measure the phase resistance and inductance?
+
+The phase resistance is relatively easy to measure, you can use a multimeter to measure the resistance of the motor phases. Here is a [short guide ](phase_resistance) on how to measure the phase resistance and inductance of a BLDC motor. The phase inductance is a bit more complicated to measure as not many multimeters can measure inductance directly. 
+
+However, <span class="simple">Simple<span class="foc">FOC</span>library</span> provides the tools to measure the motor phase resistance and inductance. In order to measure them you will need to be able to measure the current.
+
+Once you have the current sensor set up, you can use the `motor.characteriseMotor()` function to measure the phase resistance and inductance. This function will run a series of tests to determine these parameters and will print them to the serial monitor.
+
+
+<blockquote class="info">
+
+<details markdown="1">
+<summary style="cursor: pointer;"> <i class="fa fa-code"></i> Example code for motor phase characterisation </summary>
+
+```cpp
+
+#include <SimpleFOC.h>
+
+// Stepper motor & BLDC driver instance
+BLDCMotor motor = BLDCMotor(11);
+// SimpleFOCShield
+BLDCDriver3PWM driver = BLDCDriver3PWM(6, 10, 5, 8);
+
+// inline current sensor instance
+// ACS712-05B has the resolution of 0.185mV per Amp
+LowsideCurrentSense current_sense = LowsideCurrentSense(185.0f, A0, A2);
+
+void setup() {
+
+  // use monitoring with serial 
+  Serial.begin(115200);
+  // enable more verbose output for debugging
+  // comment out if not needed
+  SimpleFOCDebug::enable(&Serial);
+
+  // driver config
+  // power supply voltage [V]
+  driver.voltage_power_supply = 20;
+  driver.init();
+  // link driver
+  motor.linkDriver(&driver);
+  // link current sense and the driver
+  current_sense.linkDriver(&driver);
+
+  // current sense init and linking
+  current_sense.init();
+  motor.linkCurrentSense(&current_sense);
+
+  // initialise motor
+  motor.init();
+
+  // find the motor parameters
+  motor.characteriseMotor(3.5f);
+
+
+  _delay(1000);
+}
+
+
+void loop() {
+  // do nothing
+  _delay(1000);
+}
+```
+
+The output of the `characteriseMotor` function will be printed to the serial monitor and will look like this:
+
+```
+MOT: Init
+MOT: Enable driver.
+MOT: Measuring phase to phase resistance, keep motor still...
+MOT: Estimated phase to phase resistance: 5.94
+MOT: Measuring inductance, keep motor still...
+MOT: Inductance measurement complete!
+MOT: Measured D-inductance in mH: 0.50
+MOT: Measured Q-inductance in mH: 0.59
+```
+
+For the moment <span class="simple">Simple<span class="foc">FOC</span>library</span> considers the inductance value to be the same for q and d axis. So once the example is executed use the q axis inductance value for `motor.phase_inductance`.
+
+</details>
+</blockquote>
+
 
 ## Step 2. Linking the sensor 
 Once when you have the `motor` defined and the sensor initialized you need to link the `motor` and the `sensor` by executing:    

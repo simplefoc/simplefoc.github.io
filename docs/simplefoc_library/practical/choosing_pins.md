@@ -32,7 +32,7 @@ stm32 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
 esp32 MCPWM | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
 esp32 LEDC | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ | ❌
 esp8266 | ✔️ | ✔️ | ✔️ | ❌ | ✔️ | ❌ | ❌
-samd21/51 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️  | ❌ (2/3/4PWM) <br> ✔️ (6PWM) | ❌
+samd21/51 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️  | ❌ (2/3/4PWM) <br> ✔️ (6PWM) | ✔️ (samd21 only - Synced with the 1st Timer ) <br> ❌(samd51)
 teensy3 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ | ❌ (2/3/4PWM) <br> ✔️ (6PWM) | ❌
 teensy4 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ | ❌(2/3/4PWM)<br>✔️ (6PWM)<br> ✔️(3PWM forced)  | ❌(2/3/4PWM)<br>✔️(6PWM)<br> ✔️(3PWM aligned) 
 Raspberry Pi Pico | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ | ❌ (2/3/4PWM) <br> ✔️ (6PWM) | ❌
@@ -122,12 +122,14 @@ So when using esp32 boards that have `MCPWM` module (ex. `esp32` and `esp32s3`) 
 This association of the appropriate timer and chanel for your applications will be done automatically by the SimpleFOC.
 
 
-ESP32 SoC | has `MCPWM`
+ESP32 SoC | has `MCPWM` 
 --- |  --- 
 ESP32 |  ✔️
 ESP32-S2| ❌
+ESP32-C2 | ❌
 ESP32-S3| ✔️
 ESP32-C3 | ❌
+ESP32-C6 | ✔️
 
 <!-- ESP32-C6 | ? 
 ESP32-H2 | ? 
@@ -145,7 +147,9 @@ ESP32 SoC | Number of LEDC channels
 ESP32 | 16 
 ESP32-S2|8 
 ESP32-S3|8 
+ESP32-C2|6 
 ESP32-C3|6 
+ESP32-C6|6 
 
 <!-- ESP32-C6|6 (no arduino support yet)
 ESP32-H2|6 (no arduino support yet)

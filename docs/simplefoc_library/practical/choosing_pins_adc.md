@@ -79,8 +79,10 @@ ESP32 SoC |`ADC1` pins | `ADC2` pins
 ESP32 |  GPIO32 - GPIO39 | GPIO0, GPIO2, GPIO4, GPIO12 - GPIO15, GOIO25 - GPIO27
 ESP32-S2| GPIO1 - GPIO10 | GPIO11 - GPIO20
 ESP32-S3| GPIO1 - GPIO10 | GPIO11 - GPIO20
+ESP32-C2 | GPIO0 - GPIO4 | - 
 ESP32-C3 | GPIO0 - GPIO4 | GPIO5
- 
+ESP32-C6 | GPIO0 - GPIO6 | -
+
 <blockquote class="info" markdown="1"><p class="heading">Important</p>
 Esp32 has a very flexible ADC configuration, so you can use any of the pins listed above for the low-side current sensing. However, it is recommended to use the pins that belong to the same `ADC`.
 </blockquote>

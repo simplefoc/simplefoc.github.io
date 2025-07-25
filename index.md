@@ -8,7 +8,7 @@ permalink: /
 # Arduino Simple Field Oriented Control (FOC) project
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-![arduino-library-badge](https://ardubadge.simplefoc.com?lib=Simple%20FOC)
+![arduino-library-badge](https://www.ardu-badge.com/badge/Simple%20FOC.svg)
 ![PlatformIO Registry](https://badges.registry.platformio.org/packages/askuric/library/Simple%20FOC.svg)
 [![status](https://joss.theoj.org/papers/4382445f249e064e9f0a7f6c1bb06b1d/status.svg)](https://joss.theoj.org/papers/4382445f249e064e9f0a7f6c1bb06b1d)
 
@@ -28,24 +28,25 @@ Therefore this is an attempt to:
    - Many many more boards developed by the community members, see [<span class="simple">Simple<span class="foc">FOC</span> Community</span>](https://community.simplefoc.com/)
 
 <blockquote class="info" markdown="1">
-   <p class="heading">NEW RELEASE 📢: <span class="simple">Simple<span class="foc">FOC</span>library</span> v2.3.4 <a href="https://github.com/simplefoc/Arduino-FOC/releases/tag/v2.3.4">see release</a></p>
- - ESP32 MCUs extended support [#414](https://github.com/simplefoc/Arduino-FOC/pull/414)
-   - Transition to the arduino-esp32 version v3.x (ESP-IDF v5.x) [#387](https://github.com/espressif/arduino-esp32/releases)
-   - New support for MCPWM driver
-   - New support for LEDC drivers - center-aligned PWM and 6PWM available 
-   - Rewritten and simplified the fast ADC driver code (`adcRead`) - for low-side and inline current sensing.
- - Stepper motors current sensing support [#421](https://github.com/simplefoc/Arduino-FOC/pull/421)
-   - Support for current sensing (low-side and inline) - [see in docs](current_sense)
-   - Support for true FOC control - `foc_current` torque control - [see in docs](motion_control)
- - New current sense alignment procedure  [#422](https://github.com/simplefoc/Arduino-FOC/pull/422) - [see in docs](current_sense_align)
-   - Support for steppers
-   - Much more robust and reliable
-   - More verbose and informative 
- - Support for HallSensors without interrupts [#4224](https://github.com/simplefoc/Arduino-FOC/pull/424) - [see in docs](hall_sensors) 
+   <p class="heading">NEW RELEASE 📢: <span class="simple">Simple<span class="foc">FOC</span>library</span> v2.3.5 <a href="https://github.com/simplefoc/Arduino-FOC/releases/tag/v2.3.5">see release</a></p>
+
+ - ESP32 bugfix 
+   - after the low-level API changes in the Arduino-ESP32 core [PR447](https://github.com/simplefoc/Arduino-FOC/pull/447)
+   - Pin is not configured [PR458](https://github.com/simplefoc/Arduino-FOC/pull/458)
+   - C6 MCPWM bugfix [PR440](https://github.com/simplefoc/Arduino-FOC/pull/440)
+ - New fuctionality
+   - HybridStepperMotor added to the main library [PR457](https://github.com/simplefoc/Arduino-FOC/pull/457) - [see in docs](steppermotor)
+   - Motor characterisation (phase resistance and inductance) [PR436](https://github.com/simplefoc/Arduino-FOC/pull/436) - [see in docs](bldcmotor#how-can-i-measure-the-phase-resistance-and-inductance)
+ - SAMD21 support for low-side current sensing [PR479](https://github.com/simplefoc/Arduino-FOC/pull/479)
+ - RP2350 support [PR435](https://github.com/simplefoc/Arduino-FOC/pull/435) [PR468](https://github.com/simplefoc/Arduino-FOC/pull/468)
+ - STM32
+   - New driver code [PR442](https://github.com/simplefoc/Arduino-FOC/pull/442)
+   - Low-side current sensing support for H7 family [PR460](https://github.com/simplefoc/Arduino-FOC/pull/460)
  - Docs
-   - A short guide to debugging of common issues - [see in docs](example_from_scratch)
-   - A short guide to the units in the library - [see in docs](library_units)
- - See the complete list of bugfixes and new features of v2.3.4 [fixes and PRs](https://github.com/simplefoc/Arduino-FOC/milestone/11) 
+   - Hybrid stepper motor example [see in docs](stepper_control_shield)
+   - Sensorless FOC example [see in docs](sensorless_foc_nucleo_example)
+   - A short guide to synchronous loop - [see in docs](real_time_loop)
+ - See the complete list of bugfixes and new features of v2.3.5 [fixes and PRs](https://github.com/simplefoc/Arduino-FOC/milestone/12) 
 </blockquote>
 
 # Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> <small>- [Read more ...](arduino_simplefoc_library_showcase)</small>
