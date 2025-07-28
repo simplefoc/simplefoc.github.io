@@ -46,4 +46,10 @@ Additionally, there are many different useful practical information already avai
         </a>
         <p> A short guide the units for the main motor/sensor parameters and control variables and how to transfor them</p>
     </div>
-<div >
+    <div >
+        <a href="real_time_loop">
+            <h3 style="color:inherit"> <i class="fa fa-lg fa-wrench" style="padding:10px"></i> Real-time loop</h3>
+        </a>
+        <p> A guide to implementing the FOC loop that runs in hard real-time using timers </p>
+    </div>
+</div>

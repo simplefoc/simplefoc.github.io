@@ -17,10 +17,10 @@ has_toc: False
 
 Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> supports BLDC and stepper motor drivers:
 
-- [BLDC driver <i class="fa fa-external-link"></i>](bldcdriver)
+- [BLDC driver <i class="fa fa-external-link"></i>](bldcdriver) (BLDC or Hybrid stepper motors)
     - **3 PWM signals** ( 3 phase ) - `BLDCDriver3PWM`
     - **6 PWM signals** ( 3 phase ) - `BLDCDriver6PWM`
-- [Stepper drivers <i class="fa fa-external-link"></i>](stepperdriver)
+- [Stepper drivers <i class="fa fa-external-link"></i>](stepperdriver) (Stepper motors)
     - **4 PWM signals** ( 2 phase )  - `StepperDriver4PWM`
     - **2 PWM signals** ( 2 phase )  - `StepperDriver2PWM`
 

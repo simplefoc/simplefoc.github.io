@@ -33,7 +33,8 @@ stm32f1 family | ✔️ | ✔️ (one motor) |  ❌
 stm32f4 family | ✔️ | ✔️ (one motor) |  ❌
 stm32g4 family | ✔️ | ✔️ (one motor) |  ❌
 stm32l4 family | ✔️ | ✔️ (one motor) |  ❌
-stm32f7 family | ✔️ | ✔️ (initial) |  ❌
+stm32f7 family | ✔️ | ✔️ (one motor) |  ❌
+stm32h7 family | ✔️ | ✔️ (one motor) |  ❌
 stm32 B_G431B_ESC1 | ❌ | ✔️ (one motor) |  ❌
 esp32/esp32s3 | ✔️ | ✔️ |  ❌
 esp32s2/esp32c3 |  ✔️ | ❌ |  ❌ 
@@ -78,8 +79,10 @@ ESP32 SoC |`ADC1` pins | `ADC2` pins
 ESP32 |  GPIO32 - GPIO39 | GPIO0, GPIO2, GPIO4, GPIO12 - GPIO15, GOIO25 - GPIO27
 ESP32-S2| GPIO1 - GPIO10 | GPIO11 - GPIO20
 ESP32-S3| GPIO1 - GPIO10 | GPIO11 - GPIO20
+ESP32-C2 | GPIO0 - GPIO4 | - 
 ESP32-C3 | GPIO0 - GPIO4 | GPIO5
- 
+ESP32-C6 | GPIO0 - GPIO6 | -
+
 <blockquote class="info" markdown="1"><p class="heading">Important</p>
 Esp32 has a very flexible ADC configuration, so you can use any of the pins listed above for the low-side current sensing. However, it is recommended to use the pins that belong to the same `ADC`.
 </blockquote>
@@ -87,13 +90,13 @@ Esp32 has a very flexible ADC configuration, so you can use any of the pins list
 
 ## STM32 boards
 
-Stm32 is the most powerful family of microcontrollers supported by SimpleFOC, at least in terms of motor control capabilities. SimpleFOC supports many of the STM32 families such as stm32f1, stm32f4, stm32g4, stm32l4, stm32f7, and all of them can be used in low-side current sensing mode. 
+Stm32 is the most powerful family of microcontrollers supported by SimpleFOC, at least in terms of motor control capabilities. SimpleFOC supports many of the STM32 families such as stm32f1, stm32f4, stm32g4, stm32l4, stm32f7, stm32h7 and all of them can be used in low-side current sensing mode. 
 
 <blockquote class="info" markdown="1"><p class="heading">Important</p>
-For low-side current sensing with stm32 boards, it is required to use the analog pins that belong to the same `ADC`.
+While for inline current sensing the requirements are more relaxed, for low-side current sensing with stm32 boards, it is required to use the analog pins that belong to the same `ADC`.
 </blockquote>
 
-Once you provide the SimpleFOC current sense object with a set of pins, the library will automatically associate the pins with the appropriate ADC and channels and will take care of the synchronization between the PWM signals and the ADC conversion. If the pins do not belong to the same ADC, the library will throw an error.
+Once you provide the SimpleFOC current sense object with a set of pins, the library will automatically associate the pins with the appropriate ADC and channels and will take care of the synchronization between the PWM signals and the ADC conversion. The library code will automatically check which ADCs the pins belong to and will find the common ADC for the pins. If the pins do not belong to the same ADC, the library will throw an error.
 
 Finding the pins that belong to the same ADC is not an easy task, especially for less experienced users. Therefore, we've created a website that enables a relatively easy navigation of the pins and timers for the most popular stm32 boards. 
 

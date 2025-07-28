@@ -10,7 +10,10 @@ grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</sp
 ---
 
 # Stepper motor drivers
-This library will be compatible with most of the 2 phase stepper motor driver boards that feature 2 full H-bridges or 4 half-bridges such as [<i class="fa fa-file"></i> MC33926](https://www.nxp.com/docs/en/data-sheet/MC33926.pdf), [<i class="fa fa-file"></i> L298](https://www.st.com/resource/en/datasheet/l298.pdf), [<i class="fa fa-file"></i> L293](http://www.ti.com/lit/ds/symlink/l293.pdf) and many more. **In order for the driver board to work with the library it needs to be controllable using 4 pwm signals.**
+This library will be compatible with most of the 2 phase stepper motor driver boards that feature 2 full H-bridges or 4 half-bridges such as [<i class="fa fa-file"></i> MC33926](https://www.nxp.com/docs/en/data-sheet/MC33926.pdf), [<i class="fa fa-file"></i> L298](https://www.st.com/resource/en/datasheet/l298.pdf), [<i class="fa fa-file"></i> L293](http://www.ti.com/lit/ds/symlink/l293.pdf) and many more. In order for the driver board to work with the library it needs to be controllable either using
+
+ - 4 pwm signals or 
+ - 2 pwm signals + 2 direction signals.
 
 <blockquote class="warning"><p class="heading">⚠️ DIR/STEP stepper drivers not supported!</p>
 This library does not support stepper drivers with DIR+STEP (step and direction) interface such as A4988, DRV8825, TB6600, TB6560 and similar.

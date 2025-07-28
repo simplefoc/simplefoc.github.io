@@ -18,11 +18,12 @@ There two main formats of the official drivers boards developed by the <span cla
 
 - <span class="simple">Shield</span> form factor: These boards are designed to be compatible with the Arduino ecosystem and are intended to be used with the <span class="simple">Simple<span class="foc">FOC</span>library</span> and the Arduino IDE. They are designed to be easy to use and are intended for low to mid power applications.
    - <span class="simple">Simple<span class="foc">FOC</span>Shield</span> - <small>[Find out more](arduino_simplefoc_shield_showcase)</small> 
-   - <span class="simple">Simple<span class="foc">FOC</span> <b>Power</b>Shield</span> - <small>⚠️<i>( development abandoned )</i></small> - <small>[Find out more](#arduino-simplefoc-powershield-v02-️-development-abandoned-)</small>
+   - <span class="simple">Simple<span class="foc">FOC</span> <b>Power</b>Shield</span> - <small>⚠️<i>( development abandoned )</i></small> - <small>[Find out more](#simplefoc-powershield-v02-️-development-abandoned-)</small>
+   - 📢**NEW**: <span class="simple">Simple<span class="foc">FOC</span><b>Drive</b></span>  - <small>[Find out more](boards#simplefoc-drive-v10---find-out-more)</small>
 
 - <span class="simple">Mini</span> form factor: These boards are designed to be small, low-cost, and easy to use. They are intended for low power applications and are designed to be compatible with the <span class="simple">Simple<span class="foc">FOC</span>library</span>.
    - <span class="simple">Simple<span class="foc">FOC</span>Mini</span> - <small>[Find out more](simplefocmini)</small> 
-   - <span class="simple">Simple<span class="foc">FOC</span> <b>Step</b>Mini</span> (📢**NEW**)  - <small> [Find out more](#simplefoc-stepmini-v10---see-on-github)
+   - <span class="simple">Simple<span class="foc">FOC</span> <b>Step</b>Mini</span>  - <small> [Find out more](#simplefoc-stepmini-v10---see-on-github)
 
 
 In addition to the official boards, there are many other boards compatible with <span class="simple">Simple<span class="foc">FOC</span>library</span>  that you can explore, see the [docs](supported_hardware). Additionally, some other cool hardware designs have been proposed by the community. Check out our [community forum](https://community.simplefoc.com/) for more info.
@@ -110,6 +111,39 @@ This does not mean that the board itself is not functional or that it will not w
    - schematics
 
 Read more about this board at [link](https://github.com/simplefoc/Arduino-SimpleFOC-PowerShield)
+
+### <span class="simple">Simple<span class="foc">FOC</span> <b>Drive</b></span> <small>v1.0</small> - <small>[Find out more](https://github.com/simplefoc/SimpleFOC-DriveShield)</small>
+
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?color=blue)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/simplefoc/SimpleFOC-DriveShield)
+![GitHub Release Date](https://img.shields.io/github/release-date/simplefoc/SimpleFOC-DriveShield?color=blue)
+
+<div class="width40">
+<img src="https://raw.githubusercontent.com/simplefoc/SimpleFOC-DriveShield/refs/heads/main/images/top.jpg" />
+</div>
+
+This is an open-source low-cost BLDC driver boards in the form of a Arduino shield. It is a part of the SimpleFOC project. The board is the big brother of the SimpleFOCShield and is designed to drive motors with higher current requirements, up to 30Amps. The board is created with the same philosophy as the SimpleFOCShield - to be simple to use, low-cost, and open-source and fully compatible with the SimpleFOClibrary.
+
+Additionally the aim of the board is to serve as a template project for the community to build their own motor drivers.
+
+- The board is relatively simple and can be easily modified to fit different requirements.
+- The board is designed in EasyEDA and all the fabrication files are available for download
+
+### Features
+{: .no_toc }
+
+- **Boards absolute max ratings**
+  - Max current: 20A continuous (peak 30A - measured)
+  - Max input voltage: 30V
+- **Stackable**: running 2 motors in the same time
+- **Encoder/Hall sensors interface**: Integrated 3.3kΩ pullups (configurable)
+- **I2C interface**: Integrated 4.7kΩ pullups (configurable)
+- **Configurable pinout**: Hardware configuration - soldering connections
+- **Arduino headers**: Arduino UNO, Arduino MEGA, STM32 Nucleo boards...
+- **Open Source**:
+  - Fully designed in EasyEDA: [EasyEDA project](https://oshwlab.com/the.skuric/SimpleFOC-Drive)
+  - Fully available on github: [GitHub project](https://github.com/simplefoc/SimpleFOC-DriveShield)
+- **Low-cost**: Estimated price of 25-40€ - Will be available in the SimpleFOC shop
 
 
 ## Boards in the <span class="simple">Mini</span> form factor

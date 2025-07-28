@@ -23,8 +23,26 @@ Examples:
 - X-NUCLEO-IHM07M1
 - etc.
 
+<a href="javascript:show('bldc','motor');" class="btn btn-bldc btn-motor btn-primary">BLDCMotor</a> 
+<a href="javascript:show('stepper','motor');" class="btn btn-stepper btn-motor">HybridStepperMotor</a> 
 
+
+
+<div class="motor motor-bldc"  markdown="1">
 <img src="extras/Images/3pwm_driver.png" class="width40">
+</div>
+
+<div class="motor motor-stepper hide"  markdown="1">
+<img src="extras/Images/hybrid_3pwm.jpg" class="width40">
+
+<blockquote class="warning" markdown="1">
+⚠️ **Note:** When using the 3PWM BLDC driver with a stepper motor, ensure that the common phase `Uo` is connected to the driver's C phase pin.
+</blockquote>
+
+</div>
+
+
+
 
 
 ## Step 1. Hardware setup
@@ -45,6 +63,39 @@ BLDCDriver3PWM driver = BLDCDriver3PWM(9, 10, 11, 8, 7, 6);
 ```
 
 <blockquote class="info"> 📢 Here is a quick guide to choosing appropriate PWM pins for different MCU architectures <a href="choosing_pwm_pins">see in docs</a>.</blockquote>
+
+<blockquote class="warning" markdown="1">
+<p class="heading">⚠️ <b>Note:</b> When using the 3PWM BLDC driver with a stepper motor, ensure that the common phase `Uo` is connected to the driver's C phase pin.</p>
+
+Even if the common phase `Uo` is physically connected to some other driver output (`A` or `B`), please provide it as the `C` phase pin in the driver constructor. This is important for the correct operation of the stepper motor. 
+
+Consider an example of the driver connected to the MCU pins as follows:
+
+```cpp
+#define PIN_A 9
+#define PIN_B 10
+#define PIN_C 11
+#define ENABLE 8
+```
+
+If the common phase `Uo` is connected to the driver pin `A`, you should still provide it as the `C` phase pin in the driver constructor:
+```cpp
+// common phase `Uo` connected to driver pin `A` so it is provided as the `C` phase pin
+BLDCDriver3PWM driver = BLDCDriver3PWM(PIN_C, PIN_B, PIN_A, ENABLE);
+```
+
+If the common phase `Uo` is connected to the driver pin `B`, you should provide it as the `C` phase pin in the driver constructor:
+```cpp
+// common phase `Uo` connected to driver pin `B` so it is provided as the `C` phase pin
+BLDCDriver3PWM driver = BLDCDriver3PWM(PIN_A, PIN_C, PIN_B, ENABLE);
+```
+
+Or if the common phase `Uo` is connected to the driver pin `C`, you should provide it as the `C` phase pin in the driver constructor:
+```cpp
+// common phase `Uo` connected to driver pin `C` so it is provided as the `C` phase pin
+BLDCDriver3PWM driver = BLDCDriver3PWM(PIN_A, PIN_B, PIN_C, ENABLE);
+``` 
+</blockquote>
 
 ### Low-side current sensing considerations
 
@@ -105,7 +156,16 @@ driver.voltage_power_supply = 12;
 driver.voltage_limit = 12;
 ```
 
+<a href="javascript:show('bldc','motor');" class="btn btn-bldc btn-motor btn-primary">BLDCMotor</a> 
+<a href="javascript:show('stepper','motor');" class="btn btn-stepper btn-motor">HybridStepperMotor</a> 
+
+<div class="motor motor-bldc"  markdown="1">
+
 <img src="extras/Images/limits.png" class="width60">
+</div>
+<div class="motor motor-stepper hide"  markdown="1">
+<img src="extras/Images/hybrid_limits.jpg" class="width60">
+</div>
 
 This parameter is used by the `BLDCMotor` class as well. As shown on the figure above the once the voltage limit `driver.voltage_limit` is set, it will be communicated to the FOC algorithm in `BLDCMotor` class and the phase voltages will be centered around the `driver.voltage_limit/2`.
 
