@@ -348,7 +348,7 @@ void setup() {
   // link driver and the current sense
   
   // link the motor to current sense
-  motor.linkCurrentSense(&current_sese);
+  motor.linkCurrentSense(&current_sense);
 
   // set control loop type to be used
   motor.controller = MotionControlType::velocity;
