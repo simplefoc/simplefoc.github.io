@@ -57,7 +57,7 @@ In general there are two main ways to fabricate the board:
 
 
 ## PCB fabrication + Self assembly
-The version v3 of the shiled does not longer use big SMD components as the versions v1 nad v2 did. So this version is a bit more demanding to self fabricate as all the resistors, capacitors and diods have 0603 footprint (as oposed to 1206 for v1 and v2). However, if you are interested in this way of producing this board here is a quick guide how to make it.
+The version v3 of the shield does not longer use big SMD components as the versions v1 nad v2 did. So this version is a bit more demanding to self fabricate as all the resistors, capacitors and diodes have 0603 footprint (as opposed to 1206 for v1 and v2). However, if you are interested in this way of producing this board here is a quick guide how to make it.
 
 ### PCB fabrication
 Download the [<i class="fa fa-file"></i> gerber files](https://github.com/simplefoc/Arduino-SimpleFOCShield) and provide them to your PCB manufacturer of choice. So far I have used [seeedstrudio](https://www.seeedstudio.com/) and [JLCPCB](https://jlcpcb.com/). The price of 10 PCBs is around 5\$ but the shipping was around 20\$. 

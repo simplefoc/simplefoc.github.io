@@ -42,7 +42,7 @@ void setup() {
   // monitoring port
   Serial.begin(115200);
 
-  // initialise magnetic sensor hardware
+  // initialize magnetic sensor hardware
   sensor.init();
 
   Serial.println("Sensor ready");
@@ -79,7 +79,7 @@ void setup() {
 
   // configure i2C
   Wire.setClock(400000);
-  // initialise magnetic sensor hardware
+  // initialize magnetic sensor hardware
   sensor.init();
 
   Serial.println("Sensor ready");
@@ -117,7 +117,7 @@ void setup() {
   // monitoring port
   Serial.begin(115200);
 
-  // initialise magnetic sensor hardware
+  // initialize magnetic sensor hardware
   sensor.init();
 
   Serial.println("Sensor ready");
@@ -155,7 +155,7 @@ void setup() {
   // monitoring port
   Serial.begin(115200);
   
-  // initialise sensor hardware
+  // initialize sensor hardware
   sensor.init();
 
   Serial.println("Sensor ready");
@@ -183,7 +183,7 @@ void loop() {
 #include <SimpleFOC.h>
 
 Encoder encoder = Encoder(2, 3, 500);
-// interrupt routine initialisation
+// interrupt routine initialization
 void doA(){encoder.handleA();}
 void doB(){encoder.handleB();}
 
@@ -191,7 +191,7 @@ void setup() {
   // monitoring port
   Serial.begin(115200);
   
-  // initialise encoder hardware
+  // initialize encoder hardware
   encoder.init();
   // hardware interrupt enable
   encoder.enableInterrupts(doA, doB);
@@ -296,7 +296,7 @@ void setup() {
   driver.voltage_power_supply = 12;
   // Max DC voltage allowed - default voltage_power_supply
   driver.voltage_limit = 12;
-  // daad_zone [0,1] - default 0.02f - 2%
+  // dead_zone [0,1] - default 0.02f - 2%
   driver.dead_zone = 0.05f;
 
   // driver init
@@ -407,7 +407,7 @@ void loop() {
 ```
 </div>
 
-Once you have the code ready, upload it to your board and open the serial terminal. If everything is connected correctly your PWM driver should be ready and you should see the `Driver ready!` message in the serial terminal. If the driver does not initialise correctly, please check the following things:
+Once you have the code ready, upload it to your board and open the serial terminal. If everything is connected correctly your PWM driver should be ready and you should see the `Driver ready!` message in the serial terminal. If the driver does not initialize correctly, please check the following things:
 1. Make sure to change the driver parameters to suit your application, such as pin numbers, PWM frequency, power supply voltage and similar. Make sure to go through the [driver docs](drivers_config) if you are not sure about some of the parameters.  
 2. Make sure you use the right driver class and right pwm pins, this one is usually very simple and you can find a lot of docs about these things in our [driver docs](drivers_config) and in our [guide to choosing the PWM pins](choosing_pwm_pins). If you are not sure and cannot seem to make it work please do not hesitate to ask in our [community forum](https://community.simplefoc.com).
 
@@ -749,7 +749,7 @@ If you cannot find the phase resistance of your motor and cannot measure it with
 3. Make sure to put the right pole pair number. This you can find in most data-sheets, if you are not sure what is the true number don't worry this step is intended to test/find exactly this value. 😄
 
 <blockquote class="info" markdown="1"> <p class="heading">☑️ Simple tests</p> 
-1. Verify in your serial terminal that the motor and the driver have been initialised without any issues. That you can see `Motor ready!` and not see `Motor init failed!` or `Driver init failed!`. 
+1. Verify in your serial terminal that the motor and the driver have been initialized without any issues. That you can see `Motor ready!` and not see `Motor init failed!` or `Driver init failed!`. 
 2. In velocity mode: (`motor.controller = MotionControlType::velocity_openloop;`) <br>
     set your target velocity (`T6.28`) to <b>6.28 ($$2\pi$$) rad/s</b> (type `T6.28`), this should be exactly one rotation per second.
 3. In position mode, (`motor.controller = MotionControlType::angle_openloop;`)  <br>
@@ -1037,12 +1037,12 @@ Until now, you already know the good configuration of your sensor, your driver a
 
 <blockquote class="info" markdown="1"> <p class="heading">☑️ Simple test</p> 
 1.  If everything is connected correctly you should see the motor spinning and you should be able to set the target voltage through the serial terminal (command `M`). 
-2.  If the motor is not spinning please verify that the motor and driver have been initialised without any issues by checking the serial terminal output (make sure that you can see `Motor ready!` and not see `Motor init failed!` or `Driver init failed!`). 
+2.  If the motor is not spinning please verify that the motor and driver have been initialized without any issues by checking the serial terminal output (make sure that you can see `Motor ready!` and not see `Motor init failed!` or `Driver init failed!`). 
 </blockquote>
 
 The most common issues that might arise are:
 - The motor does not spin at all
-   - The driver is probably not initialised correctly, check the serial terminal output for any errors.
+   - The driver is probably not initialized correctly, check the serial terminal output for any errors.
 - The motor spins during the `motor.initFOC()` function but it does not spin afterwards
    - Verify the output of the `motor.initFOC()` function, there is probably an error with the sensor alignment or pole pairs number.
 - The motor spins but is unstable and makes a lot of noise
@@ -1401,7 +1401,7 @@ void loop() {
 ```
 </div>
 
-This example code is almost exactly the same as the Step 3. code so you should not have much trouble configuring motor, sensor and driver. In this step you will be testing if your current sense is working well. In the call of the `motor.monitor()` function the current sense will be read and the current d and q are going to be printed to the serial terminal. You can open the Serial Plotter to visualise them. 
+This example code is almost exactly the same as the Step 3. code so you should not have much trouble configuring motor, sensor and driver. In this step you will be testing if your current sense is working well. In the call of the `motor.monitor()` function the current sense will be read and the current d and q are going to be printed to the serial terminal. You can open the Serial Plotter to visualize them. 
 
 <blockquote class="info" markdown="1"> <p class="heading">☑️ Simple test</p> 
 1. If everything is connected correctly you should see the motor spinning and you should be able to set the target voltage through the serial terminal (command `M`). 
@@ -1409,12 +1409,12 @@ This example code is almost exactly the same as the Step 3. code so you should n
 3. Leave the motor to rotate. See that your currents d and q drop to a lower level than for static motor. Also try to see that the current d is almost 0 for low velocities and starts rising proportionally to the motor velocity. 
 </blockquote>
   
-If the motor is not spinning please verify that the motor and driver have been initialised without any issues by checking the serial terminal output (make sure that you can see `Motor ready!` and not see `Motor init failed!`, `Driver init failed!` or `Current sense init failed!`). Our debugging interface will output a lot of information during the driver, current sense and motor init that can help you debug potential issues with your setup. If you are having issues with the current sense please go through the [current sense docs](current_sense) to see the supported sensors and all the configuration parameters. 
+If the motor is not spinning please verify that the motor and driver have been initialized without any issues by checking the serial terminal output (make sure that you can see `Motor ready!` and not see `Motor init failed!`, `Driver init failed!` or `Current sense init failed!`). Our debugging interface will output a lot of information during the driver, current sense and motor init that can help you debug potential issues with your setup. If you are having issues with the current sense please go through the [current sense docs](current_sense) to see the supported sensors and all the configuration parameters. 
 
 The most common issues that might arise are:
 - Current sense pins are not ADC pins - see our [guide to choosing ADC pins](choosing_adc_pins) for more info.
 - The driver is not linked to the current sense - make sure you have the `current_sense.linkDriver(&driver);` line in your code.
-- PWM timer and ADC cannot be synchronised - see our [guide to choosing PWM pins](choosing_pwm_pins) for more info.
+- PWM timer and ADC cannot be synchronized - see our [guide to choosing PWM pins](choosing_pwm_pins) for more info.
 - Current sense alignment has failed - verify the debugging output of the `motor.initFOC()` function and try to change the `motor.voltage_sensor_align` value. 
 
 ## Step 5. Full FOC motion control using current sensing - if available

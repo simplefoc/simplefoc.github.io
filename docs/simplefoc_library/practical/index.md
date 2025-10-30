@@ -44,7 +44,7 @@ Additionally, there are many different useful practical information already avai
         <a href="library_units">
             <h3 style="color:inherit"> <i class="fa fa-lg fa-wrench" style="padding:10px"></i> Units in the library</h3>
         </a>
-        <p> A short guide the units for the main motor/sensor parameters and control variables and how to transfor them</p>
+        <p> A short guide the units for the main motor/sensor parameters and control variables and how to transform them</p>
     </div>
     <div >
         <a href="real_time_loop">

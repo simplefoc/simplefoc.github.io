@@ -121,7 +121,7 @@ void setup() {
   current_sense.init();
   motor.linkCurrentSense(&current_sense);
 
-  // initialise motor
+  // initialize motor
   motor.init();
 
   // find the motor parameters
@@ -227,7 +227,7 @@ void setup() {
   current_sense.init();
   motor.linkCurrentSense(&current_sense);
 
-  // initialise motor
+  // initialize motor
   motor.init();
   // skip the sensor alignment
   motor.sensor_direction= Direction::CW;
@@ -249,7 +249,7 @@ void loop() {
   // iterative setting FOC phase voltage
   motor.loopFOC();
 
-  // iterative function setting the outter loop target
+  // iterative function setting the outer loop target
   motor.move();
 
   // motor monitoring

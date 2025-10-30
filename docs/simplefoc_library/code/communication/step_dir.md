@@ -14,7 +14,7 @@ toc: true
 
 Step/direction communication is one of the most common communication interface for running stepper motors. It is very basic, it uses two digital signals, `step` and `direction`.  `step` signal produces and short impulse which signals that the motor should do a step with predefined length and `direction` signal determines the direction of the movement (ex. `HIGH` forward, `LOW` backward). 
 
-As stated before this interface is particularly well suited for stepper motors because their motion is designed to be characterised by steps. But this interface can be used in many different ways that have nothing to do with stepper motors. In general step/dir interface can be described as a counter where `direction` signal determines the counting direction and `step` provides the impulses to be counted:
+As stated before this interface is particularly well suited for stepper motors because their motion is designed to be characterized by steps. But this interface can be used in many different ways that have nothing to do with stepper motors. In general step/dir interface can be described as a counter where `direction` signal determines the counting direction and `step` provides the impulses to be counted:
 ```cpp
 // on rising edge of step signal 
 if(direction == HIGH) counter++;
@@ -34,7 +34,7 @@ In order to do this in a more concise manner <span class="simple">Simple<span cl
 // - step_per_rotation - transformation variable from step count to your variable (ex. motor angle in radians)
 StepDirListener step_dir = StepDirListener( 2, 5, _2PI/200.0 );
 ```
-Once the `StepDirListener` class has been defined its hardware pins will be configured in the `init()` funciton which  needs to be added to the `setup()` function.
+Once the `StepDirListener` class has been defined its hardware pins will be configured in the `init()` function which  needs to be added to the `setup()` function.
 
 ```cpp
 // init step and dir pins
@@ -94,10 +94,10 @@ void setup() {
   // enable interrupts 
   step_dir.enableInterrupt(onStep);
   // attach the variable to be updated on each step (optional) 
-  // the same can be done asynchronously by caling step_dir.getValue();
+  // the same can be done asynchronously by calling step_dir.getValue();
   step_dir.attach(&received_angle);
     
-  Serial.println(F("Step/Dir listenning."));
+  Serial.println(F("Step/Dir listening."));
   _delay(1000);
 }
 

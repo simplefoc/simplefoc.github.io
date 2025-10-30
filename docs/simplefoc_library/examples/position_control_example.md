@@ -240,7 +240,7 @@ void loop() {
   // iterative FOC function
   motor.loopFOC();
 
-  // function calculating the outer position loop and setting the target position 
+  // function calculating the motor position loop and setting the target position 
   motor.move(target_angle);
 
   // user communication

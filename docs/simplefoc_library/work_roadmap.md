@@ -64,12 +64,12 @@ For more info about the features of library releases visit the [github releases 
 ## Driver support
 - [x] Driver support: Disable the phases in 6PWM mode
 - [x] Driver support: Implement support for MOSFET control low and high pairs
-- [x] Driver support: DRV8302 borads
+- [x] Driver support: DRV8302 boards
 
 ## Sensor support
 - [ ] IMU as position sensor
 - [ ] Back-EMF support
-- [ ] Senosrless-FOC support
+- [ ] Sensorless-FOC support
 - [ ] Make support for magnetic encoder  SSI
 - [x] Make support for magnetic encoder  PWM
 - [x] Make support for magnetic encoder  Analog

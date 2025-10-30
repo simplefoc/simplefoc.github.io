@@ -52,8 +52,8 @@ Renesas (UNO R4 Minima) | ❌ | ❌ |  ❌
 What is important to see is that most of the the microcontroller families, except esp8266 and Arduino UNO R4, can be used with in-line current sensing. For this current sensing technique, you can use any of the analog pins, as no synchronization between the PWM signals and the current sensing is necessary. 
 
 ### Low-side current sensing
-When it comes to using the low-side current sensing, a precise synchronisation between the PWM signals and the current sensing is necessary ([read more here](low_side_current_sense)). 
-SimpleFOC aims to support low-side current sensing for all the microcontroller families that have the capability to synchronise the ADC conversion with the PWM signals.
+When it comes to using the low-side current sensing, a precise synchronization between the PWM signals and the current sensing is necessary ([read more here](low_side_current_sense)). 
+SimpleFOC aims to support low-side current sensing for all the microcontroller families that have the capability to synchronize the ADC conversion with the PWM signals.
 For the moment, the low-side current sensing is supported for the following microcontroller families: stm32, esp32, teensy4 and samd21. 
 
 

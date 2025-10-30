@@ -78,7 +78,7 @@ If you are not sure what your motor's <code class="highlighter-rouge">KV</code> 
 ```cpp
 KV = velocity_at_one_volt * 30/pi
 ```
-You can also use the provided libray examples `examples/utils/calibration/find_KV_rating.ino`.
+You can also use the provided library examples `examples/utils/calibration/find_KV_rating.ino`.
 <br>
 
 </blockquote>
@@ -93,8 +93,8 @@ It is important to say that once you specify the phase resistance value, you wil
 Finally, this parameter is suggested to be used if one whats to switch in real time in between voltage ([voltage mode](voltage_torque_mode)) and current based ([DC current](dc_current_torque_mode) and [FOC current](foc_current_torque_mode)) torque control strategies. Since in this way all the torque control loops will have current as input (target value) the user will not have to change the motion control parameters (PID values). 
 
 <blockquote class="info">
-<p class="heading">Open-loop motion control will use KV and phase resitance values  </p>
-KV rating and the pahse resitance values will be used in te open loop contol as well to let the user to limit the current drawn by the motor instead of limitting the volatge. Read more in the <a href="open_loop_motion_control">open-loop motion control docs</a>.
+<p class="heading">Open-loop motion control will use KV and phase resistance values  </p>
+KV rating and the phase resistance values will be used in te open loop control as well to let the user to limit the current drawn by the motor instead of limiting the voltage. Read more in the <a href="open_loop_motion_control">open-loop motion control docs</a>.
 </blockquote>
 
 
@@ -238,7 +238,7 @@ motor.init();
 
 ## Step 5. Align motor and all the sensors - Field Oriented Control init
 
-After the position sensor, driver and the motor are configured, and before we can start the motion control we need to align all  hardware components in order to initialize the FOC algorithm. This is done in the scope of the funciton `motor.initFOC()`
+After the position sensor, driver and the motor are configured, and before we can start the motion control we need to align all  hardware components in order to initialize the FOC algorithm. This is done in the scope of the function `motor.initFOC()`
 ```cpp
 // align sensor and start FOC
 motor.initFOC();
@@ -246,7 +246,7 @@ motor.initFOC();
 <blockquote class="info"><p class="heading"> Can be skipped for openloop control!</p>If no sensor is attached this function will not really do anything, but you can still call it if necessary or more convenient. </blockquote>
 
 This function does several things:
-- Checks if driver (and current sense if available) are well initialised
+- Checks if driver (and current sense if available) are well initialized
 - Checks/modifies position sensor direction in respect to the motor's direction
 - Searches for encoder index if necessary
 - Finds the motor electrical offset in respect to the position sensor
@@ -290,7 +290,7 @@ The real-time motion control of theArduino <span class="simple">Simple<span clas
 - `motor.move(float target)` - high level motion control
 
 
-The function `loopFOC()` implements the torque control loop. As the stepper motors only support [torque using voltage mode](voltage_torque_mode) this function will read the current motor angle from the sensor, turn it into the electrical angle and transforms the q-axis <i>U<sub>q</sub></i> voltage command  `motor.voltage_q` to the appropriate phase voltages <i>u<sub>a</sub></i>, <i>u<sub>b</sub></i> and <i>u<sub>c</sub></i> which are set then set to the motor. If the stepper motor's phase resistance and KV rating are provided this function will furthermore calculate the estimated current and the user will be able to control this estiamted current value <i>I<sub>q</sub></i> directly. 
+The function `loopFOC()` implements the torque control loop. As the stepper motors only support [torque using voltage mode](voltage_torque_mode) this function will read the current motor angle from the sensor, turn it into the electrical angle and transforms the q-axis <i>U<sub>q</sub></i> voltage command  `motor.voltage_q` to the appropriate phase voltages <i>u<sub>a</sub></i>, <i>u<sub>b</sub></i> and <i>u<sub>c</sub></i> which are set then set to the motor. If the stepper motor's phase resistance and KV rating are provided this function will furthermore calculate the estimated current and the user will be able to control this estimated current value <i>I<sub>q</sub></i> directly. 
 
 ```cpp
 // Function running the low level torque control loop

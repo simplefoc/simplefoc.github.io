@@ -32,7 +32,7 @@ In addition to the official boards, there are many other boards compatible with 
 
 ## Boards in the <span class="simple">Shield</span> form factor
 
-These boards are designed to be compatible with the Arduino UNO R3 headers, enabling an easy to start experience with the <span class="simple">Simple<span class="foc">FOC</span>library</span> and the Arduino IDE. The boards can be used with any board with the standard Arduino headers, such as the Arduino MEGA, STM32 Nucleo boards, Adafruit Metro, ESP32 D1 R3, Arudino UNO R4 and many others. This format enables usesr to easily exchange the microcontrollers and find the best solution for their application. The boards are fully open-source and the fabrication files are available in the respective repositories, as well as detailed guides on how to fabricate the boards yourself. The boards are additionally available in the [shop](https://www.simplefoc.com/shop) for those who prefer to buy them, as well as on other mainstream platforms like Aliexpress and Ebay (no relation to the <span class="simple">Simple<span class="foc">FOC</span>project</span>).
+These boards are designed to be compatible with the Arduino UNO R3 headers, enabling an easy to start experience with the <span class="simple">Simple<span class="foc">FOC</span>library</span> and the Arduino IDE. The boards can be used with any board with the standard Arduino headers, such as the Arduino MEGA, STM32 Nucleo boards, Adafruit Metro, ESP32 D1 R3, Arduino UNO R4 and many others. This format enables users to easily exchange the microcontrollers and find the best solution for their application. The boards are fully open-source and the fabrication files are available in the respective repositories, as well as detailed guides on how to fabricate the boards yourself. The boards are additionally available in the [shop](https://www.simplefoc.com/shop) for those who prefer to buy them, as well as on other mainstream platforms like Aliexpress and Ebay (no relation to the <span class="simple">Simple<span class="foc">FOC</span>project</span>).
 
 
 ### <span class="simple">Simple<span class="foc">FOC</span>Shield</span> <small>v3.2</small> - <small>[Find out more](arduino_simplefoc_shield_showcase)</small>
@@ -86,26 +86,26 @@ A powerful arduino shield for running BLDC motors using the FOC algorithm. This 
 
 <blockquote class="warning" markdown="1">
 <p class="heading"> ⚠️ BEWARE: BTN8982/IFX007T performance issues</p>
-BTN8982 and IFX007T drivers have been designed for DC motors and are based on old H-bridge technology. They have very long mosfet rise time (multiple microseconds) which in many cases presents a considerable part of the PWM duty cycle. When runnig the BLDC motors, precise PWM duty cycle setting is crutial for smooth and efficient operation. Therefore these drivers will not be able to provide very smooth operation on high frequency PWM (above 15kHz).  Read more about it in the community thread: [link](https://community.simplefoc.com/t/simplefoc-powershield/582).<br>
+BTN8982 and IFX007T drivers have been designed for DC motors and are based on old H-bridge technology. They have very long mosfet rise time (multiple microseconds) which in many cases presents a considerable part of the PWM duty cycle. When running the BLDC motors, precise PWM duty cycle setting is crucial for smooth and efficient operation. Therefore these drivers will not be able to provide very smooth operation on high frequency PWM (above 15kHz).  Read more about it in the community thread: [link](https://community.simplefoc.com/t/simplefoc-powershield/582).<br>
 This performance constraint is the main reason why the <span class="simple">Simple<span class="foc">FOC</span> <b>Power</b>Shield</span> project has for now been put on hold, and although these boards are available through Aliexpress and some other platforms, they will not be available through simplefoc.com. 
 <br><br>
 
-This does not mean that the board itself is not functional or that it will not work in your project though. It is still one of the cheepest (simplest) solutions out there for mid to high power BLDC control and with proper tuning of control loops you will still be able to get some good results with it. 
+This does not mean that the board itself is not functional or that it will not work in your project though. It is still one of the cheapest (simplest) solutions out there for mid to high power BLDC control and with proper tuning of control loops you will still be able to get some good results with it. 
 </blockquote>
 
 ### Features
 {: .no_toc }
 - **Plug & play**: In combination with Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
-- **Low-cost**: Fabrication price under €25/pcs - **⚠️ will not be sold by silplefoc.com**
+- **Low-cost**: Fabrication price under €25/pcs - **⚠️ will not be sold by simplefoc.com**
 - **High-side current sensing**: - not yet supported by *Simple**FOC**library*
 - **In-line current sensing**: - supported by *Simple**FOC**library*
 - **Max power <500W**: max current 30A, power-supply 24V
-- **Arduino headers**: Arduino UNO, Arduino MEGA, STM32 Nucleo boards, Aruidno DUE...
+- **Arduino headers**: Arduino UNO, Arduino MEGA, STM32 Nucleo boards, Arduino DUE...
 - **Small size**: 53mm x 60mm
 - **Encoder/Hall sensors interface**: Integrated 3.3kΩ pullups (configurable)
 - **Open Source**: 
    - Fully available fabrication files  
-        - If never done it before, see a similar guide for *Simple**FOC**Shueld*:  [how to make it yourself](https://docs.simplefoc.com/arduino_simplefoc_shield_fabrication)
+        - If never done it before, see a similar guide for *Simple**FOC**shield*:  [how to make it yourself](https://docs.simplefoc.com/arduino_simplefoc_shield_fabrication)
    - Altium project
    - 3d model
    - schematics

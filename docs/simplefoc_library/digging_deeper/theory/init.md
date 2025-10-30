@@ -36,7 +36,7 @@ From the graphic, and whats intuitive, you can see that regardless of the rotor'
 
 ## Definition of the field vectors
 
-Now when talking about how to align different magnetic fields, what does it mean in practice and how do we characterise the force that actually makes the rotor move it is usual to introduce the field vectors. Basically the magnetic field vector by its length shows the strength of the magnetic field and its direction will be determined going from the north to south pole. It is very simple, here is a quick visualisation:
+Now when talking about how to align different magnetic fields, what does it mean in practice and how do we characterize the force that actually makes the rotor move it is usual to introduce the field vectors. Basically the magnetic field vector by its length shows the strength of the magnetic field and its direction will be determined going from the north to south pole. It is very simple, here is a quick visualization:
 
 <img src="extras/Images/init3.png">
 

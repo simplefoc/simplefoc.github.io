@@ -19,7 +19,7 @@ toc: true
 Connecting the Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> to the microcontroller, BLDC motor, power-supply and the sensors is very straight forward. 
 
 ## Microcontroller
-- Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> is designed to be easily stackable on all the devices featuring arduino headers, such as: [Arudino UNO](arduino_simplefoc_shield), Arudino MEGA, [Stm32 Nucleo](nucleo_connection) and similar.
+- Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> is designed to be easily stackable on all the devices featuring arduino headers, such as: [Arduino UNO](arduino_simplefoc_shield), Arduino MEGA, [Stm32 Nucleo](nucleo_connection) and similar.
 - Bit it can also be used as a standalone BLDC driver as shown in combination with [Stm32 Bluepill](bluepill_connection).
 
 ## BLDC motor

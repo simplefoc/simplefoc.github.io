@@ -170,9 +170,9 @@ current_sense.gain_b *= -1;
 
 
 
-## Initialising the current sense
+## initializing the current sense
 
-Once the current sense has been created it can be initialised. This `init()` function configures the ADC hardware for reading and finds the zero offsets of the ADC for each channel. 
+Once the current sense has been created it can be initialized. This `init()` function configures the ADC hardware for reading and finds the zero offsets of the ADC for each channel. 
 ```cpp
 // init current sense
 current_sense.init();
@@ -193,7 +193,7 @@ else{
   return;
 }
 ```
-Once when your current sense has been intialised and calibrated you can start measuring the currents!
+Once when your current sense has been initialized and calibrated you can start measuring the currents!
 
 ### Enable debugging output
 If you wish to see a more verbose debugging output of the current sense configuration during the `current_sense.init()` and see more details about the configuration and possible errors, you can use the `SimpleFOCDebug` class. 
@@ -257,12 +257,12 @@ void setup(){
 ```
 </div>
 
-Current sense will be using driver parameters for different synchronisation and calibration procedures. 
+Current sense will be using driver parameters for different synchronization and calibration procedures. 
 
 <blockquote class="warning">
 <p class="heading"> API change - <span class="simple">Simple<span class="foc">FOC</span>library</span> v2.2.2</p>
 
-Driver linking to the current sense is introduced from the library version v2.2.2 in order to propagate different hardware specific parameters in between ADC and PWM timers needed for advanced synchronisation for current sensing. 
+Driver linking to the current sense is introduced from the library version v2.2.2 in order to propagate different hardware specific parameters in between ADC and PWM timers needed for advanced synchronization for current sensing. 
 </blockquote>
 
 Once the driver is linked to the current sense, last step is to link the current sense with the `motor` you wish to use it with:
@@ -294,7 +294,7 @@ void loop(){
   motor.initFOC();
 }
 ```
-Function `initFOC()` will make sure that the `driver` and `current_sense` classes are both aligned, it is very important that the phase `A` of the current sense is exactly the phase `A` of the driver etc. To verify this, the `initFOC` will be calling the current sense's funciton `current_sense.driverAlign(...)`.
+Function `initFOC()` will make sure that the `driver` and `current_sense` classes are both aligned, it is very important that the phase `A` of the current sense is exactly the phase `A` of the driver etc. To verify this, the `initFOC` will be calling the current sense's function `current_sense.driverAlign(...)`.
 
 
 ### Alignment with the driver phases `driverAlign(...)`
@@ -431,7 +431,7 @@ Sometimes the phase currents are hard to interpret, therefore this current sense
 float current_mag = current_sense.getDCCurrent();
 ```
 
-Futhermore if you have an access to the position sensor of the motor connected to the driver you can get signed value of the DC current the motor is drawing by providing it to the `getDCCurrent` method.
+Furthermore if you have an access to the position sensor of the motor connected to the driver you can get signed value of the DC current the motor is drawing by providing it to the `getDCCurrent` method.
 ```cpp
 float current = current_sense.getDCCurrent(motor_electrical_angle);
 ```
@@ -463,7 +463,7 @@ Here is a simple example of a inline current sense as a stand-alone sensor using
 InlineCurrentSense current_sense = InlineCurrentSense(0.01f, 50.0f, A0, A2);
 
 void setup() {
-  // initialise the current sensing
+  // initialize the current sensing
   current_sense.init();
 
   // for SimpleFOCShield v2.01/v2.0.2
@@ -502,7 +502,7 @@ Here is a simple example of a inline current sense as a stand-alone sensor using
 InlineCurrentSense current_sense = InlineCurrentSense(185.0f, A0, A2);
 
 void setup() {
-  // initialise the current sensing
+  // initialize the current sensing
   current_sense.init();
   
   Serial.begin(115200);
