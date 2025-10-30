@@ -416,7 +416,7 @@ For example for the [AliExpress DRV8302 board](https://fr.aliexpress.com/wholesa
 // gain  -  12.22 V/V 
 LowsideCurrentSense current_sense = LowsideCurrentSense(0.005f, 12.22f, IOUTA, IOUTB, IOUTC);
 
-voi loop(){
+void loop(){
   .... 
   // driver init
   driver.init();
