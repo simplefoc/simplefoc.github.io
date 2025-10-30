@@ -22,8 +22,8 @@ Choose the voltage control type:
 <a href ="javascript:show(1,'loop');" id="btn-1" class="btn btn-loop">Velocity control</a>
 
 <div class="type type-b">
-<img class="loop loop-0 width80" src="extras/Images/opneloop_0001_Layer 0.jpg"/>
-<img class="loop loop-1 width80 hide" src="extras/Images/opneloop_0000_Layer 2.jpg"/>
+<img class="loop loop-0 width80" src="extras/Images/openloop_0001_Layer 0.jpg"/>
+<img class="loop loop-1 width80 hide" src="extras/Images/openloop_0000_Layer 2.jpg"/>
 
 </div>
 <div class="type type-s hide">

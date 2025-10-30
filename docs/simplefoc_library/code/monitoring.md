@@ -29,7 +29,7 @@ Note: you can also use other serial ports, e.g. Serial1, Serial2, as supported b
 <blockquote class="warning" markdown=1>
 At the moment, enabling monitoring using <code class="highlighter-rouge">motor.useMonitoring</code> will <i>also</i> enable debug output - see [debugging](debugging) for details.
 
-In a future release, debug output and telemetry output will be seperated and the <code class="highlighter-rouge">motor.useMonitoring</code> function will likely be deprecated.
+In a future release, debug output and telemetry output will be separated and the <code class="highlighter-rouge">motor.useMonitoring</code> function will likely be deprecated.
 
 If the debug output is undesired or causing you problems, you can disable debug output (but keep monitoring) like this:
 </blockquote>
@@ -148,7 +148,7 @@ motor.monitor_start_char = '\0'; //!< monitor starting character
 motor.monitor_end_char = '\0'; //!< monitor outputs ending character 
 motor.monitor_separator = '\t'; //!< monitor outputs separation character
 ```
-The initial parameters are set so that the Arduino IDE's serial plotter can nicely parse the variables. However if you wish to use some other serial plotter application, for example [CieNTi/serial_port_plotter](https://github.com/CieNTi/serial_port_plotter), you can easily adapt the monitoring format so that you can visualise motor variables in it
+The initial parameters are set so that the Arduino IDE's serial plotter can nicely parse the variables. However if you wish to use some other serial plotter application, for example [CieNTi/serial_port_plotter](https://github.com/CieNTi/serial_port_plotter), you can easily adapt the monitoring format so that you can visualize motor variables in it
 
 ```cpp
 motor.monitor_separator= ' ';

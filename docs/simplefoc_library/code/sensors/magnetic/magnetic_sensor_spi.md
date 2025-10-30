@@ -221,7 +221,7 @@ void setup() {
   // monitoring port
   Serial.begin(115200);
 
-  // initialise magnetic sensor hardware
+  // initialize magnetic sensor hardware
   as5047u.init();
 
   Serial.println("as5047u ready");

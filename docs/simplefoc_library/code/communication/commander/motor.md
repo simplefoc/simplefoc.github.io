@@ -178,7 +178,7 @@ Finally once the motor is added to the commander interface the use will be able 
   - **S** - set monitoring variables        
 
 Using these commands you can change the downsampling rate (`motor.monitor_downsampling`) of the `monitor()` function that will determine your output sampling frequency. For example if your `loop` time is around 1ms, then with downsampling of monitor function with the rate of 100, it will output the motor variables each 100ms.  
-If monitor dowsampling is set to 0  the `monitor()` function is disabled. The same is true if the `motor.monitor_variables` bitmap is empty (equal to `0`). Therefore the command **C** effectively does:
+If monitor downsampling is set to 0  the `monitor()` function is disabled. The same is true if the `motor.monitor_variables` bitmap is empty (equal to `0`). Therefore the command **C** effectively does:
 ```cpp
 // when command MC is called
 motor.monitor_variables = 0;
@@ -262,12 +262,12 @@ void setup() {
   motor.useMonitoring(Serial);
   motor.monitor_downsample = 0; // initially disable real-time monitoring
 
-  // initialise motor
+  // initialize motor
   motor.init();
   // align encoder and start FOC
   motor.initFOC();
 
-  // set the inital target value
+  // set the initial target value
   motor.target = 2;
 
   // define the motor id
@@ -284,7 +284,7 @@ void loop() {
   // iterative setting FOC phase voltage
   motor.loopFOC();
 
-  // iterative function setting the outter loop target
+  // iterative function setting the outer loop target
   motor.move();
 
   // monitoring

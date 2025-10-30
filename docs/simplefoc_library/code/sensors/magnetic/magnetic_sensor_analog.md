@@ -33,7 +33,7 @@ The parameters of the class are
 - `max_raw_count` - the largest value read. Whilst you might expect it to be 2^10 = 1023 it is often ~ 1020. Note: For ESP32 (with 12bit ADC the value will be nearer 4096)
 
 <blockquote class="info"> <p class="heading"> 💡 Find out min and max</p>
-Every mcu is a bit different and every sensor as well so we advise you to use the provided example in the <code class="highlighter-rouge">examples/sensor_test/magentic_sensor_analog_example/find_raw_min_max</code> to find out the maximal and minimal values of your sensor.
+Every mcu is a bit different and every sensor as well so we advise you to use the provided example in the <code class="highlighter-rouge">examples/sensor_test/magnetic_sensor_analog_example/find_raw_min_max</code> to find out the maximal and minimal values of your sensor.
 </blockquote>
 Finally after the initialization the only thing you need to do afterwards is to call the `init()` function. This function initializes the sensor hardware. So your magnetic sensor initialization code will look like:
 ```cpp
@@ -176,7 +176,7 @@ void setup() {
   // monitoring port
   Serial.begin(115200);
 
-  // initialise magnetic sensor hardware
+  // initialize magnetic sensor hardware
   sensor.init();
 
   Serial.println("Sensor ready");

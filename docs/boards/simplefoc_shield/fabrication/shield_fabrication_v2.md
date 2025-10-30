@@ -48,7 +48,7 @@ The price of the fabrication will highly depend of the number of boards and the 
 But in most of cases it will always boil down to the price :)
 
 ## PCB fabrication + Self assembly
-Even though most of the components are big smd components and the board is intentionally made to me solderable by hand the curent sense amplifiers are going to be a bit more difficult. But if you are interested in this way of producing this board here is a quick guide how to make it.
+Even though most of the components are big smd components and the board is intentionally made to me solderable by hand the current sense amplifiers are going to be a bit more difficult. But if you are interested in this way of producing this board here is a quick guide how to make it.
 
 ### PCB fabrication
 Download the [<i class="fa fa-file"></i> gerber files](https://github.com/simplefoc/Arduino-SimpleFOCShield) and provide them to your PCB manufacturer of choice. So far I have used [seeedstrudio](https://www.seeedstudio.com/) and [JLCPCB](https://jlcpcb.com/). The price of 10 PCBs is around 5\$ but the shipping was around 20\$. 
@@ -165,7 +165,7 @@ Here is a complete list of all the components you will need to make the board:
             <td><a href="https://eu.mouser.com/c/?q=C1206C104M5RECAUTO">C1206C104M5RECAUTO</a></td>
          </tr>
          <tr>
-            <td colspan="4"><b>Curent sense circuit</b></td>
+            <td colspan="4"><b>current sense circuit</b></td>
          </tr>
          <tr>
             <td>CBY1</td>

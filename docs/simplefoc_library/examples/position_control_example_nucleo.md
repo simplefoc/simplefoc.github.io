@@ -88,7 +88,7 @@ Then in the `setup()` we configure first the voltage of the power supply if it i
 // default 12V
 driver.voltage_power_supply = 12;
 driver.init();
-```oltage_power_supply = 12;
+```voltage_power_supply = 12;
 ```
 Next thing we can change is the index search velocity:
 ```cpp

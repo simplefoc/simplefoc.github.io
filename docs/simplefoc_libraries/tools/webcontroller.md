@@ -14,7 +14,7 @@ toc: true
 This is a controller interface for the <span class="simple">Simple<span class="foc">FOC</span>library</span>. It uses WebSerial to communicate with a suitable micro-controller using serial port communications and the [Commander](commander_interface) interface.
 
 Most of the code for this application was provided by [@geekuillaume](https://github.com/geekuillaume), his github repository can be found [here](https://github.com/geekuillaume/simplefoc-webcontroller) and his application can be found [here](https://simplefoc.besson.co/). 
-Our app is a fork of his code, that has been further extended to support more devices and configuration parameters, as well as to ease the monitoring visualisation. 
+Our app is a fork of his code, that has been further extended to support more devices and configuration parameters, as well as to ease the monitoring visualization. 
 
 <a href ="https://github.com/geekuillaume/simplefoc-webcontroller" class="btn btn"><i class="fa fa-github"></i> Github repo</a> <a href ="https://webcontroller.simplefoc.com/" class="btn btn-primary"><i class="fa fa-github"></i> Open <span class="simple">Simple<span class="foc">FOC</span>webcontroller</span></a>   
 
@@ -41,7 +41,7 @@ This project is still in its early stage, we are counting on your patience and l
 *Simple**FOC**WebController* does not require any installation, its only requirement is that your browser has `WebSerial` support. Check the supportedd browsers [here](https://caniuse.com/web-serial).
 
 ### Motion control tunning  blocks
-Once you have your application running in your browser, connected to your microcontroller running the <span class="simple">Simple<span class="foc">FOC</span>library</span>. You can easily change most of the control parameters of different motion control loops and visualise different monitored variables.
+Once you have your application running in your browser, connected to your microcontroller running the <span class="simple">Simple<span class="foc">FOC</span>library</span>. You can easily change most of the control parameters of different motion control loops and visualize different monitored variables.
 
 <img src="extras/Images/webcontroller_motor.png"  class="width80">
 

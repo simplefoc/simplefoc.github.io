@@ -67,7 +67,7 @@ MagneticSensorI2C sensor2 = MagneticSensorI2C(0x36, 12, 0x0E, 4);
 
 void setup() {
 
-  // initialise encoder hardware
+  // initialize encoder hardware
   encoder1.init();  
   // interrupt initialization
   PciManager.registerListener(&listenerA);
@@ -83,12 +83,12 @@ void setup() {
 
   // set control loop type to be used
   motor1.controller = MotionControlType::torque;
-  // initialise motor
+  // initialize motor
   motor1.init();
   // align encoder and start FOC
   motor1.initFOC();
   
-  // initialise magnetic sensor hardware
+  // initialize magnetic sensor hardware
   sensor2.init();
   // link the motor to the sensor
   motor2.linkSensor(&sensor2);
@@ -98,7 +98,7 @@ void setup() {
   motor2.linkDriver(&driver2);
   // set control loop type to be used
   motor2.controller = MotionControlType::torque;
-  // initialise motor
+  // initialize motor
   motor2.init();
   // align encoder and start FOC
   motor2.initFOC();
@@ -155,7 +155,7 @@ void doB2(){encoder2.handleB();}
 
 void setup() {
 
-  // initialise encoder hardware
+  // initialize encoder hardware
   encoder1.init();
   encoder1.enableInterrupts(doA1,doB1);
   
@@ -202,7 +202,7 @@ This control strategy basically says that the target velocity of the `motor2` wi
 
 Constant `5` is the scaling gain with the same role as in the previous example. It will just make the `motor1` be more or less responsive while following the `motor2` velocity and it will want to maintain the difference in 0. 
 
-Constant `10` is a bit different. It is a scaling factor which helps to better map velocity to the positon. For example in the example we are using the `motor2` has maximal velocity of `60rad/s`, but we don't want our gauge to rotate 10 rotations to show this velocity. we would like it to rotate maximally 1 rotation `~6rad` therefore the constant `10`. But in your case maybe you will be running a drone motor, which turns with thousands of RPM  and you might want to have even larger scaling 100 or even a 1000. 
+Constant `10` is a bit different. It is a scaling factor which helps to better map velocity to the position. For example in the example we are using the `motor2` has maximal velocity of `60rad/s`, but we don't want our gauge to rotate 10 rotations to show this velocity. we would like it to rotate maximally 1 rotation `~6rad` therefore the constant `10`. But in your case maybe you will be running a drone motor, which turns with thousands of RPM  and you might want to have even larger scaling 100 or even a 1000. 
 On the other hand, maybe you will want to have a very precise slow moving motor which will go under 1 radian/s. And you will want to go to the values of `~0.1` or even less. Therefore this will depend on 
 your application and the precisions you will need to have. 
 
@@ -227,7 +227,7 @@ void doB2(){encoder2.handleB();}
 
 void setup() {
 
-  // initialise encoder hardware
+  // initialize encoder hardware
   encoder1.init();
   encoder1.enableInterrupts(doA1,doB1);
   
@@ -258,7 +258,7 @@ void setup() {
   motor1.useMonitoring(Serial);
   motor2.useMonitoring(Serial);
 
-  // initialise motor
+  // initialize motor
   motor1.init();
   motor2.init();
   // align encoder and start FOC
@@ -275,7 +275,7 @@ void loop() {
   motor1.loopFOC();
   motor2.loopFOC();
 
-  // iterative function setting the outter loop target
+  // iterative function setting the outer loop target
   motor1.move(5*(motor2.shaft_velocity/10 - motor1.shaft_angle));
   motor2.move(10*dead_zone(motor1.shaft_angle));
   

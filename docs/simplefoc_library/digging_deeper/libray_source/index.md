@@ -62,7 +62,7 @@ All the drivers that are supported in this library are placed in the drivers dir
 | | |      
 | | ├─ hardware_api.h               # common mcu specific api handling pwm setting and configuration
 | | |
-| | ├─── hardware_specific          # mcu specific hadrware_api.h implementations
+| | ├─── hardware_specific          # mcu specific hardware_api.h implementations
 | | | ├─ atmega2560_mcu.cpp         # ATMega 2560 implementation
 | | | ├─ atmega328_mcu.cpp          # ATMega 328 (Arduino UNO) implementation
 | | | ├─ esp_mcu.cpp              # esp32 implementation
@@ -75,7 +75,7 @@ ALl BLDC drivers  implement the abstract class `BLDCDriver`.
 class BLDCDriver{
     public:
         
-        /** Initialise hardware */
+        /** initialize hardware */
         virtual int init();
         /** Enable hardware */
         virtual void enable();
@@ -107,7 +107,7 @@ And all the stepper drivers implement the `StepperDriver` abstract class.
 class StepperDriver{
     public:
         
-        /** Initialise hardware */
+        /** initialize hardware */
         virtual int init();
         /** Enable hardware */
         virtual void enable();
@@ -167,16 +167,16 @@ public:
 | | |
 | | ├─ hardware_api.h               # common mcu specific api handling adc setting and configuration
 | | |
-| | ├─── hardware_specific          # mcu specific hadrware_api.h implementations
+| | ├─── hardware_specific          # mcu specific hardware_api.h implementations
 | |   └─ generic_mcu./h             # generic implementation - for now generic mcu does the job 
 ```
-All the current sense classes implement the `CurrentSense` interface. This interface is still quiet new and might be supject to change for the future releases when more current control loops are implemented.
+All the current sense classes implement the `CurrentSense` interface. This interface is still quiet new and might be subject to change for the future releases when more current control loops are implemented.
 ```cpp
 class CurrentSense{
     public:
 
-    // Function intialising the CurrentSense class
-    // All the necessary intialisations of adc and sync should be implemented here
+    // Function initializing the CurrentSense class
+    // All the necessary initializations of adc and sync should be implemented here
     virtual void init() = 0;
     
     // Function reading the phase currents a, b and c
@@ -187,14 +187,14 @@ class CurrentSense{
     //  @return PhaseCurrent_s current values
     virtual PhaseCurrent_s getPhaseCurrents() = 0;
     // Function reading the magnitude of the current set to the motor
-    //  It returns the abosolute or signed magnitude if possible
+    //  It returns the absolute or signed magnitude if possible
     //  It can receive the motor electrical angle to help with calculation
     //  This function is used with the current control  (not foc)
     //  
     // @param angle_el - electrical angle of the motor (optional) 
     virtual float getDCCurrent(float angle_el = 0);
 
-    // Function used for FOC contorl, it reads the DQ currents of the motor 
+    // Function used for FOC control, it reads the DQ currents of the motor 
     //   It uses the function getPhaseCurrents internally
     // 
     // @param angle_el - motor electrical angle
@@ -286,7 +286,7 @@ Header file containing all the default configuration variables
 // index search 
 #define DEF_INDEX_SEARCH_TARGET_VELOCITY 1 //!< default index search velocity
 // align voltage
-#define DEF_VOLTAGE_SENSOR_ALIGN 6.0 //!< default voltage for sensor and motor zero alignemt
+#define DEF_VOLTAGE_SENSOR_ALIGN 6.0 //!< default voltage for sensor and motor zero alignment
 // low pass filter velocity
 #define DEF_VEL_FILTER_Tf 0.005 //!< default velocity filter time constant
 ```

@@ -27,7 +27,7 @@ float readMySensorCallback(){
 }
 ```
 
-additionally you can optionally implement a function that initialises your sensor 
+additionally you can optionally implement a function that initializes your sensor 
 ```cpp
 void initMySensorCallback(){
   // do the init
@@ -35,11 +35,11 @@ void initMySensorCallback(){
 ```
 
 ## Step 2. Instantiate `GenericSensor` class
-To initialize the sensor class you need to provide it the pointer to your function reading the sensor, and optionally the pointer to the function that initialises your sensor. 
+To initialize the sensor class you need to provide it the pointer to your function reading the sensor, and optionally the pointer to the function that initializes your sensor. 
 ```cpp
 // GenericSensor class constructor
 //  - readCallback pointer to the function reading the sensor angle
-//  - initCallback pointer to the function initialising the sensor (optional)
+//  - initCallback pointer to the function initializing the sensor (optional)
 GenericSensor sensor = GenericSensor(readMySensorCallback, initMySensorCallback);
 ```
 
@@ -177,7 +177,7 @@ To setup the counters and all the hardware parameters here we use the library [E
 ESP32Encoder encoder;
 // define the sensor cpr (500x4)
 int64_t cpr = 2000;
-// function intialising the sensor
+// function initializing the sensor
 void initMySensorCallback(){
   // use pin 25 and 26 (Arduino pins 2,3) for the encoder
   encoder.attachFullQuad(25, 26);
@@ -223,7 +223,7 @@ void setup() {
   // comment out if not needed
   motor.useMonitoring(Serial);
 
-  // initialise motor
+  // initialize motor
   motor.init();
   // align encoder and start FOC
   motor.initFOC();
@@ -239,7 +239,7 @@ void loop() {
   // iterative setting FOC phase voltage
   motor.loopFOC();
 
-  // iterative function setting the outter loop target
+  // iterative function setting the outer loop target
   motor.move();
 
   // user communication

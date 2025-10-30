@@ -33,7 +33,7 @@ The BOM and CPL files should be loaded automatically so then you should be able 
 <p><img src="extras/Images/mini_fab (8).png" class="width60"></p>
 In the next window you will see all the components that are shown in the BOM (Bill of materials), here I'd suggest you do uncheck the two through hole female header components H1 and P1.  And everything else should be fine, you can click ***Next***.
 <p><img src="extras/Images/mini_fab (9).png" class="width60"></p>
-And that is it, the last window will show your purchase summary and show you the visualisation of the board. The only thing left to do is to save it to teh cart and go through the payment and shipping information. 
+And that is it, the last window will show your purchase summary and show you the visualization of the board. The only thing left to do is to save it to teh cart and go through the payment and shipping information. 
 <p><img src="extras/Images/mini_fab (1).png" class="width60"></p>
 
 

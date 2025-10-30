@@ -2,7 +2,7 @@
 layout: default
 title: Options Reference
 nav_order: 1
-permalink: /cheetsheet/options_reference
+permalink: /cheatsheet/options_reference
 parent: Options Cheat Sheet
 grand_parent: Practical guides
 grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
@@ -19,14 +19,14 @@ toc: true
 
 ## Driver Options
 
-Driver options are set before calling `driver.init()`, and normally never changed after intialization.
+Driver options are set before calling `driver.init()`, and normally never changed after initialization.
 
 Option | Default value | Supported on | Description
 --- | --- | --- | ---
 driver.pwm_frequency | depends on MCU | BLDC, Stepper | PWM frequency, in Hz
 driver.voltage_power_supply | 12V | BLDC, Stepper | Power supply voltage in volts
 driver.voltage_limit | NOT SET | BLDC, Stepper | Hard limit on output voltage, in volts. Effectively limits PWM duty cycle proportionally to power supply voltage.
-driver.intialized | | BLDC, Stepper | Read-only. true if initialized successfully, false otherwise
+driver.initialized | | BLDC, Stepper | Read-only. true if initialized successfully, false otherwise
 driver.enable_active_high | true | BLDC | If true, driver is enabled by writing '1' to enable pin. If false, driver is enabled by writing '0' to enable pin.
 driver.dead_zone | 0.02 | BLDCDriver6PWM | Amount of dead-time for each pwm cycle, as a proportion of 100% duty cycle. A float in the range [0,1]. Values under 10% make sense.
 
@@ -59,7 +59,7 @@ Option | Modes used | Description
 motor.PID_velocity.P | All closed loop modes | Velocity PID controller P value. Varies by situation. Typical values are 0.2 to 0.6, but could be quite different.
 motor.PID_velocity.I | All closed loop modes | Velocity PID controller I value. Varies by situation. Typical values are 2.0 to 20.0, but could be quite different.
 motor.PID_velocity.D | All closed loop modes | Velocity PID controller D value. Normally set to 0. Typical values are 0, or a very low value like 0.001.
-motor.PID_velocity.ramp | All closed loop modes | Velocity PID controller maximum change. Typical value 1000.0, set lower to limit accelleration.
+motor.PID_velocity.ramp | All closed loop modes | Velocity PID controller maximum change. Typical value 1000.0, set lower to limit acceleration.
 motor.PID_velocity.limit | All closed loop modes | Velocity PID controller output limit. Set to limit velocity to this maximum.
 motor.P_angle.P | Closed loop position control | Angle P controller P value. Varies by situation. Typical values are 10.0 to 20.0, but could be quite different.
 motor.LPF_velocity.Tf | All closed loop modes | Velocity low pass filter time constant. Values larger than 0, max 1.0. The lower the value, the slower the effect of velocity changes from the sensor.

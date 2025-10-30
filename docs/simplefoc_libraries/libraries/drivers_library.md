@@ -44,7 +44,7 @@ It is steadily growing, but at the moment we have:
 
 - The drivers in the drivers repo enable functionality for components that don't work with the standard core library. For example, the TLE5012B sensor is not supported by the generic MagneticSensorSPI class, but there is a specific driver for it in the drivers repository.
 
-- The drivers in the drivers repo may have extended functionality. So for example while the AS5048A sensor is supported by the generic MagneticSensorSPI class, the specific driver for it allows querying its other registers, allows detecting sensor erros, and is easier to use because it has the correct settings "embedded".
+- The drivers in the drivers repo may have extended functionality. So for example while the AS5048A sensor is supported by the generic MagneticSensorSPI class, the specific driver for it allows querying its other registers, allows detecting sensor errors, and is easier to use because it has the correct settings "embedded".
 
 - Using the comms drivers provided as a starting point not only gets you off to a quick start, but also makes it more likely your solutions will be interoperable with those of others (or at least easy to adapt).
 

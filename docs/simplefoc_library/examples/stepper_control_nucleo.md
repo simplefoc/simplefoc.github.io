@@ -104,7 +104,7 @@ void setup() {
   // comment out if not needed
   motor.useMonitoring(Serial);
 
-  // initialise motor
+  // initialize motor
   motor.init();
   // align encoder and start FOC
   motor.initFOC();
@@ -126,9 +126,9 @@ void loop() {
   // iterative setting FOC phase voltage
   motor.loopFOC();
 
-  // iterative function setting the outter loop target
+  // iterative function setting the outer loop target
   // velocity, position or voltage
-  // if tatget not set in parameter uses motor.target variable
+  // if target not set in parameter uses motor.target variable
   motor.move();
 
   // user communication

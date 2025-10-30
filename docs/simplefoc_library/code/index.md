@@ -88,10 +88,10 @@ void loop() {
 }
 ```
 
-This is an example initialisation of a 14 bit SPI based magnetic sensor such as the <a href="https://www.mouser.fr/ProductDetail/ams/AS5X47U-TS_EK_AB?qs=sGAEpiMZZMve4%2FbfQkoj%252BBDLPCj82ZLyYIPEtADg0FE%3D">AS5047u <i class="fa fa-external-link"></i></a>, connected to pin `10`.<br>
+This is an example initialization of a 14 bit SPI based magnetic sensor such as the <a href="https://www.mouser.fr/ProductDetail/ams/AS5X47U-TS_EK_AB?qs=sGAEpiMZZMve4%2FbfQkoj%252BBDLPCj82ZLyYIPEtADg0FE%3D">AS5047u <i class="fa fa-external-link"></i></a>, connected to pin `10`.<br>
 Magnetic sensors using the SPI protocol are implemented in the class `MagneticSensorSPI` and are defined with their
  - `chip_select` pin: `10`
- - bit resoluion of the sensor overall `12`  the `CPR` can be calculated as `CPR = 2^14bit =16384`
+ - bit resolution of the sensor overall `12`  the `CPR` can be calculated as `CPR = 2^14bit =16384`
  - `angle` SPI register: `0x3FFF`
 
 </div>
@@ -390,7 +390,7 @@ void setup() {
   // link driver and the current sense
   
   // link the motor to current sense
-  motor.linkCurrentSense(&current_sese);
+  motor.linkCurrentSense(&current_sense);
 
   // set control loop type to be used
   motor.controller = MotionControlType::velocity;
@@ -432,7 +432,7 @@ void setup() {
   // link driver and the current sense
   
   // link the motor to current sense
-  motor.linkCurrentSense(&current_sese);
+  motor.linkCurrentSense(&current_sense);
 
   // set control loop type to be used
   motor.controller = MotionControlType::velocity;
@@ -576,7 +576,7 @@ This debugging interface will output a more detailed information about:
 - motor FOC initialization (during the `motor.initFOC()` function)
 
 The debugging output will provide more information about the state of the motor, driver and current sense during and after the initialization process and will help you to debug your setup. 
-It will also provide MCU architecture specific information such as which Timers and channels are used for PWM generation, which ADC is used for current sensing, did the TIME-ADC synchronisation work, etc.
+It will also provide MCU architecture specific information such as which Timers and channels are used for PWM generation, which ADC is used for current sensing, did the TIME-ADC synchronization work, etc.
 
 <blockquote class="info"> 
 📢 We strongly advise to use the debugging mode when starting with the <span class="simple">Simple<span class="foc">FOC</span>library</span>. 
@@ -588,7 +588,7 @@ It provides much more information than the standard monitoring output and can he
 Debugging outputs are strings which can take a considerable amount of memory space, so it's not recommended to use it in the final application.
 </blockquote>
 
-Debugging output is disabled by default and can be enabled by calling the `SimpleFOCDebug::enable(&Serial)` function before any of the `driver`, `sensor`, `current_sense` or `motor` initalisation (`init` calls). Preferably put the `SimpleFOCDebug::enable(&Serial)` function call at the beginning of the `setup()` function.
+Debugging output is disabled by default and can be enabled by calling the `SimpleFOCDebug::enable(&Serial)` function before any of the `driver`, `sensor`, `current_sense` or `motor` initialization (`init` calls). Preferably put the `SimpleFOCDebug::enable(&Serial)` function call at the beginning of the `setup()` function.
 
 ```cpp
 #include <SimpleFOC.h>
@@ -847,7 +847,7 @@ void setup() {
   // enable the debugging output
   SimpleFOCDebug::enable(&Serial);
 
-  // initialise magnetic sensor hardware
+  // initialize magnetic sensor hardware
   sensor.init();
   // link the motor to the sensor
   motor.linkSensor(&sensor);
@@ -862,7 +862,7 @@ void setup() {
   // set control loop type to be used
   motor.controller = MotionControlType::torque;
 
-  // contoller configuration based on the control type 
+  // controller configuration based on the control type 
   motor.PID_velocity.P = 0.2;
   motor.PID_velocity.I = 20;
   motor.PID_velocity.D = 0;
@@ -881,12 +881,12 @@ void setup() {
   // comment out if not needed
   motor.useMonitoring(Serial);
 
-  // initialise motor
+  // initialize motor
   motor.init();
   // align encoder and start FOC
   motor.initFOC();
 
-  // set the inital target value
+  // set the initial target value
   motor.target = 2;
 
   // define the motor id
@@ -903,7 +903,7 @@ void loop() {
   // iterative setting of the FOC phase voltage
   motor.loopFOC();
 
-  // iterative function setting the outter loop target
+  // iterative function setting the outer loop target
   // velocity, position or voltage
   // if target not set in parameter uses motor.target variable
   motor.move();

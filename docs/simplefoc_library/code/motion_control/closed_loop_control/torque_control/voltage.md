@@ -206,7 +206,7 @@ With the $$R$$ and $$KV$$ information the <span class="simple">Simple<span class
 
 <blockquote class="warning">
 <p class="heading">⚠️ Practical limitations</p> 
-Back-EMF voltage is defined as \(U_{bemf} = k_{bemf}v\) and calculating it based on the motor \(KV\) rating of the motor is just an approximation because the motor BEMF constant \(k_{bemf}\) is not exacly \(k_{bemf}=1/KV\).
+Back-EMF voltage is defined as \(U_{bemf} = k_{bemf}v\) and calculating it based on the motor \(KV\) rating of the motor is just an approximation because the motor BEMF constant \(k_{bemf}\) is not exactly \(k_{bemf}=1/KV\).
 It can be shown that the back-emf constant is always somewhat smaller than the inverse of the KV rating:
 \[k_{bemf}<\frac{1}{KV}\]
 </blockquote>
@@ -290,7 +290,7 @@ With the $$R$$ and $$KV$$ information the <span class="simple">Simple<span class
 
 <blockquote class="warning">
 <p class="heading">⚠️ Practical limitations</p> 
-Back-EMF voltage is defined as \(U_{bemf} = k_{bemf}v\) and calculating it based on the motor \(KV\) rating of the motor is just an approximation because the motor BEMF constant \(k_{bemf}\) is not exacly \(k_{bemf}=1/KV\).
+Back-EMF voltage is defined as \(U_{bemf} = k_{bemf}v\) and calculating it based on the motor \(KV\) rating of the motor is just an approximation because the motor BEMF constant \(k_{bemf}\) is not exactly \(k_{bemf}=1/KV\).
 It can be shown that the back-emf constant is always somewhat smaller than the inverse of the KV rating:
 \[k_{bemf}<\frac{1}{KV}\]
 </blockquote>

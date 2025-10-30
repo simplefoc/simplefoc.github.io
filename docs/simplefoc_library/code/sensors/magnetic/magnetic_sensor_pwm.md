@@ -34,7 +34,7 @@ The parameters of the class are
 - `max_raw_count` - the largest pulse time in microseconds. This is the value of init pulse time plus the data sending time.
 
 <blockquote class="info"> <p class="heading"> 💡 Find out min and max</p>
-Every mcu is a bit different and every sensor as well so we advise you to use the provided example in the <code class="highlighter-rouge">examples/sensor_test/magentic_sensor_pwm_example/find_raw_min_max</code> to find out the maximal and minimal values of your sensor.
+Every mcu is a bit different and every sensor as well so we advise you to use the provided example in the <code class="highlighter-rouge">examples/sensor_test/magnetic_sensor_pwm_example/find_raw_min_max</code> to find out the maximal and minimal values of your sensor.
 </blockquote>
 
 <blockquote class="info"> 📚 See page 27 of the AS5048 datasheet or AS5600 datasheet for more in depth explanation about how the PWM sensors encode the angle. <a href="https://ams.com/documents/20143/36005/AS5048_DS000298_4-00.pdf">AS5048 </a>, <a href="https://ams.com/documents/20143/36005/AS5600_DS000365_5-00.pdf">AS5600</a>   </blockquote>
@@ -90,7 +90,7 @@ MagneticSensorPWM sensor = MagneticSensorPWM(3, 4, 904);
 void doPWM(){sensor.handlePWM();}
 ```
 
-And then, in the `setup` function, user needs to call `init()` funciton and afterwards call the `attachInterrupt` function with the buffering function in the argument. Here is an example code: 
+And then, in the `setup` function, user needs to call `init()` function and afterwards call the `attachInterrupt` function with the buffering function in the argument. Here is an example code: 
 ```cpp
 // create the class
 MagneticSensorPWM sensor = MagneticSensorPWM(3, 4, 904);
@@ -291,7 +291,7 @@ void setup() {
   // monitoring port
   Serial.begin(115200);
 
-  // initialise magnetic sensor hardware
+  // initialize magnetic sensor hardware
   sensor.init();
   // comment out to use sensor in blocking (non-interrupt) way
   sensor.enableInterrupt(doPWM);
@@ -328,7 +328,7 @@ void setup() {
   // monitoring port
   Serial.begin(115200);
 
-  // initialise magnetic sensor hardware
+  // initialize magnetic sensor hardware
   sensor.init();
 
   Serial.println("Sensor ready");

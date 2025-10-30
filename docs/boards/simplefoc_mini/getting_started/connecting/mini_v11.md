@@ -63,7 +63,7 @@ nFT | Fault output (active LOW)
 DRV8313 comes with the 3.3V voltage regulator and it is connected to the <span class="simple">Simple<span class="foc">FOC</span>Mini</span>'s 3.3V pin. However it has a limitation of 10mA, which is in general not enough to power a microcontroller. But it might be enough to power a LED light or some position sensors.
 </blockquote>
 
-Pin `nFT` (fault) is an active LOW output of the <span class="simple">Simple<span class="foc">FOC</span>Mini</span> which can be read to verify if the DRV8313 driver is working properly. If this pin is in LOW it means the DRV8313 is its fault state and it cannot drive the motor. Then the pin `nRT` (reset), which is also active LOW, can be used to reset the DRV8313 driver to reinitialise its internal state and exit the fault state, this cannot be done by simply toggling the enable pin. Finally the pin `nSP` (sleep) is an active LOW pin that puts the DRV8313 in the low-power sleep mode, consuming the current of under 1uA.
+Pin `nFT` (fault) is an active LOW output of the <span class="simple">Simple<span class="foc">FOC</span>Mini</span> which can be read to verify if the DRV8313 driver is working properly. If this pin is in LOW it means the DRV8313 is its fault state and it cannot drive the motor. Then the pin `nRT` (reset), which is also active LOW, can be used to reset the DRV8313 driver to reinitialize its internal state and exit the fault state, this cannot be done by simply toggling the enable pin. Finally the pin `nSP` (sleep) is an active LOW pin that puts the DRV8313 in the low-power sleep mode, consuming the current of under 1uA.
 
 
 

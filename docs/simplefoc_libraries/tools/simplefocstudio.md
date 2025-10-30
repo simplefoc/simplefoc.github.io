@@ -81,7 +81,7 @@ Once you have your application running add a device by clicking the  <img src="h
 ### Code generation
 
 *Simple**FOC**Studio* helps you to easier transfer your carefully tuned parameters to the Arduino code. Once you are happy with the performance of your system you can automatically generate the arduino code of the parameters you have tuned. To generate the code :
-- Click on the <img src="https://raw.githubusercontent.com/JorgeMaker/SimpleFOCStudio/main/src/gui/resources/gen.png" style="height:18px"> Arudino button in the toolbar.
+- Click on the <img src="https://raw.githubusercontent.com/JorgeMaker/SimpleFOCStudio/main/src/gui/resources/gen.png" style="height:18px"> Arduino button in the toolbar.
 - Choose which sets of parameters you wish to generate the code for and click OK
 - In the new tab you will have a code of your tuned parameters.
 

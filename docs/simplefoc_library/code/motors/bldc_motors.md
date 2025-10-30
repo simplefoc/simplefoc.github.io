@@ -47,7 +47,7 @@ If you are not sure what your motor's <code class="highlighter-rouge">KV</code> 
 ```cpp
 KV = velocity_at_one_volt * 30/pi
 ```
-You can also use the provided libray examples `examples/utils/calibration/find_KV_rating.ino`.
+You can also use the provided library examples `examples/utils/calibration/find_KV_rating.ino`.
 </blockquote>
 
 
@@ -61,8 +61,8 @@ It is important to say that once you specify the phase resistance value, you wil
 Finally, this parameter is suggested to be used if one whats to switch in real time in between voltage ([voltage mode](voltage_torque_mode)) and current based ([DC current](dc_current_torque_mode) and [FOC current](foc_current_torque_mode)) torque control strategies. Since in this way all the torque control loops will have current as input (target value) the user will not have to change the motion control parameters (PID values). 
 
 <blockquote class="info">
-<p class="heading">Open-loop motion control will use KV and phase resitance values  </p>
-KV rating and the pahse resitance values will be used in te open loop contol as well to let the user to limit the current drawn by the motor instead of limitting the volatge. Read more in the <a href="open_loop_motion_control">open-loop motion control docs</a>.
+<p class="heading">Open-loop motion control will use KV and phase resistance values  </p>
+KV rating and the phase resistance values will be used in te open loop control as well to let the user to limit the current drawn by the motor instead of limiting the voltage. Read more in the <a href="open_loop_motion_control">open-loop motion control docs</a>.
 </blockquote>
 
 ### How can I measure the phase resistance and inductance?
@@ -77,7 +77,7 @@ Once you have the current sensor set up, you can use the `motor.characteriseMoto
 <blockquote class="info">
 
 <details markdown="1">
-<summary style="cursor: pointer;"> <i class="fa fa-code"></i> Example code for motor phase characterisation </summary>
+<summary style="cursor: pointer;"> <i class="fa fa-code"></i> Example code for motor phase characterization </summary>
 
 ```cpp
 
@@ -113,7 +113,7 @@ void setup() {
   current_sense.init();
   motor.linkCurrentSense(&current_sense);
 
-  // initialise motor
+  // initialize motor
   motor.init();
 
   // find the motor parameters
@@ -177,7 +177,7 @@ motor.linkCurrentSense(&current_sense);
 ```
 This linking step is only necessary if you have a current sense supported by this library. See the [current sense docs](current_sense) for more info!
 
-## Step 5. Configuration paramters
+## Step 5. Configuration parameters
 
 If you choose not to set some of the configuration parameters they will take values defined in the `defaults.h` file.
 Check the [library source code](source_code) to dig deeper.
@@ -188,8 +188,8 @@ There are four types of Field Oriented Control modulation types implemented for 
 - Sinusoidal PWM modulation
 - Space Vector PWM modulation
 - Block commutation - *beneficial for current control applications*
-    - Trapesoidal 120
-    - Trapesoidal 150
+    - trapezoidal 120
+    - trapezoidal 150
 
 You can set them by changing the `motor.foc_modulation` variable:
 ```cpp
@@ -200,7 +200,7 @@ You can set them by changing the `motor.foc_modulation` variable:
 // FOCModulationType::Trapezoid_150;
 motor.foc_modulation = FOCModulationType::SpaceVectorPWM;
 ```
-Sinusoidal PWM and Space vector commutation patters will produce sinusoidal currents and smooth operation but block commutation will be faster to execute, therefore more suitable for higher velocities. It is suggested to use the Trapesoidal 120 commutation with Hall sensors. Other commutation patterns will work as well but this one will have the best performance.
+Sinusoidal PWM and Space vector commutation patters will produce sinusoidal currents and smooth operation but block commutation will be faster to execute, therefore more suitable for higher velocities. It is suggested to use the trapezoidal 120 commutation with Hall sensors. Other commutation patterns will work as well but this one will have the best performance.
 
 <blockquote class="info"> <p class="heading">FOC currents torque control requirements</p> FOC torque control requires sinusoidal currents therefore please use either Sinusoidal PWM or Space vector PWM</blockquote>
 
@@ -315,7 +315,7 @@ motor.init();
 
 ## Step 6. Align motor and all the sensors - Field Oriented Control init
 
-After the position sensor, current sense, driver and the motor are configured, and before we can start the motion control we need to align all  hardware components in order to initialize the FOC algorithm. This is done in the scope of the funciton `motor.initFOC()`
+After the position sensor, current sense, driver and the motor are configured, and before we can start the motion control we need to align all  hardware components in order to initialize the FOC algorithm. This is done in the scope of the function `motor.initFOC()`
 ```cpp
 // align sensor and start FOC
 motor.initFOC();
@@ -323,7 +323,7 @@ motor.initFOC();
 <blockquote class="info"><p class="heading"> Can be skipped for openloop control!</p>If no sensor is attached this function will not really do anything, but you can still call it if necessary or more convenient. </blockquote>
 
 This function does several things:
-- Checks if driver (and current sense if available) are well initialised
+- Checks if driver (and current sense if available) are well initialized
 - Checks/modifies position sensor direction in respect to the motor's direction
 - Searches for encoder index if necessary
 - Finds the motor electrical offset in respect to the position sensor
@@ -373,7 +373,7 @@ The real-time motion control of theArduino <span class="simple">Simple<span clas
 - `motor.move(float target)` - high level motion control
 
 
-The function `loopFOC()` behavior directly depends of the torque control mode usd. If used in volatge mode it  gets the current motor angle from the sensor, turns it into the electrical angle and transforms the q-axis <i>U<sub>q</sub></i> voltage command  `motor.voltage_q` to the appropriate phase voltages <i>u<sub>a</sub></i>, <i>u<sub>b</sub></i> and <i>u<sub>c</sub></i> which are set then set to the motor. Whereas if it is used in DC of FOC current modes it additionally reads the current sensor and runs the closed loop current control.
+The function `loopFOC()` behavior directly depends of the torque control mode usd. If used in voltage mode it  gets the current motor angle from the sensor, turns it into the electrical angle and transforms the q-axis <i>U<sub>q</sub></i> voltage command  `motor.voltage_q` to the appropriate phase voltages <i>u<sub>a</sub></i>, <i>u<sub>b</sub></i> and <i>u<sub>c</sub></i> which are set then set to the motor. Whereas if it is used in DC of FOC current modes it additionally reads the current sensor and runs the closed loop current control.
 
 ```cpp
 // Function running the low level torque control loop
@@ -388,7 +388,7 @@ motor.loopFOC();
 This function is execution time is critical both in the voltage mode and in current control modes. Therefore it is very important that the `motor.loopFOC()` function is executed as fast as possible.
 
 <blockquote class="warning"><p class="heading">Rule od thumb: execution time</p>
-The faster you can run this function the better, here is approximative loops execution time using different torque modes.
+The faster you can run this function the better, here are some approximate execution times using different torque modes.
 <table>
 <tr>
 <td>MCU</td>
