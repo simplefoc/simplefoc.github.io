@@ -138,7 +138,7 @@ There are two ways to use magnetic sensor implemented within this library:
 
 ### Position sensor for FOC algorithm
 
-To use the ensor with the FOC algorithm implemented in this library, once when you have initialized `sensor.init()` you just need to link it to the BLDC motor by executing:
+To use the sensor with the FOC algorithm implemented in this library, once when you have initialized `sensor.init()` you just need to link it to the BLDC motor by executing:
 ```cpp
 motor.linkSensor(&sensor);
 ```
