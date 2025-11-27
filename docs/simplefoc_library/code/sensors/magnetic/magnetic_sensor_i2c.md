@@ -65,7 +65,7 @@ void setup(){
 }
 ```
 
-If you wish to use more than one magnetic sensor using SPI interface, make sure your sensors have different addresses, here is a simple example:
+If you wish to use more than one magnetic sensor using an I2C interface, make sure your sensors have different addresses, here is a simple example:
 ```cpp
 MagneticSensorI2C sensor1 = MagneticSensorI2C(0x36, 12, 0x0E, 4);
 MagneticSensorI2C sensor2 = MagneticSensorI2C(0x37, 12, 0x0E, 4);
