@@ -102,9 +102,11 @@ Esp32 microcontrollers have a similar approach to the STM32 family, but the impl
 hw_timer_t *timer = NULL;
 
 void IRAM_ATTR foc_loop() {
+  noInterrupts(); // disable interrupts here
   // call the loopFOC and move functions
   motor.loopFOC();
   motor.move();
+  interrupts(); // enable interrupts after
 }
 
 void setup() {
