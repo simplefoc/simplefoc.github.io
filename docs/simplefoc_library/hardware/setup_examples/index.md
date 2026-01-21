@@ -49,7 +49,7 @@ grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>lib
 </div>
 <div class="image_icon">
     <a href="arduino_nano_matter">
-        <img src="extras/Images/nanoMatterMC_Wiring.png">
+        <img src="extras/Images/silabs_hw_setup.png">
         <i class="fa fa-external-link-square fa-2x"></i>
     </a>
 </div>
