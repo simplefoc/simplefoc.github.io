@@ -80,4 +80,4 @@ Silabs MGM240S | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
 [<img src="https://docs.arduino.cc/static/00991768c0c92185a57a60b9250ebc57/image.svg" class="imgtable150">](https://docs.arduino.cc/hardware/nano-matter/) | Arduino Nano Matter | ARM Cortex-M33 <br>- 5V logic<br> - 6 PWMs<br>- nterrupts on all pins <br> - analog inputs on all pins <br>- 78Mhz|  [Arudino Store](https://store.arduino.cc/pages/nano-matter) | 22€ 
 
 ## Arduino IDE support package
-In order to use the Arduino UNO R4 in the Arduino IDE please install the corresponding support package using Arduino IDE board manager.
+In order to use the Arduino Nano Matter in the Arduino IDE please install the corresponding support package using Arduino IDE board manager.

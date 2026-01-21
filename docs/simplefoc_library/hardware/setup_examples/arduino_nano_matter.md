@@ -1,6 +1,6 @@
 ---
 layout: default
-title: L6234 Breakout Board
+title: Arduino Nano Matter
 parent: Setup examples
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 nav_order: 2
@@ -12,7 +12,7 @@ toc: true
 
 # Silabs Hardware-Specific Examples for SimpleFOC
 
-This folder contains **hardware-specific example projects** for running the [SimpleFOC](https://docs.simplefoc.com/) library on **Silicon Labs EFR32 microcontrollers** (tested on Arduino Nano Matter). Each example demonstrates a motor control use case using a **6PWM BLDC driver**.
+This documentation describes [**hardware-specific example projects**](https://github.com/simplefoc/Arduino-FOC/tree/dev/examples/hardware_specific_examples/Silabs) for running the [SimpleFOC](https://docs.simplefoc.com/) library on **Silicon Labs EFR32 microcontrollers** (tested on Arduino Nano Matter). Each example demonstrates a motor control use case using a **6PWM BLDC driver**.
 
 **Example List**
 
