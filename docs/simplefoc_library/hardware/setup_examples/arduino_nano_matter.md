@@ -24,6 +24,10 @@ This documentation describes [**hardware-specific example projects**](https://gi
 
 - **efr32_torque_velocity_6pwm**
   - Example of torque and velocity control for a BLDC motor using a 6PWM driver on EFR32, suitable for advanced control scenarios.
+  
+**Motor control with BLE example**
+
+This example is available on the [SiliconLabsSoftware](https://github.com/SiliconLabsSoftware/devs-arduino-ble-motor-control) GitHub repository.
 
 ## Hardware Setup
 
