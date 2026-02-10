@@ -36,7 +36,7 @@ The procedure is simple and is based on the view of the motor as an electrical c
 
 Also the assumption taken by the align is that the phase resistances of the motor are equal. This is a common assumption for the BLDC and Stepper motors and it is a good starting point for the current sense alignment.
 
-The alignment procedure then applies phase volatges on one phase and keeps the other phases connected to the ground. Then by knowing the phase voltages applied and abstarcting the motor as a simple three resistance circuit, we can calculate the currents that should flow through the motor phases and compare them to the currents measured by the current sense. If the currents are not the same, the current sense is not aligned and the procedure will try to align it.
+The alignment procedure then applies phase voltages on one phase and keeps the other phases connected to the ground. Then by knowing the phase voltages applied and abstracting the motor as a simple three resistance circuit, we can calculate the currents that should flow through the motor phases and compare them to the currents measured by the current sense. If the currents are not the same, the current sense is not aligned and the procedure will try to align it.
 
 
 As the architecture of Stepper and BLDC motors is different the alignment procedure is also different.
@@ -105,7 +105,7 @@ $$I_b = \frac{U_b}{R_b}, \quad  I_a = I_c = -0.5 I_b$$
 ### The procedure in the code
 
 The current sense alignment procedure is implemented in the `current_sense.alignBLDCDriver()` function which is called within `motor.initFOC()`. 
-The function is called automatically when the motor is initialised and the `current_sense.skip_align` is not set to `true`. The code of the function can be found [here](https://github.com/simplefoc/Arduino-FOC/blob/996f312841812f1bf5d2f724a7d3e37edd6d9343/src/common/base_classes/CurrentSense.cpp#L167-L383).
+The function is called automatically when the motor is initialized and the `current_sense.skip_align` is not set to `true`. The code of the function can be found [here](https://github.com/simplefoc/Arduino-FOC/blob/996f312841812f1bf5d2f724a7d3e37edd6d9343/src/common/base_classes/CurrentSense.cpp#L167-L383).
 
 
 
@@ -155,6 +155,6 @@ $$I_b = \frac{U_b}{R_b}, \quad  I_a = 0$$
 ### The procedure in the code
 
 The current sense alignment procedure is implemented in the `current_sense.alignStepperDriver()` function which is called within `motor.initFOC()`. 
-The function is called automatically when the motor is initialised and the `current_sense.skip_align` is not set to `true`. The code of the function can be found [here](https://github.com/simplefoc/Arduino-FOC/blob/996f312841812f1bf5d2f724a7d3e37edd6d9343/src/common/base_classes/CurrentSense.cpp#L386-L473).
+The function is called automatically when the motor is initialized and the `current_sense.skip_align` is not set to `true`. The code of the function can be found [here](https://github.com/simplefoc/Arduino-FOC/blob/996f312841812f1bf5d2f724a7d3e37edd6d9343/src/common/base_classes/CurrentSense.cpp#L386-L473).
 
 

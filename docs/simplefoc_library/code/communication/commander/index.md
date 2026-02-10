@@ -46,7 +46,7 @@ When the commander received the string:
 
 <img src="extras/Images/cmd1.png" class="width20">
 
-It first checks the command id, identifies its `M` and sends the remaining string to the motor handling callback. Then the motor callback checks what is the coommand id, finds `V` and sends the remaining string to the PID velocity callbacK. Then the PID velocity callback scans the command id and finds it is the `D`, so derivative gain and sets the value.
+It first checks the command id, identifies its `M` and sends the remaining string to the motor handling callback. Then the motor callback checks what is the command id, finds `V` and sends the remaining string to the PID velocity callbacK. Then the PID velocity callback scans the command id and finds it is the `D`, so derivative gain and sets the value.
 
 Commander | Motor callback (cmd id `M` )  | PID callback (cmd id `V` ) 
 --- | ---| ---
@@ -69,7 +69,7 @@ Command interface is implemented in the `Commander` class.
 // Commander interface constructor
 // - serial  - optionally receives HardwareSerial/Stream instance
 // - eol     - optionally receives eol character - by default it is the newline: "\n" 
-// - echo    - option echo last typed character (for command line feedback) - defualt false
+// - echo    - option echo last typed character (for command line feedback) - default false
 Commander commander = Commander(Serial, "\n", false);
 ```
 The end of line (eol) character is an optional input of the `Commander` class which represents end of command character. User can define its own end of command characters here, but by default the character used is newline character `\n`. For example i
@@ -264,16 +264,16 @@ Commander provides a very simple way to extend the command list and implement ne
 - [Custom commands](commander_custom) - create your own callbacks
 
 
-## Commander with Serial Monitor in Arudino IDE
+## Commander with Serial Monitor in Arduino IDE
 
 
 Once the commander interface is added to the code you will be able to communicate to it using the Serial Monitor of the Arduino IDE
 
 <img src="extras/Images/commander.png">
 
-Commander paramters in the serial monitor are the same as for every other Arduino code working with the `Serial`. 
+Commander parameters in the serial monitor are the same as for every other Arduino code working with the `Serial`. 
 Make sure to:
-- Set the baudrate number the same as in the `ino` file : for examle if in the `ino` file you have `Serial.begin(115200)`, the baud rate should be `115200`
+- Set the baudrate number the same as in the `ino` file : for example if in the `ino` file you have `Serial.begin(115200)`, the baud rate should be `115200`
 - Make sure to set the termination character to `newline`
 
 ## *Simple**FOC**Studio* by [@JorgeMaker](https://github.com/JorgeMaker)

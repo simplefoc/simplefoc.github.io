@@ -18,7 +18,7 @@ toc: true
 - Velocity motion control
 - Position/angle control
 
-The motion control algorithm is chosen by seting the `motor.controller` variables with one of the `ControlType` structure: 
+The motion control algorithm is chosen by setting the `motor.controller` variables with one of the `ControlType` structure: 
 
 ```cpp
 // Motion control type
@@ -45,7 +45,7 @@ The real-time motion control is executed inside `move()` function. Move function
 
 Here is the implementation:
 ```cpp
-// Iterative function running outer loop of the FOC algorithm
+// Iterative function running motor loop of the FOC algorithm
 // Behavior of this function is determined by the motor.controller variable
 // It runs either angle, velocity or voltage loop
 // - needs to be called iteratively it is asynchronous function
@@ -82,7 +82,7 @@ void BLDCMotor::move(float new_target = NOT_SET) {
 ## Shaft velocity filtering `shaftVelocity`
 
 The first step for velocity motion control is the getting the velocity value from sensor. Because some sensors are very noisy and especially since in most cases velocity value is calculated by 
-derivating the position value we have implemented a Low Pass filter velocity filter to smooth out the measurement. 
+deviating the position value we have implemented a Low Pass filter velocity filter to smooth out the measurement. 
 The velocity calculating function is `shaftVelocity()` with implementation:
 ```cpp
 // shaft velocity calculation
@@ -196,7 +196,7 @@ For more info about the theory of hte PI controller implemented in this library 
 Now when we have the velocity control loop explained we can build our position control loop in cascade as shown on the image. 
 <img src="extras/Images/angle_loop.png">
 
-When we have target angle we want to achieve, we will use the P controller to calculate necessary velocity we need and then the velocity loop will calculate the necessary voltage `votage_q` to achieve both velocity and angle that we want.  
+When we have target angle we want to achieve, we will use the P controller to calculate necessary velocity we need and then the velocity loop will calculate the necessary voltage `voltage_q` to achieve both velocity and angle that we want.  
 
 The position P controller is implemented in  `positionP()` function:
 ```cpp

@@ -81,7 +81,7 @@ class Sensor{
         /** 
          * returns 0 if it does need search for absolute zero
          * 0 - magnetic sensor (& encoder with index which is found)
-         * 1 - ecoder with index (with index not found yet)
+         * 1 - encoder with index (with index not found yet)
          */
         virtual int needsSearch();
     protected:

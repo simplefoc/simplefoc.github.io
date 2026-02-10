@@ -76,7 +76,7 @@ U_{limit}  \quad [Volts]
 $$
 
 This is very inefficient, as for different motors with different phase resistances the same voltage values can produce wildly different currents.
-For gimbal motor, you can run it in the open loop with the voltage limits of 5-10 Volts and it will reach the currents of 0.5-2 amps as it has the pahse resistance from 5-15 Ohms. For drone motors, the voltage limits should stay very low, under 1 volt. Because they have phase resistance of 0.05 to 0.2 Ohms.
+For gimbal motor, you can run it in the open loop with the voltage limits of 5-10 Volts and it will reach the currents of 0.5-2 amps as it has the phase resistance from 5-15 Ohms. For drone motors, the voltage limits should stay very low, under 1 volt. Because they have phase resistance of 0.05 to 0.2 Ohms.
 
 ### Current limiting approaches
 

@@ -88,7 +88,7 @@ This project can be entirely done by using the  <span class="simple">Simple<span
 ## Project example : Steer by wire - bidirectional haptic control examples 
 <iframe class="youtube" src="https://www.youtube.com/embed/xTlv1rPEqv4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-This video demonstrates <span class="simple">Simple<span class="foc">FOC</span>Shield</span> support for stacking with Arudino UNO and STM32 Nucleo-64 board. As well as support for different sensors magnetic and encoders with relatively large precision span.
+This video demonstrates <span class="simple">Simple<span class="foc">FOC</span>Shield</span> support for stacking with Arduino UNO and STM32 Nucleo-64 board. As well as support for different sensors magnetic and encoders with relatively large precision span.
 
 The control algorithms implemented in this project are :
 - **Steer by wire** (force feedback): two motors with virtually coupled positions

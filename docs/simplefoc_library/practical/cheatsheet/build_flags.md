@@ -2,7 +2,7 @@
 layout: default
 title: Build Flags
 nav_order: 2
-permalink: /cheetsheet/build_flags
+permalink: /cheatsheet/build_flags
 parent: Options Cheat Sheet
 grand_parent: Practical guides
 grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
