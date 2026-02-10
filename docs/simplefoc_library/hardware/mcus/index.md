@@ -16,7 +16,7 @@ toc: true
 
 Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> allows you to chose from more than 20 architectures of microcontrollers to chose from for your projects. <br>
 The main families supported *off-the-shelf* are:
-- [Arduino AVR/DUE](arduino_mcu) 
+- [Arduino AVR/DUE/Nano](arduino_mcu) 
 - [STM32](stm32_mcu)
 - [ESP32 and ESP8266](esp_mcu)
 - [Teensy](teensy_mcu)
@@ -37,6 +37,7 @@ MCU | 2 PWM mode | 4 PWM mode | 3 PWM mode | 6 PWM mode | pwm frequency config
 --- | --- |--- |--- |--- |--- 
 Arduino (8-bit) | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ (either 4kHz or 32kHz)
 Arduino DUE  | ✔️ | ✔️ | ✔️ | ❌ | ✔️
+Arduino Nano Matter  | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
 stm32 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
 esp32 MCPWM | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
 esp32 LEDC | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
@@ -77,6 +78,7 @@ MCU | In-line | Low-side | High-side
 --- | --- |--- |--- 
 Arduino AVR (8-bit) | ✔️ | ❌ |  ❌
 Arduino DUE  | ✔️ | ❌ |  ❌
+Arduino Nano Matter | ✔️ | ✔️ (tested) |  ✔️ (not tested)
 stm32 (in general) | ✔️ | ❌ |  ❌
 stm32f1 family | ✔️ | ✔️ (one motor) |  ❌
 stm32f4 family | ✔️ | ✔️ (one motor) |  ❌
