@@ -2,13 +2,11 @@
 layout: default
 title: Voltage Mode
 parent: Torque Control
-grand_parent: Closed-Loop control
-grand_grand_parent: Motion Control
-grand_grand_grand_parent: Writing the Code
-grand_grand_grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+grand_parent: Writing the Code
+grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 permalink: /voltage_torque_mode
-nav_order: 1
+nav_order: 4
 toc: true
 ---
 

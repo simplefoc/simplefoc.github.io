@@ -1,22 +1,23 @@
 ---
 layout: default
-title: Position Control 
+title: Non-Cascade Position Control 
 description: "Arduino Simple Field Oriented Control (FOC) library ."
-nav_order: 3
-permalink: /angle_loop
-parent: Closed-Loop control
-grand_parent: Motion Control
-grand_grand_parent: Writing the Code
-grand_grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+nav_order: 2
+permalink: /angle_nocascade_control
+parent: Position Control
+grand_parent: Closed-Loop control
+grand_grand_parent: Motion Control
+grand_grand_grand_parent: Writing the Code
+grand_grand_grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 toc: true
 ---
 
 
-# Position control loop
+# Non-Cascade position control loop
 This control loop allows you to move your motor to the desired angle in real-time. This mode is enabled by:
 ```cpp
 // set angle/position motion control loop
-motor.controller = MotionControlType::angle;
+motor.controller = MotionControlType::angle_nocascade;
 ```
 You can test this algorithm by running the examples in `motion_control/position_motion_control/` folder.
 
@@ -28,19 +29,19 @@ You can test this algorithm by running the examples in `motion_control/position_
 The angle/position control closes the control loop around the velocity control loop. And the velocity control closes the control loop around the torque control, regardless which one it is. If it is the voltage mode without phase resistance set, the velocity motion control will set the the torque command using the voltage <i>U<sub>q</sub></i>:
 
 <div class="type type-b">
- <img class="width60" src="extras/Images/angle_loop_v.png">
+ <img class="width60" src="extras/Images/an_b_v.drawio.png">
 </div>
 <div class="type type-s hide">
-<img class="width60" src="extras/Images/angle_loop_stepper_volt.png">
+<img class="width60" src="extras/Images/an_s_v.drawio.png">
 </div>
 
 
 And if it is any of the current torque control modes (FOC or DC current) or voltage mode with provided phase resistance, the angle motion control will be setting the target current <i>i<sub>q</sub></i> to the torque controller:
 <div class="type type-b">
-<img class="width60" src="extras/Images/angle_loop_i.png">
+<img class="width60" src="extras/Images/an_b_i.drawio.png">
 </div>
 <div class="type type-s hide">
-<img class="width60" src="extras/Images/angle_loop_stepper_curr.png">
+<img class="width60" src="extras/Images/an_s_i.drawio.png">
 </div>
 
 The angle control loop is therefore created by adding one more control loop in cascade on the [velocity control loop](velocity_loop) like showed on the figure above. The loop is closed by using additional PID controller and an optional low pass filter. The controller reads the angle <i>a</i> from the motor (filters is optionally) and determines which velocity <i>v<sub>d</sub></i> the motor should move to reach the desired angle <i>a<sub>d</sub></i> set by the user. And then the velocity controller reads the current filtered velocity from the motor <i>v<sub>f</sub></i> and sets the torque target (<i>u<sub>q</sub></i> voltage or <i>i<sub>q</sub></i> current) to the torque control loop, needed to reach the velocity <i>v<sub>d</sub></i>, set by the angle loop. 

@@ -18,16 +18,28 @@ toc: true
 
 In order to use your SPI magnetic position sensor with <span class="simple">Simple<span class="foc">FOC</span>library</span> first create an instance of the `MagneticSensorSPI` class:
 ```cpp
-// MagneticSensorSPI(int cs, float _cpr, int _angle_register)
+// MagneticSensorSPI(int cs, float _cpr, int _angle_register, long _clock_speed)
 //  cs              - SPI chip select pin 
 //  bit_resolution - magnetic sensor resolution
 //  angle_register  - (optional) angle read register - default 0x3FFF
-MagneticSensorSPI sensor = MagneticSensorSPI(10, 14, 0x3FFF);
+//  clock_speed      - (optional) SPI clock speed - default 1MHz
+MagneticSensorSPI sensor = MagneticSensorSPI(10, 14, 0x3FFF, 1000000);
 ```
 The parameters of the class are
 - `chip_select` - pin number you connected your sensor to be used with the SPI communication, 
 - `bit_resolution` - resolution of your sensor (number of bits of the sensor internal counter register) and your
 - `angle register` - register number containing angle value. <br>The default `angle_register` number is set to `0x3FFF` as it is the angle register for most of the low cost AS5048/AS5047 sensors. 
+- `clock_speed` - speed of the SPI clock signal, default is 1MHz, but you can set it to any value supported by your sensor and microcontroller.
+
+<blockquote markdown="1" class="info">
+<p class="heading" markdown="1">Which clock speed to set?</p>
+
+Clock speed is an important parameter for the SPI communication. It determines how fast the data is transferred between the sensor and the microcontroller. **The rule of thumb is that the faster the clock speed the better FOC performance.**
+
+However, the clock speed should not be set higher than the maximum clock speed supported by the sensor and the microcontroller.
+Maximum clock speed supported by the sensor can be found in the sensor datasheet. If you are not sure about the maximum clock speed supported by your sensor, it is recommended to start with a low value (default 1MHz) and increase it later if necessary. Please note that the maximum clock speed supported by the sensor can be lower in practice due to the quality of the wiring and the length of the wires. If you experience communication issues with your sensor, try lowering the clock speed.
+</blockquote>
+
 
 Additionally the library allows you to configure SPI communication clock speed and SPI mode by setting the variables:
 ```cpp
@@ -79,10 +91,17 @@ void setup(){
 For the most common SPI magnetic sensors, the library provides the simplified configuration constructor. Namely for AS5047/AS5147 14-bit SPI sensors and MA70 14-bit SSI sensor.
 ```cpp
 // instance of AS5047/AS5147 sensor
-MagneticSensorSPI sensor = MagneticSensorSPI(10, AS5147_SPI);
+MagneticSensorSPI sensor = MagneticSensorSPI(AS5147_SPI, 10);
 // instance of MA730 sensor
-MagneticSensorSPI sensor = MagneticSensorSPI(10, MA730_SPI);
+MagneticSensorSPI sensor = MagneticSensorSPI(MA730_SPI, 10);
 ```
+Optionally we can override the SPI clock speed for the quick configuration as well. This might be interesting if using default configurations provided by the library but you want to set a different SPI clock speed, here is an example:
+```cpp
+// instance of AS5047/AS5147 sensor with custom SPI clock speed and mode
+// overriding default clock speed of 1MHz to 2MHz 
+MagneticSensorSPI sensor = MagneticSensorSPI(AS5147_SPI, 10, 2000000);
+```
+
 If wish to implement your own quick configuration structure, you will need to create an instance of the structure:
 ```cpp
 struct MagneticSensorSPIConfig_s  {
@@ -109,7 +128,7 @@ MagneticSensorSPIConfig_s MySensorConfig = {
   }; 
 
 // the sensor class with desired sensor configuration
-MagneticSensorSPI sensor = MagneticSensorSPI(10, MySensorConfig);
+MagneticSensorSPI sensor = MagneticSensorSPI(MySensorConfig, 10);
 void setup(){
   sensor.init();
   ...
@@ -156,7 +175,7 @@ BLDCMotor motor = BLDCMotor(7);
 BLDCDriver3PWM driver = BLDCDriver3PWM(9, 5, 6, 8);
  
 // as5600 sensor quick config
-MagneticSensorSPI sensor = MagneticSensorSPI(AS5047_SPI);
+MagneticSensorSPI sensor = MagneticSensorSPI(AS5047_SPI, 10);
 
 void setup() {
   // driver
@@ -215,7 +234,7 @@ Here is a quick example for the AS5047U magnetic sensor with SPI communication:
 // angle_register  - (optional) angle read register - default 0x3FFF
 MagneticSensorSPI as5047u = MagneticSensorSPI(10, 14, 0x3FFF);
 // or quick config
-MagneticSensorSPI as5047u = MagneticSensorSPI(10, AS4147_SPI);
+MagneticSensorSPI as5047u = MagneticSensorSPI(AS4147_SPI, 10);
 
 void setup() {
   // monitoring port

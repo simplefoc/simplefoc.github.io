@@ -3,17 +3,37 @@ layout: default
 title: Torque Control
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 permalink: /torque_control
-nav_order: 1
-parent: Closed-Loop control
-grand_parent: Motion Control
-grand_grand_parent: Writing the Code
-grand_grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+nav_order: 6
+parent: Writing the Code
+grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 has_children: True
 has_toc: False
 toc: true
 ---
 
 # Torque control loop
+
+
+## Torque control modes
+There are three torque control types implemented in the <span class="simple">Simple<span class="foc">FOC</span>library</span>:
+- Voltage - `TorqueControlType::voltage`
+- DC current - `TorqueControlType::dc_current`
+- FOC current - `TorqueControlType::foc_current`
+- Estimated current - `TorqueControlType::estimated_current`
+
+And they can be set by changing the motor attribute `torque_controller`.
+```cpp
+// set torque mode to be used
+// TorqueControlType::voltage    ( default )
+// TorqueControlType::dc_current
+// TorqueControlType::foc_current
+// TorqueControlType::estimated_current
+motor.torque_controller = TorqueControlType::foc_current;
+```
+
+For more in depth explanations about different torque modes visit the [torque mode docs](torque_control)
+
+
 
 Choose the motor type: 
 
@@ -24,32 +44,32 @@ Choose the voltage control type:
 
 <a href ="javascript:show(0,'loop');" id="btn-0" class="btn btn-loop">FOC current mode</a>
 <a href ="javascript:show(1,'loop');" id="btn-1" class="btn btn-loop">DC current mode</a>
-<a href ="javascript:show(2,'loop');" id="btn-2" class="btn btn-loop">Voltage mode - estimated current</a>
+<a href ="javascript:show(2,'loop');" id="btn-2" class="btn btn-loop">Estimated current</a>
 <a href ="javascript:show(3,'loop');" id="btn-3" class="btn btn-loop btn-primary">Voltage mode</a>
 
 <div class="type type-b">
-<img class="loop loop-0 hide width80" src="extras/Images/torque_modes_0000.jpg"/>
-<img class="loop loop-1 hide width80" src="extras/Images/torque_modes_0001.jpg"/>
-<img class="loop loop-2 hide width80" src="extras/Images/torque_modes_0002.jpg"/>
-<img class="loop loop-3 width80" src="extras/Images/torque_modes_0003.jpg"/>
+<img class="loop loop-0 hide width80" src="extras/Images/fc.png"/>
+<img class="loop loop-1 hide width80" src="extras/Images/dc.png"/>
+<img class="loop loop-2 hide width80" src="extras/Images/ec.png"/>
+<img class="loop loop-3 width80" src="extras/Images/vc.png"/>
 </div>
 <div class="type type-s hide">
 
-<img class="loop width80 loop-0 hide" src="extras/Images/torque_stepper1.jpg"/>
-<img class="loop width80 loop-1 hide" src="extras/Images/torque_stepper2.jpg"/>
-<img class="loop width80 loop-2 hide" src="extras/Images/torque_stepper3.jpg"/>
-<img class="loop width80 loop-3" src="extras/Images/torque_stepper4.jpg"/>
-
+<img class="loop width80 loop-0 hide" src="extras/Images/fcs.png"/>
+<img class="loop width80 loop-1 hide" src="extras/Images/dcs.png"/>
+<img class="loop width80 loop-2 hide" src="extras/Images/ecs.png"/>
+<img class="loop width80 loop-3" src="extras/Images/vcs.png"/>
 
 </div>
 
 
-<span class="simple">Simple<span class="foc">FOC</span>library</span> gives you the choice of using 3 different torque control strategies:
+<span class="simple">Simple<span class="foc">FOC</span>library</span> gives you the choice of using 4 different torque control strategies:
 - [Voltage mode](voltage_torque_mode) - `voltage`
 - [DC current mode](dc_current_torque_mode) - `dc_current`
 - [FOC current mode](foc_current_torque_mode) - `foc_current`
+- [Estimated current mode](estimated_current_mode) - `estimated_current`
 
-In short **voltage control mode** is the simplest approximation of the motor torque control and it so basic that can be run on any motor+driver+mcu combination out there. **DC current mode** is the next step of the motor's torque approximation which is much more exact than the voltage mode but requires current sensing and much stronger microcontroller. **FOC current mode** is controls motor's true torque and it is not an approximation, it also requires current sensor and even more processing power than the DC current mode. See in depth explanations in [torque mode docs](torque_control). 
+In short **voltage control mode** is the simplest approximation of the motor torque control and it so basic that can be run on any motor+driver+mcu combination out there. If the motor parameters are available such as phase resistance, KV rating and axis inductance, the **estimated current** mode can be used. It is much more efficient than the voltage control, but still does not require current sensing. If the motor parameters are set the controlled estimated current can be very close to the real one, while keeping the processing power requirements comparable to the voltage mode.  **DC current mode** is the next step of the motor's torque approximation which is much more exact than the voltage mode or estimated current, but requires current sensing microcontroller. **FOC current mode** controls motor's true torque and it is not an approximation, it also requires current sensor and usually higher processing power than the DC current mode. 
 
 This motion control mode is enabled setting the `controller` parameter to:
 ```cpp
@@ -84,6 +104,7 @@ Depending on the torque control type you wish to use there are different paramet
 - [Voltage mode](voltage_torque_mode)  - the simplest one 
    - no mandatory parameters 
    - (optional parameters include motor phase resistance and inductance and KV rating)
+- [Estimated current mode](estimated_current_mode) - 1x Low-pass filter (LPF)
 - [DC current mode](dc_current_torque_mode) - 1xPID controller + 1x Low-pass filter (LPF)
 - [FOC current mode](foc_current_torque_mode) - 2xPID controller + 2x Low-pass filters (LPF) 
 

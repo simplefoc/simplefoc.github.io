@@ -47,23 +47,24 @@ MCU | Low-side  Current sensing | ADC conversion type | Max PWM freqeuncy | supp
 Arduino (8-bit) |  ❌ | - | -| -
 Arduino DUE  |  ❌ | - | -| -
 STM32 (in general) |❌ | - | -| -
-STM32f1 family | ✔️ (one motor) | DMA | ~20kHz| all
-STM32f4 family | ✔️ (one motor) | DMA| ~25kHz| all
-STM32g4 family | ✔️ (one motor) | DMA| ~25kHz| all
-STM32l4 family | ✔️ (one motor) | DMA| ~25kHz| all
-STM32f7 family | ✔️ (one motor) | DMA| ~25kHz | all
-STM32h7 family | ✔️ (one motor) | DMA| ~25kHz | all
+STM32f1 family | ✔️ | Interrupt | ~20kHz| all
+STM32f4 family | ✔️ | Interrupt| ~25kHz| all
+STM32g4 family | ✔️ | Interrupt| ~25kHz| all
+STM32l4 family | ✔️ | Interrupt| ~25kHz| all
+STM32f7 family | ✔️ | Interrupt| ~25kHz | all
+STM32h7 family | ✔️ | Interrupt| ~25kHz | all
 STM32 B_G431B_ESC1 | ✔️ | DMA| ~25kHz| all
 ESP32 with MCPWM |✔️ | Interrupts| ~20kHz| all
 ESP32 with LEDC | ❌ | -| -| -
 ESP8266 | ❌ | -| -| -
-SAMD21 | ✔️/❌ (one motor, poorly tested) | Interrupts | ?| ?
+SAMD21 | ✔️ (one motor) | Interrupts | ~20kHz| one ADC
 SAMD51 | ❌ | -| -| -
 Teensy3 |  ❌| -| -| -
 Teensy4 |  ✔️ (inital)| Interrupts| ~20kHz| ADC1
 Raspberry Pi Pico | ❌ | -| -
 Portenta H7 |  ❌ | -| -| -
 Renesas (UNO R4) | ❌ (TBD) | -| -| -
+Arduino Nano Matter(📢NEW) | ✔️(one motor) | DMA | N/A | ADC0
 
 ### Important hardware considerations 
 
@@ -126,7 +127,7 @@ In order to maximise your chances for the low-side current sensing to work well 
 //  - phA   - A phase adc pin
 //  - phB   - B phase adc pin
 //  - phC   - C phase adc pin (optional)
-LowsideCurrentSense current_sense  = LowsideCurrentSense(0.01, 20, A0, A1, A2);
+LowsideCurrentSense current_sense  = LowsideCurrentSense(0.01f, 20.0f, A0, A1, A2);
 ```
 </div>
 <div class="type type-stepper hide"  markdown="1">
@@ -137,7 +138,7 @@ LowsideCurrentSense current_sense  = LowsideCurrentSense(0.01, 20, A0, A1, A2);
 //  - gain  - current-sense op-amp gain
 //  - phA   - A phase adc pin
 //  - phB   - B phase adc pin
-LowsideCurrentSense current_sense  = LowsideCurrentSense(0.01, 20, A0, A1);
+LowsideCurrentSense current_sense  = LowsideCurrentSense(0.01f, 20.0f, A0, A1);
 ```
 </div>
 
@@ -153,7 +154,7 @@ Alternatively `LowsideCurrentSense` can be created by specifying the mV per Amp 
 //  - mVpA  - mV per Amp ratio
 //  - phA   - A phase adc pin
 //  - phB   - B phase adc pin
-LowsideCurrentSense current_sense  = LowsideCurrentSense(66.0,  A0, A1);
+LowsideCurrentSense current_sense  = LowsideCurrentSense(66.0f,  A0, A1);
 ```
 </div>
 <div class="type type-bldc"  markdown="1">
@@ -164,7 +165,7 @@ LowsideCurrentSense current_sense  = LowsideCurrentSense(66.0,  A0, A1);
 //  - phA   - A phase adc pin
 //  - phB   - B phase adc pin
 //  - phC   - C phase adc pin (optional)
-LowsideCurrentSense current_sense  = LowsideCurrentSense(66.0,  A0, A1, A2);
+LowsideCurrentSense current_sense  = LowsideCurrentSense(66.0f,  A0, A1, A2);
 ```
 
 ### Measuring 2 out of 3 currents

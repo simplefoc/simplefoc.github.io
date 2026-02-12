@@ -41,6 +41,7 @@ Teensy | ✔️
 Raspberry Pi Pico | ✔️ 
 Portenta H7 | ✔️ 
 Renesas (UNO R4) | ❌ (TBD)
+Arduino Nano Matter(📢NEW) | ✔️ 
 
  
 
@@ -59,7 +60,7 @@ To instantiate the inline current sensor using the <span class="simple">Simple<s
 //  - phA   - A phase adc pin
 //  - phB   - B phase adc pin
 //  - phC   - C phase adc pin (optional)
-InlineCurrentSense current_sense  = InlineCurrentSense(0.01, 20, A0, A1, A2);
+InlineCurrentSense current_sense  = InlineCurrentSense(0.01f, 20.0f, A0, A1, A2);
 ```
 
 This class takes as a parameter either shunt resistance value `shunt_resistor`, amplification gain `gain` and two or three ADC channel pins depending on the available measuring hardware that you might have. It is important to specify right adc channels for right driver/motor phase. So if your pin `A0` measures the phase current `A` and pin `A1` measures the phase current `B` make sure to provide them to the constructor in that order. 
@@ -75,7 +76,7 @@ Alternatively `InlineCurrentSense` can be created by specifying the mV per Amp r
 //  - phA   - A phase adc pin
 //  - phB   - B phase adc pin
 //  - phC   - C phase adc pin (optional)
-InlineCurrentSense current_sense  = InlineCurrentSense(66.0,  A0, A1, A2);
+InlineCurrentSense current_sense  = InlineCurrentSense(66.0f,  A0, A1, A2);
 ```
 
 ### Measuring 2 out of 3 currents

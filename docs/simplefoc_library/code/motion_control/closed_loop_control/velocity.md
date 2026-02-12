@@ -26,7 +26,7 @@ You can test this algorithm by running the examples in the `motion_control/veloc
 <a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
 <a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
 
-The velocity control closes the control loop around the torque control, regardless which one it is. If it is the voltage mode without phase resistance set, the velocity motion control will set the the torque command using the voltage <i>U<sub>q</sub></i>:
+The velocity control closes the control loop around the torque control, regardless which one it is. If it is the voltage mode without phase resistance set, the velocity motion control will set the the torque command using the voltage <i>u<sub>q</sub></i>:
 
 <div class="type type-b">
  <img class="width60" src="extras/Images/velocity_loop_v.png" >
@@ -57,35 +57,116 @@ To tune this control loop you can set the parameters to both angle PID controlle
 motor.PID_velocity.P = 0.2;
 motor.PID_velocity.I = 20;
 motor.PID_velocity.D = 0.001;
-// jerk control using voltage voltage ramp
-// default value is 300 volts per sec  ~ 0.3V per millisecond
-motor.PID_velocity.output_ramp = 1000;
 
 // velocity low pass filtering
 // default 5ms - try different values to see what is the best. 
 // the lower the less filtered
 motor.LPF_velocity.Tf = 0.01;
+``` 
 
+The PID controller has three key parameters: proportional gain `P`, integral gain `I`, and derivative gain `D`.
+
+- **Proportional Gain (`P`)**: Increasing `P` makes the motor controller more responsive. However, too high a value can lead to instability. Setting `P` to `0` disables this part of the controller.
+  
+- **Integral Gain (`I`)**: A higher `I` value speeds up the motor's response to disturbances, but excessive values can also cause instability. Setting `I` to `0` disables this part.
+
+- **Derivative Gain (`D`)**: This parameter is often the most challenging to set. It’s recommended to start with `D` at `0`, tuning `P` and `I` first. If overshoot occurs, gradually increase `D` to mitigate it. **This parameter is often not neded and can be left at `0` for many applications.**
+
+To smooth out velocity measurements, the Simple FOC library includes a low-pass filter. Low-pass filters are commonly used for signal smoothing and have one parameter: the filtering time constant `Tf`.
+
+- **Filtering Time Constant (`Tf`)**: A lower `Tf` value means less filtering effect. Setting `Tf` to `0` removes the filter entirely. The optimal `Tf` value is typically between `0` and `0.05` seconds.
+
+For optimal performance, you may need to experiment with these parameters. 😁 <br>
+[Go to the quick guide for tuning guide](tunning_velocity_loop){: .btn .mr-2 .btn-docs}
+
+<blockquote class="warning" markdown="1"> <p class="heading">Don't forget the torque control loop</p> 
+The velocity control loop relies on the underlying torque control loop, so the parameters of the torque control loop will also have an impact on the performance of the velocity control loop. See the [torque control documentation](torque_control) for more information about the different torque control modes and their parameters.
+
+</blockquote>
+
+### Additional Advanced Parameters
+
+The PID gains and the low-pass filter time constant are the most important parameters to tune and the ones that will have the biggest impact on the performance of the velocity control loop. There are several other parameters that can be set for the velocity control loop for specific use cases
+
+
+- **Output Ramp**: This parameter limits how quickly the PID controller's output can change, helping to reduce system jerkiness. It is measured in Volts per second [V/s] or Amps per second [A/s]. For example, a setting of `1000 V/s` means the output cannot change faster than `1` volt per millisecond. Setting it to `0` disables this limit (default is `0`).
+
+- **Limit**: This parameter restricts the PID controller's output, measured in Volts [V] or Amps [A]. Setting it to `NOT_SET` removes the limit. This limit can be automatically set using `updateVoltageLimit()` or `updateCurrentLimit()`, or manually adjusted for different limits.
+
+- **Sampling Time**: This sets the PID controller's sampling time in seconds [s]. The default is `NOT_SET`, allowing the PID to calculate the sampling time based on the time between calls to the `PID_velocity` controller. Specifying a value can save processing time, but it should closely match the actual sampling time. For instance, if `loopFOC()` runs at `1000` Hz, set the sampling time to `0.001` seconds.
+
+
+
+### PID Controller Parameters Overview
+
+| Parameter         | Variable | Description                                           | Default Value | Unit          |
+|-------------------|-------------------|-------------------------------------------------------|---------------|---------------|
+| Proportional Gain (`P`) | `motor.PID_velocity.P` | Controls the responsiveness of the controller. Too high can cause instability. | 0.5           | $$\frac{Vs}{rad}$$ or $$\frac{As}{rad}$$            |
+| Integral Gain (`I`)    | `motor.PID_velocity.I` | Speeds up response to disturbances. Excessive values can cause instability. | 10.0            |    $$\frac{V}{rad}$$ or $$\frac{A}{rad}$$         |
+| Derivative Gain (`D`)  | `motor.PID_velocity.D` | Helps to reduce overshoot. Recommended to start at 0. | 0.0             | $$\frac{Vs^2}{rad}$$ or $$\frac{As^2}{rad}$$             |
+| Filtering Time Constant (`Tf`) | `motor.LPF_velocity.Tf` | Determines the amount of low-pass filtering applied to velocity measurements. | 0.005         | $$s$$             |
+| Output Ramp      | `motor.PID_velocity.output_ramp` | Limits how quickly the output can change.            | NOT_SET             | $$\frac{V}{s}$$ or $$\frac{A}{s}$$    |
+| Limit            | `motor.PID_velocity.limit` | Restricts the output of the PID controller.          | NOT_SET       | $$V$$ or $$A$$        |
+| Sampling Time    | `motor.PID_velocity.sampling_time` | Sets the sampling time for the PID controller.       | NOT_SET       | $$s$$            |
+
+
+For more theoretical insights and source code documentation, refer to the [digging deeper section](digging_deeper).
+
+## Velocity & Torque Limits
+The velocity control loop operates within two distinct sets of constraints. Understanding the difference is key to a stable system:
+
+- Velocity Limit (`velocity_limit`): This is a hard software cap on your target. Even if you set `motor.target = 500`, the controller will treat it as `100` if your limit is `100`. It prevents the motor from reaching dangerous speeds.
+
+- Torque/Effort Limit (`voltage_limit` or `current_limit`): This defines the maximum strength the PID controller is allowed to use to reach your target.
+   - If the torque limit is too low, the motor will struggle to reach the target velocity, especially under load, resulting in sluggish performance.
+   - If the torque limit is too high, the motor may become unstable and vibrate as it aggressively tries to reach the target velocity.
+   - Another way of looking at the torque limit is as the level of "stiffness" or "backdrivability" of the velocity control loop. A higher torque limit allows the motor to fight disturbances more effectively, making it stiffer, while a lower torque limit results in a softer response.
+
+You can set the velocity limit and the torque limit independently in runtime:
+
+```cpp
 // setting the limits
+motor.updateVelocityLimit(10); // set the velocity limit to 10 Rad/s
 // either voltage
+motor.updateVoltageLimit(10); // Volts - default driver.voltage_limit
+// or current
+motor.updateCurrentLimit(2); // Amps - default 0.2Amps
+
+// or less preferred way
+motor.velocity_limit = 10; // set the velocity limit to 10 Rad/s
 motor.voltage_limit = 10; // Volts - default driver.voltage_limit
-// of current 
 motor.current_limit = 2; // Amps - default 0.2Amps
 ```
-The parameters of the PID controller are proportional gain `P`, integral gain `I`, derivative gain `D`  and `output_ramp`. 
-- In general by raising the proportional gain `P`  your motor controller will be more reactive, but too much will make it unstable. Setting it to `0` will disable the proportional part of the controller.
-- The same goes for integral gain `I` the higher it is the faster motors reaction to disturbance will be, but too large value will make it unstable. Setting it to `0` will disable the integral part of the controller.
-- The derivative part of the controller `D` is usually the hardest to set therefore the recommendation is to set it to `0` and tune the `P` and `I` first. Once when they are tuned and if you have an overshoot you add a bit of `D` component to cancel it.
-- The `output_ramp` value it intended to reduce the maximal change of the voltage value which is sent to the motor. The higher the value the PI controller will be able to change faster the <i>U<sub>q</sub></i> value. The lower the value the smaller the possible change and the less responsive your controller becomes. The value of this parameter is set to be `Volts per second[V/s` or in other words how many volts can your controller raise the voltage in one time unit. If you set your `voltage_ramp` value to `10 V/s`, and on average your control loop will run each `1ms`. Your controller will be able to change the <i>U<sub>q</sub></i> value each time `10[V/s]*0.001[s] = 0.01V` what is not a lot.
 
-Additionally, in order to smooth out the velocity measurement Simple FOC library has implemented the velocity low pass filter. [Low pass filters](https://en.wikipedia.org/wiki/Low-pass_filter) are standard form of signal smoothing, and it only has one parameter - filtering time constant `Tf`. 
-- The lower the value the less influence the filter has. If you put `Tf` to `0` you basically remove the filter completely. The exact `Tf` value for specific implementation is hard guess in advance, but in general the range of values of `Tf` will be somewhere form `0` to `0.5` seconds.
+## Target & Feed-forward terms
 
-The `voltage_limit` parameter is intended if, for some reason, you wish to limit the voltage that can be sent to your motor.  
+The velocity control loop in addition to the target value, allows you to add feed-forward terms to the control loop. There are 3 feed-forward terms that can be added to the velocity control loop:
 
-In order to get optimal performance you will have to fiddle a bit with with the parameters. 😁
+| Term | Variable | Description | Unit |
+|-------------------|-------------|-------------|---|
+| Target velocity | `motor.target` | This is the target velocity that the controller will try to achieve. It can be set by changing the `target` parameter of the motor. | $$\frac{rad}{s}$$ |
+| Velocity feed-forward | `motor.feed_forward_velocity` | This term adds a constant velocity to the velocity control loop. <br> For example, it can be used to improve tracking performance for trapezoidal motion profiles. |  $$\frac{rad}{s}$$ |
+| Current feed-forward | `motor.feed_forward_current` | This term adds a constant current to the torque control loop. <br> For example, it can be used to compensate for friction or other constant loads on the motor. <br> Only if torque control mode is current based. See the [torque control section](torque_control). | $$A$$ |
+| Voltage feed-forward | `motor.feed_forward_voltage` | This term adds a constant voltage to the torque control loop. <br> For example, it can be used to compensate for back-EMF or other voltage drops in the system. <br> Can be used if the torque control mode is voltage or current based. |  $$V$$ |
 
-For more theory about this approach and the source code documentation check the [digging deeper section](digging_deeper).
+<blockquote class="warning" markdown="1"> <p class="heading">Units warning</p> The units of the `motor.target` variable in velocity control mode are radians per second [rad/s]. If you want to use different units, you will need to convert them accordingly. See the [units documentation](library_units) for more information about the units used in the library and how to convert them.
+
+</blockquote>
+
+To set the feed-forward terms, you modify these variables directly in runtime:
+
+```cpp
+
+motor.target = 2.0; // set target velocity to 2 Rad/s
+
+// velocity feed-forward
+motor.feed_forward_velocity = 1.0; // add 1 Rad/s to the velocity
+// current feed-forward
+motor.feed_forward_current.q = 0.5; // add 0.5 A to the
+// voltage feed-forward
+motor.feed_forward_voltage.q = 1.0; // add 1 V to the voltage
+```
+
 
 ## Velocity motion control example
 
@@ -131,9 +212,6 @@ void setup() {
   motor.PID_velocity.P = 0.2;
   motor.PID_velocity.I = 20;
   motor.PID_velocity.D = 0.001;
-  // jerk control using voltage voltage ramp
-  // default value is 300 volts per sec  ~ 0.3V per millisecond
-  motor.PID_velocity.output_ramp = 1000;
 
   // velocity low pass filtering
   // default 5ms - try different values to see what is the best. 
@@ -141,8 +219,8 @@ void setup() {
   motor.LPF_velocity.Tf = 0.01;
 
   // since the phase resistance is provided we set the current limit not voltage
-  // default 0.2
-  motor.current_limit = 1; // Amps
+  // default 2 A
+  motor.updateCurrentLimit(1); // Amps
 
   // use monitoring with serial 
   Serial.begin(115200);
@@ -208,9 +286,6 @@ void setup() {
   motor.PID_velocity.P = 0.2;
   motor.PID_velocity.I = 20;
   motor.PID_velocity.D = 0.001;
-  // jerk control using voltage voltage ramp
-  // default value is 300 volts per sec  ~ 0.3V per millisecond
-  motor.PID_velocity.output_ramp = 1000;
 
   // velocity low pass filtering
   // default 5ms - try different values to see what is the best. 
@@ -218,8 +293,8 @@ void setup() {
   motor.LPF_velocity.Tf = 0.01;
 
   // since the phase resistance is provided we set the current limit not voltage
-  // default 0.2
-  motor.current_limit = 1; // Amps
+  // default 2 A
+  motor.updateCurrentLimit(1); // Amps
 
   // use monitoring with serial 
   Serial.begin(115200);

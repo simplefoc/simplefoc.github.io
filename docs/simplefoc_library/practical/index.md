@@ -52,4 +52,10 @@ Additionally, there are many different useful practical information already avai
         </a>
         <p> A guide to implementing the FOC loop that runs in hard real-time using timers </p>
     </div>
+    <div>
+        <a href="tunning_velocity_loop">
+            <h3 style="color:inherit"> <i class="fa fa-lg fa-wrench" style="padding:10px"></i> Tuning the velocity control loop</h3>
+        </a>
+        <p> A step-by-step guide to tuning the velocity control loop of your motor </p>
+    </div>
 </div>

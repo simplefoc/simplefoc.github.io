@@ -24,12 +24,21 @@ All BLDC motors are handled with the `BLDCMotor` class. This class implements:
 ## Step 1. Creating the instance of the BLDC motor
 To instantiate the BLDC motor we need to create an instance of the `BLDCMotor` class and provide it the number of `pole pairs` of the motor.
 ```cpp
-//  BLDCMotor(int pp, (optional R, KV))
+//  BLDCMotor(int pp, (optional R, KV, Lq, Ld))
 //  - pp  - pole pair number
-//  - R   - phase resistance value - optional
+//  - R   - phase resistance value [Ohm] - optional
 //  - KV  - motor KV rating [rpm/V] - optional
-BLDCMotor motor = BLDCMotor(11, 10.5, 120);
+//  - Lq  - q axis inductance value [H] - optional
+//  - Ld  - d axis inductance value [H] - optional
+BLDCMotor motor = BLDCMotor(11, 10.5, 120, 0.001, 0.001);
 ```
+
+Parameter | Description | Unit | Optional | Can be changed in real-time? | Used for 
+--- | --- | --- | --- | --- | ---
+`pole_pairs` | Number of pole pairs of the motor | - | No | No | Everything - it is a fundamental motor parameter
+`phase_resistance` | Phase resistance of the motor | Ohm |Yes|Yes   | `estimated_current` torque control and tuning of current control loops
+`KV` | KV rating of the motor | rpm/V | Yes | Yes | All current control loops - calculating BEMF
+`Lq` and `Ld` | q and d axis inductance values | H | Yes | Yes | All current control loops - calculating lag and cross coupling
 
 <blockquote class="info"><p class="heading">Pole pair number </p>
 If you are not sure what your <code class="highlighter-rouge">pole_pairs</code> number is. The library provides an example code to estimate your <code class="highlighter-rouge">pole_pairs</code> number in the examples <code class="highlighter-rouge">examples/utils/calibration/find_pole_pairs_number.ino</code>.
@@ -49,7 +58,6 @@ KV = velocity_at_one_volt * 30/pi
 ```
 You can also use the provided libray examples `examples/utils/calibration/find_KV_rating.ino`.
 </blockquote>
-
 
 ### Motor phase resistance, inductance and KV rating 
 Providing the KV rating in combination with the phase resistance (not very used for current based torque modes `foc_current` and `dc_current`) will enable the user to control the motor's current without measuring it. The user will be able to control (and limit) the estimated current of the motor using the voltage control mode. Read more in the [torque control docs](voltage_torque_mode).
@@ -71,7 +79,12 @@ The phase resistance is relatively easy to measure, you can use a multimeter to 
 
 However, <span class="simple">Simple<span class="foc">FOC</span>library</span> provides the tools to measure the motor phase resistance and inductance. In order to measure them you will need to be able to measure the current.
 
-Once you have the current sensor set up, you can use the `motor.characteriseMotor()` function to measure the phase resistance and inductance. This function will run a series of tests to determine these parameters and will print them to the serial monitor.
+Once you have the current sensor set up, you can use the 
+```cpp
+motor.characteriseMotor(2.0f); // the parameter is the voltage used for the measurement, it should be high enough to produce a measurable current but not too high to damage your motor
+``` 
+
+function to measure the phase resistance and inductance. This function will run a series of tests to determine these parameters and will print them to the serial monitor.
 
 
 <blockquote class="info">
@@ -132,7 +145,7 @@ void loop() {
 
 The output of the `characteriseMotor` function will be printed to the serial monitor and will look like this:
 
-```
+```sh
 MOT: Init
 MOT: Enable driver.
 MOT: Measuring phase to phase resistance, keep motor still...
@@ -142,8 +155,7 @@ MOT: Inductance measurement complete!
 MOT: Measured D-inductance in mH: 0.50
 MOT: Measured Q-inductance in mH: 0.59
 ```
-
-For the moment <span class="simple">Simple<span class="foc">FOC</span>library</span> considers the inductance value to be the same for q and d axis. So once the example is executed use the q axis inductance value for `motor.phase_inductance`.
+From the release v2.4.0 the <span class="simple">Simple<span class="foc">FOC</span>library</span> allows for setting both for q and d axis inductance value. The values can be accesed using the `motor.axis_inductance` variable (`motor.axis_inductance.d` and `motor.axis_inductance.q`) and they can be set in the constructor. The method `characteriseMotor` will measure both of them, print them to the serial monitor and set them to the `motor.axis_inductance` variable.
 
 </details>
 </blockquote>
@@ -229,30 +241,35 @@ motor.sensor_offset = 0; // default 0 rad
 This parameter can be changed in real-time.
 
 
-### Step 5.4 Motor phase resistance and KV rating
+### Step 5.4 Motor parameters - phase resistance, inductance and KV rating
 
-Motor phase resistance and KV rating are optional parameters which are not used for current based torque modes. These variables are used to estimate the motor current in the voltage torque mode and for open-loop motion control. If user specifies the `motor.phase_resistance` and `motor.KV_rating` (either in constructor or in the `setup()` function) the library will allow user to work with current value and it will calculate the necessary voltages automatically. In the setup function you can change this parameter by setting:
+Motor phase resistance, inductance and KV rating are optional parameters which are used for current based torque modes. These variables can used to estimate the motor current in the estimated torque mode and to tune PI control loops. If user specifies the `motor.phase_resistance`,  `motor.axis_inductance` (or before v2.4.0 `motor.phase_inductance`) `motor.KV_rating` (either in constructor or in the `setup()` function) the library will use these valus. In the setup function you can change this parameter by setting:
 ```cpp
 // motor phase resistance [Ohms]
 motor.phase_resistance = 2.54; // Ohms - default not set
 // motor KV rating [rpm/V]
 motor.KV_rating = 100; // rpm/volt - default not set
+// motor axis inductance [H]
+motor.axis_inductance.d = 0.001; // H - default not set
+motor.axis_inductance.q = 0.001; // H - default not set
 ```
 
-Read more in the [torque control docs](voltage_torque_mode).
+These parameters can also be measured using the `motor.characteriseMotor()` above [How can I measure the phase resistance and inductance?](#how-can-i-measure-the-phase-resistance-and-inductance) section.
 
 ### Step 5.5 Torque control mode
-There are 3 different torque control modes implemented in the Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>: 
+There are 4 different torque control modes implemented in the Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>: 
 - [Voltage mode](voltage_torque_mode)
+- [Estimated current mode](estimated_current_torque_mode)
 - [DC current](dc_current_torque_mode)
 - [FOC current](foc_current_torque_mode)
 
-[DC current](dc_current_torque_mode) and [FOC current](foc_current_torque_mode) require current sensing and are controlling current and limiting the real current the motor is drawing, whereas [voltage mode](voltage_torque_mode) approximates the motor current and does not use any current sensing. Read more in [torque control docs](torque_control).
+[DC current](dc_current_torque_mode) and [FOC current](foc_current_torque_mode) require current sensing and are controlling current and limiting the real current the motor is drawing, whereas [estimated current mode](estimated_current_torque_mode) approximates the motor current using the motor parameters and does not use any current sensing. Finally, [voltage mode](voltage_torque_mode) is the most basic torque control mode which directly sets the voltage to the motor without any current control. Read more in [torque control docs](torque_control).
 
 The torque mode can be set by changing the motor attribute `torque_controller`.
 ```cpp
 // set torque mode to be used
 // TorqueControlType::voltage    ( default )
+// TorqueControlType::estimated_current
 // TorqueControlType::dc_current
 // TorqueControlType::foc_current
 motor.torque_controller = TorqueControlType::foc_current;
@@ -263,20 +280,63 @@ motor.torque_controller = TorqueControlType::foc_current;
 There are 3 different closed loop control strategies implemented in the Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>: 
 - [Torque control loop](torque_control)
 - [Velocity motion control](velocity_loop)
-- [Position/angle motion control](angle_loop)
+- Position/angle motion control
+  - [Cascade position control](angle_loop) 
+  - [No-cascade position control](angle_loop_nocascade)
 
 Additionally <span class="simple">Simple<span class="foc">FOC</span>library</span> implements two open loop control strategies as well:
 - [Velocity open-loop control](velocity_openloop)
 - [Position open-loop control](angle_openloop)
 
+Finally, the user can allso add thier own custom motion control strategy by implementing the motion control callback function. Read more about it in the [motion control docs](motion_control). This mode can be selected using the `MotionControlType::custom` value of the `motor.controller` variable and by linking the motion control callback function `motor.linkCustomMotionControl(&my_motion_control_function)`.
+
+<blockquote class="info">
+<details markdown="1">
+<summary style="cursor: pointer;"> <i class="fa fa-code"></i> Example code for custom motion control </summary>
+
+```cpp
+... 
+
+// custom PID controller instance for the custom control method
+// P controller with gain of 1.0f, no integral or derivative gain
+PIDController custom_PID = PIDController(1.0f, 0, 0);
+// custom motion control method
+float positionPControl(FOCMotor* motor, float target){
+  // simple proportional position control
+  float error = target - motor->shaft_angle;
+  // set the PID output limit to the motor current limit
+  custom_PID.limit = motor->current_limit; 
+  return custom_PID(error); // return current command based on the error
+}
+
+...
+
+void setup() {
+  ...
+
+  // set custom motion control
+  motor.controller = MotionControlType::custom;
+  // link custom motion control function
+  motor.linkCustomMotionControl(&positionPControl);
+
+  ...
+}
+```
+
+</details>
+</blockquote>
+
+
 You set it by changing the `motor.controller` variable. 
 ```cpp
 // set motion control loop to be used
-// MotionControlType::torque      - torque control 
-// MotionControlType::velocity    - velocity motion control
-// MotionControlType::angle       - position/angle motion control
+// MotionControlType::torque            - torque control 
+// MotionControlType::velocity          - velocity motion control
+// MotionControlType::angle             - position/angle motion control
+// MotionControlType::angle_nocascade   - position/angle motion control without cascade structure
 // MotionControlType::velocity_openloop    - velocity open-loop control
 // MotionControlType::angle_openloop       - position open-loop control
+// MotionControlType::custom            - custom motion control
 motor.controller = MotionControlType::angle;
 ```
 <blockquote class="warning"><p class="heading"> Important!</p>This parameter doesn't have a default value and it has to be set before real-time execution starts.</blockquote>
@@ -438,7 +498,7 @@ The `move()` method executes the motion control loops of the algorithm. If is go
 It receives one parameter `float target` which is current user defined target value.
 - If the user runs [velocity loop](velocity_loop) or [velocity open-loop](velocity_openloop), `move` function will interpret `target` as the target velocity.
 - If the user runs [angle loop](angle_loop) or [angle open-loop](angle_openloop), `move` will interpret `target` parameter as the target angle. 
-- If the user runs the [torque loop](torque_control), `move` function will interpret the `target` parameter as either voltage <i>u<sub>q</sub></i> or current <i>i<sub>q</sub></i> (if phase resistance provided). 
+- If the user runs the [torque loop](torque_control), `move` function will interpret the `target` parameter as either voltage <i>u<sub>q</sub></i> or current <i>i<sub>q</sub></i>. 
 
 The `target` parameter is optional and if it is not set, the target value will be set by the public motor variable `motor.target`. The equivalent code would be:
 

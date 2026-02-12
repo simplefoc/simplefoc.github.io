@@ -16,7 +16,7 @@ toc: true
 
 Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> allows you to chose from more than 20 architectures of microcontrollers to chose from for your projects. <br>
 The main families supported *off-the-shelf* are:
-- [Arduino AVR/DUE/Nano](arduino_mcu) 
+- [Arduino](arduino_mcu) 
 - [STM32](stm32_mcu)
 - [ESP32 and ESP8266](esp_mcu)
 - [Teensy](teensy_mcu)
@@ -37,7 +37,6 @@ MCU | 2 PWM mode | 4 PWM mode | 3 PWM mode | 6 PWM mode | pwm frequency config
 --- | --- |--- |--- |--- |--- 
 Arduino (8-bit) | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ (either 4kHz or 32kHz)
 Arduino DUE  | ✔️ | ✔️ | ✔️ | ❌ | ✔️
-Arduino Nano Matter  | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
 stm32 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
 esp32 MCPWM | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
 esp32 LEDC | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
@@ -48,6 +47,7 @@ Raspberry Pi Pico | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
 Portenta H7 | ✔️ | ✔️ | ✔️ | ❌ | ✔️ 
 nRF52 |✔️ | ✔️ | ✔️ | ✔️ | ✔️
 Renesas (UNO R4 Minima) | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
+Arduino Nano Matter (📢NEW)  | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
 
 From this table you can see that if you need the 6 PWM mode for your application you should avoid using the families with ❌ sign.
 
@@ -78,14 +78,13 @@ MCU | In-line | Low-side | High-side
 --- | --- |--- |--- 
 Arduino AVR (8-bit) | ✔️ | ❌ |  ❌
 Arduino DUE  | ✔️ | ❌ |  ❌
-Arduino Nano Matter | ✔️ | ✔️ (tested) |  ✔️ (not tested)
 stm32 (in general) | ✔️ | ❌ |  ❌
-stm32f1 family | ✔️ | ✔️ (one motor) |  ❌
-stm32f4 family | ✔️ | ✔️ (one motor) |  ❌
-stm32g4 family | ✔️ | ✔️ (one motor) |  ❌
-stm32l4 family | ✔️ | ✔️ (one motor) |  ❌
-stm32f7 family | ✔️ | ✔️ (one motor) |  ❌
-stm32h7 family | ✔️ | ✔️ (one motor) |  ❌
+stm32f1 family | ✔️ | ✔️  |  ❌
+stm32f4 family | ✔️ | ✔️  |  ❌
+stm32g4 family | ✔️ | ✔️  |  ❌
+stm32l4 family | ✔️ | ✔️  |  ❌
+stm32f7 family | ✔️ | ✔️  |  ❌
+stm32h7 family | ✔️ | ✔️  |  ❌
 stm32 B_G431B_ESC1 | ❌ | ✔️ (one motor) |  ❌
 esp32/esp32s3 | ✔️ | ✔️ |  ❌
 esp32s2/esp32c3 |  ✔️ | ❌ |  ❌ 
@@ -98,6 +97,7 @@ Raspberry Pi Pico | ✔️ | ❌ |  ❌
 Portenta H7 | ✔️ | ❌ |  ❌
 nRF52 | ✔️ | ❌ |  ❌
 Renesas (UNO R4 Minima) | ❌ | ❌ |  ❌
+Arduino Nano Matter(📢NEW) | ✔️ | ✔️ (one motor) |  ✔️ (not tested)
 
 Most of the boards will support inline current sensing, and support for the low-side current sensing is available for esp32, stm32, teensy4 and samd21, which is the least well tested.
 

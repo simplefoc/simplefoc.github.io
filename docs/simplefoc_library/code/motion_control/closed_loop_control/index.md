@@ -40,18 +40,23 @@ Choose the voltage control type:
 
 
 <span class="simple">Simple<span class="foc">FOC</span>library</span> gives you the choice of using 3 different Closed-Loop control strategies: 
-- [Torque control loop](torque_control)
+- [Torque control loop](torque_loop)
 - [Velocity motion control](velocity_loop)
 - [Position/angle motion control](angle_loop)
 
-You set it by changing the `motor.controller` variable. If you want to control the motor angle you will set the `controller` to `MotionControlType::angle`, if you seek the torque of the BLDC or Stepper motors either through voltage or the current use `MotionControlType::torque`, if you wish to control motor angular velocity `MotionControlType::velocity`. 
+You set it by changing the `motor.controller` variable. If you want to control the motor angle you will set the `controller` to `MotionControlType::angle` or `MotionControlType::angle_nocascade`, if you want to control the torque of the BLDC or Stepper motors either through voltage or the current use `MotionControlType::torque`, if you wish to control motor angular velocity `MotionControlType::velocity`. 
 
 ```cpp
 // set FOC loop to be used
 // MotionControlType::torque
 // MotionControlType::velocity
 // MotionControlType::angle
+// MotionControlType::angle_nocascade
 motor.controller = MotionControlType::angle;
 ```
 
-For more information about the source code implementation of the motion control strategies check the [library source code documentation](motion_control_implementation)
+| Torque control | Velocity control | Position/angle control |
+|----------------|------------------|-----------------------|
+| `MotionControlType::torque` | `MotionControlType::velocity` | `MotionControlType::angle` or<br> `MotionControlType::angle_nocascade` |
+|[Go to Torque control docs](torque_loop){: .btn .mr-2 .btn-docs} | [Go to Velocity control docs](velocity_loop){: .btn .mr-2 .btn-docs} |[Go to Position/angle control docs](angle_loop){: .btn .mr-2 .btn-docs}|
+

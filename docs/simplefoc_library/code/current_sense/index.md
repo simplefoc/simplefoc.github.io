@@ -48,12 +48,12 @@ MCU | In-line | Low-side | High-side
 Arduino (8-bit) | ✔️ | ❌ |  ❌
 Arduino DUE  | ✔️ | ❌ |  ❌
 stm32 (in general) | ✔️ | ❌ |  ❌
-stm32f1 family | ✔️ | ✔️ (one motor) |  ❌
-stm32f4 family | ✔️ | ✔️ (one motor) |  ❌
-stm32g4 family | ✔️ | ✔️ (one motor) |  ❌
-stm32l4 family | ✔️ | ✔️ (one motor) |  ❌
-stm32f7 family | ✔️ | ✔️ (one motor) |  ❌
-stm32h7 family | ✔️ | ✔️ (one motor) |  ❌
+stm32f1 family | ✔️ | ✔️  |  ❌
+stm32f4 family | ✔️ | ✔️  |  ❌
+stm32g4 family | ✔️ | ✔️  |  ❌
+stm32l4 family | ✔️ | ✔️ |  ❌
+stm32f7 family | ✔️ | ✔️  |  ❌
+stm32h7 family | ✔️ | ✔️  |  ❌
 stm32 B_G431B_ESC1 | ❌ | ✔️ (one motor) |  ❌
 esp32/esp32s3 | ✔️ | ✔️ |  ❌
 esp32s2/esp32c3 |  ✔️ | ❌ |  ❌ 
@@ -66,6 +66,7 @@ Raspberry Pi Pico | ✔️ | ❌ |  ❌
 Portenta H7 | ✔️ | ❌ |  ❌
 nRF52 | ✔️ | ❌ |  ❌
 Renesas (UNO R4)  | ❌ | ❌ |  ❌ 
+Arduino Nano Matter(📢NEW) | ✔️ | ✔️ (one motor) |  ✔️ (not tested)
 
 Note: current sensing on Renesas MCUs will be added in a future release.
 

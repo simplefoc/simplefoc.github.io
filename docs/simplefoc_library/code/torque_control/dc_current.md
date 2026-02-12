@@ -1,34 +1,30 @@
 ---
 layout: default
-title: FOC Current Mode
+title: DC Current Mode
+permalink: /dc_current_torque_mode
+nav_order: 2 
 parent: Torque Control
-grand_parent: Closed-Loop control
-grand_grand_parent: Motion Control
-grand_grand_grand_parent: Writing the Code
-grand_grand_grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
+grand_parent: Writing the Code
+grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 description: "Arduino Simple Field Oriented Control (FOC) library ."
-permalink: /foc_current_torque_mode
-nav_order: 3 
 toc: true
 ---
 
 
-# Torque control using FOC currents 
+# Torque control using DC current
 <a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
 <a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
 
 
 <div class="type type-b" markdown="1">
-
-This torque control mode allows you to the true torque control of a BLDC motor and it requires current sensing in order to do it. The user sets the target current $$I_d$$ to the FOC algorithm calculates the necessary phase voltages $$u_a$$ ,$$u_b$$ and $$u_c$$ in order to maintain it by measuring the phase currents ($$i_a$$, $$i_b$$ and $$i_c$$) and the rotor angle $$a$$. This mode is enabled by:
+This control loop allows you to run the BLDC motor as it is a current controlled DC motor. This torque control algorithm requires current sensing hardware. The user sets the target current $$I_d$$ to the FOC algorithm calculates the necessary phase voltages  $$u_a$$ ,$$u_b$$ and $$u_c$$ in order to maintain it. This mode is enabled by:
 </div>
 <div class="type type-s hide" markdown="1">
-This torque control mode allows you to the true torque control of a Stepper motor and it requires current sensing in order to do it. The user sets the target current $$I_d$$ to the FOC algorithm calculates the necessary phase voltages $$u_a$$ and $$u_b$$ in order to maintain it by measuring the phase currents ($$i_a$$ and $$i_b$$) and the rotor angle $$a$$. This mode is enabled by:
+This control loop allows you to run the Stepper motor as it is a current controlled DC motor. This torque control algorithm requires current sensing hardware. The user sets the target current $$I_d$$ to the FOC algorithm calculates the necessary phase voltages  $$u_a$$ and $$u_b$$ in order to maintain it. This mode is enabled by:
 </div>
-
 ```cpp
-// FOC current torque control mode
-motor.torque_controller = TorqueControlType::foc_current;
+// DC current torque control mode
+motor.torque_controller = TorqueControlType::dc_current;
 ```
 
 ## How does it work exactly
@@ -36,20 +32,20 @@ motor.torque_controller = TorqueControlType::foc_current;
 <a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
 
 <div class="type type-b">
- <a name="foc_image"></a><img class="width60" src="extras/Images/foc_current_mode.png">
+ <a name="foc_image"></a><img class="width60" src="extras/Images/dc_current_mode.png">
 </div>
 <div class="type type-s hide">
- <a name="foc_image"></a><img class="width60" src="extras/Images/foc_current_stepper.png">
+ <a name="foc_image"></a><img class="width60" src="extras/Images/dc_current_stepper.png">
 </div>
 
 
 
 <div class="type type-b" markdown="1">
-The FOC current torque control algorithm reads the phase currents of the Stepper motor ($$i_a$$ and $$i_b$$). 
+The DC current torque control algorithm reads the phase currents of the Stepper motor ($$i_a$$ and $$i_b$$). 
 The phase currents are transformed into the currents $$i_\alpha$$ and $$i_\beta$$ using the Inverse Clarke transform. For example if the phase currents $$i_a$$ and $$i_b$$ are measured:
 
 $$
-i_\alpha = i_a, \quad i_\beta = i_a\frac{1}{\sqrt{3}} + i_b\frac{2}{\sqrt{3}}
+i_\alpha = i_a, \quad i_\beta =i_a\frac{1}{\sqrt{3}} + i_b\frac{2}{\sqrt{3}}
 $$
 
 </div>
@@ -62,39 +58,54 @@ i_\alpha = i_a, \quad i_\beta =i_b
 $$
 
 </div>
-
-Using the current rotor angle $$a$$ and the currents $$i_\alpha$$ and $$i_\beta$$ the FOC algorithm calculates the $$i_d$$ and $$i_q$$ components of the current using the inverse Park transform.
-
-$$
-i_q =  i_\beta \cos(a) - i_\alpha \sin(a), \quad i_d = i_\alpha \cos(a) + i_\beta \sin(a)
-$$
-
-Using the target current value $$I_d$$ (d as desired) and the measured currents $$i_q$$ and $$i_d$$, the PID controllers for each axis calculate the appropriate voltages $$U_q$$ and $$U_d$$ to be set to the motor, to maintain $$i_q$$=$$I_d$$ and $$i_d$$=0. 
+Then we can can calculate the magnitude of the current measured at the motor as
 
 $$
-U_q = \text{PID}_q(I_d - i_q), \quad U_d = \text{PID}_d(0-i_d)
+i_{DC} = \sqrt{i_\alpha^2 + i_\beta^2}
 $$
 
-<div class="type type-b" markdown="1">
-Finally using the Park+Clarke (or SpaceVector) transformation the FOC algorithm sets the appropriate $$u_a$$, $$u_b$$ and $$u_c$$ voltages to the motor. By measuring the phase currents this torque control algorithm ensures that these voltages generate the appropriate currents and magnetic force in the motor rotor with exactly <i>90 degree</i> offset from its permanent magnetic field, which guarantees maximal torque, this is called commutation.
+Now as this magnitude does not contain the information about direction of the current (positive or negative) we need to use the sign of the current to determine the direction of the current.
+The simplest way to calculate the sign of the current is using the sign of the $$i_q$$ component of the current vector, which we can calculate using the Park transform using the current angle $$a$$.
 
-</div>
+$$
+i_q = i_\beta \cos(a) - i_\alpha\sin(a) 
+$$
+
+Finally the DC current $$i_{DC}$$ is calculated as the magnitude of the current vector $$i_q$$.
+
+$$ i_{DC} = \text{sign}(i_q)\cdot\sqrt{i_\alpha^2 + i_\beta^2}$$
+
+Using the target current value $$I_d$$ and the measured $$i_{DC}$$ the PID controller calculates the appropriate voltage $$U_q$$ to be set to the motor.
+
+$$
+U_q = \text{PID}(I_d - i_{DC}) 
+$$
+
+While $$U_d$$ is kept in 0. 
+
+$$
+U_d = 0 
+$$
+
 <div class="type type-s hide" markdown="1">
-Finally using the Clarke transformation the FOC algorithm sets the appropriate $$u_a$$ and $$u_b$$ voltages to the motor. By measuring the phase currents this torque control algorithm ensures that these voltages generate the appropriate currents and magnetic force in the motor rotor with exactly <i>90 degree</i> offset from its permanent magnetic field, which guarantees maximal torque, this is called commutation.
+Finally torque control algorithm finds the appropriate voltages $$u_a$$ and $$u_b$$ that create the calculated $$U_q$$ and $$U_d$$ voltages. This is done using the Park transformation.
+
+</div>
+<div class="type type-b" markdown="1">
+
+Finally torque control algorithm finds the appropriate voltages $$u_a$$, $$u_b$$ and $$u_c$$ that create the calculated $$U_q$$ and $$U_d$$ voltages. This is done using the Park+Clarke (or SpaceVector) transformation.
 
 </div>
 
-The torque generated in the motor is proportional (with the torque constant $$K_t$$) to the q-axis current $$i_q$$. So for any target motor torque $$\tau$$ the target current $$I_d$$ can be calculated as:
 
-$$
-I_d = \frac{\tau}{K_t}
-$$
-
+<blockquote class="info" markdown="1">
+<p class="header">Note</p>
+The assumption of this torque control mode is that the torque generated in the motor is proportional the DC current $$i_{DC}$$ drawn by the motor ($$i_{DC}$$ = $$i_q$$). Therefore by controlling this current we user can control the torque value. This assumption is only true for the low velocities, for higher velocities the $$i_d$$ component of the current becomes higher and $$i_{DC}$$=$$i_q$$ no longer holds. 
+</blockquote>
 
 ## Configuration parameters
-In order to make this loop run smoothly the user needs to configure the PID controller parameters of the `PID_current_q` and Low pass filter `LPF_current_q` time constant.
+In order to make this loop run smoothly the user needs to configure the PID controller parameters of teh `PID_current_q` and Low pass filter `LPF_current_q` time constant.
 ```cpp
-// Q axis
 // PID parameters - default 
 motor.PID_current_q.P = 5;                       // 3    - Arduino UNO/MEGA
 motor.PID_current_q.I = 1000;                    // 300  - Arduino UNO/MEGA
@@ -103,17 +114,8 @@ motor.PID_current_q.limit = motor.voltage_limit;
 motor.PID_current_q.ramp = 1e6;                  // 1000 - Arduino UNO/MEGA
 // Low pass filtering - default 
 LPF_current_q.Tf= 0.005;                         // 0.01 - Arduino UNO/MEGA
-
-// D axis
-// PID parameters - default 
-motor.PID_current_d.P = 5;                       // 3    - Arduino UNO/MEGA
-motor.PID_current_d.I = 1000;                    // 300  - Arduino UNO/MEGA
-motor.PID_current_d.D = 0;
-motor.PID_current_d.limit = motor.voltage_limit; 
-motor.PID_current_d.ramp = 1e6;                  // 1000 - Arduino UNO/MEGA
-// Low pass filtering - default 
-LPF_current_d.Tf= 0.005;                         // 0.01 - Arduino UNO/MEGA
 ```
+
 
 
 ## Torque control example code
@@ -121,7 +123,7 @@ LPF_current_d.Tf= 0.005;                         // 0.01 - Arduino UNO/MEGA
 <a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
 <a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
 
-A simple example of the FOC current based torque control using Inline current sensor and setting the target value by serial command interface. 
+A simple example of the DC current based torque control using Inline current sensor and setting the target value by serial command interface. 
 
 <div class="type type-b" markdown="1">
 
@@ -168,17 +170,14 @@ void setup() {
   motor.linkCurrentSense(&current_sense);
 
   // set torque mode:
-  motor.torque_controller = TorqueControlType::foc_current; 
+  motor.torque_controller = TorqueControlType::dc_current; 
   // set motion control loop to be used
   motor.controller = MotionControlType::torque;
 
   // foc current control parameters (Arduino UNO/Mega)
   motor.PID_current_q.P = 5;
   motor.PID_current_q.I= 300;
-  motor.PID_current_d.P= 5;
-  motor.PID_current_d.I = 300;
   motor.LPF_current_q.Tf = 0.01; 
-  motor.LPF_current_d.Tf = 0.01; 
 
   // use monitoring with serial 
   Serial.begin(115200);
@@ -212,8 +211,8 @@ void loop() {
 ```
 
 </div>
-
 <div class="type type-s hide" markdown="1">
+
 
 ```cpp
 #include <SimpleFOC.h>
@@ -258,17 +257,14 @@ void setup() {
   motor.linkCurrentSense(&current_sense);
 
   // set torque mode:
-  motor.torque_controller = TorqueControlType::foc_current; 
+  motor.torque_controller = TorqueControlType::dc_current; 
   // set motion control loop to be used
   motor.controller = MotionControlType::torque;
 
   // foc current control parameters (Arduino UNO/Mega)
   motor.PID_current_q.P = 5;
   motor.PID_current_q.I= 300;
-  motor.PID_current_d.P= 5;
-  motor.PID_current_d.I = 300;
   motor.LPF_current_q.Tf = 0.01; 
-  motor.LPF_current_d.Tf = 0.01; 
 
   // use monitoring with serial 
   Serial.begin(115200);

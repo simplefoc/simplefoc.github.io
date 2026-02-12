@@ -46,5 +46,6 @@ Raspberry Pi Pico | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
 Portenta H7 | ✔️ | ✔️ | ✔️ | ❌ | ✔️ 
 Renesas (UNO R4 Minima) | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
 nRF52 |✔️ | ✔️ | ✔️ | ✔️ | ✔️
+Arduino Nano Matter (📢NEW)  | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
 
 <blockquote class="info"> 📢 Here is a quick guide to choosing appropriate PWM pins for different MCU architectures <a href="choosing_pwm_pins">see in docs</a>.</blockquote>
