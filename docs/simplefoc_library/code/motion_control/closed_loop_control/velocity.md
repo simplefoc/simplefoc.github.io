@@ -18,7 +18,7 @@ This control loop allows you to spin your motor with desired velocity. This mode
 // set velocity motion control loop
 motor.controller = MotionControlType::velocity;
 ```
-You can test this algorithm by running the examples in the `motion_control/velocity_motion_control/` folder.
+You can find some examples in the `examples/motion_control/velocity_motion_control/` library folder.
 
 
 ## How it works
@@ -48,22 +48,13 @@ And if it is any of the current torque control modes (FOC or DC current) or volt
 
 The velocity control is created by adding a PID velocity controller to the [torque control loop](torque_control). PID controller reads the motor velocity <i>v</i>, filters it to <i>v<sub>f</sub></i> and sets the torque target (<i>u<sub>q</sub></i> voltage or <i>i<sub>q</sub></i> current) to the torque control loop in a such manner that it reaches and maintains the target velocity <i>v<sub>d</sub></i>, set by the user. 
 
-## Controller parameters
-To tune this control loop you can set the parameters to both angle PID controller and velocity measurement low pass filter. 
-``` cpp
-// controller configuration based on the control type 
-// velocity PID controller parameters
-// default P=0.5 I = 10 D = 0
-motor.PID_velocity.P = 0.2;
-motor.PID_velocity.I = 20;
-motor.PID_velocity.D = 0.001;
+## Control parameters
 
-// velocity low pass filtering
-// default 5ms - try different values to see what is the best. 
-// the lower the less filtered
-motor.LPF_velocity.Tf = 0.01;
-``` 
+The velocity control loop outer loop around the torque control loop, so the parameters of the torque control loop will also have an impact on the performance of the velocity control loop. So before tuning the velocity control loop, it is recommended to first tune the torque control loop.
 
+[See torque control documentation](torque_control){: .btn .btn-docs}
+
+Once you have your torque loop nice and tuned, the velocity control loop can be tuned by adjusting the PID controller and velocity measurement low pass filter. 
 The PID controller has three key parameters: proportional gain `P`, integral gain `I`, and derivative gain `D`.
 
 - **Proportional Gain (`P`)**: Increasing `P` makes the motor controller more responsive. However, too high a value can lead to instability. Setting `P` to `0` disables this part of the controller.
@@ -72,9 +63,23 @@ The PID controller has three key parameters: proportional gain `P`, integral gai
 
 - **Derivative Gain (`D`)**: This parameter is often the most challenging to set. It’s recommended to start with `D` at `0`, tuning `P` and `I` first. If overshoot occurs, gradually increase `D` to mitigate it. **This parameter is often not neded and can be left at `0` for many applications.**
 
+``` cpp
+// velocity PID controller parameters
+// default P=0.5 I = 10 D = 0
+motor.PID_velocity.P = 0.2;
+motor.PID_velocity.I = 20;
+```
+
 To smooth out velocity measurements, the Simple FOC library includes a low-pass filter. Low-pass filters are commonly used for signal smoothing and have one parameter: the filtering time constant `Tf`.
 
 - **Filtering Time Constant (`Tf`)**: A lower `Tf` value means less filtering effect. Setting `Tf` to `0` removes the filter entirely. The optimal `Tf` value is typically between `0` and `0.05` seconds.
+
+```cpp
+// velocity low pass filtering
+// default 5ms - try different values to see what is the best. 
+// the lower the less filtered
+motor.LPF_velocity.Tf = 0.01;
+``` 
 
 For optimal performance, you may need to experiment with these parameters. 😁 <br>
 [Go to the quick guide for tuning guide](tunning_velocity_loop){: .btn .mr-2 .btn-docs}
@@ -86,18 +91,27 @@ The velocity control loop relies on the underlying torque control loop, so the p
 
 ### Additional Advanced Parameters
 
-The PID gains and the low-pass filter time constant are the most important parameters to tune and the ones that will have the biggest impact on the performance of the velocity control loop. There are several other parameters that can be set for the velocity control loop for specific use cases
-
+The PID gains and the low-pass filter time constant are the most important parameters to tune and the ones that will have the biggest impact on the performance of the velocity control loop. There are several other parameters that can be set for the velocity control loop for specific use cases, but they are not necessary for the majority of use cases and can be left at their default values.
 
 - **Output Ramp**: This parameter limits how quickly the PID controller's output can change, helping to reduce system jerkiness. It is measured in Volts per second [V/s] or Amps per second [A/s]. For example, a setting of `1000 V/s` means the output cannot change faster than `1` volt per millisecond. Setting it to `0` disables this limit (default is `0`).
 
 - **Limit**: This parameter restricts the PID controller's output, measured in Volts [V] or Amps [A]. Setting it to `NOT_SET` removes the limit. This limit can be automatically set using `updateVoltageLimit()` or `updateCurrentLimit()`, or manually adjusted for different limits.
 
-- **Sampling Time**: This sets the PID controller's sampling time in seconds [s]. The default is `NOT_SET`, allowing the PID to calculate the sampling time based on the time between calls to the `PID_velocity` controller. Specifying a value can save processing time, but it should closely match the actual sampling time. For instance, if `loopFOC()` runs at `1000` Hz, set the sampling time to `0.001` seconds.
+- **Sampling Time**: This sets the PID controller's sampling time in seconds [s]. The default is `NOT_SET`, allowing the PID to calculate the sampling time based on the time between calls to the `PID_velocity` controller. Specifying a value can save processing time, but it should closely match the actual sampling time. For instance, if `motor.move()` runs at `1000` Hz, set the sampling time to `0.001` seconds.
 
 
+### Motion control frequency
 
-### PID Controller Parameters Overview
+
+By default, the velocity control loop runs at the same frequency $$f_{MC}$$ as the torque control loop $$f_{TC}$$, which is typically around `1-10 kHz`. However, in some cases, you may want to run the velocity control loop at a lower frequency than the torque control loop. In that case you can use the `motion_downsampling` parameter of the motor. 
+
+For example, setting `motion_downsampling` to `10` will run the velocity control loop at `100 Hz` while the torque control loop runs at `1 kHz`: 
+```cpp
+motor.motion_downsampling = 10; // run velocity loop at 10 times lower frequency than torque loop
+```
+In other words, the velocity control loop will run at a frequency of $$f_{MC} = \frac{f_{TC}}{\texttt{motion_downsampling}}$$, meaning that the `motor.move()` function will be called every `motion_downsampling` number of `motor.loopFOC()` calls.
+
+### Control Parameters Overview
 
 | Parameter         | Variable | Description                                           | Default Value | Unit          |
 |-------------------|-------------------|-------------------------------------------------------|---------------|---------------|
@@ -108,6 +122,7 @@ The PID gains and the low-pass filter time constant are the most important param
 | Output Ramp      | `motor.PID_velocity.output_ramp` | Limits how quickly the output can change.            | NOT_SET             | $$\frac{V}{s}$$ or $$\frac{A}{s}$$    |
 | Limit            | `motor.PID_velocity.limit` | Restricts the output of the PID controller.          | NOT_SET       | $$V$$ or $$A$$        |
 | Sampling Time    | `motor.PID_velocity.sampling_time` | Sets the sampling time for the PID controller.       | NOT_SET       | $$s$$            |
+| Motion downsampling | `motor.motion_downsampling` | Run velocity loop at lower frequency than torque loop. | 1 | - |
 
 
 For more theoretical insights and source code documentation, refer to the [digging deeper section](digging_deeper).
@@ -149,16 +164,21 @@ The velocity control loop in addition to the target value, allows you to add fee
 | Current feed-forward | `motor.feed_forward_current` | This term adds a constant current to the torque control loop. <br> For example, it can be used to compensate for friction or other constant loads on the motor. <br> Only if torque control mode is current based. See the [torque control section](torque_control). | $$A$$ |
 | Voltage feed-forward | `motor.feed_forward_voltage` | This term adds a constant voltage to the torque control loop. <br> For example, it can be used to compensate for back-EMF or other voltage drops in the system. <br> Can be used if the torque control mode is voltage or current based. |  $$V$$ |
 
-<blockquote class="warning" markdown="1"> <p class="heading">Units warning</p> The units of the `motor.target` variable in velocity control mode are radians per second [rad/s]. If you want to use different units, you will need to convert them accordingly. See the [units documentation](library_units) for more information about the units used in the library and how to convert them.
+The target velocity can be set and modified in runtime by changing the `target` parameter of the motor. 
+
+```cpp
+motor.target = 2.0; // set target velocity to 2 Rad/s
+```
+
+<blockquote class="info" markdown="1"> <p class="heading">Velocity units</p> The units of the `motor.target` variable in velocity control mode are radians per second $$\frac{rad}{s}$$. If you want to use different units, like RPM or degrees per second, you will need to convert them accordingly. 
+
+[See a quick guide to converting units in the library](library_units){: .btn .btn-docs}
 
 </blockquote>
 
-To set the feed-forward terms, you modify these variables directly in runtime:
+To set the feed-forward terms can be modified in runtime by changing the corresponding parameters of the motor.
 
 ```cpp
-
-motor.target = 2.0; // set target velocity to 2 Rad/s
-
 // velocity feed-forward
 motor.feed_forward_velocity = 1.0; // add 1 Rad/s to the velocity
 // current feed-forward
@@ -167,6 +187,10 @@ motor.feed_forward_current.q = 0.5; // add 0.5 A to the
 motor.feed_forward_voltage.q = 1.0; // add 1 V to the voltage
 ```
 
+<blockquote class="warning" markdown="1"> <p class="heading">Be careful with feed-forward terms</p> The feed-forward terms can be very useful for improving the performance of the control loop, but they can also cause instability if not used carefully. They are intended for advanced users who have a good understanding of the system and the control loop. If you are not sure about how to use them, it is recomended not to use them.
+
+</blockquote>
+
 
 ## Velocity motion control example
 
@@ -174,7 +198,7 @@ motor.feed_forward_voltage.q = 1.0; // add 1 V to the voltage
 <a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
 
 
-Here is one basic example of the velocity motion control with the voltage mode torque control with the complete configuration. The program will set the target velocity of `2 RAD/s` and maintain it (resist disturbances) .
+Here is one basic example of the velocity motion control with the estimated current mode torque control with the complete configuration. The program will set the target velocity of `2 RAD/s` and maintain it (resist disturbances) .
 
 <div class="type type-b" markdown="1">
 
@@ -182,7 +206,7 @@ Here is one basic example of the velocity motion control with the voltage mode t
 #include <SimpleFOC.h>
 
 // motor instance
-BLDCMotor motor = BLDCMotor( pole_pairs , phase_resistance );
+BLDCMotor motor = BLDCMotor( pole_pairs, phase_resistance, KV_rating, inductance );
 // driver instance
 BLDCDriver3PWM driver = BLDCDriver3PWM(pwmA, pwmB, pwmC, enable);
 
@@ -197,28 +221,25 @@ void setup() {
   motor.linkSensor(&AS5x4x);
 
   // driver config
+  driver.voltage_power_supply = 12; // V
   driver.init();
   motor.linkDriver(&driver);
 
   // set motion control loop to be used
   motor.controller = MotionControlType::velocity;
+  // set torque control mode
+  motor.control_type = TorqueControlType::estimated_current; 
 
-  // controller configuration 
-  // default parameters in defaults.h
-
-  // controller configuration based on the control type 
   // velocity PID controller parameters
   // default P=0.5 I = 10 D =0
   motor.PID_velocity.P = 0.2;
   motor.PID_velocity.I = 20;
-  motor.PID_velocity.D = 0.001;
 
   // velocity low pass filtering
-  // default 5ms - try different values to see what is the best. 
   // the lower the less filtered
   motor.LPF_velocity.Tf = 0.01;
 
-  // since the phase resistance is provided we set the current limit not voltage
+  // set the torque limit by setting the current limit
   // default 2 A
   motor.updateCurrentLimit(1); // Amps
 
@@ -256,7 +277,7 @@ void loop() {
 #include <SimpleFOC.h>
 
 // motor instance
-StepperMotor motor = StepperMotor( pole_pairs , phase_resistance );
+StepperMotor motor = StepperMotor( pole_pairs, phase_resistance, KV_rating, inductance );
 // driver instance
 StepperDriver4PWM driver = StepperDriver4PWM(pwmA, pwmB, pwmC, pwmD);
 
@@ -271,28 +292,25 @@ void setup() {
   motor.linkSensor(&AS5x4x);
 
   // driver config
+  driver.voltage_power_supply = 12; // V
   driver.init();
   motor.linkDriver(&driver);
 
   // set motion control loop to be used
   motor.controller = MotionControlType::velocity;
+  // set torque control mode
+  motor.control_type = TorqueControlType::estimated_current; 
 
-  // controller configuration 
-  // default parameters in defaults.h
-
-  // controller configuration based on the control type 
   // velocity PID controller parameters
   // default P=0.5 I = 10 D =0
   motor.PID_velocity.P = 0.2;
   motor.PID_velocity.I = 20;
-  motor.PID_velocity.D = 0.001;
 
   // velocity low pass filtering
-  // default 5ms - try different values to see what is the best. 
   // the lower the less filtered
   motor.LPF_velocity.Tf = 0.01;
 
-  // since the phase resistance is provided we set the current limit not voltage
+  // set the torque limit by setting the current limit
   // default 2 A
   motor.updateCurrentLimit(1); // Amps
 

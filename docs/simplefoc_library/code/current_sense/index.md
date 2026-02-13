@@ -72,4 +72,6 @@ Note: current sensing on Renesas MCUs will be added in a future release.
 
 ## Digging deeper
 
-For more theoretical explanations and source code implementations of the current sensing and its integration into the FOC and motion  check out the [digging deeper section](digging_deeper).
+For more theoretical explanations and source code implementations of the current sensing and its integration into the FOC and motion check out the digging deeper section.
+
+[Learn about current sensing theory and implementation](digging_deeper){: .btn .btn-docs}

@@ -24,6 +24,8 @@ Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> su
     - **4 PWM signals** ( 2 phase )  - `StepperDriver4PWM`
     - **2 PWM signals** ( 2 phase )  - `StepperDriver2PWM`
 
+[Configure BLDC drivers](bldcdriver){: .btn .btn-docs .mr-2}
+[Configure Stepper drivers](stepperdriver){: .btn .btn-docs}
     
 The driver code is written in a way to support as many different drivers out there as possible and in a way to be fully interchangeable. 
 These classes can be used as stand-alone classes and they can be used to set certain PWM value to the driver outputs, see example codes in `utils > driver_standalone_test`.

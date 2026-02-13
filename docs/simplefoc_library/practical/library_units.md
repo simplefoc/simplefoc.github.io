@@ -261,7 +261,7 @@ The motor torque or current is defined in Amperes. The torque is directly propor
 - `motor.target` - the target motor current in Amperes ( in closed-loop torque control or in voltage control with current estimation)
 - `motor.currents.q` - the current motor currents in Amperes 
 - `motor.currents.q` - the current motor currents in Amperes
-- `current_sense.getFOCCurrent()` - the current motor currents in Amperes
+- `current_sense.getFOCCurrents()` - the current motor currents in Amperes
 - `current_sense.getDCCurrents()` - the current measured current magnitude in Amperes
 - `current_sense.getPhaseCurrents()` - the current motor phase currents in Amperes
 - `PhaseCurrent_s` - the structure that holds the motor phase currents in Amperes
@@ -315,6 +315,6 @@ float current_Nm = motor.currents.q * Kt;
 Or directly from the current sensor:
 
 ```cpp
-DQCurrent_s c = current_sense.getFOCCurrent();
+DQCurrent_s c = current_sense.getFOCCurrents();
 float current_Nm = c.q * Kt; // torque in Nm
 ```

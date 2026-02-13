@@ -54,8 +54,8 @@ This angle control loop is therefore created by adding one more control loop in 
 
 </div>
 <div class="cascade cascade-n hide" markdown="1">
-<img class="width60 type type-b" src="extras/Images/an_b_i.drawio.png">
- <img class="width60 type type-s hide" src="extras/Images/an_s_i.drawio.png">
+<img class="width60 type type-b" src="extras/Images/an_b_i1.drawio.png">
+ <img class="width60 type type-s hide" src="extras/Images/an_s_i1.drawio.png">
 
 In **No-cascade position control** the angle control loop is closing the loop directly around the torque control loop. This means that the angle controller will be setting the torque target to the torque controller, without using the velocity controller in between.
 

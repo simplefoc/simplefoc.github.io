@@ -20,88 +20,110 @@ This control loop allows you to spin your BLDC motor with desired velocity witho
 motor.controller = MotionControlType::velocity_openloop;
 ```
 
+You can find some examples in `examples/motion_control/openloop_motor_control/` folder.
+
+## How it works?
+
 Choose the motor type: 
 
 <a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
 <a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
 
-Choose the voltage control type: 
+Choose the torque control type: 
 
-<a href ="javascript:show(0,'loop');" id="btn-0" class="btn btn-loop btn-primary">Voltage limiting</a>
-<a href ="javascript:show(1,'loop');" id="btn-1" class="btn btn-loop">Current limiting</a>
-<a href ="javascript:show(2,'loop');" id="btn-2" class="btn btn-loop">Current limiting with Back-EMF compensation</a>
+<a href ="javascript:show(0,'loop');" id="btn-0" class="btn btn-loop btn-primary">Voltage torque mode</a>
+<a href ="javascript:show(1,'loop');" id="btn-1" class="btn btn-loop">Current torque mode</a>
 
 <div class="type type-b">
-<img class="loop loop-0 width60" src="extras/Images/open_loop_velocity (3).png"/>
-<img class="loop loop-1 width60 hide" src="extras/Images/open_loop_velocity (2).png"/>
-<img class="loop loop-2 width60 hide" src="extras/Images/open_loop_velocity (1).png"/>
+<img class="loop loop-0 width50" src="extras/Images/olb_v_v.png"/>
+<img class="loop loop-1 width50 hide" src="extras/Images/olb_v_i.png"/>
 
 </div>
 <div class="type type-s hide">
 
-<img  class="loop width60 loop-0" src="extras/Images/open_loop_vel_steppe3.jpg"/>
-<img class="loop width60 loop-1 hide" src="extras/Images/open_loop_vel_steppe2.jpg"/>
-<img class="loop width60 loop-2 hide" src="extras/Images/open_loop_vel_steppe1.jpg"/>
+<img class="loop loop-0 width50" src="extras/Images/ols_v_v.png"/>
+<img class="loop loop-1 width50 hide" src="extras/Images/ols_v_i.png"/>
 
 </div>
 
-You can test this algorithm by running the examples in `motion_control/openloop_motor_control/` folder.
 
-This control algorithm is very simple. User can set the target velocity it wants to achieve $$v_d$$, the algorithm is going to integrate it in time to find out what is the angle it needs to set to the motor $$a_c$$ in order to achieve it. Then the maximal allowed voltage `motor.voltage_limit` is going to be applied in the direction of the $$a_c$$ using `SinePWM` or `SpaceVectorPWM` modulation.
+This control algorithm is very simple. User can set the target velocity it wants the motor to turn with $$v_d$$. In each step of algorithm execution it is going to add a small angle step to the current angle $$a_c$$ in order to achieve the target velocity. The angle step is going to be calculated by multiplying the target velocity with the sample time $$dt$$ of the algorithm. 
+Then the maximal allowed voltage `motor.voltage_limit` or current `motor.current_limit` is going to be applied to the motor using the underlying torque/FOC control loop (`motor.loopFOC()`). 
 
 This is the simplified version of the calculation of the next angle to set to the motor: 
 
 $$
-a_c = a_c + v_d\Delta t;
+a_c = a_c + v_d dt;
 $$
 
-You need to know the target_velocity $$v_d$$, sample time $$\Delta t$$ and past value of the angle $$a$$ you have set to the motor.
+The sample time  $$dt$$ of the algorithm is adaptively calculated upon every algorithm execution (`motor.move()` call) and it is equal to the time passed since the last execution of the algorithm (time between two `motor.move()` calls). This means that the algorithm is going to be very stable even if the `motor.move()` calls are not happening at a constant frequency. You can check sampling time of the algorithm by checking `motor.move_time.us` (representing the time between two `motor.move()` calls in microseconds) variable.
 
-## Configuration
-There are only three main parameters of the velocity open-loop control
+
+<blockquote class="warning" markdown="1"> <p class="heading">Efficiency Warning</p>
+Open-loop control is highly inefficient because it lacks position feedback. To ensure the motor follows the target, the library applies the maximum allowed voltage or current at all times, regardless of the actual load or speed error.
+
+[See efficiency considerations](#efficiency-considerations){: .btn .btn-docs}
+
+</blockquote>
+
+
+
+<blockquote class="info" markdown="1"> <p class="heading">Units</p>
+The angles in the formula are in radians, the velocities are in radians per second and the time is in seconds. Make sure to use the correct units when setting the target velocity and the limits.
+
+[See the guide about units](library_units){: .btn .btn-docs}
+
+</blockquote>
+
+## Target and limits
+
+Open loop velocity control has two inputs: 
+- target velocity `motor.target` 
+- the limits `motor.voltage_limit` and `motor.current_limit` (depending on the [torque control mode](torque_control)). 
+
+Target velocity is the velocity you want your motor to turn with. The limits are the limits of the voltage or current that is going to be applied to the motor in order to achieve the target velocity.
+
 ```cpp
-// choose FOC modulation (optional) - SinePWM or SpaceVectorPWM
-motor.foc_modulation = FOCModulationType::SinePWM;
+// setting target velocity
+motor.target = 2;   // [rad/s]
 
-// limiting voltage 
-motor.voltage_limit = 3;   // Volts
-// or current  - if phase resistance provided
-motor.current_limit = 0.5 // Amps
+// if in voltage control mode, you can set voltage limit
+motor.updateVoltageLimit(6);  // [Volts]
+// if in current control mode, you can set current limit instead of voltage limit
+motor.updateCurrentLimit(0.5);  // [Amps]
 ```
 
-The velocity open-loop control will (if not provided phase resistance) set the voltage to the motor equal to the `motor.voltage_limit` ($$U_{limit}$$)
+Additionally, the library allows you to set the hard-limit on the target velocity by setting `motor.velocity_limit` variable. This means that even if you set the target velocity to a very high value, the library will not allow the motor to turn faster than the `velocity_limit` value. This can be useful in some applications where you want to make sure that the motor is not going to turn faster than certain velocity.
 
-$$
-U_{limit}  \quad [Volts]
-$$
+```cpp
+// setting velocity limit
+motor.updateVelocityLimit(5);  // [rad/s]
+```
 
-This is very inefficient, as for different motors with different phase resistances the same voltage values can produce wildly different currents.
-For gimbal motor, you can run it in the open loop with the voltage limits of 5-10 Volts and it will reach the currents of 0.5-2 amps as it has the pahse resistance from 5-15 Ohms. For drone motors, the voltage limits should stay very low, under 1 volt. Because they have phase resistance of 0.05 to 0.2 Ohms.
+All the limits and targets can be changed in real-time.
 
-### Current limiting approaches
+## Efficiency considerations
 
-We suggest you to provide the motor class with the `phase_resistance` $$R$$ value and set the `motor.current_limit` $$I_{limit}$$ instead the voltage limit. This current might be surpassed but at least you will know an approximate current your motor is drawing. You can calculate the current the motor is going to be producing by checking the motor resistance `phase_resistance` and evaluating:
+Open-loop velocity is a simple but inefficient control strategy. However its efficiency and characteristics depend a lot on the torque control mode you are using. If you are using voltage control mode, the library is going to apply the voltage equal to `motor.voltage_limit` to the motor in order to achieve the target velocity. If you are using current control mode, the library is going to apply the current equal to `motor.current_limit` to the motor in order to achieve the target velocity.
 
-$$
-U_{limit} = I_{limit}\cdot R  \quad  [ Amps ]
-$$
 
-The best way to use this control strategy would be to provide both phase resistance value and KV rating of your motor. The the library would be able to calculate he back-EMF voltage and much more precisely estimate the consumed current. And with the current and the back-EMF current the library can set much more appropriate voltage to the motor.
+**Which mode should I use**
 
-$$
-U_{limit} = I_{limit}\cdot R + \frac{v_d}{KV}  \quad  [ Amps ]
-$$
+Torque Mode |  Best For... | Requirements | Limits
+--- | --- | --- | ---
+Voltage Control | **Beginners & Gimbal motors.** Best for low-speed testing where you don't know the motor parameters yet. | **None** | Voltage `motor.voltage_limit` 
+Estimated Current | **Drone & High-KV motors.** Much safer for low-resistance motors; provides back-EMF compensation. | ***Phase resistance*** ($$R$$) and ***KV rating*** ($$KV$$) | Current `motor.current_limit`
+FOC Current | **High Performance.** Most efficient and robust mode; handles variable loads and speeds perfectly. | **Current Sensing** hardware. | Current `motor.current_limit`
 
-### Changing limits in real-time
-
-Also, you can change the voltage/current limit in real-time if you need this kind of behavior in your application.
+[Read more about open-loop efficiency considerations](openloop_efficiency){: .btn .btn-docs}
+[Read more about torque control modes](torque_control){: .btn .btn-docs}
 
 ## Velocity open-loop control example
 
 <a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
 <a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
 
-Here is one basic example of the velocity open-loop control with the complete configuration. The program will set the target velocity of `2 RAD/s` and maintain it, and the user can change the target velocity using serial terminal.
+Here is one basic example of the velocity open-loop control with the complete configuration. The torque control mode used is estimated current. The program will set the target velocity of `1 RAD/s` and maintain it, and the user can change the target velocity using serial terminal.
 
 <div class="type type-b" markdown="1">
 
@@ -127,13 +149,16 @@ void setup() {
   driver.init();
   // link the motor and the driver
   motor.linkDriver(&driver);
-
-  // limiting motor current (provided resistance)
-  motor.current_limit = 0.5;   // [Amps]
- 
   // open loop control config
   motor.controller = MotionControlType::velocity_openloop;
+  // torque control mode 
+  motor.torque_controller = TorqueControlType::estimated_current;
 
+  // setting target velocity
+  motor.target = 1;  // [rad/s]
+  // limiting motor current (provided resistance)
+  motor.updateCurrentLimit(0.5);   // [Amps]
+ 
   // init motor hardware
   motor.init();
   motor.initFOC();
@@ -149,9 +174,9 @@ void setup() {
 }
 
 void loop() {
+  // torque control loop
   motor.loopFOC();
   // open loop velocity movement
-  // using motor.current_limit and motor.velocity_limit
   motor.move();
 
   // user communication
@@ -169,8 +194,8 @@ void loop() {
 #include <SimpleFOC.h>
 
 // Stepper motor & driver instance
-// StepperMotor( pp number , phase resistance)
-StepperMotor motor = StepperMotor(50 , 1.5); 
+// StepperMotor( pp number , phase resistance, KV rating)
+StepperMotor motor = StepperMotor(50, 12.5, 100);
 StepperDriver2PWM driver = StepperDriver2PWM(9, 5, 6, 8);
 
 // instantiate the commander
@@ -186,13 +211,16 @@ void setup() {
   driver.init();
   // link the motor and the driver
   motor.linkDriver(&driver);
-
-  // limiting motor current (provided resistance)
-  motor.current_limit = 0.5;   // [Amps]
- 
   // open loop control config
   motor.controller = MotionControlType::velocity_openloop;
+  // torque control mode 
+  motor.torque_controller = TorqueControlType::estimated_current;
 
+  // setting target velocity
+  motor.target = 1;  // [rad/s]
+  // limiting motor current (provided resistance)
+  motor.updateCurrentLimit(0.5);   // [Amps]
+ 
   // init motor hardware
   motor.init();
   motor.initFOC();
@@ -208,9 +236,9 @@ void setup() {
 }
 
 void loop() {
+  // torque control loop
   motor.loopFOC();
   // open loop velocity movement
-  // using motor.current_limit and motor.velocity_limit
   motor.move();
 
   // user communication

@@ -58,4 +58,10 @@ Additionally, there are many different useful practical information already avai
         </a>
         <p> A step-by-step guide to tuning the velocity control loop of your motor </p>
     </div>
+    <div>
+        <a href="openloop_efficiency">
+            <h3 style="color:inherit"> <i class="fa fa-lg fa-wrench" style="padding:10px"></i> Open-loop efficiency considerations</h3>
+        </a>
+        <p> A guide to understanding the efficiency of open-loop control strategies </p>
+    </div>
 </div>

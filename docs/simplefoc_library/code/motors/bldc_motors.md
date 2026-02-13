@@ -75,7 +75,9 @@ KV rating and the pahse resitance values will be used in te open loop contol as 
 
 ### How can I measure the phase resistance and inductance?
 
-The phase resistance is relatively easy to measure, you can use a multimeter to measure the resistance of the motor phases. Here is a [short guide ](phase_resistance) on how to measure the phase resistance and inductance of a BLDC motor. The phase inductance is a bit more complicated to measure as not many multimeters can measure inductance directly. 
+The phase resistance is relatively easy to measure, you can use a multimeter to measure the resistance of the motor phases. The phase inductance is a bit more complicated to measure as not many multimeters can measure inductance directly. 
+
+[View phase resistance measurement guide](phase_resistance){: .btn .btn-docs}
 
 However, <span class="simple">Simple<span class="foc">FOC</span>library</span> provides the tools to measure the motor phase resistance and inductance. In order to measure them you will need to be able to measure the current.
 
@@ -167,7 +169,9 @@ Once when you have the `motor` defined and the sensor initialized you need to li
 // link the sensor to the motor
 motor.linkSensor(&sensor);
 ```
-Method `linkSensor` is able to link the motor to any sensor implemented in this library. The `sensor` will be used to determine electrical position of the motor for the FOC algorithm as well as for the motion control loops of velocity and position. See the [position sensor docs](sensors) for more info!
+Method `linkSensor` is able to link the motor to any sensor implemented in this library. The `sensor` will be used to determine electrical position of the motor for the FOC algorithm as well as for the motion control loops of velocity and position. 
+
+[See position sensor documentation](sensors){: .btn .btn-docs}
 
 <blockquote class="info">Linking is not necessary when using the openloop motion control.</blockquote>
 
@@ -178,7 +182,9 @@ Once when you have the `motor` defined and the driver initialized you need to li
 motor.linkDriver(&driver);
 ```
 
-The `BLDCMotor` class expect to receive a `BLDCDriver` class instance, implemented by default with classes `BLDCDriver3PWM` and `BLDCDriver6PWM`. The `driver` deals with all the hardware specific operations related to specific microcontroller architecture and driver hardware. See the [bldc driver docs](bldcdriver) for more info!
+The `BLDCMotor` class expect to receive a `BLDCDriver` class instance, implemented by default with classes `BLDCDriver3PWM` and `BLDCDriver6PWM`. The `driver` deals with all the hardware specific operations related to specific microcontroller architecture and driver hardware. 
+
+[See BLDC driver documentation](bldcdriver){: .btn .btn-docs}
 
 
 ## Step 4. Linking the current sense 
@@ -187,7 +193,9 @@ If you have a current sensor `current_sense` you can link it to the `motor` usin
 // link the current sensor to the motor
 motor.linkCurrentSense(&current_sense);
 ```
-This linking step is only necessary if you have a current sense supported by this library. See the [current sense docs](current_sense) for more info!
+This linking step is only necessary if you have a current sense supported by this library. 
+
+[See current sense documentation](current_sense){: .btn .btn-docs}
 
 ## Step 5. Configuration paramters
 
@@ -341,7 +349,10 @@ motor.controller = MotionControlType::angle;
 ```
 <blockquote class="warning"><p class="heading"> Important!</p>This parameter doesn't have a default value and it has to be set before real-time execution starts.</blockquote>
 
-Each motion control strategy has its own parameters and you can find more about them on [motion control docs](motion_control). 
+Each motion control strategy has its own parameters. 
+
+[View motion control documentation](motion_control){: .btn .btn-docs}
+
 ```cpp
 // set control loop type to be used
 motor.controller = MotionControlType::angle;

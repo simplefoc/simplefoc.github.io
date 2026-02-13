@@ -59,8 +59,15 @@ All classes of sensors are implemented in generic way in order to support as man
     </a>
 </div>
 
+[View Encoder documentation](encoder){: .btn .btn-docs .mr-2}
+[View Magnetic sensor documentation](magnetic_sensor){: .btn .btn-docs .mr-2}
+[View Hall sensor documentation](hall_sensors){: .btn .btn-docs}
+
 ## Supporting additional sensors
-If you are interested to see what does it take to enable your code to run with different type of sensor or with the communication interface that has not been implemented in the Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> yet, check out the short example [how to implement new sensor source](sensor_support). For more details about the theoretical parts of the code and the source code documentation visit [digging deeper section](digging_deeper).
+If you are interested to see what does it take to enable your code to run with different type of sensor or with the communication interface that has not been implemented in the Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> yet, check out the short example. 
+
+[Learn how to implement custom sensors](sensor_support){: .btn .btn-docs .mr-2}
+[Dig deeper into sensor implementation](digging_deeper){: .btn .btn-docs}
 
 <blockquote class="info"> <p class="heading"> NEW 📢</p>
 We've also created a simplified interface for implementing new sensors in a context of the <code class="highlighter-rouge">GenericSensor</code> class. With it you can add your custom sensor to the <span class="simple">Simple<span class="foc">FOC</span>library</span> by implementing only one function. Check the <a href="generic_sensor"> new sensor class</a>

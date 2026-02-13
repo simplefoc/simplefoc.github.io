@@ -23,10 +23,12 @@ motor.controller = MotionControlType::torque;
 
 In this mode the user can control the motor torque directly by setting the `motor.target` variable to the desired torque value. The torque control loop will then calculate the necessary voltage or current to be applied to the motor in order to achieve the desired torque.
 
-Depending on the torque control mode used, the input to the torque control loop will be either the target voltage <i>u<sub>q</sub></i> or the target current <i>i<sub>q</sub></i>. See more about the different torque control modes in the [torque control documentation](torque_control).
+Depending on the torque control mode used, the input to the torque control loop will be either the target voltage <i>u<sub>q</sub></i> or the target current <i>i<sub>q</sub></i>. 
+
+[See torque control modes](torque_control){: .btn .btn-docs}
 
 
-You can find some examples in the `motion_control/torque_control/` library folder.
+You can find some examples in the `examples/motion_control/torque_control/` library folder.
 
 ## How it works
 
@@ -50,7 +52,9 @@ And if one of the current based torque control modes ([estimated current](estima
 
 ## Control parameters
 
-This motion control mode does not have any additional parameters on its own. It relies entirely on the underlying torque control mode. See the [torque control documentation](torque_control) for more information about the different torque control modes and their parameters.
+This motion control mode does not have any additional parameters on its own. It relies entirely on the underlying torque control mode. 
+
+[View torque control parameters](torque_control){: .btn .btn-docs}
 
 The only real parameter of the torque control motion control is the limit enforeced on the target variable `motor.target ` and the actual voltage or current applied to the motor. This can be set by either limiting the voltage or the current, depending on the torque control mode used. For example if using voltage mode you can limit the voltage by setting
 
@@ -66,14 +70,40 @@ motor.updateCurrentLimit(0.5); // set the current limit to 0.5 A
 // or less preferred way
 motor.current_limit = 0.5; // limit the current to 0.5 A
 ```
-## Feed-forward terms
+## Target & Feed-forward terms
 
-<span class="simple">Simple<span class="foc">FOC</span>library</span> also allows you to add feed-forward terms to the torque control loop. There are two feed-forward terms that can be added to the torque control loop:
+<span class="simple">Simple<span class="foc">FOC</span>library</span> in addition to the target variable `motor.target` also allows you to add feed-forward terms to the torque control loop. There are two feed-forward terms that can be added to the torque control loop:
 
-| Feed-forward term | Variable | Description | Used in Modes |
-|-------------------|-------------|-------------|---------------|
-| Current feed-forward | `motor.feed_forward_current` | This term adds a constant current to the torque control loop. <br> For example, it can be used to compensate for friction or other constant loads on the motor. | Current mode |
-| Voltage feed-forward | `motor.feed_forward_voltage` | This term adds a constant voltage to the torque control loop. <br> For example, it can be used to compensate for back-EMF or other voltage drops in the system. | Voltage mode <br> Current mode - see [torque control documentation](torque_control) |
+| Term | Variable | Description | Used in Modes | Units |
+|-------------------|-------------|-------------|---------------| -----|
+|Target | `motor.target` | This is the main input to the torque control loop, represents the desired current/voltage to be applied to the motor.  | Current mode <br>Voltage mode | Amps <br> Volts |
+| Current feed-forward | `motor.feed_forward_current` | This term adds a constant current to the torque control loop. <br> For example, it can be used to compensate for friction or other constant loads on the motor. | Current mode | Amps |
+| Voltage feed-forward | `motor.feed_forward_voltage` | This term adds a constant voltage to the torque control loop. <br> For example, it can be used to compensate for back-EMF or other voltage drops in the system. | Voltage mode <br> Current mode (advanced) - see [torque control documentation](torque_control) | Volts |
+
+
+The target variable you can set and modify in runtime
+
+```cpp
+// set the target variable
+motor.target = 0.5; // set the target current/voltage to 0.5 A or V depending on the torque control mode
+``` 
+
+<blockquote class="info" markdown="1"> <p class="heading">From current and voltage to torque</p>
+
+Both voltage and current do not represent the actual torque of the motor. The actual torque can be calculated by multiplying the current by the motor's torque constant $$K_t$$. So the target variable is proportional to the actual torque of the motor and controls it indirectly.
+
+$$\tau = K_t \cdot i_q$$
+
+If using voltage mode, there is no simple way to corelate it with the actual torque, except for slow speeds where the back-EMF is negligible and the motor current can be calculated as $$i_q = \frac{u_q}{R}$$ ($$R$$ is the motor phase resistance), making the torque proportional to the voltage:
+
+$$\tau \propto u_q$$
+
+Therefore in this mode the target variable is only proportional to the torque at low speeds. While the torque will decrease as the speed increases due to the back-EMF.
+
+[See a quick guide to handling units in the library](library_units){: .btn .btn-docs}
+
+</blockquote>
+
 
 Both feed-forward terms have q and d components, but only the q component is actually used for torque generation. 
 
@@ -92,25 +122,9 @@ motor.feed_forward_current.d = 0.1; // add 0.1 A to the d-axis current
 motor.feed_forward_voltage.d = 0.1; // add 0.1 V to the d-axis voltage
 ```
 
-## Units
-The units of the `motor.target` variable in torque control mode depend on the torque control mode
+<blockquote class="warning" markdown="1"> <p class="heading">Be careful with feed-forward terms</p> The feed-forward terms can be very useful for improving the performance of the control loop, but they can also cause instability if not used carefully. They are intended for advanced users who have a good understanding of the system and the control loop. If you are not sure about how to use them, it is recomended not to use them.
 
-| Type | Torque control mode | `motor.target` Units |
-|------|---------------------|-----------------------------|
-| Voltage mode| `voltage` | Volts |
-| Current mode| `estimated_current`<br> `dc_current`<br> `foc_current` | Amps |
-
-Both voltage and current do not represent the actual torque of the motor. The actual torque can be calculated by multiplying the current by the motor's torque constant.
-
-$$\tau = K_t \cdot i_q$$
-
-If using voltage mode, there is no simple way to corelate it with the actual torque, except for slow speeds where the back-EMF is negligible and the motor current can be calculated as $$i_q = \frac{u_q}{R}$$ ($$R$$ is the motor phase resistance), making the torque proportional to the voltage:
-
-$$\tau \propto u_q$$
-
-
-Find more information about the units used in the library in the [units documentation](library_units).
-
+</blockquote>
 
 ## Torque control behavior
 
@@ -138,6 +152,422 @@ In current mode, the motor will be able to reach high velocities even with very 
 For current mode remember: the higher the current, the faster the motor will accelerate. Or in other words current is proportional to acceleration. 
 
 </blockquote>
+
+## Torque control example
+
+<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
+<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
+
+<a href ="javascript:show('v','torque');"  class="btn btn-torque btn-v btn-primary">Voltage</a>
+<a href ="javascript:show('ec','torque');" class="btn btn-torque btn-ec"> Estimated Current</a>
+<a href ="javascript:show('fc','torque');" class="btn btn-torque btn-fc"> FOC currents (true FOC)</a>
+
+
+<div class="type type-b" markdown="1">
+
+<div class="torque torque-v " markdown="1">
+
+Here is one basic example of the code for the torque control with voltage mode. The code will initialize the motor, driver and sensor, set the control mode to torque control with voltage mode and set the target voltage to 1 V. 
+```cpp
+#include <SimpleFOC.h>
+
+// motor instance
+BLDCMotor motor = BLDCMotor( pole_pairs );
+// driver instance
+BLDCDriver3PWM driver = BLDCDriver3PWM(pwmA, pwmB, pwmC, enable);
+
+// Magnetic sensor instance
+MagneticSensorSPI AS5x4x = MagneticSensorSPI(AS5047_SPI, chip_select);
+
+void setup() {
+ 
+  // initialize magnetic sensor hardware
+  AS5x4x.init();
+  // link the motor to the sensor
+  motor.linkSensor(&AS5x4x);
+
+  // driver config
+  driver.voltage_power_supply = 12; // voltage of power supply  
+  driver.init();
+  motor.linkDriver(&driver);
+
+  // set motion control loop to be used
+  motor.controller = MotionControlType::torque;
+  // set torque control mode to voltage
+  motor.torque_controller = TorqueControlType::voltage;
+
+  // set the voltage limit for the torque control loop
+  motor.updateVoltageLimit(2); // Volts
+
+  // use monitoring with serial 
+  Serial.begin(115200);
+  // comment out if not needed
+  motor.useMonitoring(Serial);
+
+  // initialize motor
+  motor.init();
+  // align sensor and start FOC
+  motor.initFOC();
+ 
+  // set the target voltage to 1 V
+  motor.target = 1; // Volts
+
+  Serial.println("Motor ready.");
+  _delay(1000);
+}
+
+
+void loop() {
+  // main FOC algorithm function
+  motor.loopFOC();
+
+  // Motion control function
+  motor.move();
+}
+```
+</div>
+
+<div class="torque torque-ec hide" markdown="1">
+
+Here is one basic example of the code for the torque control with estimated current mode. The code will initialize the motor, driver and sensor, set the control mode to torque control with estimated current mode and set the target current to 1 A. 
+
+**IMPORTANT NOTE**: The estimated current mode requires setting the motor parameters, such as phase resistance, KV rating and inductance. If these parameters are not set correctly, the estimated current mode will not work properly and the motor may not behave as expected. See more details in the [torque control docs](estimated_current_mode).
+```cpp
+#include <SimpleFOC.h>
+
+// motor instance
+BLDCMotor motor = BLDCMotor( pole_pairs, phase_resistance, KV_rating, inductance_q, inductance_d );
+// driver instance
+BLDCDriver3PWM driver = BLDCDriver3PWM(pwmA, pwmB, pwmC, enable);
+
+// Magnetic sensor instance
+MagneticSensorSPI AS5x4x = MagneticSensorSPI(AS5047_SPI, chip_select);
+
+void setup() {
+ 
+  // initialize magnetic sensor hardware
+  AS5x4x.init();
+  // link the motor to the sensor
+  motor.linkSensor(&AS5x4x);
+
+  // driver config
+  driver.voltage_power_supply = 12; // voltage of power supply  
+  driver.init();
+  motor.linkDriver(&driver);
+
+  // set motion control loop to be used
+  motor.controller = MotionControlType::torque;
+  // set torque control mode to estimated current
+  motor.torque_controller = TorqueControlType::estimated_current;
+
+  // set the current limit for the torque control loop
+  motor.updateCurrentLimit(2); // Amps
+
+  // use monitoring with serial 
+  Serial.begin(115200);
+  // comment out if not needed
+  motor.useMonitoring(Serial);
+
+  // initialize motor
+  motor.init();
+  // align sensor and start FOC
+  motor.initFOC();
+ 
+  // set the target current to 1 A
+  motor.target = 1; // Amps
+
+  Serial.println("Motor ready.");
+  _delay(1000);
+}
+
+
+void loop() {
+  // main FOC algorithm function
+  motor.loopFOC();
+
+  // Motion control function
+  motor.move();
+}
+```
+</div>
+
+
+<div class="torque torque-fc hide" markdown="1">
+
+Here is one basic example of the code for the torque control with FOC current mode. The code will initialize the motor, driver, sensor and current sense, set the control mode to torque control with FOC current mode and set the target current to 1 A. 
+
+**IMPORTANT NOTE**: The FOC current mode requires current sensing to be used. If no current sensing available, try estimated current mode, which does not require current sensing, but relies on the motor parameters to estimate the current. See more details in the [torque control docs](foc_current_torque_mode).
+```cpp
+#include <SimpleFOC.h>
+
+// motor instance
+BLDCMotor motor = BLDCMotor( pole_pairs );
+// driver instance
+BLDCDriver3PWM driver = BLDCDriver3PWM(pwmA, pwmB, pwmC, enable);
+
+// Magnetic sensor instance
+MagneticSensorSPI AS5x4x = MagneticSensorSPI(AS5047_SPI, chip_select);
+
+// Current sensing
+InlineCurrentSense current_sense = InlineCurrentSense( R_shunt, amp_gain, cs_A, cs_B );
+
+void setup() {
+ 
+  // initialize magnetic sensor hardware
+  AS5x4x.init();
+  // link the motor to the sensor
+  motor.linkSensor(&AS5x4x);
+
+  // driver config
+  driver.voltage_power_supply = 12; // voltage of power supply  
+  driver.init();
+  motor.linkDriver(&driver);
+
+  // set motion control loop to be used
+  motor.controller = MotionControlType::torque;
+  // set torque control mode to FOC current
+  motor.torque_controller = TorqueControlType::foc_current;
+
+  // set the current limit for the torque control loop
+  motor.updateCurrentLimit(2); // Amps
+
+  // initialize current sensing hardware
+  current_sense.init();
+  motor.linkCurrentSense(&current_sense);
+
+  // use monitoring with serial 
+  Serial.begin(115200);
+  // comment out if not needed
+  motor.useMonitoring(Serial);
+
+  // initialize motor
+  motor.init();
+  // align sensor and start FOC
+  motor.initFOC();
+ 
+  // set the target current to 1 A
+  motor.target = 1; // Amps
+
+  Serial.println("Motor ready.");
+  _delay(1000);
+}
+
+
+void loop() {
+  // main FOC algorithm function
+  motor.loopFOC();
+
+  // Motion control function
+  motor.move();
+}
+```
+
+</div>
+</div>
+
+<div class="type type-s hide" markdown="1">
+
+<div class="torque torque-v hide" markdown="1">
+
+Here is one basic example of the code for the torque control with voltage mode. The code will initialize the motor, driver and sensor, set the control mode to torque control with voltage mode and set the target voltage to 1 V. 
+
+```cpp
+#include <SimpleFOC.h>
+
+// motor instance
+StepperMotor motor = StepperMotor( pole_pairs );
+// driver instance
+StepperDriver4PWM driver = StepperDriver4PWM(pwmA, pwmB, pwmC, pwmD);
+
+// Magnetic sensor instance
+MagneticSensorSPI AS5x4x = MagneticSensorSPI(AS5047_SPI, chip_select);
+
+void setup() {
+ 
+  // initialize magnetic sensor hardware
+  AS5x4x.init();
+  // link the motor to the sensor
+  motor.linkSensor(&AS5x4x);
+
+  // driver config
+  driver.voltage_power_supply = 12; // voltage of power supply  
+  driver.init();
+  motor.linkDriver(&driver);
+
+  // set motion control loop to be used
+  motor.controller = MotionControlType::torque;
+  // set torque control mode to voltage
+  motor.torque_controller = TorqueControlType::voltage;
+
+  // set the voltage limit for the torque control loop
+  motor.updateVoltageLimit(2); // Volts
+
+  // use monitoring with serial 
+  Serial.begin(115200);
+  // comment out if not needed
+  motor.useMonitoring(Serial);
+
+  // initialize motor
+  motor.init();
+  // align sensor and start FOC
+  motor.initFOC();
+ 
+  // set the target voltage to 1 V
+  motor.target = 1; 
+
+  Serial.println("Motor ready.");
+  _delay(1000);
+}
+
+
+void loop() {
+  // main FOC algorithm function
+  motor.loopFOC();
+
+  // Motion control function
+  motor.move();
+}
+```
+</div>
+
+<div class="torque torque-ec hide" markdown="1">
+
+Here is one basic example of the code for the torque control with estimated current mode. The code will initialize the motor, driver and sensor, set the control mode to torque control with estimated current mode and set the target current to 1 A. 
+
+**IMPORTANT NOTE**: The estimated current mode requires setting the motor parameters, such as phase resistance, KV rating and inductance. If these parameters are not set correctly, the estimated current mode will not work properly and the motor may not behave as expected.  See more details in the [torque control docs](estimated_current_mode).
+```cpp
+#include <SimpleFOC.h>
+
+// motor instance
+StepperMotor motor = StepperMotor( pole_pairs, phase_resistance, KV_rating, inductance_q, inductance_d );
+// driver instance
+StepperDriver4PWM driver = StepperDriver4PWM(pwmA, pwmB, pwmC, pwmD);
+
+// Magnetic sensor instance
+MagneticSensorSPI AS5x4x = MagneticSensorSPI(AS5047_SPI, chip_select);
+
+void setup() {
+ 
+  // initialize magnetic sensor hardware
+  AS5x4x.init();
+  // link the motor to the sensor
+  motor.linkSensor(&AS5x4x);
+
+  // driver config
+  driver.voltage_power_supply = 12; // voltage of power supply  
+  driver.init();
+  motor.linkDriver(&driver);
+
+  // set motion control loop to be used
+  motor.controller = MotionControlType::torque;
+  // set torque control mode to estimated current
+  motor.torque_controller = TorqueControlType::estimated_current;
+
+  // set the current limit for the torque control loop
+  motor.updateCurrentLimit(2); // Amps
+
+  // use monitoring with serial 
+  Serial.begin(115200);
+  // comment out if not needed
+  motor.useMonitoring(Serial);
+
+  // initialize motor
+  motor.init();
+  // align sensor and start FOC
+  motor.initFOC();
+ 
+  // set the target current to 1 A
+  motor.target = 1; // Amps
+
+  Serial.println("Motor ready.");
+  _delay(1000);
+}
+
+
+void loop() {
+  // main FOC algorithm function
+  motor.loopFOC();
+
+  // Motion control function
+  motor.move();
+}
+```
+
+</div>
+
+<div class="torque torque-fc hide" markdown="1">
+
+Here is one basic example of the code for the torque control with FOC current mode. The code will initialize the motor, driver, sensor and current sense, set the control mode to torque control with FOC current mode and set the target current to 1 A. 
+
+
+**IMPORTANT NOTE**: The FOC current mode requires current sensing to be used. If no current sensing available, try estimated current mode, which does not require current sensing, but relies on the motor parameters to estimate the current. See more details in the [torque control docs](foc_current_torque_mode).
+```cpp
+#include <SimpleFOC.h>
+
+// motor instance
+StepperMotor motor = StepperMotor( pole_pairs );
+// driver instance
+StepperDriver4PWM driver = StepperDriver4PWM(pwmA, pwmB, pwmC, pwmD);
+
+// Magnetic sensor instance
+MagneticSensorSPI AS5x4x = MagneticSensorSPI(AS5047_SPI, chip_select);
+
+// Current sensing
+InlineCurrentSense current_sense = InlineCurrentSense( R_shunt, amp_gain, cs_A, cs_B );
+
+void setup() {
+ 
+  // initialize magnetic sensor hardware
+  AS5x4x.init();
+  // link the motor to the sensor
+  motor.linkSensor(&AS5x4x);
+
+  // driver config
+  driver.voltage_power_supply = 12; // voltage of power supply  
+  driver.init();
+  motor.linkDriver(&driver);
+
+  // set motion control loop to be used
+  motor.controller = MotionControlType::torque;
+  // set torque control mode to FOC current
+  motor.torque_controller = TorqueControlType::foc_current;
+
+  // set the current limit for the torque control loop
+  motor.updateCurrentLimit(2); // Amps
+
+  // initialize current sensing hardware
+  current_sense.init();
+  motor.linkCurrentSense(&current_sense);
+
+  // use monitoring with serial 
+  Serial.begin(115200);
+  // comment out if not needed
+  motor.useMonitoring(Serial);
+
+  // initialize motor
+  motor.init();
+  // align sensor and start FOC
+  motor.initFOC();
+ 
+  // set the target current to 1 A
+  motor.target = 1; // Amps
+
+  Serial.println("Motor ready.");
+  _delay(1000);
+}
+
+
+void loop() {
+  // main FOC algorithm function
+  motor.loopFOC();
+
+  // Motion control function
+  motor.move();
+}
+```
+
+</div>
+</div>
 
 ## Project examples
 Here is one project example which uses torque control and describes the full hardware + software setup needed.
