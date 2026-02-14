@@ -147,6 +147,13 @@ motor.controller = MotionControlType::angle_openloop;
 
 ## Custom control mode
 
+
+<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
+<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
+
+<img class="type type-b width60" src="extras/Images/cus_b.png"/>
+<img class="type type-s width60 hide" src="extras/Images/cus_s.png"/>
+
 The <span class="simple">Simple<span class="foc">FOC</span>library</span> also gives you the possibility to implement your own custom control loop. This is an experimental feature and we are not yet 100% happy with the implementation, but we wanted to give you the possibility to try it out and give us feedback. The custom control mode allows you to implement any control loop you want, and link it to the library. This way you can use the library's functions for reading sensors, controlling the motor and so on, while implementing your own control strategy.
 
 ```cpp
