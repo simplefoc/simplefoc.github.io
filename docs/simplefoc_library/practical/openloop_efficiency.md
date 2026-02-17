@@ -49,7 +49,7 @@ $$ I = \frac{U_{limit}}{R_{phase}} \quad [Amps]$$
   - The faster the motor is spinning, the higher the back-EMF voltage is and the less torque the motor is going to produce for the same voltage limit. This means that the motor is going to be very weak at higher velocities, and it is not going to be able to reach the target velocity if the load is too high.
   - Ideally, the user should increase the voltage limit as the velocity increases in order to compensate for the back-EMF voltage, but this is dangerous and it can easily damage the motor or the driver. Much better option is using [estimated current mode](#estimated-current-mode).
 
-$$ I = \frac{U_{limit} - K_{BEMF}\cdot v}{R_{phase}} \quad [Amps]$$
+$$ I = \frac{U_{limit} - K_{e}\cdot v}{R_{phase}} \quad [Amps]$$
 
 
 <blockquote class="info" markdown="1"> <p class="heading">RULE OF THUMB</p>

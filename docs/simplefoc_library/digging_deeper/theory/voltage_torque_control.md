@@ -1,47 +1,506 @@
 ---
 layout: default
-title: Torque control
+title: Torque Control Methods in FOC
 parent: Theory corner
 grand_parent: Digging deeper
 grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
-description: "Arduino Simple Field Oriented Control (FOC) library ."
+description: "Torque control methods in Field Oriented Control: voltage, estimation, and current feedback"
 nav_order: 1
 permalink: /voltage_torque_control
 toc: true
 ---
 
 
-# Torque control using voltage [v2.0.2](https://github.com/simplefoc/Arduino-FOC/releases)
-In this library we are using the voltage as a substitute for the torque control, why is that and how does it work exactly?
+# Torque Control Methods in FOC [v2.4+](https://github.com/simplefoc/Arduino-FOC/releases)
 
-## How does this work exactly
+This page explains the mathematical theory behind different torque control approaches in FOC motor control, progressing from open-loop voltage control through parameter estimation to closed-loop current feedback.
 
-<a name="foc_image"></a><img src="extras/Images/voltage_loop.png">
+## Fundamental motor equations
+The motor can be modeled as two R-L circuits in the d and q axes, with back-EMF voltage sources. 
 
-The voltage control algorithm reads the angle <i>a</i> from the position sensor and the gets target <i>U<sub>q</sub></i> voltage value from the user and using the FOC algorithm sets the appropriate <i>u<sub>a</sub></i>, <i>u<sub>b</sub></i> and <i>u<sub>c</sub></i> voltages to the motor. FOC algorithm ensures that these voltages generate the magnetic force in the motor rotor exactly with <i>90 degree</i> offset from its permanent magnetic field, which guarantees maximal torque, this is called commutation.
+### Electric circuit model
 
-This is a hard way of achieving exactly the principle of the DC motor. Because, for DC motors, the 90 degree angle in between generated magnetic field in rotor and the permanent magnetic field of the stator is performed in hardware, making it trivial for end-user. 
-Now when you have the 90 degree constraint ensured by software (FOC algorithm) you can use this motor as any other voltage controlled DC motor.
+For FOC control, the motor can be modeled as two R-L circuits in the d and q axes, with back-EMF voltage sources:
 
-Therefore as for the DC motor we know that the motor torque `T` is directly proportional to the current `I`:
-```cpp
-T = I*K 
-```
-Where `K` is the motor constant defined by its hardware.
-And we also know that the current is proportional to the set voltage `U`:
+$$
+\begin{align}
+u_d &= R \cdot i_d + L_d \frac{di_d}{dt} - v_e \cdot L_q \cdot i_q \\
+u_q &= R \cdot i_q + L_q \frac{di_q}{dt} + v_e \cdot L_d \cdot i_d + U_{bemf}
+\end{align}
+$$
 
-```cpp
-I  = (U - EMF)/R
-```
+Where:
+- $$u_d, u_q$$ = d and q-axis voltages applied by the controller
+- $$i_d, i_q$$ = d and q-axis currents in the motor
+- $$R$$ = phase resistance
+- $$L_d, L_q$$ = d and q-axis inductances
+- $$v$$ = mechanical angular velocity of the motor
+- $$v_e$$ = electrical angular velocity ($$v_e = n_{pp} \cdot v$$)
+- $$U_{bemf}$$ = back-EMF voltage (proportional to velocity)
 
-Where `R` is the motor resistance and `EMF` is the generated back EMF voltage. This equation doesn't take in consideration any dynamics but in general it works well enough. 
+In this model the q-axis current $$i_q$$ is responsible for producing torque, while the d-axis current $$i_d$$ is controlled to zero in field-oriented control. Maintaining the $$i_d=0$$ maximises the torque production and minimises the effects of cross-coupling $$v_e \cdot L_d \cdot i_d \approx 0$$.
+ 
+### Steady-state simplification
 
-So what we can conclude from all this is that (if we neglect the EMF):
-```cpp
-T ~ I ~ U
-```
-This means that the torque is proportional to the current and since the current is proportional to the voltage then torque is proportional to the voltage as well.
+In steady state ($$\frac{d i}{dt} = 0$$) with field-oriented control ($$i_d = 0$$):
 
-<blockquote class="danger"><p class="heading">Constrains of this approach: Beware!</p> This assumption of proportionality only works for statics not for dynamics, which means that we will have some current peaks due to different dynamical effects. But if the currents are not too large these effects can be neglected. Currents < 5A <br>
-For real torque control loop we will need to measure the current, but the hardware for current measurement is not really common for low-power applications making this kind of torque control implementation the only way to get around it.</blockquote>
+$$
+\begin{align}
+u_d &= -v_e \cdot L_q \cdot i_q \\
+u_q &= R \cdot i_q + U_{bemf}
+\end{align}
+$$
 
+### Torque production
+
+The electromagnetic torque produced by the motor is proportional to the current in the q-axis (torque-producing axis):
+
+$$
+\tau = K_t \cdot i_q
+$$
+
+Where:
+- $$\tau$$ = electromagnetic torque [Nm]
+- $$K_t$$ = torque constant [Nm/A]
+- $$i_q$$ = q-axis current [A]
+
+### Back-EMF
+
+The back-EMF voltage generated by a rotating motor is proportional to angular velocity:
+
+$$
+U_{bemf} = K_e \cdot v 
+$$
+
+
+For practical purposes, the back-EMF constant relates to the motor's KV rating:
+
+$$
+K_e \approx \frac{1}{KV \cdot \frac{2\pi}{60}} = \frac{30}{\pi \cdot KV}
+$$
+
+Where KV is given in [RPM/V]. For BLDC motors, the relationship involves $$\sqrt{3}$$ due to line-to-line voltage vs phase voltage, while for steppers it involves $$\sqrt{2}$$. So the more accurate back-EMF voltage can be expressed as:
+
+$$
+U_{bemf} = \frac{30}{\pi}\frac{1}{k_{factor} KV}\,v \quad \text{where} \quad k_{factor} = \begin{cases}\sqrt{3} & \text{for BLDC} \\ \sqrt{2} & \text{for steppers}\end{cases}   
+$$
+
+
+---
+
+## Voltage mode theory
+
+
+<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
+<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
+<a href ="javascript:show('h','type');" class="btn btn-type btn-h"> HybridStepper motors</a>
+
+
+
+<img class="type type-b width60" src="extras/Images/torque_control/vc_b.png"/>
+<img class="type type-s width60 hide" src="extras/Images/torque_control/vc_s.png"/>
+<img class="type type-h width60 hide" src="extras/Images/torque_control/vc_h.png"/>
+
+
+Voltage control is the simplest form of torque control, where we directly set the q-axis voltage $$u_q$$ without measuring current. The motor's current (and therefore torque) is indirectly determined by the applied voltage and the motor's electrical characteristics.
+The d-axis voltage $$u_d$$ is typically set to zero in voltage mode, meaning no active compensation for inductive lag or cross-coupling effects.
+
+
+### Steady-state analysis
+
+In voltage mode, we directly control $$u_q$$ without motor parameter knowledge. In steady state ($$\frac{d i}{dt} = 0$$) and with field-oriented control ($$i_d = 0$$), the q-axis voltage equation simplifies to:
+
+$$
+u_q = R \cdot i_q + U_{bemf}
+$$
+
+Solving for current:
+
+$$
+i_q = \frac{u_q - U_{bemf}}{R} = \frac{u_q - K_e \cdot v}{R}
+$$
+
+Substituting into torque equation:
+
+$$
+\tau = K_t \cdot i_q = K_t \cdot \frac{u_q - K_e \cdot v}{R}
+$$
+
+### Low-speed approximation
+
+When $$v \approx 0$$ (motor stationary or slow):
+
+$$
+\tau \approx K_t \cdot \frac{u_q}{R}
+$$
+
+This shows the direct proportionality $$\tau \propto u_q$$ that makes voltage mode useful at low speeds.
+
+### Speed-dependent behavior
+
+As velocity increases, the back-EMF term reduces available current:
+
+$$
+i_q(v) = \frac{u_q}{R} - \frac{K_e}{R} \cdot v
+$$
+
+And in terms the available torque:
+
+$$
+\tau(v) = K_t \cdot \left( \frac{u_q}{R} - \frac{K_e}{R} \cdot v \right)
+$$
+
+**Key limitation:** Torque drops linearly with speed $$v$$ for any constant voltage $$u_q$$.
+
+
+Additionally, at maximum speed (zero torque condition $$\tau=i_q = 0$$):
+
+$$
+v_{max} = \frac{u_q}{K_e} \approx u_q \cdot KV
+$$
+
+Making the maximum speed directly proportional to the applied voltage $$u_q$$.
+
+---
+
+## Estimated current mode theory
+
+An improvement over voltage mode is to estimate the current based on the applied voltage and motor parameters, allowing for better torque control across the speed range.
+
+### Level 1: Resistive compensation (R only)
+
+
+
+<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
+<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
+<a href ="javascript:show('h','type');" class="btn btn-type btn-h"> HybridStepper motors</a>
+
+<img class="type type-b width60" src="extras/Images/torque_control/ec2_b.png"/>
+<img class="type type-s width60 hide" src="extras/Images/torque_control/ec2_s.png"/>
+<img class="type type-h width60 hide" src="extras/Images/torque_control/ec2_h.png"/>
+
+
+If the motor phase resistance $$R$$ is known, we can compensate for the voltage drop across the resistance to maintain a constant current. Then instead of applying a fixed voltage $$u_q$$, we apply the current $$i_q$$ multiplied by the resistance:
+In steady state with $$v = 0$$:
+
+$$
+u_q = i_q \cdot R
+$$
+
+Appart from setting the current setpoint, this is the same as voltage mode. It suffers from the same back-EMF limitation at higher speeds, but it ensures that at low speeds the current (and therefore torque) is exactly proportional to the setpoint, regardless of the motor's resistance.
+
+
+#### Torque generation
+
+Given the traget current $$i_q$$ and the [torque equation](#torque-production), we can express the torque in terms of the applied voltage $$u_q$$:
+
+$$
+\tau = K_t i_q = \frac{K_t}{R} u_q
+$$
+
+Where $$u_q$$ is the voltage applied by the controller, which is calculated based on the desired current setpoint and the motor's resistance. The full torque expression can be derived from the [d-q motor model](#electric-circuit-model), by taking the q-axis voltage equation and combining it with the above expression:
+
+$$
+\tau = K_t i_q = \frac{K_t}{R} \cdot u_q = \frac{K_t}{R} \left( R \cdot \hat{i}_q + L_q \frac{di_q}{dt} + v_e \cdot L_d \cdot i_d + U_{bemf} \right) = K_t \cdot \hat{i}_q + \frac{K_t}{R} \left( L_q \frac{di_q}{dt} + v_e \cdot L_d \cdot i_d + U_{bemf} \right)
+$$
+
+Where $$\hat{i}_q$$ is the actual q-axis current flowing through the motor, while the $$i_q$$ in the target one set by the user. The real torque of the motor can then be expressed as torque $$\hat{\tau} = K_t \cdot \hat{i}_q$$. The target torque set by the user is $$\tau = K_t \cdot i_q$$, will generate the actual torque $$\hat{\tau}$$ but also an error term that includes the effects of inductive lag, cross-coupling, and back-EMF.
+If we substitute the actual torque term with $$\hat{\tau}$$ and consider the steady-state assumption ($$\frac{d i}{dt} = 0$$) and field-oriented control ($$i_d = 0$$), the actual torque can be expressed as:
+
+$$
+\hat{\tau} = \tau - \frac{K_t}{R} \cdot U_{bemf} = \hat{\tau} - \frac{K_t}{R} \cdot K_e \cdot v
+$$
+
+or equivalently:
+
+$$
+\hat{\tau} = K_t i_q - \frac{K_t}{R} \cdot K_e \cdot v
+$$
+
+In this expression, the actual torque $$\hat{\tau}$$ consists of the term proportional to the target current $$i_q$$ (which is the torque we want to generate) minus a term that is proportional to the velocity $$v$$, which represents the reduction in torque due to the back-EMF voltage. Pointing out one more time that this method suffers from the same back-EMF limitation as voltage mode.
+
+### Level 2: Back-EMF compensation (R + KV)
+
+<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
+<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
+<a href ="javascript:show('h','type');" class="btn btn-type btn-h"> HybridStepper motors</a>
+
+<img class="type type-b width60" src="extras/Images/torque_control/ec1_b.png"/>
+<img class="type type-s width60 hide" src="extras/Images/torque_control/ec1_s.png"/>
+<img class="type type-h width60 hide" src="extras/Images/torque_control/ec1_h.png"/>
+
+
+If the motor's back-EMF constant (or KV rating) is known, we can further compensate for the voltage drop due to back-EMF. This allows us to maintain a constant current (and therefore torque) across a wider speed range.
+
+Starting from the steady-state equation:
+
+$$
+u_q = R \cdot i_q + U_{bemf}
+$$
+
+Substituting the back-EMF model:
+
+$$
+u_q = R \cdot i_q + K_e \cdot v
+$$
+
+Where $$K_e =  \frac{30}{\pi}\frac{1}{KV\cdot k_{factor}}$$ and $$k_{factor} = \sqrt{3}$$ for BLDC, $$\sqrt{2}$$ for steppers.
+
+**Result:** By dynamically adjusting $$u_q$$ based on measured velocity $$v$$, the current (and therefore torque) remains constant across the speed range.
+
+
+#### Torque generation
+{: #torque-generation-level-2}
+
+Given the traget current $$i_q$$ and the [torque equation](#torque-production), we can express the torque in terms of the applied voltage $$u_q$$ and back-EMF compensation:
+
+$$
+\tau = K_t i_q = \frac{K_t}{R} (i_q R + U_{bemf}) = K_t i_q + \frac{K_t}{R} U_{bemf}
+$$
+
+Where $$u_q$$ is the voltage applied by the controller, which is calculated based on the desired current setpoint and the motor's resistance, and the back-EMF voltage generated by the motor rotation. The full torque expression can be derived from the [d-q motor model](#electric-circuit-model), by taking the q-axis voltage equation and combining it with the above expression:
+
+$$
+\tau = \frac{K_t}{R} (u_q - U_{bemf}) = \frac{K_t}{R} \left(\left( R \cdot \hat{i}_q + L_q \frac{di_q}{dt} + v_e \cdot L_d \cdot i_d + U_{bemf} \right) - U_{bemf}\right) = K_t \cdot \hat{i}_q + \frac{K_t}{R} \left( L_q \frac{di_q}{dt} + v_e \cdot L_d \cdot i_d \right)
+$$
+
+
+Where $$\hat{i}_q$$ is the actual q-axis current flowing through the motor, while the $$i_q$$ in the target one set by the user. The real torque of the motor can then be expressed as torque $$\hat{\tau} = K_t \cdot \hat{i}_q$$. 
+If we substitute the actual torque term with $$\hat{\tau}$$ and consider the steady-state assumption ($$\frac{d i}{dt} = 0$$) and field-oriented control ($$i_d = 0$$), the actual torque can be expressed as:
+
+$$
+\hat{\tau} = \tau = K_t i_q
+$$
+
+Which shows that, given accurate parameter knowledge ($$R$$ and $$KV$$) and the steady-state assumption, this method can provide accurate torque control across the speed range without the back-EMF limitation. However, it still suffers from errors due to inductive lag and cross-coupling effects at high speeds, which can be compensated for in the next level.
+
+### Level 3: Inductance lag compensation (R + KV + L)
+
+<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
+<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
+<a href ="javascript:show('h','type');" class="btn btn-type btn-h"> HybridStepper motors</a>
+
+<img class="type type-b width60" src="extras/Images/torque_control/ec0_b.png"/>
+<img class="type type-s width60 hide" src="extras/Images/torque_control/ec0_s.png"/>
+<img class="type type-h width60 hide" src="extras/Images/torque_control/ec0_h.png"/>
+
+If the motor's inductance is significant and known, we can also compensate for the inductive lag of the current vector at high speeds. This is done by adding a d-axis voltage component that counteracts the cross-coupling effect of the q-axis current on the d-axis voltage.
+
+The control scheme in this control mode is based on the [d-q motor model](#electric-circuit-model) with the steady-state assumption ($$\frac{d i}{dt} = 0$$):
+
+$$
+\begin{align}
+u_d &= -v_e \cdot L_q \cdot i_q \\
+u_q &= R \cdot i_q + U_{bemf} = R \cdot i_q + K_e \cdot v
+\end{align}
+$$
+
+This is the most complete current estimation scheme available in the library, and it allows for the best torque control across the entire speed range, especially for motors with significant inductance.
+
+#### Torque generation
+{: #torque-generation-level-3}
+This mode allows for the most accurate torque control across the speed range by compensating for both back-EMF and inductive effects. The [derivation of the torque](#torque-generation-level-2) is similar to the previous level 
+
+$$
+\hat{\tau} = K_t i_q
+$$
+
+Which shows that, given accurate parameter knowledge ($$R$$ and $$KV$$) and the steady-state assumption, this method can provide accurate torque control across the speed range without the back-EMF limitation. The user sets the desired current $$i_q$$ which is proportional to the actual torque $$\hat{\tau}$$.
+
+#### Lag compensation
+
+So far all the modes have applied zero d-axis voltage ($$u_d = 0$$). However, from the [d-q motor model](#electric-circuit-model) we can see that the q-axis current generates a cross-coupling voltage in the d-axis that increases with speed. 
+
+For example if the controller applies a d-axis voltage of zero $$u_d = 0$$, the d-axis voltage equation becomes:
+
+$$
+u_d = 0 = R \cdot i_d + L_d \frac{di_d}{dt} - v_e \cdot L_q \cdot i_q
+$$
+
+In static conditions, the d-axis current would be:
+
+$$
+i_d = \frac{v_e \cdot L_q \cdot i_q}{R}
+$$
+
+
+Therefore, this cross-coupling voltage skews the field vector because the $$i_d$$ is no longer zero, which reduces the effective torque. 
+
+By applying a d-axis voltage that counteracts this cross-coupling, we can maintain the d-axis current at 0 ($$i_d = 0$$), achieving proper field alignment and improving torque control at high speeds. The required d-axis voltage for compensation is (assuming $$\frac{d i_d}{dt} = 0$$):
+
+$$
+u_d = -v_e \cdot L_q \cdot i_q
+$$
+
+This compensation is automatically applied in the library when the user provides the motor inductance values, and it can significantly improve torque control at high speeds for motors with significant inductance.
+
+---
+
+## Model accuracy and limitations
+
+### Back-EMF constant approximation
+
+The actual back-EMF constant $$K_e$$ differs from the ideal $$1/KV$$ relationship:
+
+$$
+K_e < \frac{30}{\pi} \frac{1}{k_{factor} KV} , \quad \text{where} \quad k_{factor} = \begin{cases}\sqrt{3} & \text{for BLDC} \\ \sqrt{2} & \text{for steppers}\end{cases}
+$$
+
+This occurs because:
+1. KV rating measures no-load speed, at which the torque (and therefore current) is not exactly zero due to friction and other losses, leading to a slightly higher back-EMF constant
+2. Non-ideal sinusoidal back-EMF waveform
+
+**Practical compensation:** Increase the configured KV value by 10-20% above the datasheet:
+
+$$
+KV_{config} = KV_{datasheet} \times 1.15
+$$
+
+### Parameter sensitivity
+
+The estimation accuracy depends on parameter knowledge:
+
+**Resistance $$R$$:**
+- Temperature dependent: $$R(T) = R_{20}[1 + \alpha(T-20°C)]$$ where $$\alpha \approx 0.004$$ for copper
+- Aging effects can change resistance over motor lifetime
+
+**Inductance $$L$$:**
+- Current dependent due to magnetic saturation: $$L = L(I)$$
+- Different for d-axis and q-axis: $$L_d \neq L_q$$ (saliency)
+
+**KV rating:**
+- Non-linear at high loads
+- Manufacturing tolerances (±10% typical)
+
+### Steady-state assumption
+
+The estimated current mode assumes steady-state operation ($$\frac{d i}{dt} = 0$$). During rapid acceleration:
+
+$$
+u_q = R \cdot i_q + L_q \frac{di_q}{dt} + U_{bemf}
+$$
+
+The transient term $$L_q \frac{di_q}{dt}$$ causes temporary current error. The magnitude of this error is:
+
+$$
+\Delta i_q = \frac{L_q}{R} \cdot \frac{di_q}{dt}
+$$
+
+This error decays with time electical constant $$\tau = L_q/R$$.
+
+This factor could potentially be compensated for by adding a feedforward term based on the desired acceleration, but this is not currently implemented in the library. 
+
+However the true FOC control measures the current and uses it in the control loop, so the transient error is quickly corrected. Therefore if this factor is significant for your application, it is recommended to use the current mode control instead of estimated current mode.
+
+---
+
+## Current-based FOC control
+
+<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
+<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
+<a href ="javascript:show('h','type');" class="btn btn-type btn-h"> HybridStepper motors</a>
+
+
+<img class="type type-b width60" src="extras/Images/torque_control/foc2_b.png"/>
+<img class="type type-s width60 hide" src="extras/Images/torque_control/foc2_s.png"/>
+<img class="type type-h width60 hide" src="extras/Images/torque_control/foc2_h.png"/>
+
+The most accurate and responsive torque control is achieved by **measuring the actual d and q-axis currents** ($$\hat{i}_d$$ and $$\hat{i}_q$$) and using PI feedback controllers to maintain desired setpoints. This eliminates dependency on motor parameter estimates and adapts to real operating conditions.
+
+### Architecture: Double PI control loops
+
+**Q-axis loop:** Controls torque (q-axis current)
+
+$$
+u_q =\text{PI}_q(i_q - \hat{i}_q)  
+$$
+
+The q-axis voltage is calculated by a PI controller that takes the error between the desired q-axis current setpoint $$i_{q}$$ and the measured q-axis current $$\hat{i}_q$$. The output of this controller is the voltage command $$u_q$$ that will be applied to the motor to minise this error. Basically maintainig $$i_q = \hat{i}_q$$.
+
+This loop ensures that the actual current $$\hat{i}_q$$ (and therefore torque) closely follows the desired setpoint $$i_q$$, regardless of the motor's electrical characteristics (Back-EMF, cross-coupling and inductuve lags). This means that the actual torque output will closely match the target torque set by the user, even at high speeds and during rapid torque changes. 
+
+$$
+\hat{\tau} = K_t \cdot \hat{i}_q = K_t \cdot i_q = \tau
+$$
+
+Of course the relationship $$i_q = \hat{i}_q$$ is not perfect due to the dynamics of the system and the tuning of the PI controller, but with proper tuning and fast control loop execution, the actual torque can closely track the target torque across a wide range of operating conditions.
+
+**D-axis loop:** Maintains zero d-axis current (field alignment)
+
+The d-axis controller hass a different role. The magnetic flux in d-axis is traditionally used to generate magnetic field in the rotor  (for AC motors which dont have permanent magnets). For steppers and BLDC motors, which have permanent magnets, there is no point of generating additional magnetic field, so the d-axis current $$i_d$$ is controlled to zero to maximize torque efficiency. 
+
+$$
+u_d = \text{PI}_d(i_d - \hat{i}_d) = \text{PI}_d(-\hat{i}_d)
+$$
+
+Where $$\hat{i}_d$$ is the measured d-axis current, and the setpoint is zero. Maintaining the d-axis current at zero ensures compensation of cross-coupling effects and proper field alignment, which is crucial for maximizing torque production and efficiency. It does not require the knowledge of the motor parameters, as it was the case for [estimated current mode](#level-3-inductance-lag-compensation-r--kv--l), where the d-axis voltage was calculated based on the motor's inductance and velocity. In current mode control, the feedback loop automatically adjusts the d-axis voltage to maintain zero d-axis current, regardless of the motor's parameters or operating conditions.
+
+However, this is true only if the current measurement is accurate and the PI controller is properly tuned. If there are significant errors in current measurement or if the controller is not responsive enough, there may be some residual d-axis current, which can reduce torque efficiency.
+
+### Additional lag and cross-coupling compensation
+
+
+<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
+<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
+<a href ="javascript:show('h','type');" class="btn btn-type btn-h"> HybridStepper motors</a>
+
+
+<img class="type type-b width60" src="extras/Images/torque_control/foc0_b.png"/>
+<img class="type type-s width60 hide" src="extras/Images/torque_control/foc0_s.png"/>
+<img class="type type-h width60 hide" src="extras/Images/torque_control/foc0_h.png"/>
+
+Even though the FOC algorithm does compensate for back-EMF and inductive effects through the feedback loops, there can still be performance improvements by adding feed-forward compensation terms based on motor parameters. The benefits of this compensation are more pronounced for high-speed applications, where the target currents $$i_q$$ can change rapidly and the inductive lag and cross-coupling effects become more significant.
+
+If the user provides the motor inductance values $$L_q, L_d$$, the library can automatically calculate and apply the necessary d-axis voltage to counteract the cross-coupling effect of the q-axis current, improving torque control at high speeds.
+
+The compensation is calculated as:
+
+$$
+\begin{align}
+u_q &= \text{PI}_q(i_q - \hat{i}_q)  + v_e \cdot L_d \cdot i_d \\
+u_d &= \text{PI}_d(-\hat{i}_d) - v_e \cdot L_q \cdot i_q
+\end{align}
+$$
+
+This compensation allows for better torque control especially in highy dynamical applications. Where the requested torque changes rapidly and the motor operates at high speeds, the inductive lag and cross-coupling effects become more pronounced. By compensating for these effects, the controller can maintain accurate torque output even under demanding conditions.
+
+If the motor inductance values are not provided, the library will still perform current control but without the feedforward compensation, which may result in reduced performance at high speeds. 
+
+### Advantages over estimation
+
+**1. Parameter-independent:**
+- No need for accurate $$R$$, $$L$$, or $$K_e$$ values
+- Automatically adapts to temperature changes
+- Tolerant of motor manufacturing variations
+
+**2. Transient response:**
+- Fast feedback correction eliminates acceleration errors
+- The steady-state assumption is not required ($$\frac{d i}{dt} \neq 0$$ is handled by the feedback loop)
+- Handles rapid torque changes
+
+**3. Cross-coupling compensation:**
+- Measured feedback ensures $$i_d = 0$$ even at high speeds
+- No need to estimate $$L_d, L_q$$ for compensation
+- D-axis voltage automatically adjusts to maintain field alignment
+
+**4. Current limiting:**
+- Real current measurement enables true current limits
+- Protection against overcurrent conditions
+- Prevents motor damage from parameter errors
+
+### PI tuning and configuration
+
+This loop has to be executed very fast (current control loop typically runs at 1-5kHz) to ensure stability and responsiveness. The PI gains must be tuned based on the motor's electrical characteristics and desired bandwidth.
+
+[See the PID tuning guide for more details.](tuning_current_loop){: .btn .btn-docs}
+
+---
+[Torque control implementation details](torque_control_implementation){: .btn .btn-docs}
+[Motion control implementation details](motion_control_implementation){: .btn .btn-docs}
+[FOC algorithm source code](foc_implementation){: .btn .btn-docs}
+
+## Further reading
+- [Estimated current mode setup guide](estimated_current_mode)
+- [Voltage mode implementation](voltage_torque_mode)
+- [FOC algorithm source code](foc_implementation)
+- [Motor parameter measurement](phase_resistance)

@@ -24,10 +24,8 @@ Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> su
   - StepperMotor: 2 phase (4 wire)
   - 📢 NEW: HybridStepperMotor: 2 phase (3 wire)
 
-[Read BLDC motor documentation](bldcmotor){: .btn .btn-docs .mr-2}
-[Read Stepper motor documentation](steppermotor){: .btn .btn-docs}
 
 The motor code is written in a way to support as many different motors out there as possible and in a way to be fully interchangeable. 
 
 ## Digging deeper
-For more theoretical explanations and source code implementations of the FOC algorithm and the motion control approaches check out the [digging deeper section](digging_deeper){: .btn .btn-docs}.
+For more theoretical explanations and source code implementations of the FOC algorithm and the motion control approaches check out the [digging deeper section](digging_deeper).

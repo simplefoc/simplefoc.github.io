@@ -82,7 +82,7 @@ motor.LPF_velocity.Tf = 0.01;
 ``` 
 
 For optimal performance, you may need to experiment with these parameters. 😁 <br>
-[Go to the quick guide for tuning guide](tunning_velocity_loop){: .btn .mr-2 .btn-docs}
+[Go to the quick guide for tuning guide](tuning_velocity_loop){: .btn .mr-2 .btn-docs}
 
 <blockquote class="warning" markdown="1"> <p class="heading">Don't forget the torque control loop</p> 
 The velocity control loop relies on the underlying torque control loop, so the parameters of the torque control loop will also have an impact on the performance of the velocity control loop. See the [torque control documentation](torque_control) for more information about the different torque control modes and their parameters.

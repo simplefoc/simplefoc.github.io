@@ -13,29 +13,9 @@ toc: true
 
 
 # Position Sensors 
-This library supports these types of *off-the-shelf* position sensors: 
-- [Encoder](encoder): 
-    - Sensor that counts `A`, `B` and `index` channels impulses to estimate the position.
-    - Examples: 
-        - optical: [OMRON 1000P <i class="fa fa-external-link"></i>](https://www.ebay.com/itm/OMRON-1000P-Incremental-Rotary-Encoder-1000p-r-E6B2-CWZ1X-Differential-Signal/303247826877?hash=item469afa9fbd:g:BsYAAOSwb2hdTCQB)
-        - capacitive: [AMT103 CUI <i class="fa fa-external-link"></i>](https://www.mouser.fr/ProductDetail/CUI-Devices/AMT103-V?qs=%2Fha2pyFaduiAsBlScvLoAWHUnKz39jAIpNPVt58AQ0PVb84dpbt53g%3D%3D)
-        - magnetic: [AS5047U <i class="fa fa-external-link"></i>](https://www.mouser.fr/ProductDetail/ams/AS5X47U-TS_EK_AB?qs=sGAEpiMZZMve4%2FbfQkoj%252BBDLPCj82ZLyYIPEtADg0FE%3D) - using ABI
-- [Magnetic sensor](magnetic_sensor): 
-    - Sensor that uses precise magnetic field measurement to estimate the position.
-        - They come with multitude of different communication standards such as: SPI, SSI, I2C, ABI, UVW, PWM...
-        - **Supported communications:** ([releases <i class="fa fa-tag"></i>](https://github.com/simplefoc/Arduino-FOC/releases)) 
-            - SPI, I2C, Analog, PWM
-            - UVW (*using the hall sensor interface*)
-            - ABI (*using the encoder interface*)
-    - Examples :  [AS5048A <i class="fa fa-external-link"></i>](https://www.ebay.com/itm/AS5048-Magnetic-Encoder-PWM-SPI-Interface-14-Bit-Precision-For-Brushless-Motor/153636871434?hash=item23c5789d0a:g:oOMAAOSwd-5ddaWQ), [AS5047U <i class="fa fa-external-link"></i>](https://www.mouser.fr/ProductDetail/ams/AS5X47U-TS_EK_AB?qs=sGAEpiMZZMve4%2FbfQkoj%252BBDLPCj82ZLyYIPEtADg0FE%3D), [AS5600 <i class="fa fa-external-link"></i>](https://www.ebay.com/itm/1PC-New-AS5600-magnetic-encoder-sensor-module-12bit-high-precision/303401254431?hash=item46a41fbe1f:g:nVwAAOSwTJJd8zRK)
-- [Hall sensors](hall_sensors): 
-    - Sensor that estimates rotor position by reading magnet positions on the rotor.
-    - Examples :  [49E Hall sonde <i class="fa fa-external-link"></i>](https://fr.aliexpress.com/item/32590021901.html?spm=a2g0o.productlist.0.0.6eec671cZA32JT&algo_pvid=5729f98b-72a0-4cf8-b80a-adac9ecbbd2a&algo_expid=5729f98b-72a0-4cf8-b80a-adac9ecbbd2a-58&btsid=0b8b035915993735716435630eb78b&ws_ab_test=searchweb0_0,searchweb201602_,searchweb201603_) ,   [105 Hall sensor <i class="fa fa-external-link"></i>](https://fr.aliexpress.com/item/32968973849.html?spm=a2g0o.productlist.0.0.2727671c1QF3Xc&algo_pvid=701cd77d-e484-49ca-8ee8-35a76ed246a1&algo_expid=701cd77d-e484-49ca-8ee8-35a76ed246a1-12&btsid=0b8b034e15993753711202685ed51b&ws_ab_test=searchweb0_0,searchweb201602_,searchweb201603_) 
-- [Generic sensors](generic_sensor): **NEW📢**
-    - Simplified implementation of your custom sensors - only one function to implement
-    
 
-All classes of sensors are implemented in generic way in order to support as many of their versions as possible.
+
+This library supports these types of *off-the-shelf* position sensors: 
 
 <div class="image_icon width30" >
     <a href="encoder" class="text-center">
@@ -59,9 +39,18 @@ All classes of sensors are implemented in generic way in order to support as man
     </a>
 </div>
 
-[View Encoder documentation](encoder){: .btn .btn-docs .mr-2}
-[View Magnetic sensor documentation](magnetic_sensor){: .btn .btn-docs .mr-2}
-[View Hall sensor documentation](hall_sensors){: .btn .btn-docs}
+
+## Sensor Types at a Glance
+
+| Sensor Type | Principle | Interface(s) | Popular Examples | Key Strength |
+|---|---|---|---|---|
+| **[Encoder](encoder)** | Counts A, B, index pulses | ABI (direct pins) | [OMRON 1000P](https://www.ebay.com/itm/OMRON-1000P-Incremental-Rotary-Encoder-1000p-r-E6B2-CWZ1X-Differential-Signal/303247826877?hash=item469afa9fbd:g:BsYAAOSwb2hdTCQB), [AMT103](https://www.mouser.fr/ProductDetail/CUI-Devices/AMT103-V?qs=%2Fha2pyFaduiAsBlScvLoAWHUnKz39jAIpNPVt58AQ0PVb84dpbt53g%3D%3D), [AS5047U](https://www.mouser.fr/ProductDetail/ams/AS5X47U-TS_EK_AB?qs=sGAEpiMZZMve4%2FbfQkoj%252BBDLPCj82ZLyYIPEtADg0FE%3D) | High resolution |
+| **[Magnetic Sensor](magnetic_sensor)** | Measures magnetic field | SPI, I2C, Analog, PWM, ABI, UVW | [AS5048A](https://www.ebay.com/itm/AS5048-Magnetic-Encoder-PWM-SPI-Interface-14-Bit-Precision-For-Brushless-Motor/153636871434?hash=item23c5789d0a:g:oOMAAOSwd-5ddaWQ), [AS5047U](https://www.mouser.fr/ProductDetail/ams/AS5X47U-TS_EK_AB?qs=sGAEpiMZZMve4%2FbfQkoj%252BBDLPCj82ZLyYIPEtADg0FE%3D), [AS5600](https://www.ebay.com/itm/1PC-New-AS5600-magnetic-encoder-sensor-module-12bit-high-precision/303401254431?hash=item46a41fbe1f:g:nVwAAOSwTJJd8zRK) | Absolute position |
+| **[Hall Sensor](hall_sensors)** | Detects magnet poles | UVW (3 digital inputs) | [49E Hall Sensor](https://fr.aliexpress.com/item/32590021901.html?spm=a2g0o.productlist.0.0.6eec671cZA32JT&algo_pvid=5729f98b-72a0-4cf8-b80a-adac9ecbbd2a&algo_expid=5729f98b-72a0-4cf8-b80a-adac9ecbbd2a-58&btsid=0b8b035915993735716435630eb78b&ws_ab_test=searchweb0_0,searchweb201602_,searchweb201603_), [105 Hall Sensor](https://fr.aliexpress.com/item/32968973849.html?spm=a2g0o.productlist.0.0.2727671c1QF3Xc&algo_pvid=701cd77d-e484-49ca-8ee8-35a76ed246a1&algo_expid=701cd77d-e484-49ca-8ee8-35a76ed246a1-12&btsid=0b8b034e15993753711202685ed51b&ws_ab_test=searchweb0_0,searchweb201602_,searchweb201603_) | Low cost |
+| **[Generic Sensor](generic_sensor)** | Custom implementation | Your choice | Any custom sensor | Maximum flexibility |
+
+All sensor classes are implemented in a generic way to support as many sensor variants as possible.
+
 
 ## Supporting additional sensors
 If you are interested to see what does it take to enable your code to run with different type of sensor or with the communication interface that has not been implemented in the Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> yet, check out the short example. 

@@ -10,14 +10,14 @@ toc: true
 ---
 
 
-# Motor commands list [v2.1](https://github.com/simplefoc/Arduino-FOC/releases)
+# Motor commands list [v2.4](https://github.com/simplefoc/Arduino-FOC/releases)
 
 The command ids used by the commander interface are defined in the library source by the default values in the header file: `src/communication/commands.h`, here is the list of the commands:
 ```cpp
 
 // list of commands
  #define CMD_C_D_PID   'D' //!< current d PID & LPF
- #define CMD_C_Q_PID   'Q' //!< current d PID & LPF
+ #define CMD_C_Q_PID   'Q' //!< current q PID & LPF
  #define CMD_V_PID     'V' //!< velocity PID & LPF
  #define CMD_A_PID     'A' //!< angle PID & LPF
  #define CMD_STATUS    'E' //!< motor status enable/disable
@@ -27,6 +27,10 @@ The command ids used by the commander interface are defined in the library sourc
  #define CMD_SENSOR    'S' //!< sensor offsets
  #define CMD_MONITOR   'M' //!< monitoring
  #define CMD_RESIST    'R' //!< motor phase resistance
+ #define CMD_INDUCTANCE    'I' //!< motor phase inductance
+ #define CMD_KV_RATING 'K' //!< motor kv rating
+ #define CMD_PWMMOD   'W' //!< pwm modulation
+ #define CMD_FOC_PARAMS 'F'  //!< time parameters
 
  // commander configuration
  #define CMD_SCAN    '?' //!< command scaning the network - only for commander
@@ -53,6 +57,21 @@ The command ids used by the commander interface are defined in the library sourc
  #define SCMD_CLEAR      'C' //!< Clear all monitored variables
  #define SCMD_GET        'G' //!< Get variable only one value
  #define SCMD_SET        'S' //!< Set variables to be monitored
+
+ // pwm modulation
+ #define SCMD_PWMMOD_TYPE   'T'  //!<< Pwm modulation type
+ #define SCMD_PWMMOD_CENTER 'C'  //!<< Pwm modulation center flag
+
+ // foc control parameters
+ #define SCMD_LOOPFOC_TIME  'L' //!< loopFOC time between executions (filtered)
+ #define SCMD_MOVE_TIME     'M' //!< move time between executions (filtered)
+ #define SCMD_REINIT_FOC    'R' //!< reinitialize FOC
+ #define SCMD_TUNE_CURR     'C' //!< tune current controller
+ #define SCMD_MEAS_PARAMS   'P' //!< measure motor parameters (resistance and inductance)
+
+ // subcommands for motor parameters measurement
+ #define SCMD_INDUCT_D     'D' //!< inductance d axis
+ #define SCMD_INDUCT_Q     'Q' //!< inductance q axis
 ```
 
 By modifying this header file you can modify the default command character for the whole library.

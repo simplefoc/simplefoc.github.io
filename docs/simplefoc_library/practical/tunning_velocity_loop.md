@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Tuning velocity loop
+title: Tuning Velocity Loop
 nav_order: 7
 description: "Arduino Simple Field Oriented Control (FOC) library ."
-permalink: /tunning_velocity_loop
+permalink: /tuning_velocity_loop
 parent: Practical guides
 grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 toc: true
@@ -45,6 +45,18 @@ This approach give you a good starting point for the filter. You can adjust it u
 Also the max velocity is application dependent. 
 - If you have a high velocity motor but you only need to run it at low velocities, you can set the filter cutoff based on the max velocity you need rather than the max velocity of the motor. This will allow you to have a smoother response at low velocities. 
 - If you need to run the motor in its full velocity range, then you should set the filter cutoff based on the max velocity of the motor and adapt the PID gains accordingly to have a good response in the full velocity range.
+
+<blockquote class="info" markdown="1">
+<p class="heading">Tip: Velocity oscilates between 0 and a high value</p>
+If your sensor is very noisy, especially if the velocity oscillates between 0 and a high value, for example if using the example code from `examples/utils/sensor_test`, before setting the low pass filter, increase first the time between the velocity calculations by setting 
+
+```cpp
+sensor.min_elapsed_time = 0.001 // 1ms - default value is 0.0001 (100us)
+```
+
+The default value is 100 microseconds which is very low for very fast microcontrollers such. Especially if the sensor resolution is low.
+
+</blockquote>
 
 
 ## 2. Proportional Gain (`motor.PID_velocity.P`)

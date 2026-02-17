@@ -33,135 +33,30 @@ To instantiate the BLDC motor we need to create an instance of the `BLDCMotor` c
 BLDCMotor motor = BLDCMotor(11, 10.5, 120, 0.001, 0.001);
 ```
 
-Parameter | Description | Unit | Optional | Can be changed in real-time? | Used for 
---- | --- | --- | --- | --- | ---
-`pole_pairs` | Number of pole pairs of the motor | - | No | No | Everything - it is a fundamental motor parameter
-`phase_resistance` | Phase resistance of the motor | Ohm |Yes|Yes   | `estimated_current` torque control and tuning of current control loops
-`KV` | KV rating of the motor | rpm/V | Yes | Yes | All current control loops - calculating BEMF
-`Lq` and `Ld` | q and d axis inductance values | H | Yes | Yes | All current control loops - calculating lag and cross coupling
+- `pole_pairs` is the number of pole pairs of your motor **(Required)**
+- `R` is the phase resistance of your motor (optional, used for current control modes),
+- `KV` is the motor KV rating (optional, used for current control modes),
+- `Lq` is the q axis inductance value (optional, used for current control modes),
+- `Ld` is the d axis inductance value (optional, used for current control modes).
 
 <blockquote class="info"><p class="heading">Pole pair number </p>
 If you are not sure what your <code class="highlighter-rouge">pole_pairs</code> number is. The library provides an example code to estimate your <code class="highlighter-rouge">pole_pairs</code> number in the examples <code class="highlighter-rouge">examples/utils/calibration/find_pole_pairs_number.ino</code>.
 </blockquote>
 
-<blockquote class="warning" markdown="1">
-<p class="heading">RULE OF THUMB: KV value </p>
-We suggest to set the `KV` value provided to the library to 50-70% higher than the one given in the datasheet, or the one determined experimentally. Depending on the motor mechanics the appropriate value will be in between the 100% to 200% of the motor's KV rating.
-</blockquote>
-
-<blockquote class="info" markdown="1">
-<p class="heading">Finding KV rating value </p>
-If you are not sure what your motor's <code class="highlighter-rouge">KV</code> is. You can easily find it as the velocity of your motor when controlled in the voltage torque control with a setpoint of 1 volt -  <code class="highlighter-rouge">velocity_at_one_volt</code> . The KV rating units are rpm per Volt, and as the <span class="simple">Simple<span class="foc">FOC</span>library</span> works with rad/s rather than rpm. You once when you get the velocity reached with 1 volt setpoint, you can multiply it with $$30/\pi$$ 
-
-```cpp
-KV = velocity_at_one_volt * 30/pi
-```
-You can also use the provided libray examples `examples/utils/calibration/find_KV_rating.ino`.
-</blockquote>
-
 ### Motor phase resistance, inductance and KV rating 
-Providing the KV rating in combination with the phase resistance (not very used for current based torque modes `foc_current` and `dc_current`) will enable the user to control the motor's current without measuring it. The user will be able to control (and limit) the estimated current of the motor using the voltage control mode. Read more in the [torque control docs](voltage_torque_mode).
 
-Working with currents instead of voltages is better in may ways, since the torque of the BLDC motor is proportional to the current and not voltages and especially since the same voltage value will produce very different currents for different motors (due to the different phase resistance). Once when the phase resistance is provided the user will be able to set current limit for its BLDC motor instead of voltage limit which is much easier to understand. 
+Motor parameters in <span class="simple">Simple<span class="foc">FOC</span>library</span> are optional but they are used for:
+- [Estimated current torque mode](estimated_current_torque_mode) - to estimate the motor current based on the voltage command and motor parameters
+- FOC current control
+   - [Advanced FOC control features](foc_current_torque_mode#cross-coupling-and-lag-compensation-advanced) - to compensate for cross-coupling
+   - [Auto-tunning current PI controllers](dc_current_torque_mode) - to set the PI controller gains based on the motor parameters
 
-It is important to say that once you specify the phase resistance value, you will most probably have to retune the [velocity motion control](velocity_loop) and [angle motion control](angle_loop) parameters, due to the reason that the voltages and currents values are in different orders of magnitude. The rule of thumb is to divide all the `P`, `I` and `D` gains with the `motor.phase_resistance` value. That will be a good staring point.
+If you need some of these features and you do not have the motor parameters there are a couple of options:
+- Try to find them in the datasheet and verify them using this [guide](motor_params_test).
+- Manually measure [phase resitance](phase_resistance) and [KV rating](kv_rating_measure) using the guides in the [practical section](practical_guides#motor-parameters-and-characterization)
+- Automatically measure them using the `characteriseMotor()` function - [guide here](motor_characterisation).
 
-Finally, this parameter is suggested to be used if one whats to switch in real time in between voltage ([voltage mode](voltage_torque_mode)) and current based ([DC current](dc_current_torque_mode) and [FOC current](foc_current_torque_mode)) torque control strategies. Since in this way all the torque control loops will have current as input (target value) the user will not have to change the motion control parameters (PID values). 
-
-<blockquote class="info">
-<p class="heading">Open-loop motion control will use KV and phase resitance values  </p>
-KV rating and the pahse resitance values will be used in te open loop contol as well to let the user to limit the current drawn by the motor instead of limitting the volatge. Read more in the <a href="open_loop_motion_control">open-loop motion control docs</a>.
-</blockquote>
-
-### How can I measure the phase resistance and inductance?
-
-The phase resistance is relatively easy to measure, you can use a multimeter to measure the resistance of the motor phases. The phase inductance is a bit more complicated to measure as not many multimeters can measure inductance directly. 
-
-[View phase resistance measurement guide](phase_resistance){: .btn .btn-docs}
-
-However, <span class="simple">Simple<span class="foc">FOC</span>library</span> provides the tools to measure the motor phase resistance and inductance. In order to measure them you will need to be able to measure the current.
-
-Once you have the current sensor set up, you can use the 
-```cpp
-motor.characteriseMotor(2.0f); // the parameter is the voltage used for the measurement, it should be high enough to produce a measurable current but not too high to damage your motor
-``` 
-
-function to measure the phase resistance and inductance. This function will run a series of tests to determine these parameters and will print them to the serial monitor.
-
-
-<blockquote class="info">
-
-<details markdown="1">
-<summary style="cursor: pointer;"> <i class="fa fa-code"></i> Example code for motor phase characterisation </summary>
-
-```cpp
-
-#include <SimpleFOC.h>
-
-// Stepper motor & BLDC driver instance
-BLDCMotor motor = BLDCMotor(11);
-// SimpleFOCShield
-BLDCDriver3PWM driver = BLDCDriver3PWM(6, 10, 5, 8);
-
-// inline current sensor instance
-// ACS712-05B has the resolution of 0.185mV per Amp
-LowsideCurrentSense current_sense = LowsideCurrentSense(185.0f, A0, A2);
-
-void setup() {
-
-  // use monitoring with serial 
-  Serial.begin(115200);
-  // enable more verbose output for debugging
-  // comment out if not needed
-  SimpleFOCDebug::enable(&Serial);
-
-  // driver config
-  // power supply voltage [V]
-  driver.voltage_power_supply = 20;
-  driver.init();
-  // link driver
-  motor.linkDriver(&driver);
-  // link current sense and the driver
-  current_sense.linkDriver(&driver);
-
-  // current sense init and linking
-  current_sense.init();
-  motor.linkCurrentSense(&current_sense);
-
-  // initialise motor
-  motor.init();
-
-  // find the motor parameters
-  motor.characteriseMotor(3.5f);
-
-
-  _delay(1000);
-}
-
-
-void loop() {
-  // do nothing
-  _delay(1000);
-}
-```
-
-The output of the `characteriseMotor` function will be printed to the serial monitor and will look like this:
-
-```sh
-MOT: Init
-MOT: Enable driver.
-MOT: Measuring phase to phase resistance, keep motor still...
-MOT: Estimated phase to phase resistance: 5.94
-MOT: Measuring inductance, keep motor still...
-MOT: Inductance measurement complete!
-MOT: Measured D-inductance in mH: 0.50
-MOT: Measured Q-inductance in mH: 0.59
-```
-From the release v2.4.0 the <span class="simple">Simple<span class="foc">FOC</span>library</span> allows for setting both for q and d axis inductance value. The values can be accesed using the `motor.axis_inductance` variable (`motor.axis_inductance.d` and `motor.axis_inductance.q`) and they can be set in the constructor. The method `characteriseMotor` will measure both of them, print them to the serial monitor and set them to the `motor.axis_inductance` variable.
-
-</details>
-</blockquote>
-
+[Go here fore more practical guides](practical_guides){: .btn .btn-docs}
 
 ## Step 2. Linking the sensor 
 Once when you have the `motor` defined and the sensor initialized you need to link the `motor` and the `sensor` by executing:    
@@ -172,8 +67,15 @@ motor.linkSensor(&sensor);
 Method `linkSensor` is able to link the motor to any sensor implemented in this library. The `sensor` will be used to determine electrical position of the motor for the FOC algorithm as well as for the motion control loops of velocity and position. 
 
 [See position sensor documentation](sensors){: .btn .btn-docs}
+  
+<blockquote class="info" markdown="1"><p class="heading">Pro Tip</p>
+If sensor velocity too noisy, increase the time between veclocity calculations by setting the `sensor.min_elapsed_time` variable. For example:
+```cpp
+sensor.min_elapsed_time = 0.001; // seconds - default 0.0001s - 100us
+```
+This will improve the velocity estimation but it will add some lag to the velocity response.
 
-<blockquote class="info">Linking is not necessary when using the openloop motion control.</blockquote>
+</blockquote>
 
 ## Step 3. Linking the driver 
 Once when you have the `motor` defined and the driver initialized you need to link the `motor` and the `driver` by executing:    
@@ -262,7 +164,7 @@ motor.axis_inductance.d = 0.001; // H - default not set
 motor.axis_inductance.q = 0.001; // H - default not set
 ```
 
-These parameters can also be measured using the `motor.characteriseMotor()` above [How can I measure the phase resistance and inductance?](#how-can-i-measure-the-phase-resistance-and-inductance) section.
+These parameters can also be measured using the `motor.characteriseMotor()` above [How can I measure the phase resistance and inductance?](#motor-phase-resistance-inductance-and-kv-rating) section.
 
 ### Step 5.5 Torque control mode
 There are 4 different torque control modes implemented in the Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>: 
@@ -283,6 +185,10 @@ The torque mode can be set by changing the motor attribute `torque_controller`.
 motor.torque_controller = TorqueControlType::foc_current;
 ```
 
+Each torque control loop has their own set of parameters and can be combined with any motion control loop.
+
+[See more info about torque control modes](torque_control){: .btn .btn-docs}
+
 ### Step 5.6 Motion control parameters  
 
 There are 3 different closed loop control strategies implemented in the Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>: 
@@ -296,44 +202,7 @@ Additionally <span class="simple">Simple<span class="foc">FOC</span>library</spa
 - [Velocity open-loop control](velocity_openloop)
 - [Position open-loop control](angle_openloop)
 
-Finally, the user can allso add thier own custom motion control strategy by implementing the motion control callback function. Read more about it in the [motion control docs](motion_control). This mode can be selected using the `MotionControlType::custom` value of the `motor.controller` variable and by linking the motion control callback function `motor.linkCustomMotionControl(&my_motion_control_function)`.
-
-<blockquote class="info">
-<details markdown="1">
-<summary style="cursor: pointer;"> <i class="fa fa-code"></i> Example code for custom motion control </summary>
-
-```cpp
-... 
-
-// custom PID controller instance for the custom control method
-// P controller with gain of 1.0f, no integral or derivative gain
-PIDController custom_PID = PIDController(1.0f, 0, 0);
-// custom motion control method
-float positionPControl(FOCMotor* motor, float target){
-  // simple proportional position control
-  float error = target - motor->shaft_angle;
-  // set the PID output limit to the motor current limit
-  custom_PID.limit = motor->current_limit; 
-  return custom_PID(error); // return current command based on the error
-}
-
-...
-
-void setup() {
-  ...
-
-  // set custom motion control
-  motor.controller = MotionControlType::custom;
-  // link custom motion control function
-  motor.linkCustomMotionControl(&positionPControl);
-
-  ...
-}
-```
-
-</details>
-</blockquote>
-
+The user can also add thier own custom motion control strategy by implementing the motion control callback function. Read more about it in the [motion control docs](motion_control). This mode can be selected using the `MotionControlType::custom` value of the `motor.controller` variable and by linking the motion control callback function `motor.linkCustomMotionControl(&my_motion_control_function)`.
 
 You set it by changing the `motor.controller` variable. 
 ```cpp
@@ -349,9 +218,7 @@ motor.controller = MotionControlType::angle;
 ```
 <blockquote class="warning"><p class="heading"> Important!</p>This parameter doesn't have a default value and it has to be set before real-time execution starts.</blockquote>
 
-Each motion control strategy has its own parameters. 
-
-[View motion control documentation](motion_control){: .btn .btn-docs}
+Each motion control strategy has its own parameters and can be combined with any torque control mode. For more information about the motion control modes and their parameters check the [motion control docs](motion_control).
 
 ```cpp
 // set control loop type to be used
@@ -370,14 +237,17 @@ motor.P_angle.P = 20;
 
 // motion control limits
 // angle loop velocity limit
-motor.velocity_limit = 50;
+motor.updateVelocityLimit(50);  
 // either voltage limit
-motor.voltage_limit = 12; // Volts -  default driver.voltage_limit
+motor.updateVoltageLimit(12); // Volts -  default driver.voltage_limit
 // or current limit - if phase_resistance set
-motor.current_limit = 1; // Amps -  default 2 Amps
+motor.updateCurrentLimit(1); // Amps -  default 2 Amps
 ```  
 
+[See more info about motion control parameters](motion_control){: .btn .btn-docs}
+
 ### Step 5.7 Configuration done - `motor.init()`
+
 Finally the configuration is terminated by running `init()` function which prepares all the hardware and software motor components using the configured values.
 ```cpp
 // initialize motor
@@ -386,12 +256,11 @@ motor.init();
 
 ## Step 6. Align motor and all the sensors - Field Oriented Control init
 
-After the position sensor, current sense, driver and the motor are configured, and before we can start the motion control we need to align all  hardware components in order to initialize the FOC algorithm. This is done in the scope of the funciton `motor.initFOC()`
+After the position sensor, current sense, driver and the motor are configured, and before we can start the motion control we need to align all  hardware components in order to initialize the FOC algorithm. This is done in the scope of the function `motor.initFOC()`
 ```cpp
 // align sensor and start FOC
 motor.initFOC();
 ```
-<blockquote class="info"><p class="heading"> Can be skipped for openloop control!</p>If no sensor is attached this function will not really do anything, but you can still call it if necessary or more convenient. </blockquote>
 
 This function does several things:
 - Checks if driver (and current sense if available) are well initialised
@@ -400,10 +269,13 @@ This function does several things:
 - Finds the motor electrical offset in respect to the position sensor
 - Checks/modifies current sense pinout and gains signs if one available to make sure it aligned with the driver 
 
+[See more info about the theory of alignment](alignment_procedure){: .btn .btn-docs}
+[See more info about implementation of initFOC()](foc_implementation#initFOC){: .btn .btn-docs}
+
 If for some reason the `initFOC` fails this function will return `0` and it will disable your motor and display you a message what is wrong (when using the [monitoring](monitoring) ). If everything is well configured, the call of this function will return `1` and the our setup is done, FOC is ready to be used! So we suggest you to check if the init function was executed successfully before continuing:
 
 ```cpp
-// init current sense
+// init FOC
 if (motor.initFOC())  Serial.println("FOC init success!");
 else{
   Serial.println("FOC init failed!");
@@ -429,22 +301,31 @@ You can find these values by running the `find_sensor_offset_and_direction.ino` 
 
 If you set either of these two values the `initFOC` will skip that part of the calibration. For example, for encoder sensors the zero electrical offset changes all the time but the sensor direction will stay the same so you can provide it and skip a large part of the calibration sequence.
 
+<blockquote class="info" markdown="1"><p class="heading">Tip</p> 
+For encoders, the `zero_electric_offset` cannot be known in advance, but the `sensor_direction` can be set to skip that part of the calibration sequence. This removes the need for large movement amplitude in the alignment procedure.
+
+</blockquote>
+
 ### Step 6.2 Skip alignment - current sense
 
 For the current sensors it is as well possible to avoid the calibration procedure an that is done by specifying the curren sense flag called `skip_align`:
 ```cpp
 current_sense.skip_align  = true; // default false
 ```
-But make sure that all of your gains are well set and all of your ADC pins are aligned to the driver/motor phases. For more information about the alignment please visit the [current sense docs](current_sense).
+But make sure that all of your gains are well set and all of your ADC pins are aligned to the driver/motor phases. 
+
+[Go to current sense docs](current_sense){: .btn .btn-docs}
 
 ## Step 7. Real-time motion control
 
-The real-time motion control of theArduino <span class="simple">Simple<span class="foc">FOC</span>library</span> is realized with two functions: 
+<img src="extras/Images/clb.png" class="width60">
+
+The real-time motion control of the <span class="simple">Simple<span class="foc">FOC</span>library</span> is realized with two functions: 
 - `motor.loopFOC()` - low level torque control 
 - `motor.move(float target)` - high level motion control
 
 
-The function `loopFOC()` behavior directly depends of the torque control mode usd. If used in volatge mode it  gets the current motor angle from the sensor, turns it into the electrical angle and transforms the q-axis <i>U<sub>q</sub></i> voltage command  `motor.voltage_q` to the appropriate phase voltages <i>u<sub>a</sub></i>, <i>u<sub>b</sub></i> and <i>u<sub>c</sub></i> which are set then set to the motor. Whereas if it is used in DC of FOC current modes it additionally reads the current sensor and runs the closed loop current control.
+The `loopFOC()` function implements the low level torque control loop of the FOC algorithm. It is responsible for getting the motor angle from the sensor, calculating the current or voltage commands based on the torque control mode and setting the appropriate voltages to the motor phases using the driver.
 
 ```cpp
 // Function running the low level torque control loop
@@ -454,47 +335,17 @@ The function `loopFOC()` behavior directly depends of the torque control mode us
 motor.loopFOC();
 ```
 
-<blockquote class="info"><p class="heading"> Can be skipped for openloop control!</p>This function will have no effect if the motor is run in open loop! </blockquote>
+[See more info about Torque/FOC control](torque_control){: .btn .btn-docs}
 
-This function is execution time is critical both in the voltage mode and in current control modes. Therefore it is very important that the `motor.loopFOC()` function is executed as fast as possible.
+This function is execution time is critical for real-time control. Therefore it is very important that the `motor.loopFOC()` function is executed as fast as possible.
 
-<blockquote class="warning"><p class="heading">Rule od thumb: execution time</p>
-The faster you can run this function the better, here is approximative loops execution time using different torque modes.
-<table>
-<tr>
-<td>MCU</td>
-<td><a href="voltage_torque_mode">Voltage mode</a></td>
-<td><a href="dc_current_torque_mode">DC current</a></td>
-<td><a href="foc_current_torque_mode">FOC current</a></td>
-</tr>
-<tr>
-<td>Arduino UNO</td>
-<td>~ 700 us</td>
-<td>~ 1.2 ms</td>
-<td>~ 1.5 ms</td>
-</tr>
-<tr>
-<td>ESP32</td>
-<td>~ 100 us</td>
-<td>~ 200 us</td>
-<td>~ 300 us</td>
-</tr>
-<tr>
-<td>Bluepill</td>
-<td>~ 200 us</td>
-<td>~ 500 ms</td>
-<td>~ 700 us</td>
-</tr>
-<tr>
-<td>Nucleo</td>
-<td>~ 100 us</td>
-<td>~ 150 us</td>
-<td>~ 200 us</td>
-</tr>
-</table>
+<blockquote class="info" markdown="1"><p class="heading">Tip</p> 
+You can check the time between calls of the `loopFOC()` function by reading the `motor.loopfoc_time_us` variable which provides averaged time between calls of the `loopFOC()` function in microseconds. The faster you can run this function the better, for example on Arduino UNO you can expect to run it at around 1ms and on Bluepill at around 100us. Aim to run this loop at least at 1kHz for good performance, but the faster the better.
+
 </blockquote>
 
-Finally, once we have a way to set the torque command (current <i>i<sub>q</sub></i> or voltage <i>u<sub>q</sub></i>) to the motor using the FOC algorithm we can proceed to the motion control. And this is done with `motor.move()` function.
+The `motor.move()` function implements the high level [motion control loop](motion_control). It is responsible for calculating the target voltage or current based on the motion control mode and the target value provided by the user.
+
 ```cpp
 // Function executing the motion control loops configured by the motor.controller parameter of the motor. 
 // - This function doesn't need to be run upon each loop execution - depends of the use case
@@ -504,12 +355,7 @@ Finally, once we have a way to set the torque command (current <i>i<sub>q</sub><
 motor.move(target);
 ```
 
-The `move()` method executes the motion control loops of the algorithm. If is governed by the `motor.controller` variable. It executes either pure torque loop, velocity loop or angle loop.
-
-It receives one parameter `float target` which is current user defined target value.
-- If the user runs [velocity loop](velocity_loop) or [velocity open-loop](velocity_openloop), `move` function will interpret `target` as the target velocity.
-- If the user runs [angle loop](angle_loop) or [angle open-loop](angle_openloop), `move` will interpret `target` parameter as the target angle. 
-- If the user runs the [torque loop](torque_control), `move` function will interpret the `target` parameter as either voltage <i>u<sub>q</sub></i> or current <i>i<sub>q</sub></i>. 
+[See more info about motion control](motion_control){: .btn .btn-docs}
 
 The `target` parameter is optional and if it is not set, the target value will be set by the public motor variable `motor.target`. The equivalent code would be:
 
@@ -518,19 +364,47 @@ motor.target = 2;
 motor.move();
 ```
 
-## Step 7.1 Motion control downsampling
-For many motion control applications it will make sense run multiple torque control loops for each motion control loop. This can have a great impact on the smoothness and can provide better high-speed performance. Therefore this library enables a very simple downsampling strategy for the `move()` function which is set using the parameter `motor.motion_downsample`:
+<blockquote class="info" markdown="1"><p class="heading">Tip</p> 
+
+As well as for `loopFOC()` function, the time between `move()` call can be read in real-time. The `motor.move_time_us` variable provides averaged time between calls of the `move()` function in microseconds. Depending on the motion control mode and the use case, this function doesn't need to be run upon each loop execution, therefore you can set the `motor.motion_downsample` parameter to run it less often and save some processing time for the `loopFOC()` function.
+
+</blockquote>
+
+### Step 7.1 Place the `loopFOC()` and `move()` functions in the `loop()`
+
+Finally, to run the real-time control, you need to place the `motor.loopFOC()` and `motor.move()` functions in the Arduino `loop()`. The `loopFOC()` function should be called as fast as possible, while the `move()` function can be called less often depending on the use case.
+
+```cpp
+void loop() {
+    motor.loopFOC();
+    motor.move();
+}
+```
+
+You want these functions to be called as much as possible and as regularly as possible. It is important not to use any `delay()` functions in the `loop()` or any other functions that take a long time to execute!
+
+If you need to run other more time-consuming functions in the `loop()`, you can consider running the `loopFOC()` function in a hard real-time loop using Timers or RTOS. This way you can ensure that the `loopFOC()` function is called at a regular interval regardless of what else is happening in the `loop()`.
+
+[See how to run hard-real-time control loops using Timers](real_time_loop){: .btn .btn-docs}
+
+### Step 7.2 Motion control downsampling
+
+In some motion control applications, especially for higher-end microcontrollers, where to `loop` can run at 20kHz, it will make sense run multiple torque control loops for each motion control loop. This can have a great impact on the smoothness and can provide better high-speed performance. Therefore this library enables a very simple downsampling strategy for the `move()` function which is set using the parameter `motor.motion_downsample`:
 ```cpp
 // downsampling value
 motor.motion_downsample = 5; // - times (default 0 - disabled)
 ```
-The downsampling strategy works in a very simple way, even though the `motor.move()` is called in each arduino `loop` it will only be executed each `motor.motion_downsample` calls. This parameter si optional and can be configured in real time. 
+The downsampling strategy works in a very simple way, even though the `motor.move()` is called in each arduino `loop` it will only be executed each `motor.motion_downsample` calls. This parameter si optional and can be configured in real-time. 
+
+$$
+f_{MC} = \frac{f_{loop}}{\texttt{motion_downsample}}
+$$
 
 <blockquote class="warning"><p class="heading">BEWARE: Motion control impact</p>
 Different values of the downsampling might require a bit of tuning of motion parameters.</blockquote>  
+<br>
+[See more info about motion control downsampling](motion_control#quick-frequency-consideration){: .btn .btn-docs}
 
-
-And that is it, you have your complete Field Oriented Controlled BLDC motor with motion control. 
 ## User interaction
 
 <span class="simple">Simple<span class="foc">FOC</span>library</span> implements two types of real-time user interaction:
@@ -554,7 +428,7 @@ BLDCMotor motor = BLDCMotor(11);
 // driver instance
 BLDCDriver3PWM driver = BLDCDriver3PWM(9, 5, 6, 8);
 // sensor instance
-MagneticSensorI2C sensor = MagneticSensorI2C(AS5600_I2C);
+MagneticSensorSPI sensor = MagneticSensorSPI(AS5047_SPI, 10);
 
 void setup() { 
   

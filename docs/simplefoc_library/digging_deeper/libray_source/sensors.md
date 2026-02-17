@@ -10,7 +10,6 @@ toc: true
 ---
 
 
-
 # Generic position sensor definition
 This class is purposefully kept simple, as a base for all kinds of sensors. Currently we have Encoders, Magnetic Encoders and Hall Sensor implementations. This base class extracts the
 most basic common features so that a FOC driver can obtain the data it needs for operation.
@@ -18,7 +17,7 @@ most basic common features so that a FOC driver can obtain the data it needs for
 To implement your own sensors, create a sub-class of this class, and implement the `getSensorAngle()` method. `getSensorAngle()` returns a float value, in **radians**, representing the current shaft angle in the
 range `0` to `2*PI` (one full turn). 
 
-To function correctly, the sensor class `update()` method has to be called sufficiently quickly. Normally, the `BLDCMotor`'s `loopFOC()` function calls it once per iteration, so you must ensure to call `loopFOC()` quickly enough, both for correct motor and sensor operation.
+To function correctly, the sensor class `update()` method has to be called sufficiently quickly. Normally, the `FOCCMotor`'s `loopFOC()` function calls it once per iteration, so you must ensure to call `loopFOC()` quickly enough, both for correct motor and sensor operation.
 
 The `Sensor` base class provides an implementation of `getVelocity()`, and takes care of counting full revolutions in a precise way, but if you wish you can additionally override these methods to provide more
 optimal implementations for your hardware.

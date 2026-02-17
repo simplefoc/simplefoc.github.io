@@ -44,19 +44,28 @@ When using a standard callback for `BLDCMotor` and `StepperMotor` classes:`comma
   - **S** - set monitoring variables  
   - **G** - get variable value        
 - **C** - Motion control type config  - [see motion control](commander_target)
-  - **D** - downsample motion loop 
+  - **D** - downsample motion loop
+  - **T** - motion loop time in microseconds (filtered) - read only <b><i>NEW</i>📢</b>  
   - `0` - torque    
   - `1` - velocity 
   - `2` - angle    
   - `3` - velocity_openloop 
   - `4` - angle_openloop    
+  - `5` - angle_nocascade
+  - `6` - custom
 - **T** - Torque control type - [see motion control](commander_target)
+  - **T** - motion loop time in microseconds (filtered) - read only <b><i>NEW</i>📢</b>  
   - `0` - voltage      
   - `1` - dc_current     
   - `2` - foc_current 
+  - `3` - estimated_current
 - **E** - Motor status (enable/disable) - [see motion control](commander_target)
   - `0` - enable    
   - `1` - disable  
+- **F** - Init and tunning actions <b><i>NEW</i>📢</b>  
+  - **R** - rerun motor `initFOC` function
+  - **P** - run `characteriseMotor` function with the voltage set in the command (ex. `MFP3.5` to run characterisation with 3.5V test voltage)
+  - **C** - run `tuneCurrentControllers` function with the voltage set in the command (ex. `MFC100.0` to run current controllers tuning with the bandwidth of 100Hz)
 - **else** - Target setting interface - [see motion control target](commander_target) <br> 
     Depends of the motion control mode:
     - torque mode - torque target (ex. `M2.5`) 

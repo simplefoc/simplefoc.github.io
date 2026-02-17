@@ -2,8 +2,8 @@
 layout: default
 title: DC Current Mode
 permalink: /dc_current_torque_mode
-nav_order: 2 
-parent: Torque Control
+nav_order: 4 
+parent: Torque/FOC Control
 grand_parent: Writing the Code
 grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 description: "Arduino Simple Field Oriented Control (FOC) library ."
@@ -14,14 +14,11 @@ toc: true
 # Torque control using DC current
 <a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
 <a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
+<a href ="javascript:show('h','type');" class="btn btn-type btn-h"> Hybrid Stepper motors</a>
 
 
-<div class="type type-b" markdown="1">
-This control loop allows you to run the BLDC motor as it is a current controlled DC motor. This torque control algorithm requires current sensing hardware. The user sets the target current $$I_d$$ to the FOC algorithm calculates the necessary phase voltages  $$u_a$$ ,$$u_b$$ and $$u_c$$ in order to maintain it. This mode is enabled by:
-</div>
-<div class="type type-s hide" markdown="1">
-This control loop allows you to run the Stepper motor as it is a current controlled DC motor. This torque control algorithm requires current sensing hardware. The user sets the target current $$I_d$$ to the FOC algorithm calculates the necessary phase voltages  $$u_a$$ and $$u_b$$ in order to maintain it. This mode is enabled by:
-</div>
+This control loop allows you to run BLDC and stepper motors like a current-controlled DC motors. It **requires current sensing hardware**. The user sets the target current $$i_d$$ and the algorithm calculates the necessary q-axis voltage $$u_q$$ to maintain it. This mode is enabled by:
+
 ```cpp
 // DC current torque control mode
 motor.torque_controller = TorqueControlType::dc_current;
@@ -30,90 +27,176 @@ motor.torque_controller = TorqueControlType::dc_current;
 ## How does it work exactly
 <a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
 <a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
+<a href ="javascript:show('h','type');" class="btn btn-type btn-h"> Hybrid Stepper motors</a>
 
 <div class="type type-b">
- <a name="foc_image"></a><img class="width60" src="extras/Images/dc_current_mode.png">
+ <a name="foc_image"></a><img class="width60" src="extras/Images/torque_control/dc1_b.png">
 </div>
 <div class="type type-s hide">
- <a name="foc_image"></a><img class="width60" src="extras/Images/dc_current_stepper.png">
+ <a name="foc_image"></a><img class="width60" src="extras/Images/torque_control/dc1_s.png">
+</div>
+<div class="type type-h hide">
+ <a name="foc_image"></a><img class="width60" src="extras/Images/torque_control/dc1_h.png">
 </div>
 
+DC current control measures the overall current magnitude (the vector sum of phase currents) and controls it to match the target current $$i_q$$ set by the user. Unlike FOC Current Mode, which runs two separate PID loops for the $$d$$ and $$q$$ axes, DC Current mode uses a single PI loop. It assumes the motor is running efficiently enough that the measured DC current is almost entirely composed of torque-producing $$q$$-axis current.
 
+In this control mode the user sets the target q-axis current $$i_q$$ and the FOC algorithm calculates the appropriate q-axis voltage to be applied to the motor to maintain the desired current $$u_q$$. Instead of relying on the motor model (link in [estimated current control](estimated_current_mode)), this algorithm measures the motor current and closes the control loop using a PI controller. As in [FOC control case](foc_current_torque_mode), this approach is much more robust and less prone to parameter inaccuracies, but it requires a current sensor to be implemented in the system.
 
-<div class="type type-b" markdown="1">
-The DC current torque control algorithm reads the phase currents of the Stepper motor ($$i_a$$ and $$i_b$$). 
-The phase currents are transformed into the currents $$i_\alpha$$ and $$i_\beta$$ using the Inverse Clarke transform. For example if the phase currents $$i_a$$ and $$i_b$$ are measured:
+The control law for the q-axis voltage is:
 
 $$
-i_\alpha = i_a, \quad i_\beta =i_a\frac{1}{\sqrt{3}} + i_b\frac{2}{\sqrt{3}}
+u_q = \text{PI}_q(i_q - \hat{i}_{DC}) = \text{PI}_q(i_q - \hat{i}_q)
 $$
 
+Where $$\hat{i}_{DC}$$ is measured current which is considered to be equal to the measured q-axis current $$\hat{i}_q$$. This assumption is valid if the d-axis current is negligible $$i_d \approx 0$$, which is relatively reasonable assumption, especially at low speeds.
+
+$$
+i_{DC} = \sqrt{i_d^2 + i_q^2} \approx i_q, \text{ if } i_d \approx 0
+$$
+
+The d-axis is controlled to be zero by setting the d-axis voltage to zero:
+
+$$
+u_d = 0
+$$
+
+Using the PI controller to control the q-axis voltage allows the algorithm to maintain the desired current and compensates for the effect of the back-EMF voltage, which is proportional to the velocity of the motor. This means that the algorithm can maintain the desired current even at higher velocities, where the back-EMF voltage becomes significant. However it does not compensate for the cross-coupling term, which can lead to reduced performance at higher end of the velocity spectrum, as discussed in the next section.
+
+The torque generated by the motor can be estimated as:
+
+$$
+\hat{\tau} = K_t \hat{i}_q = K_t \hat{i}_{DC}
+$$  
+
+Where $$K_t$$ is the torque constant of the motor.
+
+
+[See a deeper dive in motor dynamics and FOC control teory](voltage_torque_control#current-based-foc-control){: .btn .btn-docs}
+[See a deeper dive in the FOC transformations theory](foc_theory){: .btn .btn-docs}
+
+### Inductive lag compensation (Advanced)
+
+<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
+<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
+<a href ="javascript:show('h','type');" class="btn btn-type btn-h"> Hybrid Stepper motors</a>
+
+<div class="type type-b">
+ <a name="foc_image"></a><img class="width60" src="extras/Images/torque_control/dc0_b.png">
 </div>
-<div class="type type-s hide" markdown="1">
-The DC current torque control algorithm reads the phase currents of the Stepper motor ($$i_a$$ and $$i_b$$). 
-The phase currents are transformed into the currents $$i_\alpha$$ and $$i_\beta$$ using the Inverse Clarke transform (which is trivial in case of stepper motors).
-
-$$
-i_\alpha = i_a, \quad i_\beta =i_b 
-$$
-
+<div class="type type-s hide">
+ <a name="foc_image"></a><img class="width60" src="extras/Images/torque_control/dc0_s.png">
 </div>
-Then we can can calculate the magnitude of the current measured at the motor as
-
-$$
-i_{DC} = \sqrt{i_\alpha^2 + i_\beta^2}
-$$
-
-Now as this magnitude does not contain the information about direction of the current (positive or negative) we need to use the sign of the current to determine the direction of the current.
-The simplest way to calculate the sign of the current is using the sign of the $$i_q$$ component of the current vector, which we can calculate using the Park transform using the current angle $$a$$.
-
-$$
-i_q = i_\beta \cos(a) - i_\alpha\sin(a) 
-$$
-
-Finally the DC current $$i_{DC}$$ is calculated as the magnitude of the current vector $$i_q$$.
-
-$$ i_{DC} = \text{sign}(i_q)\cdot\sqrt{i_\alpha^2 + i_\beta^2}$$
-
-Using the target current value $$I_d$$ and the measured $$i_{DC}$$ the PID controller calculates the appropriate voltage $$U_q$$ to be set to the motor.
-
-$$
-U_q = \text{PID}(I_d - i_{DC}) 
-$$
-
-While $$U_d$$ is kept in 0. 
-
-$$
-U_d = 0 
-$$
-
-<div class="type type-s hide" markdown="1">
-Finally torque control algorithm finds the appropriate voltages $$u_a$$ and $$u_b$$ that create the calculated $$U_q$$ and $$U_d$$ voltages. This is done using the Park transformation.
-
-</div>
-<div class="type type-b" markdown="1">
-
-Finally torque control algorithm finds the appropriate voltages $$u_a$$, $$u_b$$ and $$u_c$$ that create the calculated $$U_q$$ and $$U_d$$ voltages. This is done using the Park+Clarke (or SpaceVector) transformation.
-
+<div class="type type-h hide">
+ <a name="foc_image"></a><img class="width60" src="extras/Images/torque_control/dc0_h.png">
 </div>
 
+As discussed in [FOC theory corner](voltage_torque_control#lag-compensation) mode, the d-axis current is not only proportional to the volatge $$u_d$$, but also to the q-axis current $$i_q$$ and the velocity of the motor through the cross-coupling term.
 
-<blockquote class="info" markdown="1">
-<p class="header">Note</p>
-The assumption of this torque control mode is that the torque generated in the motor is proportional the DC current $$i_{DC}$$ drawn by the motor ($$i_{DC}$$ = $$i_q$$). Therefore by controlling this current we user can control the torque value. This assumption is only true for the low velocities, for higher velocities the $$i_d$$ component of the current becomes higher and $$i_{DC}$$=$$i_q$$ no longer holds. 
-</blockquote>
+$$
+i_d = \frac{1}{R}(u_d + L_q i_q  v_e)
+$$
 
-## Configuration parameters
-In order to make this loop run smoothly the user needs to configure the PID controller parameters of teh `PID_current_q` and Low pass filter `LPF_current_q` time constant.
+Where $$v_e$$ is the electrical velocity of the motor ($$v_e = n_{PP} \cdot v$$ , where $$n_{PP}$$ is the number of pole pairs and $$v$$ is the mechanical velocity). Therefore at higher velocities, the d-axis current becomes higher and the assumption that $$i_{DC}$$=$$i_q$$ no longer holds, which can lead to reduced performance of this control mode. 
+
+In that case the real $$\hat{i}_q$$ current can be calculated as:
+
+$$
+\hat{i}_q = \sqrt{ \hat{i}_{DC}^2 -  \hat{i}_d^2}
+$$
+
+Where the $$\hat{i}_d$$ is the *"real"* d-axis current flowing in the motor. The term $$\hat{i}_{DC}$$ represents the measured DC current. The true torque $$\hat{\tau}$$ generated by the motor can then be estimated as:
+
+$$
+\hat{\tau} = K_t \hat{i}_q = K_t \sqrt{ \hat{i}_{DC}^2 -  \hat{i}_d^2} 
+$$
+
+So the higher the d-axis current, the more the q-axis current is underestimated, which leads to reduced torque output of the motor. This is one of the main limitations of this control mode, but it can be mitigated by implementing a compensation for the cross-coupling term, as described in the next section. 
+
+In order to improve the performance of this control mode at higher velocities, the library implements a compensation for the cross-coupling term, which adds a feed-forward voltage to the q-axis voltage to compensate for the effect of the d-axis current:
+
+$$
+u_d = -L_q i_q v_e
+$$
+
+Making this control mode more efficient and robust at higher velocities, at the cost of requiring the knowledge of the motor inductance.
+
+To enable this mode provide the phase inductance values in the motor constructor or by setting the parameters directly:
+
 ```cpp
-// PID parameters - default 
-motor.PID_current_q.P = 5;                       // 3    - Arduino UNO/MEGA
-motor.PID_current_q.I = 1000;                    // 300  - Arduino UNO/MEGA
-motor.PID_current_q.D = 0;
-motor.PID_current_q.limit = motor.voltage_limit; 
-motor.PID_current_q.ramp = 1e6;                  // 1000 - Arduino UNO/MEGA
-// Low pass filtering - default 
-LPF_current_q.Tf= 0.005;                         // 0.01 - Arduino UNO/MEGA
+motor.axis_inductance.q = L_q; // set q-axis inductance
+```
+
+[See a deeper dive in motor dynamics and FOC control teory](voltage_torque_control#current-based-foc-control){: .btn .btn-docs}
+
+
+## Configuration & Tuning
+
+To make this loop run smoothly, you must configure the PID controller for the q-axes. In current control, the I-gain is often much higher than in velocity or position loops because current reacts almost instantly.
+
+Parameter|Attribute|Typical Range|Description
+---|---|---|---
+P Gain|`PID_current_q.P`|$2.0 - 20.0$|Immediate response to current error.
+I Gain|`PID_current_q.I`|$300 - 5000$|Eliminates steady-state error. Crucial for BEMF compensation.
+Filter|`LPF_current_q.Tf`|$0.0001 - 0.01$|Smooths noisy current readings. Lower is faster but noisier.
+
+
+```cpp
+// Example: Setting parameters for the Q axis
+motor.PID_current_q.P = 5.0;      
+motor.PID_current_q.I = 1000.0;   
+motor.LPF_current_q.Tf = 0.005;   
+```
+
+<blockquote class="info" markdown="1"><p class="heading">💡 Tip: Use Auto-Tuning</p>
+
+If you know your motor's Phase Resistance ($$R$$) and Inductance ($$L$$), the library can calculate these PID gains for you! These two parameters are the "sweet spot" for performance—easy to measure and massive in their impact.
+
+[Learn about Parameter Measurement](motor_params_test){: .btn .btn-docs} [Learn about Current Auto-tuning](tuning_current_loop){: .btn .btn-docs}
+
+</blockquote>
+## Targets, Limits and Feed-forward
+
+The DC current torque control mode allows you to set the target current $$I_d$$ directly, which is proportional to the torque generated by the motor. The current is specified in Amperes and is communicated to the torque control loop from the motion control loop through the `current_sp` variable of the motor object, for example:
+
+```cpp
+motor.current_sp = 0.5; // set target current to 0.5 A
+```
+
+This variable is set internally in the `FOCMotor` object and should not be modified by the user. To control the torque of the motor, use the motion control mode `torque` and set the `target` variable:
+
+```cpp
+motor.torque_controller = TorqueControlType::dc_current;
+motor.controller = MotionControlType::torque;
+motor.target = 0.5; // set target torque to 0.5 A
+```
+
+This current control mode allows the user to specify hard limits for current and voltage, which will be applied by the torque control loop. For example, to limit current to 1 A:
+
+```cpp
+motor.current_limit = 1.0; // set current limit to 1 A
+```
+
+And to prevent the controller from applying excessive voltage:
+
+```cpp
+motor.voltage_limit = 6.0; // set voltage limit to 6 V
+```
+
+The preferred way of setting these values is using the setter functions:
+
+```cpp
+motor.updateCurrentLimit(1.0); // set current limit to 1 A
+motor.updateVoltageLimit(6.0); // set voltage limit to 6 V
+```
+
+The library additionally allows the user to specify feed-forward voltage and current terms for the q-axis, which will be added to the control law. This is an advanced feature that can be used to improve performance in some applications, for example to compensate for gravity load in a robotic arm:
+
+```cpp
+motor.feed_forward_voltage.q = 0.5; // set q-axis voltage feed-forward to 0.5 V
+motor.feed_forward_voltage.d = 0.0; // set d-axis voltage feed-forward to 0 V
+
+motor.feed_forward_current.q = 0.1; // set q-axis current feed-forward to 0.1 A
 ```
 
 
@@ -122,6 +205,8 @@ LPF_current_q.Tf= 0.005;                         // 0.01 - Arduino UNO/MEGA
 
 <a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
 <a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
+<a href ="javascript:show('h','type');" class="btn btn-type btn-h"> Hybrid Stepper motors</a>
+
 
 A simple example of the DC current based torque control using Inline current sensor and setting the target value by serial command interface. 
 
@@ -174,7 +259,7 @@ void setup() {
   // set motion control loop to be used
   motor.controller = MotionControlType::torque;
 
-  // foc current control parameters (Arduino UNO/Mega)
+  // foc current control parameters
   motor.PID_current_q.P = 5;
   motor.PID_current_q.I= 300;
   motor.LPF_current_q.Tf = 0.01; 
@@ -261,7 +346,94 @@ void setup() {
   // set motion control loop to be used
   motor.controller = MotionControlType::torque;
 
-  // foc current control parameters (Arduino UNO/Mega)
+  // foc current control parameters
+  motor.PID_current_q.P = 5;
+  motor.PID_current_q.I= 300;
+  motor.LPF_current_q.Tf = 0.01; 
+
+  // use monitoring with serial 
+  Serial.begin(115200);
+  // comment out if not needed
+  motor.useMonitoring(Serial);
+
+  // initialize motor
+  motor.init();
+  // align sensor and start FOC
+  motor.initFOC();
+
+  // add target command T
+  command.add('T', doTarget, "target current");
+
+  Serial.println(F("Motor ready."));
+  Serial.println(F("Set the target current using serial terminal:"));
+  _delay(1000);
+}
+
+void loop() {
+
+  // main FOC algorithm function
+  motor.loopFOC();
+
+  // Motion control function
+  motor.move();
+
+  // user communication
+  command.run();
+}
+```
+
+</div>
+<div class="type type-h hide" markdown="1">
+
+
+```cpp
+#include <SimpleFOC.h>
+
+// Stepper motor & driver instance
+HybridStepperMotor motor = HybridStepperMotor(50);
+BLDCDriver3PWM driver = BLDCDriver3PWM(9, 5, 6, 8);
+
+// encoder instance
+Encoder encoder = Encoder(2, 3, 500);
+// channel A and B callbacks
+void doA(){encoder.handleA();}
+void doB(){encoder.handleB();}
+
+// current sensor
+InlineCurrentSense current_sense = InlineCurrentSense(0.01, 50.0, A0, A2);
+
+// instantiate the commander
+Commander command = Commander(Serial);
+void doTarget(char* cmd) { command.scalar(&motor.target, cmd); }
+
+void setup() { 
+  
+  // initialize encoder sensor hardware
+  encoder.init();
+  encoder.enableInterrupts(doA, doB); 
+  // link the motor to the sensor
+  motor.linkSensor(&encoder);
+
+  // driver config
+  // power supply voltage [V]
+  driver.voltage_power_supply = 12;
+  driver.init();
+  // link driver
+  motor.linkDriver(&driver);
+  // link the driver to the current sense
+  current_sense.linkDriver(&driver);
+
+  // current sense init hardware
+  current_sense.init();
+  // link the current sense to the motor
+  motor.linkCurrentSense(&current_sense);
+
+  // set torque mode:
+  motor.torque_controller = TorqueControlType::dc_current; 
+  // set motion control loop to be used
+  motor.controller = MotionControlType::torque;
+
+  // foc current control parameters
   motor.PID_current_q.P = 5;
   motor.PID_current_q.I= 300;
   motor.LPF_current_q.Tf = 0.01; 

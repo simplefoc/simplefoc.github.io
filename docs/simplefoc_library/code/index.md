@@ -10,20 +10,272 @@ parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</
 toc: true
 ---
 
-# Getting to know the <span class="simple">Simple<span class="foc">FOC</span>library</span> code
+# Writing Your Motor Control Code
 
-Once you have your <span class="simple">Simple<span class="foc">FOC</span>library</span> [installed](installation) and you have all the necessary [hardware](supported_hardware), we can finally start to get familiar with the Arduino code that will run your motor. Here are all the most important steps when writing the code!
+Ready to write <span class="simple">Simple<span class="foc">FOC</span>library</span> code? This page is your **reference guide** to understanding how the library works and how to structure your motor control applications.
 
-## Step 0. Include the library
-Let's start by including the library header file:
+## 📚 Before You Start
+
+Choose your path based on your experience level:
+
+| Your Situation | Recommended Starting Point | Link |
+|---|---|---|
+| **First time with SimpleFOC?** | Use this page as a reference to understand all components and their configuration options | [Start here](#quick-setup-overview) |
+| **Already have the hardware and <br> you want to get started quickly?** | Follow the step-by-step guide to get your motor running as quickly as possible | [Getting Started](example_from_scratch)|
+| **Building from existing code?** | Jump to the specific section you need below and follow the links to detailed documentation | [Jump to here](#reference--configuration-guide) |
+| **Want to understand the theory and<br> library implementation details?** | Check out the detailed documentation for each component and control strategy | [Digging Deeper](digging_deeper) |
+
+---
+
+## Quick Setup Overview
+
+See how to build a complete motor control application step-by-step. Click through each tab to see the code build incrementally:
+
+<a href="javascript:show('0','setup');" id="btn-0" class="btn btn-setup btn-primary">Sensor</a>
+<a href="javascript:show('1','setup');" id="btn-1" class="btn btn-setup">+Driver</a>
+<a href="javascript:show('2','setup');" id="btn-2" class="btn btn-setup">+Current Sense</a>
+<a href="javascript:show('3','setup');" id="btn-3" class="btn btn-setup">+Motor</a>
+<a href="javascript:show('4','setup');" id="btn-4" class="btn btn-setup">+Real-time Loop</a>
+<a href="javascript:show('5','setup');" id="btn-5" class="btn btn-setup">+User Interface</a>
+
+<div class="setup setup-0" markdown="1" style="display:block">
+
 ```cpp
 #include <SimpleFOC.h>
+
+// 1️⃣ SENSOR
+Encoder sensor = Encoder(2, 3, 2048);
+void doA(){sensor.handleA();}
+void doB(){sensor.handleB();}
+
+void setup() {
+  sensor.init();
+  sensor.enableInterrupts(doA, doB);
+}
+
+void loop() {
+  sensor.update();
+}
 ```
 
-## Step 1. <a href="sensors" class="remove_dec">Position sensor setup</a>
+</div>
 
-First step when writing the code is initializing and configuring the position sensor.
-The library supports these position sensors:
+<div class="setup setup-1" markdown="1" style="display:none">
+
+```cpp
+#include <SimpleFOC.h>
+
+// 1️⃣ SENSOR
+Encoder sensor = Encoder(2, 3, 2048);
+void doA(){sensor.handleA();}
+void doB(){sensor.handleB();}
+
+// 2️⃣ DRIVER
+BLDCDriver3PWM driver = BLDCDriver3PWM(9, 5, 6, 8);
+
+void setup() {
+  sensor.init();
+  sensor.enableInterrupts(doA, doB);
+
+  driver.voltage_power_supply = 12;
+  driver.init();
+}
+
+void loop() {
+  sensor.update();
+}
+```
+
+</div>
+
+<div class="setup setup-2" markdown="1" style="display:none">
+
+```cpp
+#include <SimpleFOC.h>
+
+// 1️⃣ SENSOR
+Encoder sensor = Encoder(2, 3, 2048);
+void doA(){sensor.handleA();}
+void doB(){sensor.handleB();}
+
+// 2️⃣ DRIVER
+BLDCDriver3PWM driver = BLDCDriver3PWM(9, 5, 6, 8);
+
+// 3️⃣ CURRENT SENSE (Optional)
+InlineCurrentSense current_sense = InlineCurrentSense(0.01, 50, A0, A2);
+
+void setup() {
+  sensor.init();
+  sensor.enableInterrupts(doA, doB);
+
+  driver.voltage_power_supply = 12;
+  driver.init();
+
+  current_sense.linkDriver(&driver);
+  current_sense.init();
+}
+
+void loop() {
+  sensor.update();
+}
+```
+
+</div>
+
+<div class="setup setup-3" markdown="1" style="display:none">
+
+```cpp
+#include <SimpleFOC.h>
+
+// 1️⃣ SENSOR
+Encoder sensor = Encoder(2, 3, 2048);
+void doA(){sensor.handleA();}
+void doB(){sensor.handleB();}
+
+// 2️⃣ DRIVER
+BLDCDriver3PWM driver = BLDCDriver3PWM(9, 5, 6, 8);
+
+// 3️⃣ CURRENT SENSE (Optional)
+InlineCurrentSense current_sense = InlineCurrentSense(0.01, 50, A0, A2);
+
+// 4️⃣ MOTOR
+BLDCMotor motor = BLDCMotor(11);
+
+void setup() {
+  sensor.init();
+  sensor.enableInterrupts(doA, doB);
+
+  driver.voltage_power_supply = 12;
+  driver.init();
+
+  current_sense.linkDriver(&driver);
+  current_sense.init();
+
+  motor.linkSensor(&sensor);
+  motor.linkDriver(&driver);
+  motor.linkCurrentSense(&current_sense);
+  motor.init();
+  motor.initFOC();
+}
+
+void loop() {
+  sensor.update();
+}
+```
+
+</div>
+
+<div class="setup setup-4" markdown="1" style="display:none">
+
+```cpp
+#include <SimpleFOC.h>
+
+// 1️⃣ SENSOR
+Encoder sensor = Encoder(2, 3, 2048);
+void doA(){sensor.handleA();}
+void doB(){sensor.handleB();}
+
+// 2️⃣ DRIVER
+BLDCDriver3PWM driver = BLDCDriver3PWM(9, 5, 6, 8);
+
+// 3️⃣ CURRENT SENSE (Optional)
+InlineCurrentSense current_sense = InlineCurrentSense(0.01, 50, A0, A2);
+
+// 4️⃣ MOTOR
+BLDCMotor motor = BLDCMotor(11);
+
+void setup() {
+  sensor.init();
+  sensor.enableInterrupts(doA, doB);
+
+  driver.voltage_power_supply = 12;
+  driver.init();
+
+  current_sense.linkDriver(&driver);
+  current_sense.init();
+
+  motor.linkSensor(&sensor);
+  motor.linkDriver(&driver);
+  motor.linkCurrentSense(&current_sense);
+  motor.init();
+  motor.initFOC();
+}
+
+void loop() {
+  // 5️⃣ REAL-TIME LOOP
+  motor.loopFOC();
+  motor.move();
+}
+```
+
+</div>
+
+<div class="setup setup-5" markdown="1" style="display:none">
+
+```cpp
+#include <SimpleFOC.h>
+
+// 1️⃣ SENSOR
+Encoder sensor = Encoder(2, 3, 2048);
+void doA(){sensor.handleA();}
+void doB(){sensor.handleB();}
+
+// 2️⃣ DRIVER
+BLDCDriver3PWM driver = BLDCDriver3PWM(9, 5, 6, 8);
+
+// 3️⃣ CURRENT SENSE (Optional)
+InlineCurrentSense current_sense = InlineCurrentSense(0.01, 50, A0, A2);
+
+// 4️⃣ MOTOR
+BLDCMotor motor = BLDCMotor(11);
+
+// 6️⃣ USER INTERFACE
+Commander commander = Commander(Serial);
+void onMotor(char* cmd){ commander.motor(&motor, cmd); }
+void setup() {
+  Serial.begin(115200);
+  
+  sensor.init();
+  sensor.enableInterrupts(doA, doB);
+
+  driver.voltage_power_supply = 12;
+  driver.init();
+
+  current_sense.linkDriver(&driver);
+  current_sense.init();
+
+  motor.linkSensor(&sensor);
+  motor.linkDriver(&driver);
+  motor.linkCurrentSense(&current_sense);
+  motor.init();
+  motor.initFOC();
+  
+  // Add motor commands to serial interface
+  commander.add('M', onMotor, "motor");
+  Serial.println("Motor ready! Type 'M' for motor commands");
+}
+
+void loop() {
+  // 5️⃣ REAL-TIME LOOP
+  motor.loopFOC();
+  motor.move(motor.target);
+  
+  // 6️⃣ USER INTERFACE
+  commander.run();
+}
+```
+
+</div>
+
+---
+
+# Core Components Reference
+
+## Position Sensors
+
+Initialize and configure your position sensor. The motor cannot be controlled without knowing its current angle.
+
+The library supports four sensor types:
  - [Encoders](encoder): Optical, Capacitive, Magnetic encoders (ABI)
  - [Magnetic sensors](magnetic_sensor): SPI, I2C, Analog or PWM
  - [Hall sensors](hall_sensors): 3xHall sensing, Magnetic sensor (UVW interface) 
@@ -139,8 +391,9 @@ Initialize the hardware pins by running `sensor.init()`.
 For full documentation of the setup and all configuration parameters please visit the <a href="sensors"> position sensors docs <i class="fa fa-external-link"></i></a>.
 
 
-## Step 2. <a href="drivers_config" class="remove_dec"> Driver setup</a>
-After setting up the position sensor we proceed to initializing and configuring the driver. The library supports [BLDC drivers](bldcdriver) handled by `BLDCDriver3PWM` and `BLDCDriver6PWM`  classes as well as [stepper drivers](stepperdriver) handled by the `StepperDriver2PWM` and `StepperDriver4PWM` classes. 
+## Motor Drivers
+
+Initialize the motor driver. This component translates motor control commands into PWM signals for your motor phases. 
 
 
 <a href="javascript:show('0d','driver');" id="btn-0d" class="btn-driver btn btn-primary">BLDC Driver - 3PWM</a> 
@@ -226,10 +479,11 @@ void loop() {
 For full documentation of the setup and all configuration parameters please visit the <a href="drivers_config"> driver docs <i class="fa fa-external-link"></i></a>.
 
 
-## Step 3. <a href="current_sense" class="remove_dec"> Current sense setup</a>
-After the position sensor and the driver we can proceed to initializing and configuring the current sense, if available of course. If current sense is not available you can skip this step. The library supports two types of current sense architecture:
-- in-line current sensing `InlineCurrentSense`. 
-- low-side current sensing `LowsideCurrentSense`. 
+## Current Sensing (Optional)
+
+Current sensing enables true field-oriented control (FOC) with closed-loop current feedback. You can skip this if your setup doesn't include current sense hardware.
+
+The library supports two current sense architectures: 
 
 
 <a href="javascript:show('0cs','cs');" id="btn-0cs" class="btn-cs btn btn-primary">In-line current sensing</a> 
@@ -314,9 +568,11 @@ void loop() {
 For full documentation of the setup and all configuration parameters please visit the <a href="current_sense"> current sense docs <i class="fa fa-external-link"></i></a>.
 
 
+## Motor Instance
 
-## Step 4. <a href="motors_config" class="remove_dec"> Motor setup </a>
-After the position sensor and the driver we proceed to initializing and configuring the motor. The library supports BLDC motors handled by the `BLDCMotor` class as well as stepper motors handled by the `StepperMotor` and `HybridStepperMotor` classes. Both classes are instantiated by providing just the `pole_pairs` number of the motor and optionally the motors'   phase resistance and the KV rating.
+Create and configure your motor instance. Link it with the sensor and driver you've already initialized.
+
+The library supports three motor types:
 
 
 <a href="javascript:show('0m','motor');" id="btn-0m" class="btn-motor btn btn-primary">BLDC motor</a> 
@@ -460,11 +716,9 @@ And to finish the `motor` setup we run the `motor.init()` function.
 For full documentation of the setup and all configuration parameters please visit the <a href="motors_config"> motor docs <i class="fa fa-external-link"></i></a>.
 
 
-## Step 5. [FOC routine and real-time motion control](motion_control)
-When we have initialized the position sensor, driver and the motor, and before we can run the FOC algorithm, we need to align the motor and sensor. This is done by calling `motor.initFOC()`. 
-After this step we have a functional position sensor, we have configured the motor and our FOC algorithm knows how to set the appropriate voltages based on position sensor measurements.
+## FOC Initialization & Motion Control Loop
 
-For the real-time routine of the FOC algorithm we need to add the `motor.loopFOC()` and `motor.move(target)` functions in the Arduino `loop()`.
+Align the motor/sensor and run the real-time control loop. This is where the FOC algorithm executes.
 - `motor.loopFOC()`:  FOC algorithm execution - should be executed as fast as possible `> 1kHz`
 - `motor.move(target)`: motion control routine - depends on the `motor.controller` parameter
 
@@ -511,7 +765,11 @@ void loop() {
 For full documentation of the setup and all configuration parameters for BLDC motors please visit the <a href="bldcmotor"> BLDCMotor docs  <i class="fa fa-external-link"></i></a>, and for Stepper motors please visit the <a href="steppermotor"> StepperMotor docs  <i class="fa fa-external-link"></i></a>
 
 
-## Step 6. <a href="monitoring" class="remove_dec"> Monitoring</a>
+---
+
+# Optional Features
+
+## Monitoring
 
 `BLDCMotor` and `StepperMotor` classes provide monitoring functionality. For enabling the monitoring feature make sure you call `motor.useMonitoring()` with the `Serial` port instance you want to output to. It uses `Serial` class to output motor initialization status during the `motor.init()` function, as well as in `motor.initFOC()` function.
 
@@ -565,7 +823,7 @@ void loop() {
 For more docs on the `BLDCMotor` and `StepperMotor` monitoring see the <a href="monitoring"> Monitoring docs</a>.
 
 
-## Step 7. <a href="debugging" class="remove_dec"> Debugging output</a>
+## Debugging Output
 
 
 <span class="simple">Simple<span class="foc">FOC</span>library</span> provides an informative debugging interface that can be enabled by calling `SimpleFOCDebug::enable(&Serial)` function. This function enables the debugging output of the library to the `Serial` port. 
@@ -634,7 +892,7 @@ void loop() {
 For more docs on the debugging capabilities of the <span class="simple">Simple<span class="foc">FOC</span>library</span> see the <a href="debugging"> Debugging docs</a>.
 
 
-## Step 8. <a href="communication" class="remove_dec"> Commander Interface</a>
+## Commander Interface
 
 Finally, in order to configure the control algorithm, set the target values and get the state variables in the user-friendly way, (not just dumping as when using `motor.monitor()`) <span class="simple">Simple<span class="foc">FOC</span>library</span> provides you with a g-code like communication interface in form of the `Commander` class. 
 
@@ -819,99 +1077,34 @@ void loop() {
 
 For full documentation of the setup and all configuration parameters please visit the <a href="commander_interface"> Communication docs</a>. 
 
-## Step 9. [Getting started step by step guide](example_from_scratch)
+---
 
-Now that you are familiar with the structure of the <span class="simple">Simple<span class="foc">FOC</span>library</span> code you can finally start writing your own applications. In order to make this step less complicated, we have provided you a detailed step by step guide. Make sure to go through our step by step getting started guide when dealing with the library for the first time.  
+# Next Steps & Resources
 
-## 🎨 Full Arduino code of the example 
+## Hands-on Learning
 
-Above, you have learned about all the parts of the Arduino program and what they are used for. Here is the full code example with some additional configuration. Please go through the code to better understand how to integrate all previously introduced parts into one. This is the code of the library example `motor_full_control_serial_examples/magnetic_sensor/full_control_serial.ino`. 
+Ready to test your setup? Work through the complete step-by-step guide with testing procedures, troubleshooting, and hardware validation:
 
-```cpp
-#include <SimpleFOC.h>
+[📖 Getting Started: Step-by-Step Walkthrough](example_from_scratch){: .btn .btn-docs}
 
-// magnetic sensor instance - SPI
-MagneticSensorSPI sensor = MagneticSensorSPI(AS5147_SPI, 10);
+## Reference & Configuration Guide
 
-// BLDC motor & driver instance
-BLDCMotor motor = BLDCMotor(11);
-BLDCDriver3PWM driver = BLDCDriver3PWM(9, 5, 6, 8);
+Once your motor is running, you can optimize and extend it:
 
-// commander interface
-Commander command = Commander(Serial);
-void onMotor(char* cmd){ command.motor(&motor, cmd); }
+| Feature | Purpose | Documentation |
+|---------|---------|---|
+| **Sensors** | Support for encoders, magnetic sensors, hall sensors, and generic sensors | [Position Sensors](sensors) |
+| **Drivers** | Support for various BLDC and stepper drivers | [Motor Drivers](drivers_config) |
+| **Current Sensing** | In-line and low-side current sensing options | [Current Sensing](current_sense) |
+| **Motors** | Support for BLDC, stepper, and hybrid stepper motors | [Motors](motors_config) |
+| **Motion Controllers** | Change between velocity, angle, torque modes | [Motion Control](motion_control) |
+| **Torque/FOC Controllers** | Change between voltage and current modes | [Torque/FOC Control](torque_control) |
+| **Communication** | Real-time parameter adjustment via serial | [Commander Interface](commander_interface) |
+| **Debugging** | Detailed initialization diagnostics | [Debugging](debugging) |
+| **Monitoring** | Output real-time state variables | [Monitoring](monitoring) |
 
-void setup() {
-  // monitoring port
-  Serial.begin(115200);
-  // enable the debugging output
-  SimpleFOCDebug::enable(&Serial);
+---
 
-  // initialise magnetic sensor hardware
-  sensor.init();
-  // link the motor to the sensor
-  motor.linkSensor(&sensor);
+## Library Source Code
 
-  // driver config
-  // power supply voltage [V]
-  driver.voltage_power_supply = 12;
-  driver.init();
-  // link driver
-  motor.linkDriver(&driver);
-
-  // set control loop type to be used
-  motor.controller = MotionControlType::torque;
-
-  // contoller configuration based on the control type 
-  motor.PID_velocity.P = 0.2;
-  motor.PID_velocity.I = 20;
-  motor.PID_velocity.D = 0;
-  // default voltage_power_supply
-  motor.voltage_limit = 12;
-
-  // velocity low pass filtering time constant
-  motor.LPF_velocity.Tf = 0.01;
-
-  // angle loop controller
-  motor.P_angle.P = 20;
-  // angle loop velocity limit
-  motor.velocity_limit = 50;
-
-  // use monitoring with serial for motor init
-  // comment out if not needed
-  motor.useMonitoring(Serial);
-
-  // initialise motor
-  motor.init();
-  // align encoder and start FOC
-  motor.initFOC();
-
-  // set the inital target value
-  motor.target = 2;
-
-  // define the motor id
-  command.add('A', onMotor, "motor");
-
-  // Run user commands to configure and the motor (find the full command list in docs.simplefoc.com)
-  Serial.println(F("Motor commands sketch | Initial motion control > torque/voltage : target 2V."));
-  
-  _delay(1000);
-}
-
-
-void loop() {
-  // iterative setting of the FOC phase voltage
-  motor.loopFOC();
-
-  // iterative function setting the outter loop target
-  // velocity, position or voltage
-  // if target not set in parameter uses motor.target variable
-  motor.move();
-  
-  // user communication
-  command.run();
-}
-```
-
-## Library source code
 If you are interested in extending and adapting the <span class="simple">Simple<span class="foc">FOC</span>library</span> source code you can find full documentation in the <a href="source_code">library source docs</a>

@@ -1,329 +1,160 @@
 ---
 layout: default
 title: Voltage Mode
-parent: Torque Control
+parent: Torque/FOC Control
 grand_parent: Writing the Code
 grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 description: "Arduino Simple Field Oriented Control (FOC) library ."
 permalink: /voltage_torque_mode
-nav_order: 4
+nav_order: 1
 toc: true
 ---
 
 
 # Torque control using voltage 
-This torque control approach allows you to run the BLDC and Stepper motor as it is simple DC motor, where you set the target voltage $$U_q$$ to be set to the motor and the FOC algorithm calculates the necessary phase voltages $$u_a$$ ,$$u_b$$ and $$u_c$$ for smooth operation. This mode is enabled by:
+This torque control approach allows you to run the BLDC and Stepper motor as it is simple DC motor, where you set the target voltage $$u_q$$ to be set to the motor and the FOC algorithm calculates the necessary phase voltages $$u_a$$ ,$$u_b$$ and $$u_c$$ for smooth operation. This mode is enabled by:
 ```cpp
 // voltage torque control mode
 motor.torque_controller = TorqueControlType::voltage;
 ```
 
-There are three different ways to control the torque of your motor using voltage requiring different knowledge about your motor mechanical parameters:
-- [Pure voltage control](#pure-voltage-control) - no motor parameters needed
-- [Estimated current control](#voltage-control-with-current-estimation) - phase resistance $$R$$ required
-- [Estimated current control with Back-EMF compensation](#voltage-control-with-current-estimation-and-back-emf-compensation) - required phase resistance $$R$$ and $$KV$$ rating of the motor
-- [Estimated current control with Back-EMF and lag compensation](#voltage-control-with-current-estimation-and-back-emf-compensation) - required phase resistance $$R$$, inductance $$L$$ and $$KV$$ rating of the motor
-
-Block diagrams of the three torque control techniques based on voltage control can be represented as:
+## How does it work?
 
 Choose the motor type: 
 
 <a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
 <a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
-
-Choose the voltage control type: 
-
-<a href ="javascript:show(0,'loop');" id="btn-0" class="btn btn-loop btn-primary">Voltage control</a>
-<a href ="javascript:show(1,'loop');" id="btn-1" class="btn btn-loop"> + Phase resistance</a>
-<a href ="javascript:show(2,'loop');" id="btn-2" class="btn btn-loop"> + KV rating</a>
-<a href ="javascript:show(3,'loop');" id="btn-3" class="btn btn-loop"> + Phase inductance</a>
+<a href ="javascript:show('h','type');" class="btn btn-type btn-h"> Hybrid Stepper motors</a>
 
 <div class="type type-b">
-<img class="loop loop-0 width60" src="extras/Images/vm0.jpg"/>
-<img class="loop loop-1 width60 hide" src="extras/Images/vm1.jpg"/>
-<img  class="loop loop-2 width60 hide" src="extras/Images/vm2.jpg"/>
-<img  class="loop loop-3 width60 hide" src="extras/Images/vm3.jpg"/>
+<img class="width60" src="extras/Images/torque_control/vc_b.png"/>
 
 </div>
 <div class="type type-s hide">
 
-<img id="4" class="loop width60 loop-0" src="extras/Images/voltage_loop_stepper1.jpg"/>
-<img id="5" class="loop width60  loop-1 hide" src="extras/Images/voltage_loop_stepper2.jpg"/>
-<img id="6" class="loop width60 loop-2 hide" src="extras/Images/voltage_loop_stepper3.jpg"/>
-<img id="7"  class="loop width60 loop-3 hide" src="extras/Images/voltage_loop_stepper4.jpg"/>
+<img class="width60" src="extras/Images/torque_control/vc_s.png"/>
 
 </div>
-
-## Pure voltage control
-
-<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
-<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
-<div class="type type-b">
-<a name="foc_image"></a><img class="width60" src="extras/Images/vm0.jpg">
-</div>
-<div class="type type-s hide">
-<a name="foc_image"></a><img class="width60" src="extras/Images/voltage_loop_stepper1.jpg">
+<div class="type type-h hide">
+<img class="width60" src="extras/Images/torque_control/vc_h.png"/>
 </div>
 
 
-The voltage control algorithm reads the angle $$a$$ from the position sensor and the gets target $$U_q$$ voltage value from the user and using the FOC algorithm sets the appropriate $$u_a$$, $$u_b$$ and $$u_c$$ voltages to the motor. FOC algorithm ensures that these voltages generate the magnetic force in the motor rotor exactly with <i>90 degree</i> offset from its permanent magnetic field, which guarantees maximal torque, this is called commutation.
 
-The assumption of the pure voltage control is that the torque generated (which is proportional to the current $$I = k \tau $$) in the motor is proportional the voltage as $$U_q$$ set by the user. Maximal torque corresponds to the maximal $$U_q$$ which is conditioned by the power supply voltage available, and the minimal torque is of course for $$U_q= 0$$.
+The voltage control algorithm reads the angle $$a$$ from the position sensor and the gets target $$u_q$$ voltage value from the user and using the FOC algorithm sets the appropriate $$u_a$$, $$u_b$$ and $$u_c$$ voltages to the motor. FOC algorithm ensures that these voltages generate the magnetic force in the motor rotor exactly with <i>90 degree</i> offset from its permanent magnetic field, which guarantees maximal torque, this is called commutation.
+
+The assumption of the pure voltage control is that the torque generated (which is proportional to the current $$\tau = K_t i_q $$) in the motor is proportional the voltage as $$u_q$$ set by the user. Maximal torque corresponds to the maximal $$u_q$$ which is conditioned by the power supply voltage available, and the minimal torque is of course for $$u_q= 0$$.
 
 $$
-U_q \approx I = k\tau
+\tau \propto i_q \propto u_q
 $$
 
+This equation is a rough approximation. In practice it is true only for low speeds, where the motors Back EMF voltage is negligible. As the motor speed increases, the Back EMF voltage generated by the motor will reduce the voltage set to the motor and therefore the current and torque generated will be lower than expected. **Therefore in practice the voltage is proportional to the torque at low speeds, while it is proportional to the motor velocity at high speeds.**
 
-<blockquote class="warning">
+<blockquote class="info">
+
+<details markdown="1">
+
+<summary style="cursor: pointer;">🔍 <b>Where does this proportionality come from?</b> </summary>
+
+The motor electical equation (in static conditions - ex. constant speed ) has a form of:
+
+$$
+u_q = i_q R + K_{e} v
+$$
+
+where the $$R$$ is the phase resistance of the motor, $$K_{e}$$ is the back-emf constant of the motor and $$v$$ is the motor velocity. If we assume that the current $$i_q$$ is proportional to the torque generated $$\tau$$ as $$ K_t i_q =\tau$$ ($$K_t$$ is the torque constant), we can rewrite the equation as
+
+$$
+\tau = \frac{K_t}{R} u_q - \frac{K_t K_{e}}{R} v
+$$
+
+So in this equation we can see the when the motor is not moving (v=0) the voltage is proportional to the torque (through the $$\frac{K_t}{R}$$ constant) but as the motor starts moving the back-emf voltage generated by the motor reduces the voltage set to the motor, and therefore the torque generated is lower than expected.
+
+If we imagine that in an ideal conditions, where the motor turns without any load, the torque necesary to maintain the motor velocity is $$\tau=0$$, then the equation can be rewritten as
+
+$$
+u_q = K_{e} v
+$$
+
+This means that in the ideal conditions the voltage set to the motor is proportional to the motor velocity, and therefore the motor behaves as if it is a simple DC motor where you set the voltage and the velocity reached is proportional to the voltage set.
+
+In practice, these ideal conditions are never met, but the behavior of the motor is similar to the one described above, where at low speeds the voltage is proportional to the torque, while at high speeds it is proportional to the velocity.
+
+Because Voltage Mode does not account for this velocity-dependent drop, the torque will always fade as you go faster. This is exactly what the [Estimated Current Mode aims to fix.](estimated_current_mode)
+
+</details>
+</blockquote>
+
+
+<blockquote class="warning" markdown="1">
 <p class="heading">⚠️ Practical limitations</p> 
 This torque control approach is the fastest and most simple one to setup by it does not limit the current in any way! 
+
+If you can find motor parameters (phase resistance and the KV rating) using estimated current mode is recommended.
+
+[Learn more about estimated current mode](estimated_current_mode){: .btn .btn-docs}
+
 </blockquote>
 
 
 ### Expected motor behavior 
-If the user sets the desired voltage $$U_q$$ of 0 Amps, the motor should not move and have some resistance, not too much, but more than when the motor is disconnected from the driver.
+If the user sets the desired voltage $$u_q$$ of 0 Volts, the motor should not move and have some resistance, not too much, but more than when the motor is disconnected from the driver.
 
-If you set a certain desired voltage $$U_g$$ your motor should start moving and the velocity reached should be proportional to the voltage set $$U_q$$.  The behavior should be very similar to the DC motor controlled by changing the voltage on its wires. 
+If you set a certain desired voltage $$u_q$$ your motor should start moving and the velocity reached should be proportional to the voltage set $$u_q$$.  The behavior should be very similar to the DC motor controlled by changing the voltage on its wires. 
 
+## Configuration and Torque Limits
 
-## Voltage control with current estimation
-
-Block diagram of this torque control strategy is as follows
-
-<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
-<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
-<div class="type type-b">
-<a name="foc_image"></a><img class="width60" src="extras/Images/vm1.jpg">
-</div>
-<div class="type type-s hide">
-<a name="foc_image"></a><img class="width60" src="extras/Images/voltage_loop_stepper2.jpg">
-</div>
-
-If the user provides the phase resistance $$R$$ value of the motor, the user can set the desired current $$I_d$$ (that generates the desired torque $$I_d = k\tau_d$$) and the library will automatically calculate the appropriate voltage $$U_q$$.
-
-$$
-U_q = I_d R = (k\tau_d) R
-$$
-
-User can specify the phase resistance of the motor either through the constructor for example
-
-<div class="type type-b" markdown="1">
-
+To ensure safe operation and prevent hardware damage, you must configure the limits of your motor and driver. In **Voltage Mode**, your primary safety tool is `motor.voltage_limit`.
 
 ```cpp
-// BLDCMotor(pole pair number, phase resistance)
-BLDCMotor motor = BLDCMotor( 11, 2.5 );
+// a setter function to set the voltage limit
+motor.updateVoltageLimit(2.0); 
+// or you can set it directly as a variable (not recommended)
+// [V] - set the maximum voltage allowed
+motor.voltage_limit = 2.0; 
 ```
 
-</div>
-<div class="type type-s hide"  markdown="1">
+### Choosing your voltage limit
 
-```cpp
-// StepperMotor(pole pair number, phase resistance)
-StepperMotor motor = StepperMotor( 50, 1.0 );
-```
-</div>
+Since Voltage Mode does not sense current, it cannot "know" if the motor is pulling too much power. A common mistake is setting the limit to the power supply voltage (e.g., 12V), which can easily fry a low-resistance motor.
 
+**The Rule of Thumb:**
 
+* **Gimbal Motors ($$R>5\Omega$$):** You can safely set the limit to 30–50% of your power supply.
+* **Drone Motors ($$R<1\Omega$$):** Start very low (**0.5V to 1.5V**). Even a small voltage on these motors creates massive current.
+  <blockquote class="warning">⚠️ Don't be fooled by the motor size! A small drone motor can draw 10A at 2V, which can easily damage your driver and power supply if not limited.</blockquote>
+* **Stepper Motors: ($$R \approx 2\Omega$$)**: Start with **2–5V** and adjust based on performance and heat. Steppers can often handle higher voltages due to their construction, but they do have lower resistance than gimbal motors, so be cautious.
+* **Heat Check:** If the motor or driver becomes too hot to touch after 30 seconds of operation, decrease the `motor.voltage_limit` immediately.
 
-or just setting the parameter:
-```cpp
-motor.phase_resistance = 1.5; // ex. 1.5 Ohms
-```
+### Understanding the Voltage-Torque-Velocity relationship
 
+In this mode, the voltage you set is split between overcoming the motor's internal resistance (to create torque) and overcoming the Back-EMF (the "generator" effect of the spinning motor).
 
-<blockquote class="warning">
-<p class="heading">⚠️ Practical limitations</p> 
-The resulting current in the motor can, in some cases, be higher than the desired current \(I_d\) but the order of the magnitude should be preserved. The better you know the phase resistance value \(R\) the better the current estimation will work. 
+| State | Equation | Result |
+| --- | --- | --- |
+| **Motor Stalled/Static** | $$u_q = i_q \cdot R$$ | Maximum torque is produced. All voltage goes into current. |
+| **Motor Spinning** | $$u_q = i_q \cdot R + K_{e}\cdot v$$ | Torque drops because $$u_q$$ is now shared with the BEMF (proportional to speed $$v$$). |
+| **At Max Speed** | $$u_q \approx K_{e}\cdot v$$ | Current ($$i_q$$) drops to near zero. No torque is left to accelerate. |
 
-However, as the current \(I_d\) depends also of the back-emf voltage, not only the voltage \(U_q\),  this current estimation strategy is very limited. The relationship \(U_q=I_dR\) is true only if the motor is not moving (no Back-EMF voltage generated). If the motor is moving the back-emf voltage generated will reduce the voltage set to the motor \( I_dR = U_q - U_{bemf}\). The practical limitation of this approach then will be that the desired current \(I_d\) is only set to the motor when it is static, and as soon as the motor moves the actual current set to the motor decreases. 
+<blockquote class="info" markdown="1">
+<p class="heading" >💡 Tip </p> 
+If you find that your motor is too weak at high speeds, you have reached the BEMF limit of your current `voltage_limit`. To fix this, you would either need to increase the limit (carefully) or switch to [Estimated Current Mode](estimated_current_mode), which automatically increases voltage to compensate for Back-EMF.
+
 </blockquote>
+<br>
 
+## Related topics
 
-### Expected motor behavior 
-If the user sets the desired current of 0 Amps, the motor should not move and have some resistance, not too much, but more than when the motor is disconnected from the driver.
-
-If you set a certain desired current $$I_d$$ your motor should start moving and the velocity reached should be proportional to the current set $$I_d$$. 
-
-<blockquote class="info">
-<p class="heading"> For current \(I_d > 0\) motor does not move</p>
-If your desired current is set to some value that is not 0, but your motor does not move, your phase resistance value \(R\) is probably too low. Try increasing it.
-</blockquote>
-
-
-## Voltage control with current estimation and Back-EMF compensation
-
-Block diagram of this torque control strategy is as follows
-
-<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
-<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
-<div class="type type-b">
-<a name="foc_image"></a><img class="width60" src="extras/Images/vm2.jpg">
-</div>
-<div class="type type-s hide">
-<a name="foc_image"></a><img class="width60" src="extras/Images/voltage_loop_stepper3.jpg">
-</div>
-
-If the user provides the phase resistance $$R$$ value and the motor's $$KV$$ rating of the motor, the user can set the desired current $$I_d$$ (that generates the desired torque $$I_d = k\tau_d$$) directly. The library will automatically calculate the appropriate voltage $$U_q$$ while compensating for the generated Back EMF voltage by keeping track of the motor velocity $$v$$.
-
-$$
-U_q = I_d R + U_{bemf}= (k\tau_d) R + \frac{v}{KV}
-$$
-
-User can specify the phase resistance and the KV rating of the motor either through the constructor for example
-
-<div class="type type-b"  markdown="1">
-
-```cpp
-// BLDCMotor(pole pair number, phase resistance [Ohms], KV rating [rpm/V])
-BLDCMotor motor = BLDCMotor( 11, 2.5, 120 );
-```
-
-</div>
-<div class="type type-s hide"  markdown="1">
-
-```cpp
-// StepperMotor(pole pair number, phase resistance [Ohms], KV rating [rpm/V])
-StepperMotor motor = StepperMotor( 50, 1.5, 20 );
-```
-
-</div>
-
-<blockquote class="info">
-<p class="heading"> RULE OF THUMB: KV value</p> 
-KV rating of the motor is defined as speed of the motor in rpm with the set voltage \(U_q\) of 1 Volt. If you do not know your motor's KV rating you can easily measure it using the library. Run your motor int the voltage mode and set the target voltage to one 1V and read the motor velocity.  <span class="simple">Simple<span class="foc">FOC</span>library</span> shows that velocity in the rad/s so in order to convert it to the rpm you just need to multiply it by \(30/\pi \approx 10\).<br><br>
-
-As explained above as the Back-EMF constant of the motor is always a bit smaller than the inverse of the KV rating ( \(k_{bemf}<1/KV\) ), the rule of thumb is to set the KV rating 10-20% higher than the one given in the datasheet, or the one determined experimentally. 
-</blockquote>
-
-
-
-With the $$R$$ and $$KV$$ information the <span class="simple">Simple<span class="foc">FOC</span>library</span> is able to estimate current set to the motor and the user will be able to control the motor torque, provided the motor parameters are correct (enough 😄).
-
-
-<blockquote class="warning">
-<p class="heading">⚠️ Practical limitations</p> 
-Back-EMF voltage is defined as \(U_{bemf} = k_{bemf}v\) and calculating it based on the motor \(KV\) rating of the motor is just an approximation because the motor BEMF constant \(k_{bemf}\) is not exacly \(k_{bemf}=1/KV\).
-It can be shown that the back-emf constant is always somewhat smaller than the inverse of the KV rating:
-\[k_{bemf}<\frac{1}{KV}\]
-</blockquote>
-
-### Expected motor behavior 
-If the user sets the desired current of 0 Amps, the motor should have very low resistance, much lower than in the two torque control strategies above. The motor should feel like it is almost disconnected. 
-
-<blockquote class="info">
-<p class="heading"> For current 0 motor moves</p>
-If your desired current is set to 0, but when you move your motor with your hand it continues moving on its own and does not come back to a complete stop, your \(KV\) value is too high. Try reducing it.
-</blockquote>
-
-If you set a certain desired current $$I_d$$ your motor should accelerate to its maximum velocity. The acceleration value is proportional to the motor torque and will be proportional to the current $$I_d$$. So for larger currents your motor will accelerate faster and for the lower currents it will accelerate slower. But for the motor without load, regardless of set target current $$I_d$$ the motor should reach its max velocity. 
-
-<blockquote class="info">
-<p class="heading"> For current \(I_d > 0\) motor does not move</p>
-If your desired current is set to some value that is not 0, but your motor does not move, your phase resistance value \(R\) is probably too low. Try increasing it.
-</blockquote>
-
-
-
-## Voltage control using current estimation with Back-EMF and lag compensation
-
-Block diagram of this torque control strategy is as follows
-
-<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
-<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
-<div class="type type-b">
-<a name="foc_image"></a><img class="width60" src="extras/Images/vm3.jpg">
-</div>
-<div class="type type-s hide">
-<a name="foc_image"></a><img class="width60" src="extras/Images/voltage_loop_stepper4.jpg">
-</div>
-
-
-If the user provides the phase resistance $$R$$ value and the motor's $$KV$$ rating of the motor, the user can set the desired current $$I_d$$ (that generates the desired torque $$I_d = k\tau_d$$) directly. The library will automatically calculate the appropriate voltage $$U_q$$ while compensating for the generated Back EMF voltage by keeping track of the motor velocity $$v$$.
-
-$$
-U_q = I_d R + U_{bemf}= (k\tau_d) R + \frac{v}{KV}
-$$
-
-Additionally if the user sets the phase inductance value $$L$$, the library will be able to compensate for the lag of the torque vector by calculating an appropriate d-axis voltage $$U_d$$
-
-$$
-U_d = -I_d L v n_{pp} = -(k\tau_d)L v n_{pp}
-$$
-
-where $$n_{pp}$$ is the number of motor's pole pairs. By compensating the lag of the torque vector due to the motor rotation velocity $$v$$, the motor will be able to spin with higher max velocity. Therefore the lag compensation will have the most effect if application requires going to the maximal motor velocity.
-
-User can specify the phase resistance and the KV rating of the motor either through the constructor for example
-<div class="type type-b"  markdown="1">
-
-
-```cpp
-// BLDCMotor(pole pair number, phase resistance [Ohms], KV rating [rpm/V], phase inductance [H])
-BLDCMotor motor = BLDCMotor( 11, 2.5, 120, 0.01 );
-```
-
-</div>
-<div class="type type-s hide"  markdown="1">
-
-```cpp
-// StepperMotor(pole pair number, phase resistance [Ohms], KV rating [rpm/V], phase inductance [H])
-StepperMotor motor = StepperMotor( 50, 1.5, 20, 0.01 );
-```
-
-</div>
-
-
-<blockquote class="info">
-<p class="heading"> RULE OF THUMB: KV value</p> 
-KV rating of the motor is defined as speed of the motor in rpm with the set voltage \(U_q\) of 1 Volt. If you do not know your motor's KV rating you can easily measure it using the library. Run your motor int the voltage mode and set the target voltage to one 1V and read the motor velocity.  <span class="simple">Simple<span class="foc">FOC</span>library</span> shows that velocity in the rad/s so in order to convert it to the rpm you just need to multiply it by \(30/\pi \approx 10\).<br><br>
-
-As explained above as the Back-EMF constant of the motor is always a bit smaller than the inverse of the KV rating ( \(k_{bemf}<1/KV\) ), the rule of thumb is to set the KV rating 10-20% higher than the one given in the datasheet, or the one determined experimentally. 
-</blockquote>
-
-
-
-With the $$R$$ and $$KV$$ information the <span class="simple">Simple<span class="foc">FOC</span>library</span> is able to estimate current set to the motor and the user will be able to control the motor torque, provided the motor parameters are correct (enough 😄).
-
-
-<blockquote class="warning">
-<p class="heading">⚠️ Practical limitations</p> 
-Back-EMF voltage is defined as \(U_{bemf} = k_{bemf}v\) and calculating it based on the motor \(KV\) rating of the motor is just an approximation because the motor BEMF constant \(k_{bemf}\) is not exacly \(k_{bemf}=1/KV\).
-It can be shown that the back-emf constant is always somewhat smaller than the inverse of the KV rating:
-\[k_{bemf}<\frac{1}{KV}\]
-</blockquote>
-
-### Expected motor behavior 
-If the user sets the desired current of 0 Amps, the motor should have very low resistance, much lower than in the two torque control strategies above. The motor should feel like it is almost disconnected. 
-
-<blockquote class="info">
-<p class="heading"> For current 0 motor moves</p>
-If your desired current is set to 0, but when you move your motor with your hand it continues moving on its own and does not come back to a complete stop, your \(KV\) value is too high. Try reducing it.
-</blockquote>
-
-If you set a certain desired current $$I_d$$ your motor should accelerate to its maximum velocity. The acceleration value is proportional to the motor torque and will be proportional to the current $$I_d$$. So for larger currents your motor will accelerate faster and for the lower currents it will accelerate slower. But for the motor without load, regardless of set target current $$I_d$$ the motor should reach its max velocity. 
-
-<blockquote class="info">
-<p class="heading"> For current \(I_d > 0\) motor does not move</p>
-If your desired current is set to some value that is not 0, but your motor does not move, your phase resistance value \(R\) is probably too low. Try increasing it.
-</blockquote>
-
-For different values of the motor phase inductance $$L$$ motor will be able to reach different maximal velocities. The higher the inductance value the higher the maximal velocity. However, after certain inductance value the motor maximal velocity will stop being affected as it will reach its absolute max velocity.  
-
-<blockquote class="info">
-<p class="heading"> How to find the phase inductance \(L\) value</p>
-Start with low value, such as 0.1mH and set your target current \(I_d\) to certain value to allow the motor to accelerate to it's max velocity. Then use the Commander interface to change the inductance and see see how the motor's velocity evolves. By raising the \(L\) value, the velocity should increase. After certain \(L\) value the velocity will stop increasing and if you continue it might even decrease. So use the minimal \(L\) value that reaches the max velocity.  
-</blockquote>
-
-
-
-For more info about the theory of the torque control check the section [Digging deeper section](digging_deeper) or go directly to [torque control theory](voltage_torque_control).
+[See here for a dive deep into the torque theory.](voltage_torque_control){: .btn .btn-docs}
+[Go here for the implementation details.](torque_control_implementation){: .btn .btn-docs}
 
 ## Torque control example code
-A simple example of the voltage based torque control and setting the target **current** by serial command interface. 
+A simple example of the voltage based torque control and setting the target **voltage** by serial command interface. 
 
 <a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
 <a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
+<a href ="javascript:show('h','type');" class="btn btn-type btn-h"> Hybrid Stepper motors</a>
 <div class="type type-b" markdown="1">
 
 ```cpp
@@ -359,7 +190,6 @@ void setup() {
   motor.linkDriver(&driver);
 
   // set the torque control type
-  motor.phase_resistance = 12.5; // 12.5 Ohms
   motor.torque_controller = TorqueControlType::voltage;
   // set motion control loop to be used
   motor.controller = MotionControlType::torque;
@@ -378,7 +208,7 @@ void setup() {
   command.add('M', doMotor, "motor");
 
   Serial.println(F("Motor ready."));
-  Serial.println(F("Set the target current using serial terminal:"));
+  Serial.println(F("Set the target voltage using serial terminal:"));
   _delay(1000);
 }
 
@@ -433,7 +263,6 @@ void setup() {
   motor.linkDriver(&driver);
 
   // set the torque control type
-  motor.phase_resistance = 1.5; // 1.5 Ohms
   motor.torque_controller = TorqueControlType::voltage;
   // set motion control loop to be used
   motor.controller = MotionControlType::torque;
@@ -452,7 +281,81 @@ void setup() {
   command.add('M', doMotor, "motor");
 
   Serial.println(F("Motor ready."));
-  Serial.println(F("Set the target current using serial terminal:"));
+  Serial.println(F("Set the target voltage using serial terminal:"));
+  _delay(1000);
+}
+
+void loop() {
+
+  // main FOC algorithm function
+  motor.loopFOC();
+
+  // Motion control function
+  motor.move();
+
+  // user communication
+  command.run();
+}
+```
+
+
+</div>
+
+
+<div class="type type-h hide" markdown="1">
+
+```cpp
+#include <SimpleFOC.h>
+
+// Stepper motor & driver instance
+HybridStepperMotor motor = HybridStepperMotor(50); // nema17 200 steps per revolution
+BLDCDriver3PWM driver = BLDCDriver3PWM(9, 5, 6, 8);
+
+// encoder instance
+Encoder encoder = Encoder(2, 3, 500);
+// channel A and B callbacks
+void doA(){encoder.handleA();}
+void doB(){encoder.handleB();}
+
+// instantiate the commander
+Commander command = Commander(Serial);
+void doMotor(char* cmd) { command.motor(&motor, cmd); }
+
+void setup() { 
+  
+  // initialize encoder sensor hardware
+  encoder.init();
+  encoder.enableInterrupts(doA, doB); 
+  // link the motor to the sensor
+  motor.linkSensor(&encoder);
+
+  // driver config
+  // power supply voltage [V]
+  driver.voltage_power_supply = 12;
+  driver.init();
+  // link driver
+  motor.linkDriver(&driver);
+
+  // set the torque control type
+  motor.torque_controller = TorqueControlType::voltage;
+  // set motion control loop to be used
+  motor.controller = MotionControlType::torque;
+
+  // use monitoring with serial 
+  Serial.begin(115200);
+  // comment out if not needed
+  motor.useMonitoring(Serial);
+
+  // initialize motor
+  motor.init();
+  // align sensor and start FOC
+  motor.initFOC();
+
+  // add target command M
+  command.add('M', doMotor, "motor");
+
+  Serial.println(F("Motor ready."));
+  Serial.println(F("Set the target voltage using serial terminal:"));
   _delay(1000);
 }
 

@@ -9,214 +9,425 @@ grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</sp
 toc: true
 ---
 
+# Motion control implementation [v2.4+](https://github.com/simplefoc/Arduino-FOC/releases)
 
-# Motion control implementation [v1.6](https://github.com/simplefoc/Arduino-FOC/releases)
+<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
+<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
 
-<span class="simple">Simple<span class="foc">FOC</span>library</span> implements 3 motion control loops:
+<img class="type type-b  width60" src="extras/Images/clb.png"/>
+<img class="type type-s hide width60" src="extras/Images/cls.png"/>
 
-- Torque control using voltage
-- Velocity motion control
-- Position/angle control
+Motion control is the outer control loop in the <span class="simple">Simple<span class="foc">FOC</span>library</span>, executed within `move()`. It converts user commands (position, velocity, or torque targets) into a current setpoint (`current_sp`) that is passed to the torque control layer in `loopFOC()`.
 
-The motion control algorithm is chosen by seting the `motor.controller` variables with one of the `ControlType` structure: 
+The library implements 7 motion control strategies:
 
 ```cpp
-// Motion control type
-enum ControlType{
-  voltage,// Torque control using voltage
-  velocity,// Velocity motion control
-  angle// Position/angle motion control
+enum MotionControlType : uint8_t {
+  torque            = 0x00,     // Direct torque/current control
+  velocity          = 0x01,     // Velocity motion control
+  angle             = 0x02,     // Position control (cascade)
+  velocity_openloop = 0x03,     // Open-loop velocity
+  angle_openloop    = 0x04,     // Open-loop position
+  angle_nocascade   = 0x05,     // Position control (direct)
+  custom            = 0x06      // User-defined control
 };
 ```
-This will look like:
+
+Selection:
 ```cpp
-motor.controller = ControlType::voltage;
-// or
-motor.controller = ControlType::velocity;
-// or
-motor.controller = ControlType::angle;
+motor.controller = MotionControlType::velocity;  // Can be changed in real-time
 ```
-This variable can be changed in real-time as well!
 
+## The move() function
 
-## Real-time execution `move()` 
+Motion control is executed in the `move()` function, which should be called iteratively in the main loop. The function accepts an optional target parameter; if omitted, it uses `motor.target`.
 
-The real-time motion control is executed inside `move()` function. Move function receives executes one of the control loops based on the `controller` variable. The parameter `new_target` of the `move()` function is the target value so be set to the control loop. The `new_target` value is optional and doesn't need to be set. If it is not set the motion control will use `motor.target` variable.  
+```cpp
+void loop() {
+  motor.loopFOC();        // Fast: torque control
+  motor.move();           // Slower: motion control
+  // or
+  motor.move(new_target); // Override motor.target
+}
+``` 
 
-Here is the implementation:
+The real-time motion control is executed inside the `move()` function. This function executes one of the control loops based on the `controller` variable. The parameter `new_target` is the target value to be set for the control loop. The `new_target` value is optional; if not set, the motion control will use the `motor.target` variable.
+
+Here is a simplified view of the implementation:
 ```cpp
 // Iterative function running outer loop of the FOC algorithm
 // Behavior of this function is determined by the motor.controller variable
-// It runs either angle, velocity or voltage loop
-// - needs to be called iteratively it is asynchronous function
+// - needs to be called iteratively, it is an asynchronous function
 // - if target is not set it uses motor.target value
-void BLDCMotor::move(float new_target = NOT_SET) {
-  // check if target received through the parameter new_target
-  // if not use the internal target variable (motor.target) 
-  if( new_target != NOT_SET ) target = new_target;
-  // get angular velocity
-  shaft_velocity = shaftVelocity();
+void FOCMotor::move(float new_target) {
+  // set internal target variable
+  if(_isset(new_target)) target = new_target;
+  
+  // downsampling (optional)
+  if(motion_cnt++ < motion_downsample) return;
+  motion_cnt = 0;
+
+  // read sensor values (except for open loop modes)
+  if(controller != MotionControlType::angle_openloop && 
+     controller != MotionControlType::velocity_openloop) {
+    shaft_angle = shaftAngle(); 
+    shaft_velocity = shaftVelocity(); 
+  }
+
+  // if disabled or not ready, do nothing
+  if(!enabled || motor_status != FOCMotorStatus::motor_ready) return;
+  
   // choose control loop
   switch (controller) {
-    case ControlType::voltage:
-      // set the target voltage for FCO loop
-      voltage_q =  target;
+    case MotionControlType::torque:
+      current_sp = target;
       break;
-    case ControlType::angle:
+      
+    case MotionControlType::angle_nocascade:
       // angle set point
       shaft_angle_sp = target;
-      // calculate the necessary velocity to achieve target position
-      shaft_velocity_sp = positionP( shaft_angle_sp - shaft_angle );
-      // calculate necessary voltage to be set by FOC loop
-      voltage_q = velocityPI(shaft_velocity_sp - shaft_velocity);
+      // calculate the torque command directly from position error
+      current_sp = P_angle(shaft_angle_sp - LPF_angle(shaft_angle));
       break;
-    case ControlType::velocity:
+      
+    case MotionControlType::angle:
+      // angle set point
+      shaft_angle_sp = target;
+      // calculate velocity set point
+      shaft_velocity_sp = feed_forward_velocity + P_angle(shaft_angle_sp - LPF_angle(shaft_angle));
+      shaft_velocity_sp = _constrain(shaft_velocity_sp, -velocity_limit, velocity_limit);
+      // calculate the torque command
+      current_sp = PID_velocity(shaft_velocity_sp - shaft_velocity); 
+      break;
+      
+    case MotionControlType::velocity:
       // velocity set point
       shaft_velocity_sp = target;
-      // calculate necessary voltage to be set by FOC loop
-      voltage_q = velocityPI(shaft_velocity_sp - shaft_velocity);
+      // calculate the torque command
+      current_sp = PID_velocity(shaft_velocity_sp - shaft_velocity); 
+      break;
+      
+    case MotionControlType::velocity_openloop:
+      shaft_velocity_sp = target;
+      current_sp = velocityOpenloop(shaft_velocity_sp); 
+      break;
+      
+    case MotionControlType::angle_openloop:
+      shaft_angle_sp = target;
+      current_sp = angleOpenloop(shaft_angle_sp); 
+      break;
+      
+    case MotionControlType::custom:
+      // custom control - user provides the callback function
+      if(customMotionControlCallback) 
+        current_sp = customMotionControlCallback(this, target);
       break;
   }
 }
 ```
-## Shaft velocity filtering `shaftVelocity`
 
-The first step for velocity motion control is the getting the velocity value from sensor. Because some sensors are very noisy and especially since in most cases velocity value is calculated by 
-derivating the position value we have implemented a Low Pass filter velocity filter to smooth out the measurement. 
-The velocity calculating function is `shaftVelocity()` with implementation:
+The `move()` function is typically called at the same frequency as `loopFOC()`, but it can be downsampled using the `motion_downsample` variable to reduce computational load. This can allow for more complex motion control algorithms that do not need to run at the full speed of the torque control loop.
+
+$$ f_{MC} = \frac{f_{TC}}{\texttt{motion_downsample} } $$
+
+## Torque Mode
+
+**Type:** `MotionControlType::torque`
+
+
+<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
+<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
+
+<img class="type type-b  width40" src="extras/Images/torque_control_i.png"/>
+<img class="type type-s hide width40" src="extras/Images/velocity_loop_stepper_curr.png"/>
+
+Direct torque/current control - the target value is passed directly as the current setpoint to the torque controller.
+
 ```cpp
-// shaft velocity calculation
-float BLDCMotor::shaftVelocity() {
-  float Ts = (_micros() - LPF_velocity.timestamp) * 1e-6;
-  // quick fix for strange cases (micros overflow)
-  if(Ts <= 0 || Ts > 0.5) Ts = 1e-3; 
-  // calculate the filtering 
-  float alpha = LPF_velocity.Tf/(LPF_velocity.Tf + Ts);
-  float vel = alpha*LPF_velocity.prev + (1-alpha)*sensor->getVelocity();
-  // save the variables
-  LPF_velocity.prev = vel;
-  LPF_velocity.timestamp = _micros();
-  return vel;
+case MotionControlType::torque:
+  current_sp = target;
+  break;
+```
+
+The actual torque control strategy (voltage, DC current, FOC current, estimated current) is determined by `motor.torque_controller`.
+
+<blockquote class="info">
+<p class="heading">Detailed implementation</p>
+For detailed information about torque control modes, see the <a href="torque_control_implementation">torque control implementation page</a>.
+</blockquote>
+
+[Torque control API documentation](voltage_loop){: .btn .btn-docs}
+
+## Velocity Control
+
+**Type:** `MotionControlType::velocity`
+
+<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
+<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
+
+<img class="type type-b  width60" src="extras/Images/velocity_loop_i.png"/>
+<img class="type type-s hide width60" src="extras/Images/velocity_loop_stepper_curr.png"/>
+
+Closed-loop velocity control using a PID controller to calculate the current setpoint from velocity error.
+
+### Control Flow
+
+```cpp
+case MotionControlType::velocity:
+  shaft_velocity_sp = target;
+  current_sp = PID_velocity(shaft_velocity_sp - shaft_velocity); 
+  break;
+```
+
+### Velocity Controller
+
+The `PID_velocity` controller is a `PIDController` object. Also note the low-pass filtering of the velocity measurement before calculating the error.
+
+```cpp
+motor.PID_velocity.P = 0.2;
+motor.PID_velocity.I = 20.0;
+motor.PID_velocity.D = 0.0;
+
+motor.LPF_velocity.Tf = 0.01;  // 10ms low-pass filter time constant
+```
+
+[Velocity control API documentation](velocity_loop){: .btn .btn-docs}
+[PID controller implementation](pid_implementation){: .btn .btn-docs}
+
+### Additional Features
+
+**Velocity low-pass filtering:**
+```cpp
+motor.LPF_velocity.Tf = 0.01;  // 10ms low-pass filter time constant
+```
+[Low-pass filter implementation](lpf_implementation){: .btn .btn-docs}
+
+## Position Control (Cascade Mode)
+
+**Type:** `MotionControlType::angle`
+
+<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
+<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
+
+<img class="type type-b  width60" src="extras/Images/a_b_i.drawio.png"/>
+<img class="type type-s hide width60" src="extras/Images/a_s_i.drawio.png"/>
+
+
+Cascaded position control: P controller generates velocity setpoint, then velocity PID calculates current setpoint.
+
+### Control Flow
+
+```cpp
+case MotionControlType::angle:
+  shaft_angle_sp = target;
+  // P controller calculates velocity setpoint
+  shaft_velocity_sp = feed_forward_velocity + 
+                      P_angle(shaft_angle_sp - LPF_angle(shaft_angle));
+  // Constrain velocity
+  shaft_velocity_sp = _constrain(shaft_velocity_sp, -velocity_limit, velocity_limit);
+  // Velocity PID calculates current setpoint
+  current_sp = PID_velocity(shaft_velocity_sp - shaft_velocity); 
+  break;
+```
+
+### Position Controller
+
+The `P_angle` controller is a `PIDController` object (though typically only P gain is used):
+
+```cpp
+motor.P_angle.P = 20.0;      // Proportional gain
+motor.P_angle.I = 0.0;       // Usually zero
+motor.P_angle.D = 0.0;       // Usually zero
+```
+
+[Angle control API documentation](angle_loop){: .btn .btn-docs}
+[PID controller implementation](pid_implementation){: .btn .btn-docs}
+
+### Additional Features
+
+**Angle low-pass filtering:**
+```cpp
+motor.LPF_angle.Tf = 0.0;  // Usually disabled (0)
+```
+[Low-pass filter implementation](lpf_implementation){: .btn .btn-docs}
+
+**Feed-forward velocity:**
+```cpp
+motor.feed_forward_velocity = 0.5;  // [rad/s]
+```
+
+**Velocity limiting:**
+```cpp
+motor.velocity_limit = 10.0;  // [rad/s]
+```
+
+
+## Position Control (Non-Cascade Mode)
+
+**Type:** `MotionControlType::angle_nocascade`
+
+<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
+<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
+
+<img class="type type-b  width60" src="extras/Images/an_b_i.drawio.png"/>
+<img class="type type-s hide width60" src="extras/Images/an_s_i.drawio.png"/>
+
+Direct position-to-torque control without velocity loop intermediary - P controller directly calculates current setpoint.
+
+### Control Flow
+
+```cpp
+case MotionControlType::angle_nocascade:
+  shaft_angle_sp = target;
+  current_sp = P_angle(shaft_angle_sp - LPF_angle(shaft_angle));
+  break;
+```
+
+### Position Controller
+
+The `P_angle` controller is a `PIDController` object (though typically only P gain is used):
+
+```cpp
+motor.P_angle.P = 20.0;      // Proportional gain
+motor.P_angle.I = 0.0;       // Usually very low or zero
+motor.P_angle.D = 0.0;       // Usually zero
+```
+
+[Non-cascade angle control API documentation](angle_nocascade_loop){: .btn .btn-docs}
+[PID controller implementation](pid_implementation){: .btn .btn-docs}
+
+### Additional Features
+
+**Angle low-pass filtering:**
+```cpp
+motor.LPF_angle.Tf = 0.0;  // Usually disabled (0)
+```
+
+[Low-pass filter implementation](lpf_implementation){: .btn .btn-docs}
+
+## Open-Loop Velocity Control
+
+**Type:** `MotionControlType::velocity_openloop`
+
+<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
+<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
+
+<img class="type type-b  width50" src="extras/Images/olb_v_i.png"/>
+<img class="type type-s hide width50" src="extras/Images/ols_v_i.png"/>
+
+Open-loop velocity control without sensor feedback - generates rotating field at target velocity.
+
+### Control Flow
+
+```cpp
+case MotionControlType::velocity_openloop:
+  shaft_velocity_sp = target;
+  current_sp = velocityOpenloop(shaft_velocity_sp); 
+  break;
+```
+
+The `velocityOpenloop()` function integrates velocity to calculate angle:
+
+```cpp
+float FOCMotor::velocityOpenloop(float target_velocity) {
+  unsigned long now_us = _micros();
+  float Ts = (now_us - open_loop_timestamp) * 1e-6f;
+  if(Ts <= 0 || Ts > 0.5f) Ts = 1e-3f;
+  
+  shaft_angle = _normalizeAngle(shaft_angle + target_velocity * Ts);
+  shaft_velocity = target_velocity;
+  
+  open_loop_timestamp = now_us;
+  return current_sp;
 }
 ```
-The low pass filter is standard first order low pass filter with one time constant `Tf` which is configured with `motor.LPF_velocity`structure:
+
+[Open-loop velocity control API documentation](velocity_openloop){: .btn .btn-docs}
+
+## Open-Loop Position Control
+
+**Type:** `MotionControlType::angle_openloop`
+
+<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
+<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
+
+<img class="type type-b  width50" src="extras/Images/olb_p_i.png"/>
+<img class="type type-s hide width50" src="extras/Images/ols_p_i.png"/>
+
+Open-loop position control - sets electrical angle directly without sensor feedback.
+
+### Control Flow
+
 ```cpp
-// Low pass filter structure
-struct LPF_s{
-  float Tf; // Low pass filter time constant
-  long timestamp; // Last execution timestamp
-  float prev; // filtered value in previous execution step 
-};
+case MotionControlType::angle_openloop:
+  shaft_angle_sp = target;
+  current_sp = angleOpenloop(shaft_angle_sp); 
+  break;
 ```
-### Low-Pass velocity filter theory
-For more info about the theory of the Low pass filter please visit [ theory lovers corner ](low_pass_filter)
 
-## Torque control  using voltage
-
-Since for most of the low-cost gimbal motors and drivers current measurement is usually not available then the torque control has to be done using voltage directly. 
-
-<a name="foc_image"></a><img src="extras/Images/voltage_loop.png">
-
-This control loop makes an assumption that the voltage is proportional to the current which is proportional to the torque. Which is in general correct but not always. But in broad terms, it works pretty well for low current applications (gimbal motors). 
-This is the same assumption we usually make with DC motors.
-
-The control loop has trivial implementation, basically set the target voltage to the `voltage_q` variable in order to be set to the motor using the FOC algorithm `loopFOC()`.
-
-<blockquote class="warning"><p class="heading">API usage</p> For more info about how to use this loop look into: <a href="voltage_loop"> voltage loop api docs</a></blockquote>
-
-
-### Torque control using voltage theory
-For more info about the theory of the this type of control please visit [ theory lovers corner ](voltage_torque_control)
-
-## Velocity motion control
-
-Once we have the current velocity value and and the target value we would like to achieve, we need to calculate the appropriate voltage value to be set to the motor in order to follow the target value.
-
-<img src="extras/Images/velocity_loop.png" >
-
-
-And that is done by using PI controller in  `velocityPI()` function.
+The `angleOpenloop()` function sets the angle and applies velocity ramping:
 
 ```cpp
-// velocity control loop PI controller
-float BLDCMotor::velocityPI(float tracking_error) {
-  return controllerPI(tracking_error, PID_velocity);
+float FOCMotor::angleOpenloop(float target_angle) {
+  unsigned long now_us = _micros();
+  float Ts = (now_us - open_loop_timestamp) * 1e-6f;
+  if(Ts <= 0 || Ts > 0.5f) Ts = 1e-3f;
+  
+  // Calculate angle difference
+  float angle_diff = _normalizeAngle(target_angle - shaft_angle);
+  
+  // Apply velocity limit
+  if(abs(angle_diff) > velocity_limit * Ts) {
+    angle_diff = _sign(angle_diff) * velocity_limit * Ts;
+  }
+  
+  shaft_angle = _normalizeAngle(shaft_angle + angle_diff);
+  
+  open_loop_timestamp = now_us;
+  return current_sp;
 }
 ```
-The `BLDCMotor` class has implemented generic PI controller function called `controllerPI()`.
+
+[Open-loop position control API documentation](angle_openloop){: .btn .btn-docs}
+
+## Custom Control
+
+**Type:** `MotionControlType::custom`
+
+<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
+<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
+
+<img class="type type-b  width60" src="extras/Images/cus_b.png"/>
+<img class="type type-s hide width60" src="extras/Images/cus_s.png"/>
+
+User-defined control algorithm via callback function.
+
+### Control Flow
+
 ```cpp
-// PI controller function
-float BLDCMotor::controllerPI(float tracking_error, PI_s& cont){
-  float Ts = (_micros() - cont.timestamp) * 1e-6;
+case MotionControlType::custom:
+  if(customMotionControlCallback) 
+    current_sp = customMotionControlCallback(this, target);
+  break;
+```
 
-  // quick fix for strange cases (micros overflow)
-  if(Ts <= 0 || Ts > 0.5) Ts = 1e-3; 
+### Usage
 
-  // u(s) = (P + I/s)e(s)
-  // Tustin transform of the PI controller ( a bit optimized )
-  // uk = uk_1  + (I*Ts/2 + P)*ek + (I*Ts/2 - P)*ek_1
-  float tmp = cont.I*Ts*0.5;
-  float voltage = cont.voltage_prev + (tmp + cont.P) * tracking_error + (tmp - cont.P) * cont.tracking_error_prev;
+Set the callback function pointer:
 
-  // antiwindup - limit the output voltage_q
-  if (abs(voltage) > cont.voltage_limit) voltage = voltage > 0 ? cont.voltage_limit : -cont.voltage_limit;
-  // limit the acceleration by ramping the the voltage
-  float d_voltage = voltage - cont.voltage_prev;
-  if (abs(d_voltage)/Ts > cont.voltage_ramp) voltage = d_voltage > 0 ? cont.voltage_prev + cont.voltage_ramp*Ts : cont.voltage_prev - cont.voltage_ramp*Ts;
-
-
-  cont.voltage_prev = voltage;
-  cont.tracking_error_prev = tracking_error;
-  cont.timestamp = _micros();
-  return voltage;
+```cpp
+// Define custom control function
+float myCustomControl(FOCMotor* motor, float target) {
+  // Your control algorithm here
+  // Access motor state: motor->shaft_velocity, motor->shaft_angle, etc.
+  // Return current setpoint
+  return calculated_current_sp;
 }
-```
-The PI controller is configured with `motor.PID_velocity` structure:
-```cpp
-// PI controller configuration structure
-struct PI_s{
-  float P; // Proportional gain 
-  float I; // Integral gain 
-  float voltage_limit; // Voltage limit of the controller output
-  float voltage_ramp;  // Maximum speed of change of the output value 
-  long timestamp;  // Last execution timestamp
-  float voltage_prev;  // last controller output value 
-  float tracking_error_prev;  // last tracking error value
-};
+
+// Register callback
+motor.customMotionControlCallback = myCustomControl;
+motor.controller = MotionControlType::custom;
 ```
 
-<blockquote class="warning"><p class="heading">API usage</p> For more info about how to use this loop look into: <a href="velocity_loop"> velocity loop api docs</a></blockquote>
+[Custom control API documentation](custom_control){: .btn .btn-docs}
 
-### PI controller theory
-
-For more info about the theory of hte PI controller implemented in this library please visit [theory lovers corner](pi_controller)
-
-## Position motion control
-
-Now when we have the velocity control loop explained we can build our position control loop in cascade as shown on the image. 
-<img src="extras/Images/angle_loop.png">
-
-When we have target angle we want to achieve, we will use the P controller to calculate necessary velocity we need and then the velocity loop will calculate the necessary voltage `votage_q` to achieve both velocity and angle that we want.  
-
-The position P controller is implemented in  `positionP()` function:
-```cpp
-// P controller for position control loop
-float BLDCMotor::positionP(float ek) {
-  // calculate the target velocity from the position error
-  float velocity_target = P_angle.P * ek;
-  // constrain velocity target value
-  if (abs(velocity_target) > velocity_limit) velocity_target = velocity_target > 0 ? velocity_limit : -velocity_limit;
-  return velocity_target;
-}
-```
-And it is configured with `motor.P_angle` structure:
-```cpp
-// P controller configuration structure
-struct P_s{
-  float P; // Proportional gain 
-  long timestamp; // Last execution timestamp
-  float velocity_limit; // Velocity limit of the controller output
-};
-```
-
-<blockquote class="warning"><p class="heading">API usage</p> For more info about how to use this loop look into: <a href="angle_loop"> angle loop api docs</a></blockquote>

@@ -23,7 +23,7 @@ This g-code like interface provides callback to configure and tune any:
 - [PID controllers](commander_pid)
 - [Low pass filters](commander_lpf)
 - [Scalar variables](commander_scalar)
-- [Motion control](commander_target) <b><i>NEW</i>📢</b>
+- [Motion control](commander_target) 
   - Setting target values and limits at once (ex. angle velocity torque)
   - Changing the motion and torque control mode
   - Enable/Disable the motor 
@@ -36,6 +36,10 @@ This g-code like interface provides callback to configure and tune any:
   - enable/disable
   - sensor offsets
   - phase resistance 
+  - read `loopFOC` and `move` time <b><i>NEW</i>📢</b>
+  - rerun `initFOC` <b><i>NEW</i>📢</b>
+  - run `characteriseMotor` <b><i>NEW</i>📢</b>
+  - run `tuneCurrentControllers` <b><i>NEW</i>📢</b>
   - ... 
 
 Furthermore commander enables you to easily create your own commands and extend this interface in any way you might need for your particular application.

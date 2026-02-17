@@ -62,7 +62,7 @@ The velocity loop parameters are the same ones used in the velocity control page
 - You often won’t need to change `I` or `D` for position control.
 
 [Read more about velocity control loop and parameters](velocity_loop){: .btn .btn-docs}
-[See the velocity loop tuning guide](tunning_velocity_loop){: .btn .btn-docs}
+[See the velocity loop tuning guide](tuning_velocity_loop){: .btn .btn-docs}
 
 Example parameters for the velocity loop:
 

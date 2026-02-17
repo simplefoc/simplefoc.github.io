@@ -83,6 +83,8 @@ void setup() {
   motor.linkCustomMotionControl(customTorqueControl);
   // set the control loop type to be used
   motor.controller = MotionControlType::custom;
+  // set the torque control type to be used
+  motor.torque_controller = TorqueControlType::foc_current; 
   ...
 }
 ```
