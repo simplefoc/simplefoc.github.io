@@ -25,6 +25,7 @@ toc: true
 [![RP2040 build](https://github.com/simplefoc/Arduino-FOC/actions/workflows/rpi.yml/badge.svg)](https://github.com/simplefoc/Arduino-FOC/actions/workflows/rpi.yml)
 [![SAMD build](https://github.com/simplefoc/Arduino-FOC/actions/workflows/samd.yml/badge.svg)](https://github.com/simplefoc/Arduino-FOC/actions/workflows/samd.yml)
 [![Teensy build](https://github.com/simplefoc/Arduino-FOC/actions/workflows/teensy.yml/badge.svg)](https://github.com/simplefoc/Arduino-FOC/actions/workflows/teensy.yml)
+[![MBED build](https://github.com/simplefoc/Arduino-FOC/actions/workflows/arduino_mbed.yml/badge.svg)](https://github.com/simplefoc/Arduino-FOC/actions/workflows/arduino_mbed.yml)
 
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/simplefoc/arduino-foc)
@@ -32,10 +33,10 @@ toc: true
 ![GitHub commits since tagged version](https://img.shields.io/github/commits-since/simplefoc/arduino-foc/latest/dev)
 ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/m/simplefoc/arduino-foc/dev)
 
-This Arduino library implements Field Oriented Control (FOC) algorithm for BLDC and Stepper motors. FOC algorithm produces incomparably smooth operation and high degree of torque, velocity and position control.
+This Arduino library implements Field Oriented Control (FOC) algorithm for BLDC, Stepper, and Hybrid Stepper motors. FOC algorithm produces incomparably smooth operation and high degree of torque, velocity and position control.
 The library is intended both for: 
 - Beginners searching for a simple and *user-friendly* way to learn how to control BLDC and Stepper motors 
-- Advanced users ready to dig deeper into the FOC algorithm and optimize the code for their particular application/hardware.
+- Advanced users ready to dig deeper into the FOC algorithm and optimize the code for their particular application/hardware
 
 ### Features
 - **Easy install**: 
@@ -43,21 +44,28 @@ The library is intended both for:
    - PlatformIO
 - **Open-Source**: Full code and documentation available on GitHub
 - **Goal**: 
-   - Support as many [sensor](position_sensors) + [motor](motors) + [driver](drivers) + [current sense](current_sense)   combination as possible.
-   - Provide the up-to-date and in-depth documentation with API references and the examples
+   - Support as many [sensor](position_sensors) + [motor](motors) + [driver](drivers) + [current sense](current_sense) combinations as possible
+   - Support for **BLDC motors**, **Stepper motors**, and **Hybrid Stepper motors**
+   - Inline current sensing with low-side and high-side configurations
+   - Provide up-to-date and in-depth documentation with API references and examples
 - **Easy to setup and configure**: 
    - Easy hardware configuration 
    - Each hardware component is a C++ object (easy to understand) 
    - Easy [tuning the control loops](motion_control)
-   - [*Simple**FOC**Studio*](studio) configuration GUI tool
-   - Built-in communication and monitoring
+   - Advanced control features: velocity and current feed-forward, improved velocity calculation
+   - [*Simple**FOC**Studio*](studio) configuration GUI tool for real-time tuning and monitoring
+   - Built-in communication and monitoring via Serial, I2C, or custom protocols
 - **Cross-platform**:
    - Seamless code transfer from one microcontroller family to another 
    - Supports multiple [MCU architectures](microcontrollers):
-      - Arduino: UNO, MEGA, DUE, Leonardo ....
-      - STM32
+      - Arduino: UNO R4, UNO, MEGA, DUE, Leonardo, Nano, Nano33 ....
+      - STM32 (Nucleo, Bluepill, B-G431B-ESC1, etc.)
       - ESP32
       - Teensy
+      - RP2040 (Raspberry Pi Pico)
+      - SAMD (Arduino Zero, MKR boards)
+      - MBED (Portenta, Nano 33 BLE)
+      - Silabs
       - many more ...
       
 ## YouTube demonstration videos
