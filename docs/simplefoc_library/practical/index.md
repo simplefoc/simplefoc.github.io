@@ -40,6 +40,7 @@ Need more help? Visit the community forum: <a href="https://community.simplefoc.
 - [Real-time loop with timers](real_time_loop) - implementing the FOC loop in hard real time.
 - [Implementing a custom sensor](generic_sensor) - how to implement a custom sensor class.
 - [Implementing a custom current sense](generic_current_sense) - how to implement a custom current-sensing setup.
+- [Regular ADC reads during FOC](regular_adc_read) - reading auxiliary analog signals safely while current sensing is active.
 
 ## Performance tips
 

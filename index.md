@@ -32,7 +32,7 @@ Therefore this is an attempt to:
    <p class="heading">NEW RELEASE 📢: <span class="simple">Simple<span class="foc">FOC</span>library</span> v2.4.0 <a href="https://github.com/simplefoc/Arduino-FOC/releases/tag/v2.4.0">see release</a></p>
 
  - STM32
-   - Added support for ADC reads in addition to Lowside current sense [#506](https://github.com/simplefoc/Arduino-FOC/pull/506)
+   - Added support for ADC reads in addition to Lowside current sense [#506](https://github.com/simplefoc/Arduino-FOC/pull/506) - [see in docs](regular_adc_read)
    - Added support for multiple motors low-side CS (one per ADC) with ADC current sensing [#503](https://github.com/simplefoc/Arduino-FOC/pull/503)
    - BG341 low-side current sense sync was lost in v2.3.5 - fixed [#482](https://github.com/simplefoc/Arduino-FOC/pull/482)
  - ESP32 
