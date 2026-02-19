@@ -89,7 +89,7 @@ One simpler variant of bldc motor control is trapezoidal control (or six-step) t
 
 As you can see the idea is very similar to field oriented control but the angle in between the vectors is not always kept at 90 degrees as we do using FOC.
 
-## SimpleFOClibrary init procedure
+## SimpleFOClibrary init procedure theory
 
 In the init procedure we are searching to find the difference between the 0 angle to the position sensor we are using and the electrical 0 angle of our motor which is usually defined by the magnetic field vector of the phase `a`. As shown on the second image and on the one below we could set the stator's magnetic field orientation to -180 degrees and we will be sure that the motor will always align to the 0 electric angle.
 

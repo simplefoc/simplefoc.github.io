@@ -11,45 +11,41 @@ has_toc: False
 
 # Practical guides
 
-This is the section intended for the practical guides and explanations of different procedures when it comes to interacting with BLDC motors and the  <span class="simple">Simple<span class="foc">FOC</span>library</span>. We will try to populate this section with as much material as possible to help you with your projects. This is also a section with a lot of potential for community contributions. If you have a guide that you think would be useful to the community, please feel free to contribute! 
+Hands-on procedures and troubleshooting tips for working with BLDC and stepper motors using the <span class="simple">Simple<span class="foc">FOC</span>library</span>. This section is community-driven, so contributions are welcome.
 
-Additionally, there are many different useful practical information already available on our community servers - <a href="https://community.simplefoc.com">read more</a>. We encourage you to check it out and feel free to ask any questions you might have.
+Need more help? Visit the community forum: <a href="https://community.simplefoc.com">community.simplefoc.com</a>
 
-<div style="display:block; width:100%;">
-    <div >
-         <a href="options_cheetsheet">
-            <h3 style="color:inherit"> <i class="fa fa-lg fa-wrench" style="padding:10px"></i> Library options and build flags cheat-sheet</h3>
-        </a>
-        <p> A guide to different options and build flags of the library. </p>
-    </div>
-    <div >
-        <a href="phase_resistance">
-            <h3 style="color:inherit"> <i class="fa fa-lg fa-wrench" style="padding:10px"></i> Measuring the phase resistance</h3>
-        </a>
-        <p> A detailed explanation of how to measure the phase resistance of a BLDC motor using a multimeter by <a href="https://github.com/naikymen">@naikymen</a> </p>
-    </div>
-    <div >
-        <a href="choosing_pwm_pins">
-            <h3 style="color:inherit"> <i class="fa fa-lg fa-wrench" style="padding:10px"></i> Choosing PWM pins for you application</h3>
-        </a>
-        <p> A short guide to choosing appropriate PWM pins for your application </p>
-    </div>
-    <div >
-        <a href="choosing_adc_pins">
-            <h3 style="color:inherit"> <i class="fa fa-lg fa-wrench" style="padding:10px"></i> Choosing Analog pins for you application</h3>
-        </a>
-        <p> A short guide to choosing appropriate analog pins for your application </p>
-    </div>
-    <div >
-        <a href="library_units">
-            <h3 style="color:inherit"> <i class="fa fa-lg fa-wrench" style="padding:10px"></i> Units in the library</h3>
-        </a>
-        <p> A short guide the units for the main motor/sensor parameters and control variables and how to transfor them</p>
-    </div>
-    <div >
-        <a href="real_time_loop">
-            <h3 style="color:inherit"> <i class="fa fa-lg fa-wrench" style="padding:10px"></i> Real-time loop</h3>
-        </a>
-        <p> A guide to implementing the FOC loop that runs in hard real-time using timers </p>
-    </div>
-</div>
+
+## Getting started
+
+- [Choosing PWM pins for your application](choosing_pwm_pins) - selecting appropriate PWM pins.
+- [Choosing analog pins for your application](choosing_adc_pins) - selecting ADC inputs.
+- [Units in the library](library_units) - units for key motor/sensor parameters and how to transform them.
+
+## PID tuning
+
+- [Tuning the current control loop](tuning_current_loop) - step-by-step tuning process.
+- [Tuning the velocity control loop](tuning_velocity_loop) - step-by-step tuning process.
+- [Ziegler-Nichols PID tuning](zn_tuning_pid) - structured PID tuning method.
+
+## Motor parameters and characterization
+
+- [Measuring the phase resistance](phase_resistance) -  multimeter method.
+- [Measuring the KV rating](kv_rating_measure) - using SimpleFOC to measure KV.
+- [Testing and tuning motor parameters](motor_params_test) - how to manually test and tune motor parameters for optimal performance.
+- [Automatic motor characterisation with characteriseMotor()](motor_characterisation) - using the built-in function to measure motor parameters.
+
+## Advanced control
+
+- [Real-time loop with timers](real_time_loop) - implementing the FOC loop in hard real time.
+- [Implementing a custom sensor](generic_sensor) - how to implement a custom sensor class.
+- [Implementing a custom current sense](generic_current_sense) - how to implement a custom current-sensing setup.
+- [Regular ADC reads during FOC](regular_adc_read) - reading auxiliary analog signals safely while current sensing is active.
+
+## Performance tips
+
+- [Open-loop efficiency considerations](openloop_efficiency) — efficiency considerations for open-loop control.
+
+## Coding guides
+
+- [Library options and build flags cheat sheet](options_cheetsheet) - compile-time options and build flags.

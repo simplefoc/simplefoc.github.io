@@ -15,6 +15,9 @@ has_toc: False
 - 📈 Supervision and variable monitoring - [Monitoring](monitoring) 
 - ⚙️ Tunning and Configuration interface - [Commander interface](commander_interface)
 
+[Set up Monitoring](monitoring){: .btn .btn-docs .mr-2}
+[Configure Commander interface](commander_interface){: .btn .btn-docs}
+
 Additionally we will try to provide an implementation of the simplest forms of the communication protocols:
 - [Step-direction interface](step_dir_interface)
 - PWM interface - *not supported yet*

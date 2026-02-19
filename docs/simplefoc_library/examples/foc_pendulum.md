@@ -168,7 +168,7 @@ Then we tell the motor which control loop to run by specifying the `motor.contro
 // set control loop type to be used
 motor.controller = MotionControlType::torque;
 ```
-<blockquote class="info">For more information about the voltage control loop please check the  <a href="voltage_loop">doc</a>.</blockquote>
+<blockquote class="info">For more information about the voltage control loop please check the  <a href="voltage_torque_mode">doc</a>.</blockquote>
 
 Next we connect the encoder and driver to the motor, do the hardware init and init of the Field Oriented Control.
 ```cpp  

@@ -16,6 +16,9 @@ toc: true
 
 `GenericSensor` is a new class of the  <span class="simple">Simple<span class="foc">FOC</span>library</span> that simplifies the implementation of new sensors. With this class you are able to add a custom sensor to your code and link it to the motor in one arduino file.
 
+For more advanced users, the library also allows you to implement your own sensor class by inheriting the `Sensor` class and implementing the necessary methods. However, for most users, the `GenericSensor` class should be sufficient and much easier to use.
+
+[A quick guide to implement your own sensor class (Advanced)](sensor_support){: .btn .btn-docs}
 
 ## Step 1. Implement the function reading your sensor
 Basically all that you need to do in your arduino code is implement a function that reads your sensor and returns an angle in radians between 0 and 2π:

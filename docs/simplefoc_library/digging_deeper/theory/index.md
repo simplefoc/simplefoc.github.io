@@ -11,46 +11,23 @@ has_toc: False
 toc: true
 ---
 
-# Theory lovers corner
+# Theory corner
 
-This is the section intended to explain some interesting theoretical features of the Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> implementation. For now, I have briefly written only about few topics, but the plan is to cover much more topics and much more in depth.
+Core concepts and math behind the Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> implementation. If you want the “why” behind control modes, filters, and alignment, start here.
 
+## FOC fundamentals
 
-<div style="display:grid; width:100%">
-    <div >
-        <a href="voltage_torque_control">
-            <h3 style="color:inherit"> <i class="fa fa-lg fa-graduation-cap" style="padding:10px"></i> Torque control using voltage</h3>
-        </a>
-        <p> Short explanation and justification of the torque control using voltage instead current. </p>
-    </div>
-    <div>
-        <a href="foc_theory">
-            <h3 style="color:inherit"> <i class="fa fa-lg fa-graduation-cap" style="padding:10px"></i> Field Oriented Control algorithm</h3>
-        </a>
-        <p> A brief overview of implemented modulation methods and the main principles of the FOC algorithms for BLDC motors.</p>
-    </div>
-    <div>
-        <a href="low_pass_filter">
-            <h3 style="color:inherit"> <i class="fa fa-lg fa-graduation-cap" style="padding:10px"></i> Low pass filter theory</h3>
-        </a>
-        <p> Low pass filter differential equation and implementation details.</p>
-    </div>
-    <div>
-        <a href="pi_controller">
-            <h3 style="color:inherit"> <i class="fa fa-lg fa-graduation-cap" style="padding:10px"></i> PID controller theory</h3>
-        </a>
-        <p> PID controller differential equation and implementation details.</p>
-    </div>
-    <div>
-        <a href="alignment_procedure">
-            <h3 style="color:inherit"> <i class="fa fa-lg fa-graduation-cap" style="padding:10px"></i> Sensor-Motor alignment procedure</h3>
-        </a>
-        <p> Explanation of the motor and the position sensor alignment procedure and the importance of the initial rotor position.</p>
-    </div>
-    <div>
-        <a href="current_sense_align">
-            <h3 style="color:inherit"> <i class="fa fa-lg fa-graduation-cap" style="padding:10px"></i> Current sense alignment procedure</h3>
-        </a>
-        <p> Explanation of the automatic current sense alignment procedure.</p>
-    </div>
-<div>
+- [Torque Control Methods  in FOC](voltage_torque_control) — why voltage mode works 
+- [Coordinate Transformations in FOC](foc_theory) — modulation methods and FOC fundamentals.
+- [Hybrid stepper motor theory](hybrid_stepper_theory) — driving 2-phase steppers with 3-phase BLDC drivers.
+
+## Control building blocks
+
+- [Low-pass filter theory](lpf_implementation#filter-equation) — filter equation and implementation.
+- [PID controller theory](pid_implementation#control-equation) — control equation and implementation.
+- [Tunning the current control loop](tuning_current_loop#suggested-tuning-strategy) — pole placement method for tuning current loop.
+
+## Alignment procedures
+
+- [Sensor-Motor alignment procedure](alignment_procedure) — rotor alignment and sensor offset.
+- [Current sense alignment procedure](current_sense_align) — automatic phase alignment.

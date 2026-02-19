@@ -10,48 +10,64 @@ parent: Motion Control
 grand_parent: Writing the Code
 grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 ---
-# Motion control 
+# Closed loop motion control 
 
-
-Choose the motor type: 
 
 <a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
 <a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
 
-Choose the voltage control type: 
+<img class="type type-b width60" src="extras/Images/clb.png"/>
+<img class="type type-s width60 hide" src="extras/Images/cls.png"/>
 
-<a href ="javascript:show(0,'loop');" id="btn-0" class="btn btn-loop btn-primary">Position control</a>
-<a href ="javascript:show(1,'loop');" id="btn-1" class="btn btn-loop">Velocity control</a>
-<a href ="javascript:show(2,'loop');" id="btn-2" class="btn btn-loop">Torque control</a>
-
-<div class="type type-b">
-<img class="loop loop-0 width80" src="extras/Images/closedloop_0000_Layer 3.jpg"/>
-<img class="loop loop-1 width80 hide" src="extras/Images/closedloop_0001_Layer 2.jpg"/>
-<img  class="loop loop-2 width80 hide" src="extras/Images/closedloop_0002_Layer 1.jpg"/>
-
-</div>
-<div class="type type-s hide">
-
-<img id="4" class="loop width80 loop-0" src="extras/Images/closed_loop_stepper3.jpg"/>
-<img id="5" class="loop width80 loop-1 hide" src="extras/Images/closed_loop_stepper2.jpg"/>
-<img id="6" class="loop width80 loop-2 hide" src="extras/Images/closed_loop_stepper1.jpg"/>
-
-</div>
-
+This is the standard motion control approach where the position sensor is used to provide feedback to the motion control loop. The motion control loop (`motor.move()`) will calculate the target torque (current or voltage) to be applied to the motor using the underlying torque/FOC control loop (`motor.loopFOC()`) in order to achieve the desired motion. 
 
 <span class="simple">Simple<span class="foc">FOC</span>library</span> gives you the choice of using 3 different Closed-Loop control strategies: 
-- [Torque control loop](torque_control)
+- [Torque control loop](torque_loop)
 - [Velocity motion control](velocity_loop)
 - [Position/angle motion control](angle_loop)
 
-You set it by changing the `motor.controller` variable. If you want to control the motor angle you will set the `controller` to `MotionControlType::angle`, if you seek the torque of the BLDC or Stepper motors either through voltage or the current use `MotionControlType::torque`, if you wish to control motor angular velocity `MotionControlType::velocity`. 
 
 ```cpp
 // set FOC loop to be used
 // MotionControlType::torque
 // MotionControlType::velocity
 // MotionControlType::angle
+// MotionControlType::angle_nocascade
 motor.controller = MotionControlType::angle;
 ```
 
-For more information about the source code implementation of the motion control strategies check the [library source code documentation](motion_control_implementation)
+
+| Torque control | Velocity control | Position/angle control |
+|----------------|------------------|-----------------------|
+| `MotionControlType::torque` | `MotionControlType::velocity` | `MotionControlType::angle` or<br> `MotionControlType::angle_nocascade` |
+|[Go to Torque control docs](torque_loop){: .btn .mr-2 .btn-docs} | [Go to Velocity control docs](velocity_loop){: .btn .mr-2 .btn-docs} |[Go to Position/angle control docs](angle_loop){: .btn .mr-2 .btn-docs}|
+
+### How it works?
+
+<a href ="javascript:show('b','type');"  class="btn btn-type btn-b btn-primary">BLDC motors</a>
+<a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
+
+Choose the motion control type: 
+
+<a href ="javascript:show('ac','loop');" id="btn-ac" class="btn btn-loop btn-primary">Position control (Cascaded)</a>
+<a href ="javascript:show('an','loop');" id="btn-an" class="btn btn-loop">Position control (Non-Cascaded)</a>
+<a href ="javascript:show('v','loop');" id="btn-v" class="btn btn-loop">Velocity control</a>
+<a href ="javascript:show('t','loop');" id="btn-t" class="btn btn-loop">Torque control</a>
+
+<div class="type type-b">
+<img class="loop loop-ac width80" src="extras/Images/a_b_i.drawio.png"/>
+<img class="loop loop-an width80 hide" src="extras/Images/an_b_i1.drawio.png"/>
+<img class="loop loop-v width80 hide" src="extras/Images/v_b_i.drawio.png"/>
+<img  class="loop loop-t width80 hide" src="extras/Images/t_b_i.drawio.png"/>
+
+</div>
+<div class="type type-s hide">
+
+<img class="loop loop-ac width80" src="extras/Images/a_s_i.drawio.png"/>
+<img class="loop loop-an width80 hide" src="extras/Images/an_s_i1.drawio.png"/>
+<img class="loop loop-v width80 hide" src="extras/Images/v_s_i.drawio.png"/>
+<img  class="loop loop-t width80 hide" src="extras/Images/t_s_i.drawio.png"/>
+
+</div>
+
+

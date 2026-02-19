@@ -29,13 +29,13 @@ MCU | In-line | Low-side | High-side
 Arduino AVR (8-bit) | ✔️ | ❌ |  ❌
 Arduino DUE  | ✔️ | ❌ |  ❌
 stm32 (in general) | ✔️ | ❌ |  ❌
-stm32f1 family | ✔️ | ✔️ (one motor) |  ❌
-stm32f4 family | ✔️ | ✔️ (one motor) |  ❌
-stm32g4 family | ✔️ | ✔️ (one motor) |  ❌
-stm32l4 family | ✔️ | ✔️ (one motor) |  ❌
-stm32f7 family | ✔️ | ✔️ (one motor) |  ❌
-stm32h7 family | ✔️ | ✔️ (one motor) |  ❌
-stm32 B_G431B_ESC1 | ❌ | ✔️ (one motor) |  ❌
+stm32f1 family | ✔️ | ✔️  |  ❌
+stm32f4 family | ✔️ | ✔️ |  ❌
+stm32g4 family | ✔️ | ✔️  |  ❌
+stm32l4 family | ✔️ | ✔️ |  ❌
+stm32f7 family | ✔️ | ✔️ |  ❌
+stm32h7 family | ✔️ | ✔️ |  ❌
+stm32 B_G431B_ESC1 | ❌ | ✔️  |  ❌
 esp32/esp32s3 | ✔️ | ✔️ |  ❌
 esp32s2/esp32c3 |  ✔️ | ❌ |  ❌ 
 esp8266 | ❌ | ❌ |  ❌ 
@@ -47,6 +47,7 @@ Raspberry Pi Pico | ✔️ | ❌ |  ❌
 Portenta H7 | ✔️ | ❌ |  ❌
 nRF52 | ✔️ | ❌ |  ❌
 Renesas (UNO R4 Minima) | ❌ | ❌ |  ❌
+Arduino Nano Matter(📢NEW) | ✔️ | ✔️ (one motor) |  ✔️ (not tested)
 
 ### In-line current sensing
 What is important to see is that most of the the microcontroller families, except esp8266 and Arduino UNO R4, can be used with in-line current sensing. For this current sensing technique, you can use any of the analog pins, as no synchronization between the PWM signals and the current sensing is necessary. 

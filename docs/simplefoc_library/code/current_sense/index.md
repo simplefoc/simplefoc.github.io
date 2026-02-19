@@ -16,11 +16,12 @@ Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> ha
 - [In-line current sensing](inline_current_sense)
 - [Low-side current sensing](low_side_current_sense)
 - [High-side current sensing](high_side_current_sense) - *Not supported yet*
+- [Generic current sensing](generic_current_sense) - for custom current sensing implementations
 
 
 <img src="extras/Images/comparison_cs.png" class="width40">
 
-up to this moment ( [check the releases <i class="fa fa-tag"></i>](https://github.com/simplefoc/Arduino-FOC/releases) ), Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> supports in-line current sensing for almost all platforms and low-side current sensing on ESP32 boards, stm32 (f1, f4 and g4 families - one motor), SAMD21 (one motor) and on the STM32 based B-G431B-ESC1 boards (one motor). 
+up to this moment ( [check the releases <i class="fa fa-tag"></i>](https://github.com/simplefoc/Arduino-FOC/releases) ), Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> supports in-line and low-side current sensing on a wide range of platforms. The generic current sensing method allows you to use any custom current sensing method by providing callbacks to read the currents, without needing to create a new class.
 
 Each one of the current sensing classes will implement all the necessary functionalities for simple and robust implementation of FOC algorithm:
 - Hardware config
@@ -33,8 +34,8 @@ Each one of the current sensing classes will implement all the necessary functio
   - Calculation of the current vector magnitude 
   - Calculation of the FOC D and Q currents 
 
-Each of the implemented classes can be used as stand-alone classes and they can be used to read current values on BLDC driver outputs out of scope of the Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>, see example codes in `utils > current_sense_test`.
-In order for FOC algorithm to work the current sense classes are linked to a `BLDCMotor` class which uses the driver to read the FOC currents.   
+Each of the implemented classes can be used as stand-alone classes and they can be used to read current values on BLDC or Stepper driver outputs out of scope of the Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>, see example codes in `utils > current_sense_test`.
+In order for FOC algorithm to work the current sense classes are linked to a `BLDCMotor`, `StepperMotor` or `HybridStepperMotor` class which uses the driver to read the FOC currents.   
 
 ## 🎯 Our implementation goals
 The current sense code will be written in a way to support as many different drivers out there as possible and in a way to be fully interchangeable. Due to the very hardware specific implementations of the ADC acquisition for different MCU architectures and due to very different driver/adc synchronisation requirements for different current sensing approaches this task is probably one of the most complex challenges for the <span class="simple">Simple<span class="foc">FOC</span>library</span> so far. Therefore the work will be done in iterations and each release will better and better support.  Please make sure to follow out github and [check the releases <i class="fa fa-tag"></i>](https://github.com/simplefoc/Arduino-FOC/releases).
@@ -48,12 +49,12 @@ MCU | In-line | Low-side | High-side
 Arduino (8-bit) | ✔️ | ❌ |  ❌
 Arduino DUE  | ✔️ | ❌ |  ❌
 stm32 (in general) | ✔️ | ❌ |  ❌
-stm32f1 family | ✔️ | ✔️ (one motor) |  ❌
-stm32f4 family | ✔️ | ✔️ (one motor) |  ❌
-stm32g4 family | ✔️ | ✔️ (one motor) |  ❌
-stm32l4 family | ✔️ | ✔️ (one motor) |  ❌
-stm32f7 family | ✔️ | ✔️ (one motor) |  ❌
-stm32h7 family | ✔️ | ✔️ (one motor) |  ❌
+stm32f1 family | ✔️ | ✔️  |  ❌
+stm32f4 family | ✔️ | ✔️  |  ❌
+stm32g4 family | ✔️ | ✔️  |  ❌
+stm32l4 family | ✔️ | ✔️ |  ❌
+stm32f7 family | ✔️ | ✔️  |  ❌
+stm32h7 family | ✔️ | ✔️  |  ❌
 stm32 B_G431B_ESC1 | ❌ | ✔️ (one motor) |  ❌
 esp32/esp32s3 | ✔️ | ✔️ |  ❌
 esp32s2/esp32c3 |  ✔️ | ❌ |  ❌ 
@@ -66,9 +67,12 @@ Raspberry Pi Pico | ✔️ | ❌ |  ❌
 Portenta H7 | ✔️ | ❌ |  ❌
 nRF52 | ✔️ | ❌ |  ❌
 Renesas (UNO R4)  | ❌ | ❌ |  ❌ 
+Arduino Nano Matter(📢NEW) | ✔️ | ✔️ (one motor) |  ✔️ (not tested)
 
 Note: current sensing on Renesas MCUs will be added in a future release.
 
 ## Digging deeper
 
-For more theoretical explanations and source code implementations of the current sensing and its integration into the FOC and motion  check out the [digging deeper section](digging_deeper).
+For more theoretical explanations and source code implementations of the current sensing and its integration into the FOC and motion check out the digging deeper section.
+
+[Learn about current sensing theory and implementation](digging_deeper){: .btn .btn-docs}

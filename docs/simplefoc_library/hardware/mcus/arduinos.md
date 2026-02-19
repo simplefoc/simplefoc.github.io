@@ -62,7 +62,27 @@ At this moment Arduino UNO R4 does not support current sensing. If you are inter
 
  Board | Name | Specifications | Link | Price
 ---- | --- | --- | --- | --- | ---
-[<img src="https://store.arduino.cc/cdn/shop/products/ABX00080_00.default_915d4754-8188-471c-aeb8-b3967aba76e5_643x483.jpg" class="imgtable150">](https://store.arduino.cc/pages/uno-r4) | Arduino UNO R4 Minima | ARM Cortex-M4 <br>- 5V logic<br> - 6 PWMs<br>- nterrupts on all pins <br> -6 analog inputs <br>- 48Mhz|  [Arudino Store](https://store.arduino.cc/products/uno-r4-minima) | 18€ 
+[<img src="extras/Images/minima.png" class="imgtable150">](https://store.arduino.cc/pages/uno-r4) | Arduino UNO R4 Minima | ARM Cortex-M4 <br>- 5V logic<br> - 6 PWMs<br>- nterrupts on all pins <br> -6 analog inputs <br>- 48Mhz|  [Arudino Store](https://store.arduino.cc/products/uno-r4-minima) | 18€ 
 
 ## Arduino IDE support package
 In order to use the Arduino UNO R4 in the Arduino IDE please install the corresponding support package using Arduino IDE board manager.
+
+# Arudino Nano Matter
+
+<blockquote class="info">
+    📢 NEW: Arduino Nano Matter support is now available in the library! Support contributed by <b>Silabs</b>, thank you for your contribution!
+</blockquote>
+
+
+MCU | 2 PWM mode | 4PWM mode | 3 PWM mode | 6 PWM mode | pwm frequency config 
+--- | --- |--- |--- |--- |--- 
+Silabs MGM240S | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
+
+
+
+ Board | Name | Specifications | Link | Price
+---- | --- | --- | --- | --- | ---
+[<img src="https://docs.arduino.cc/static/00991768c0c92185a57a60b9250ebc57/image.svg" class="imgtable150">](https://docs.arduino.cc/hardware/nano-matter/) | Arduino Nano Matter | ARM Cortex-M33 <br>- 5V logic<br> - 6 PWMs<br>- nterrupts on all pins <br> - analog inputs on all pins <br>- 78Mhz|  [Arudino Store](https://store.arduino.cc/pages/nano-matter) | 22€ 
+
+## Arduino IDE support package
+In order to use the Arduino Nano Matter in the Arduino IDE please install the corresponding support package using Arduino IDE board manager.

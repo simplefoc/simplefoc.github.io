@@ -19,6 +19,7 @@ Motion control interface in the `Commander` can be integrated in user's applicat
     - Change the [motion control](motion_control) mode
     - Change the [torque control](torque_control) mode
     - Enable/Disable the motor mode
+    - read the motion and torque loop time (filtered) - read only <b><i>NEW</i>📢</b>
 - [Full configuration interface](commander_motor) - `commander.motor(&motor,cmd)` 
     - All above + full parameter configuration of the motor...
 
@@ -111,17 +112,22 @@ Target: 50.000
 ## Motion control interface
 The motion control interface enables user to control every aspect of the motion of the motor through the `Commander`. The commands the user has at his disposition are:
 
-- **C** - Motion control type config
+- **C** - [Motion control](motion_control) type config
   - **D** - downsample motion loop 
+  - **T** - motion loop time in microseconds (filtered) - read only <b><i>NEW</i>📢</b>
   - `0` - torque    
   - `1` - velocity 
   - `2` - angle    
   - `3` - velocity_openloop 
-  - `4` - angle_openloop    
-- **T** - Torque control type
+  - `4` - angle_openloop  
+  - `5` - angle_nocascade
+  - `6` - custom  
+- **T** - [Torque control](torque_control) type
+  - **T** - motion loop time in microseconds (filtered) - read only <b><i>NEW</i>📢</b>
   - `0` - voltage      
   - `1` - dc_current     
   - `2` - foc_current 
+  - `3` - estimated_current
 - **E** - Motor status (enable/disable)
   - `0` - enable    
   - `1` - disable  

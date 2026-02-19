@@ -9,13 +9,35 @@ grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>lib
 toc: true
 ---
 
-
 # Position sensors
+
+<div class="width60">
+<img src="extras/Images/enc.jpg" style="width:25%;display:inline"><img src="extras/Images/mag.jpg" style="width:25%;display:inline"><img src="extras/Images/mag2.jpg" style="width:25%;display:inline">
+</div>
+
+
 The library currently supports the following types of position sensors: 
 - [Encoder](#encoders) 
 - [Magnetic sensor](#magnetic-sensors).
 - [Hall sensors](#hall-sensors)
-- *IMU (in development)*
+- **Custom sensors** - implement your own via the [sensor API documentation](sensors).
+
+## Choosing the Appropriate Sensor
+
+Selecting the right position sensor is crucial for achieving optimal performance and cost-effectiveness:
+
+- **Magnetic Sensors** **(RECOMMENDED)**: 
+    - Provide absolute position and are easy to mount. 
+    - They are generally more efficient for high-speed applications. 
+    - **SPI or ABI interfaces are highly recommended.**
+- **Encoders**: 
+    - High precision and low noise. 
+    - Ideal for accurate position feedback but require more processing power. 
+    - ⚠️ **WARNING**: Consider the interrupt limits of your MCU (e.g., Arduino UNO).
+- **Hall Sensors**: 
+    - Inexpensive and rugged. 
+    - Best suited for high-power applications (EVs, power tools) where coarse position is acceptable and shaft access is limited.
+    
 
 ## Encoders
 Encoders are by far the most popular position sensors, both in industry and in the hobby community. The main benefits are the precision, standardization and very low noise level. The <span class="simple">Simple<span class="foc">FOC</span>library</span> supports just about any type of encoder you can find.  Here is a nice short video which explains the main working principles of encoders: [YouTube video](https://www.youtube.com/watch?v=qT6FdvcEsMs)
@@ -26,7 +48,7 @@ Examples  | Description | Link | Price
 ---- | ---- | ---- | ----
 [<img src="extras/Images/enc.jpg"  style="height:100px">](https://www.ebay.com/itm/360-600P-R-Photoelectric-Incremental-Rotary-Encoder-5V-24V-AB-Two-Phases-Shaft/254214673272?hash=item3b30601378:m:mDiuW1F2qXINSH51TqAjhTg)  | Optical encoder<br>2400cpr | [Ebay](https://www.ebay.fr/itm/L6234-Breakout-Board-/153204519965) | 10$
 [<img src="extras/Images/enc1.png" style="height:100px">](https://www.ebay.com/itm/HMBGC-V2-0-3-Axle-Gimbal-Controller-Control-Plate-Board-Module-with-Sensor/351497840990?hash=item51d6e7695e:g:BAsAAOSw0QFXBxrZ:rk:1:pf:1) | Optical encoder<br>AMT103 <br> configurable cpr 48-8192 |  [Mouser](https://www.mouser.fr/ProductDetail/CUI-Devices/AMT103-V?qs=%2Fha2pyFaduiAsBlScvLoAWHUnKz39jAIpNPVt58AQ0PVb84dpbt53g%3D%3D)  | 20$
-[<img src="extras/Images/mag.jpg"  style="height:100px">](hhttps://www.mouser.fr/ProductDetail/ams/AS5X47U-TS_EK_AB?qs=sGAEpiMZZMve4%2FbfQkoj%252BBDLPCj82ZLyYIPEtADg0FE%3D) | Margetic encoder <br> AS5047U <br> 16384cpr |  [Mouser](https://www.mouser.fr/ProductDetail/ams/AS5X47U-TS_EK_AB?qs=sGAEpiMZZMve4%2FbfQkoj%252BBDLPCj82ZLyYIPEtADg0FE%3D)<br> [Youtube demo](https://www.youtube.com/watch?v=Gl-DiOqXXJ8)   | 15$
+[<img src="extras/Images/mag.jpg"  style="height:100px">](https://www.mouser.fr/ProductDetail/ams/AS5X47U-TS_EK_AB?qs=sGAEpiMZZMve4%2FbfQkoj%252BBDLPCj82ZLyYIPEtADg0FE%3D) | Margetic encoder <br> AS5047U <br> 16384cpr |  [Mouser](https://www.mouser.fr/ProductDetail/ams/AS5X47U-TS_EK_AB?qs=sGAEpiMZZMve4%2FbfQkoj%252BBDLPCj82ZLyYIPEtADg0FE%3D)<br> [Youtube demo](https://www.youtube.com/watch?v=Gl-DiOqXXJ8)   | 15$
 
 
 
@@ -54,11 +76,8 @@ Magnetic sensors usually come with several different communication protocols:
 - I2C (✔️ supported)
 - Analog (✔️ supported)
 - UVW (✔️ supported)  - *exactly the same as the Hall sensor interface* 
-- PWM (✔️ supported)
-- SSI 
-
-PWM and SSI protocol will be tested for their performance and implemented in following steps. 
-Please [let us know](contact) if you would be interested in having some other communication implemented!
+- PWM (✔️ supported)  - **⚠️ NOT RECOMMENDED** - avoid at all cost
+- SSI - supported through [drivers library](additional_libraries#simplefocdrivers) for specific sensors, but not yet implemented in the main library.
 
 Here are some of the supported magnetic sensors:
 
@@ -66,7 +85,9 @@ Examples  | Description | Link | Price
 ---- | ---- | ---- | ----
 [<img src="extras/Images/mag.jpg"  style="height:100px">](https://www.mouser.fr/ProductDetail/ams/AS5X47U-TS_EK_AB?qs=sGAEpiMZZMve4%2FbfQkoj%252BBDLPCj82ZLyYIPEtADg0FE%3D) | AS5047<br> SPI/ABI/PWM/UVW <br> 14bit |  [Mouser](https://www.mouser.fr/ProductDetail/ams/AS5X47U-TS_EK_AB?qs=sGAEpiMZZMve4%2FbfQkoj%252BBDLPCj82ZLyYIPEtADg0FE%3D) | 15$
 [<img src="extras/Images/mag2.jpg"  style="height:100px">](https://www.ebay.com/itm/AS5048-Magnetic-Encoder-PWM-SPI-Interface-14-Bit-Precision-For-Brushless-Motor/153636871434?hash=item23c5789d0a:g:oOMAAOSwd-5ddaWQ) | AS5048A<br> SPI/PWM <br> absolute <br> 14bit |  [Ebay](https://www.ebay.com/itm/AS5048-Magnetic-Encoder-PWM-SPI-Interface-14-Bit-Precision-For-Brushless-Motor/153636871434?hash=item23c5789d0a:g:oOMAAOSwd-5ddaWQ) | 10$
-[<img src="extras/Images/as5600.jpg"  style="height:100px">](https://www.ebay.com/itm/1PC-New-AS5600-magnetic-encoder-sensor-module-12bit-high-precision/303401254431?hash=item46a41fbe1f:g:nVwAAOSwTJJd8zRK) | AS5600 <br> I2C/PWM <br> 12bit | [Ebay](https://www.ebay.com/itm/1PC-New-AS5600-magnetic-encoder-sensor-module-12bit-high-precision/303401254431?hash=item46a41fbe1f:g:nVwAAOSwTJJd8zRK) | 5$ 
+[<img src="extras/Images/as5600.jpg"  style="height:100px">](https://www.ebay.com/itm/1PC-New-AS5600-magnetic-encoder-sensor-module-12bit-high-precision/303401254431?hash=item46a41fbe1f:g:nVwAAOSwTJJd8zRK) | AS5600 <br> I2C/PWM <br> 12bit <br> **⚠️ NOT RECOMMENDED** -very slow and unreliable | [Ebay](https://www.ebay.com/itm/1PC-New-AS5600-magnetic-encoder-sensor-module-12bit-high-precision/303401254431?hash=item46a41fbe1f:g:nVwAAOSwTJJd8zRK) | 5$ 
+[<img src="https://cdn.tindiemedia.com/images/resize/BuqfWvCYZo5zOXCNyDXOfgY6PUI=/p/fit-in/653x435/filters:fill(fff)/i/372142/products/2024-01-17T22%3A27%3A09.681Z-as5047p_front.jpg?1705502224" style="height:100px">](https://www.tindie.com/products/smallrobots/as5048a-encoder-board-for-robots-motor-control/)| AS5047P <br> SPI/PWM <br> 14bit | [Tindie](https://www.tindie.com/products/smallrobots/as5047p-encoder-board-for-robots-motor-control/) | 17$ 
+[<img src="https://cdn.tindiemedia.com/images/resize/Yp1qiczlv0KYB-EOGqK27SZYPlg=/p/fit-in/653x435/filters:fill(fff)/i/372142/products/2022-05-25T23%3A21%3A31.356Z-IMG_7346..jpeg?1653495729" style="height:100px">](https://www.tindie.com/products/smallrobots/as5048a-encoder-board-for-robots-motor-control/)| SC60228 <br> SPI/PWM <br> 12bit | [Tindie](https://www.tindie.com/products/smallrobots/sc60228-encoder-board-for-robots-motor-control/) | 10$ 
 
 
 <blockquote class="warning"><p class="heading">BEWARE: I2C Pull-ups</p>
@@ -109,8 +130,3 @@ Examples  | Description | Link | Price
 ---- | ---- | ---- | ----
 [<img src="extras/Images/hall1.png"  style="height:100px">](https://fr.aliexpress.com/item/4000086664014.html?spm=a2g0o.productlist.0.0.338073065g29WW&s=p&ad_pvid=20200905233621305169369584280003211148_6&algo_pvid=e2271fc5-6c48-4ca9-9961-ed620ada16d6&algo_expid=e2271fc5-6c48-4ca9-9961-ed620ada16d6-29&btsid=0b8b034515993741819075226e8e8e&ws_ab_test=searchweb0_0,searchweb201602_,searchweb201603_) |  BLDC motor <br> hall sensors integrated <br> 100W |  [Aliexpress](https://fr.aliexpress.com/item/4000086664014.html?spm=a2g0o.productlist.0.0.338073065g29WW&s=p&ad_pvid=20200905233621305169369584280003211148_6&algo_pvid=e2271fc5-6c48-4ca9-9961-ed620ada16d6&algo_expid=e2271fc5-6c48-4ca9-9961-ed620ada16d6-29&btsid=0b8b034515993741819075226e8e8e&ws_ab_test=searchweb0_0,searchweb201602_,searchweb201603_) | 40$
 [<img src="extras/Images/hallw.png"  style="height:100px">](https://fr.aliexpress.com/item/4000242695485.html?spm=a2g0o.productlist.0.0.338073065g29WW&algo_pvid=e2271fc5-6c48-4ca9-9961-ed620ada16d6&algo_expid=e2271fc5-6c48-4ca9-9961-ed620ada16d6-17&btsid=0b8b034515993741819075226e8e8e&ws_ab_test=searchweb0_0,searchweb201602_,searchweb201603_) |  BLDC motor <br> hall sensors integrated <br> 30W |  [Aliexpress](https://fr.aliexpress.com/item/4000242695485.html?spm=a2g0o.productlist.0.0.338073065g29WW&algo_pvid=e2271fc5-6c48-4ca9-9961-ed620ada16d6&algo_expid=e2271fc5-6c48-4ca9-9961-ed620ada16d6-17&btsid=0b8b034515993741819075226e8e8e&ws_ab_test=searchweb0_0,searchweb201602_,searchweb201603_) | 25$
-
-<blockquote class="warning"><p class="heading">Motor choice</p>
-Make sure to read <a href="motors">supported motor docs</a> before you buy your BLDC motor.
-</blockquote>
-      
