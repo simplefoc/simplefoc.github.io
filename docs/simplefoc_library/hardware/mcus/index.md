@@ -57,7 +57,8 @@ MCU Family | Clock | Bit | Performance | Expected loop frequency | Example board
 **STM32 L4** | 80MHz | 32 | 🟢 Good | 1-5kHz | Nucleo-64 | Low-power applications, good performance
 **Teensy 4.x** | 600MHz | 32 | 🟢 Prime | >10kHz | [Teensy 4.0, 4.1](https://www.pjrc.com/store/teensy40.html) | High-performance, High-end solution, comparable to STM32H7<br> (limited low-side ADC support)
 **Teensy 3.x** | 72-180MHz | 32 | 🟢 Good | 1-5kHz | [Teensy 3.2, 3.5, 3.6](https://www.pjrc.com/store/teensy32.html) | Robotics, reliable real-time control
-**ESP32** | 240MHz | 32 | 🟢 Excellent | >5kHz | [ESP32 DevKit](https://www.espressif.com/en/products/devkits), [ESP3S2 QtPy](https://www.adafruit.com/product/5426)| Great performance, IoT integration, Dual-Core
+**ESP32, ESP32-S2/S3** | 240MHz | 32 | 🟢 Excellent | >5kHz | [ESP32 DevKit](https://www.espressif.com/en/products/devkits), [ESP3S2 QtPy](https://www.adafruit.com/product/5426)| Great performance, IoT integration, Dual-Core
+**ESP32-C2/C3/C6** | 120-160MHz | 32 | 🟢 Good | 1-5kHz | [ESP3C6 Xiao](https://wiki.seeedstudio.com/XIAO_ESP32C3_Getting_Started/), [ESP3C6 Xiao](https://wiki.seeedstudio.com/xiao_esp32c6_getting_started/)| Good performance<br>Much worse than ESP32 or ESP32-S2/3 though
 **RP2040 (Pico)** | 125MHz | 32 | 🟢 Good | 5-10kHz | [Raspberry Pi Pico](https://www.raspberrypi.com/documentation/microcontrollers/pico-series.html) | Dual-core projects, cost-effective
 **Arduino DUE** | 84MHz | 32 | 🟡 Fair | 1-5kHz | [Arduino DUE](https://docs.arduino.cc/hardware/due/) | 32-bit Arduino, good option if you already have one on hand
 **SAMD51** | 120MHz | 32 | 🟢 Good | 5-10kHz | [Adafruit Feather M4](https://www.adafruit.com/product/3857), [SparkFun Thing Plus](https://www.sparkfun.com/thing-plus), [Metro M4](https://learn.adafruit.com/adafruit-metro-m4-express-featuring-atsamd51/overview) | Good performance, not common 
@@ -164,7 +165,11 @@ STM32 B-G431B-ESC1 | ❌ | ✔️ (one motor) | ❌ | Dedicated ESC board
 - **Teensy 4.x** - Amazing performance (comparable to STM32 H7), can handle fast multi-motor systems 
     - ⚠️ limited low-side sensing support (one motor only)
 - **ESP32** - Excellent for IoT/wireless projects, great performance 
-    - ⚠️ relatively slow ADC, but good enough if only one motor is used with current sensing
+    - If possible, choose ESP32 or ESP32-S3 for better ADC performance and low-side sensing support
+    - If using ESP32C2/C3/C6, be aware of the significantly lower CPU performance and lack of low-side sensing support
+    - ⚠️ Aim for one motor with current sensing for optimal performance, 
+        - multi-motor systems with current sensing may require optimization and careful load management
+        - multiple motors without current sensing should be fine
 
 **Budget-Friendly with Good Performance:**
 - **Need current sensing?** 
