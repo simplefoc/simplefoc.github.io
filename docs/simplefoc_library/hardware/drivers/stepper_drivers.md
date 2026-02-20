@@ -19,12 +19,20 @@ This library will be compatible with most of the 2 phase stepper motor driver bo
 This library does not support stepper drivers with DIR+STEP (step and direction) interface such as A4988, DRV8825, TB6600, TB6560 and similar.
 </blockquote>
 
+<blockquote class="info" markdown="1"><p class="heading">💡 Driving stepper motors with BLDC drivers</p>
+
+You can also use any (6PWM and 3PWM) 3-phase [BLDC motor drivers](bldc_drivers) to drive any stepper motor, using the hybrid stepper mode. This is sometimes a simpler solution as you can use the same board for both BLDC and stepper motors, and it can also provide better performance as the BLDC drivers are usually more powerful than the stepper drivers. See an example of NEMA17 with <span class="simple">Simple<span class="foc">FOC</span>Shield</span> in the [example projects](stepper_control_shield).
+
+</blockquote>
+
 The choice of stepper driver depends directly of the stepper motor you are using, basically make sure the stepper driver can provide the current the motor needs to perform. 
 
 
 
 ## Supported board examples
 Here are some stepper driver boards that are supported by this library. 
+
+In short: use a dedicated stepper driver for the simplest setup, two DC drivers for higher current options, or two BLDC drivers when you also want hybrid stepper mode and board reuse.
 
 Examples | Description | Specifications | Link | Price
 ---- | ---- | ---- | ---
@@ -50,4 +58,3 @@ Examples | Description | Specifications | Link | Price
 [<img src="extras/Images/BTS7960B.jpg" style="height:100px">](https://fr.aliexpress.com/item/32965904058.html)| Aideepen BTS7960B| - BTS7960B  chip <br> - 1 motor <br>- 5V-30V <br> - 43A MAX| [Aliexpress](https://fr.aliexpress.com/item/32965904058.html) | 10€
 
 
-Finally you can also use two 3-phase [BLDC motor drivers](bldc_drivers). Each of the BLDC drivers has 3 half-bridges, from which you will need to use 2. When you combine two of them you will be using 4 output pins out of 6 they have.  

@@ -33,10 +33,15 @@ Selecting the right hardware is a balance of motor type, power requirements, and
 
 ### 1. Motor Type
 - **BLDC Motors**: Requires a [BLDC driver](bldc_drivers). Ensure the current and voltage ratings match your motor's specs.
+    - <blockquote class="warning" markdown="1">⚠️ **No Drone ESCs**
+    Traditional drone ESCs are not suitable for FOC because they typically use a fixed commutation scheme and lack the necessary control interfaces.
+    </blockquote>
 - **Stepper Motors**:
     - **Dedicated [Stepper Driver](stepper_drivers)**: Best for 2-phase motors within standard current ranges (ex.NEMA17)
-    - **Hybrid Mode**: You can actually use any [BLDC driver](bldc_drivers) to run a stepper motor.
-    - ⚠️ **No Step/Dir Drivers**: Traditional "EasyDrivers" or A4988s (in step/dir mode) cannot be used for FOC because they do not allow direct phase voltage control.
+    - **Hybrid Mode**: You can actually use any [BLDC driver](bldc_drivers) to run a stepper motor. - [See example](stepper_control_shield)
+    - <blockquote class="warning" markdown="1">⚠️ **No Step/Dir Drivers**
+    Traditional "EasyDrivers" or A4988s (in step/dir mode) cannot be used for FOC because they do not allow direct phase voltage control.
+    </blockquote>
     
 ### 2. Current Requirements
 - **Low Current (< 5A)**: Integrated driver ICs are cost-effective and easy to use. 
