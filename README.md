@@ -51,6 +51,10 @@ Since the site is quiet large sometimes the `--incremental` flag helps with fast
 bundle exec jekyll serve --incremental
 ```
 
+## Search Functionality
+Search UX includes a full results page at `/search/`.
+Press `Enter` in the search box (without selecting a single result) or click `View all results` in the dropdown to open it.
+
 ## Olddocs generating 
 
 1) Add the library version to the index.md 
