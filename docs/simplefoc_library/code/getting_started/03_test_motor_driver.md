@@ -97,6 +97,11 @@ void setup() {
 
 void loop() {
 
+  // loop FOC algorithm, should be called as 
+  // frequently as possible for best 
+  // performance (e.g. 1kHz+)
+  motor.loopFOC();
+
   // open loop velocity movement
   motor.move();
 
@@ -169,6 +174,11 @@ void setup() {
 }
 
 void loop() {
+
+  // loop FOC algorithm, should be called as 
+  // frequently as possible for best 
+  // performance (e.g. 1kHz+)
+  motor.loopFOC();
 
   // open loop velocity movement
   motor.move();
@@ -243,6 +253,11 @@ void setup() {
 
 void loop() {
 
+  // loop FOC algorithm, should be called as 
+  // frequently as possible for best 
+  // performance (e.g. 1kHz+)
+  motor.loopFOC();
+
   // open loop velocity movement
   motor.move();
 
@@ -315,6 +330,11 @@ void setup() {
 }
 
 void loop() {
+
+  // loop FOC algorithm, should be called as 
+  // frequently as possible for best 
+  // performance (e.g. 1kHz+)
+  motor.loopFOC();
 
   // open loop velocity movement
   motor.move();
@@ -389,6 +409,11 @@ void setup() {
 
 void loop() {
 
+  // loop FOC algorithm, should be called as 
+  // frequently as possible for best 
+  // performance (e.g. 1kHz+)
+  motor.loopFOC();
+
   // open loop velocity movement
   motor.move();
 
@@ -460,6 +485,11 @@ void setup() {
 }
 
 void loop() {
+
+  // loop FOC algorithm, should be called as 
+  // frequently as possible for best 
+  // performance (e.g. 1kHz+)
+  motor.loopFOC();
 
   // open loop velocity movement
   motor.move();
@@ -533,6 +563,11 @@ void setup() {
 }
 
 void loop() {
+
+  // loop FOC algorithm, should be called as 
+  // frequently as possible for best 
+  // performance (e.g. 1kHz+)
+  motor.loopFOC();
 
   // open loop velocity movement
   motor.move();
