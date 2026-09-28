@@ -15,9 +15,10 @@ toc: true
 # Fabrication guide for <span class="simple">Simple<span class="foc">FOC</span>Mini</span> 
 Here is a quick guide how to fabricate the <span class="simple">Simple<span class="foc">FOC</span>Mini</span> board. The board has been designed using the EasyEDA software that makes it very easy to fabricate using the JLCPCB website. 
 
+The images in this guide show the step-by-step process of fabricating the <span class="simple">Simple<span class="foc">FOC</span>Mini</span> v1, but the same steps can be followed for the mini v2 as well as any other <span class="simple">Simple<span class="foc">FOC</span></span> board.
 
 ## Step by step guide
-First step is to go to the [EasyEDA's project library](https://oshwlab.com/the.skuric/simplefocmini) and open the <span class="simple">Simple<span class="foc">FOC</span>Mini</span> project in the EasyEDA editor. 
+First step is to go to the EasyEDA's project library ([mini v1](https://oshwlab.com/the.skuric/simplefocmini) and [mini v2](https://oshwlab.com/the.skuric/simplefocmini_copy_copy)) and open the <span class="simple">Simple<span class="foc">FOC</span>Mini</span> project in the EasyEDA editor. 
 <p><img src="extras/Images/mini_fab (3).png" class="width60"></p>
 
 Then you need to open the <span class="simple">Simple<span class="foc">FOC</span>Mini</span> PCB file by clicking on it and then go to the top bar dropdown ***Fabrication*** and select ***One-click order PCB/SMT***

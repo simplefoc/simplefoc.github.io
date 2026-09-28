@@ -2,7 +2,7 @@
 layout: default
 title: <span class="simple">Simple<span class="foc">FOC</span>Mini</span>
 parent: <span class="simple">Simple<span class="foc">FOC</span> Boards</span>
-description: "Arduino SimpleFOCShield board showcase."
+description: "SimpleFOCMini board showcase and getting started information."
 nav_order: 2
 permalink: /simplefocmini
 has_children: true
@@ -11,65 +11,76 @@ toc: true
 ---
 
 
-# <span class="simple">Simple<span class="foc">FOC</span>Mini</span>  <small><i>v1.1</i></small>
+# <span class="simple">Simple<span class="foc">FOC</span>Mini</span>  <small><i>v2.3</i></small>
 
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?color=blue)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/simplefoc/simplefocmini)
 ![GitHub Release Date](https://img.shields.io/github/release-date/simplefoc/simplefocmini?color=blue)
 
-<img src="https://raw.githubusercontent.com/simplefoc/SimpleFOCMini/main/images/side.png" class="width20"/><img src="https://raw.githubusercontent.com/simplefoc/SimpleFOCMini/main/images/top.png" class="width20"/><img src="https://raw.githubusercontent.com/simplefoc/SimpleFOCMini/main/images/bottom.png" class="width20"/>
+<img src="https://raw.githubusercontent.com/simplefoc/SimpleFOCMini/main/images/side_real.jpg" class="width20" alt="SimpleFOCMini v2 side view"/><img src="https://raw.githubusercontent.com/simplefoc/SimpleFOCMini/main/images/top.png" class="width20" alt="SimpleFOCMini v2 top view"/><img src="https://raw.githubusercontent.com/simplefoc/SimpleFOCMini/main/images/bottom.png" class="width20" alt="SimpleFOCMini v2 bottom view"/>
 
-<span class="simple">Simple<span class="foc">FOC</span>Mini</span> is a small-package, low-cost, modular and user-friendly driver for running gimbal BLDC motors with FOC algorithm. As for the <span class="simple">Simple<span class="foc">FOC</span>Shields</span>, the main motivation of this board is to make using low-power BLDC motors in hobby applications more accessible.
-The main goals of this board however are:
+<span class="simple">Simple<span class="foc">FOC</span>Mini</span> is a compact BLDC driver for use with the <span class="simple">Simple<span class="foc">FOC</span>library</span>. Version 2 replaces the DRV8313 with a DRV8316 and adds three-phase low-side current sensing and supply-voltage sensing. Its PWM and enable pinout remains compatible with Mini v1.1, so existing control code can be reused.
 
-- Produce a small package BLDC driver that still has all the features of the <span class="simple">Simple<span class="foc">FOC</span>Shield </span>v1
-- Make it in away to be a minimal working example for users that are interested to build their own boards based on the DRV8313 chip.
-- Make it as cheap as possible.
-- Use only long-term (as of mid 2022) available components.
-- Finally, the goal of this board is to provide a modular and simple setup for controlling gimbal motors (up to 3Amps) using FOC control and enable fast prototyping and full exploitation of their capabilities.
+[Get started with your mini board](mini_getting_started){: .btn .btn-docs}
 
-This board in combination with the <span class="simple">Simple<span class="foc">FOC</span>library</span> will give you a simple and intuitive way to control the BLDC motors' current, torque, velocity and position. And this board can be used as a drop in replacement for the <span class="simple">Simple<span class="foc">FOC</span>Shield</span> v1.
+## Version features comparison
 
+| Feature | Mini v1.1 | Mini v2.3 |
+| --- | --- | --- |
+|Image | <img src="https://raw.githubusercontent.com/simplefoc/SimpleFOCMini/v1.1/images/top.png" style="height:250px" alt="SimpleFOCMini v1.1 top view"/> | <img src="https://raw.githubusercontent.com/simplefoc/SimpleFOCMini/main/images/top.png" style="height:250px" alt="SimpleFOCMini v2 top view"/> |
+| Motor driver | DRV8313 | DRV8316 |
+| Power supply | 8-35V | 5-35V |
+| Maximum current | 2.5A per phase | 8A |
+| Current sensing | Not integrated | Three-phase low-side (150mV/A) |
+| Supply-voltage sensing | Not integrated | Integrated (0.101V/V scale) |
+| 3.3V regulator output | Up to 10mA | Up to 20mA |
+| Board size | 20 x 26mm | 24 x 25mm |
+| PWM and enable pinout | Original layout | Compatible with v1.1 |
 
+The v2.3 board is a complete redesign, but retains the v1.1 PWM and enable pinout and is compatible with code written for Mini v1.
 
-<img  src="https://simplefoc.com/assets/img/miniv11_exploded.jpg"  class="width20"/><img  src="https://simplefoc.com/assets/img/miniv11_front.jpg"  class="width20"/><img  src="https://simplefoc.com/assets/img/miniv11_back.jpg"  class="width20"/>
+<img src="https://raw.githubusercontent.com/simplefoc/SimpleFOCMini/main/images/compare_mini.jpg" class="img300" alt="SimpleFOCMini v1 and v2 size comparison">
 
-
-## Features
+## Features of SimpleFOCMini v2.3
 - **Plug & play**: In combination with Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
-- **DRV8313 based** - [datasheet](https://www.ti.com/lit/ds/symlink/drv8313.pdf?ts=1650461862269&ref_url=https%253A%252F%252Fwww.google.com%252F)
-  - Power supply: 8-35V
-  - Max current: 2.5A per phase
-  - Onboard 3.3V LDO
-- **Small size**: 26x21 mm
+- **DRV8316 based** - [datasheet](https://www.ti.com/lit/ds/symlink/drv8316.pdf)
+  - Power supply: 5-35V
+  - Maximum current: 8A
+  - 3-PWM mode
+- **Sensing**: 
+  - 3x Low-side current sensing (150mV/A)
+  - Power supply voltage sensing (Scale 0.101V/V)
+- **Onboard 3.3V LDO**: Up to 20mA output
+- **Small size**: 24x25 mm
 - **Fully open-source**:
-  - [EasyEDA](https://easyeda.com/the.skuric/simplefocmini)
+  - [EasyEDA](https://oshwlab.com/the.skuric/simplefocmini_copy_copy)
   - [GitHub](https://github.com/simplefoc/SimpleFOCMini) 
 - **Low-cost**: 
-   - JLCPCB production cost ~3-5€
-   - Will be available in the [shop](https://www.simplefoc.com/shop) soon: 7-10€ 
+   - JLCPCB production cost ~5€
+   - Available from [Makerfabs](https://www.makerfabs.com/simplefocmini.html)
 
 
 
-<blockquote class="warning"> 
-<p class="heading">BEWARE</p>
-This BLDC driver board is primarily designed for gimbal motors with the internal resistance of R >10 Ω. Please make sure that your motor fits in this category before deciding to use the <span class="simple">Simple<span class="foc">FOC</span>Mini</span>.
+<blockquote class="warning">
+<p class="heading">Low-side current-sensing compatibility</p>
+Mini v2 uses low-side current sensing. Not all supported microcontrollers can use this sensing method; check the [microcontroller support guide](microcontrollers) before relying on current control. Observe the board's voltage and current ratings when selecting a motor and power supply.
 </blockquote>
 
-<img src="https://simplefoc.com/assets/img/shield_vs_mini.jpg" class="img300"><img src="https://user-images.githubusercontent.com/36178713/164240473-5abd7453-9d38-4f25-9195-378c39180054.jpg" class="img300">
 
 ### Release log
 
 Release | Date | Description
 --- | --- | ---
+v2.3 | 2025-07 | Smaller layout and supply-voltage sensing.
+v2.0 | 2025-01 | Redesigned around the DRV8316 with three-phase low-side current sensing.
 v1.1 | 2024-04 | A quick iteration with a few changes:<br> 1. Aligned motor output header with the input header so that it can be stacked in the protoboard<br>2. Input header updated to be easier to use with arduino UNO, nucleos, but also with qtpy...<br> - Changed the order of the IN1,IN2,IN3 and EN:<br> - Added an additional GND pin <br>
 v1.0 | 2022-04 | Initial release
 
 ### Connection schematic
 An electrical connection example of a BLDC motor with an encoder as position sensor. 
 <p><img src="extras/Images/connection_mini.jpg" class="width60"></p>
-For more information about how to connect you hardware to your shield, check the full [connection example](mini_example).
+For the v1.1 pinout and a connection example, see [connecting the Mini](mini_example). The v2 board retains the v1.1 PWM and enable pinout.
 
 ## Project example : Reaction wheel inverted pendulum
 <iframe class="youtube"  src="https://www.youtube.com/embed/Ih-izQyXJCI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -104,11 +115,12 @@ This project can be entirely done by using the  <span class="simple">Simple<span
 ## Getting started
 
 You already have your own <span class="simple">Simple<span class="foc">FOC</span>Mini</span>? <br>
-[Here is a simple guide how to start preparing your setup](mini_getting_started)
+
+[Getting started guide](mini_getting_started){: .btn .btn-docs}
 
 
 
 ## How to get hold of the <span class="simple">Simple<span class="foc">FOC</span>Mini</span> 
-- **Fabricate the board yourself**:  Please visit the [board fabrication](mini_fabrication) to find out how to manufacture the board yourself!<br>
+- **Fabricate the board yourself**:  [Board fabrication docs](mini_fabrication){: .btn .btn-docs}
 - **Order the finished and tested board**:  Check out our [shop](https://simplefoc.com/shop).
 

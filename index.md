@@ -132,27 +132,14 @@ Here are some of the official boards developed by the <span class="simple">Simpl
 ![GitHub Release Date](https://img.shields.io/github/release-date/simplefoc/arduino-simplefocshield?color=blue)
 
 ### Features
-- **DRV8313 based** - [datasheet](https://www.ti.com/lit/ds/symlink/drv8313.pdf)
-  - Power supply: 8-35V
-  - Max current: 2A per phase (3Amp peak)
-- **Absolute max ratings** - Designed for Gimbal motors with the internal resistance >10 Ωs. 
-   - Max current: 3A, 
-   - Max input voltage: 35V
-- **In-line current sensing**: Up to 5Amps bidirectional
-   - ACS712 hall current sensor
-- **Integrated 8V regulator**: 
-   - Enable/disable by soldering pads
-- **Stackable**: running 2 motors in the same time
-- **Encoder/Hall sensors interface**: Integrated 3.3kΩ pullups (configurable)
-- **I2C interface**: Integrated 4.7kΩ pullups (configurable)
-- **Configurable pinout**: Hardware configuration - soldering connections
-- **Arduino headers**: Arduino UNO, Arduino MEGA, STM32 Nucleo boards...
-- **Open Source**: 
-   - Fully designed in **EasyEDA**: [EasyEDA project](https://oshwlab.com/the.skuric/simplefocshield_copy_copy)
-   - Fully available fabrication files - [how to make it yourself](arduino_simplefoc_shield_fabrication)
-- **Low-cost**: 
-   - JLCPCB production cost ~10-15€
-   - Available in the [shop](https://www.simplefoc.com/shop): 15-30€ 
+- **What is it?**: An Arduino Shield for driving low-power BLDC and stepper motors
+- **Driver and power**: DRV8313, 8-35V supply, 2A per phase (3A peak)
+- **Current sensing**: ACS712 inline sensor, up to ±5A
+- **Motor support**: Low-power BLDC and stepper motors
+- **Form factor**: Stackable Arduino UNO, MEGA, STM32 Nucleo, and compatible boards
+- **Project and availability**: [GitHub project](https://github.com/simplefoc/Arduino-SimpleFOCShield) · [Shop](https://www.simplefoc.com/shop)
+
+[Read more in docs](arduino_simplefoc_shield_showcase){: .btn .btn-docs}
 
 </div><div class="width40 inline_block_top" style  markdown="1">
 
@@ -165,20 +152,55 @@ Here are some of the official boards developed by the <span class="simple">Simpl
 ![GitHub Release Date](https://img.shields.io/github/release-date/simplefoc/simplefocmini?color=blue)
 
 ### Features
-- **DRV8313 based** - [datasheet](https://www.ti.com/lit/ds/symlink/drv8313.pdf)
-  - Power supply: 8-35V
-  - Max current: 2A per phase (3Amp peak)
-- **Absolute max ratings** - Designed for Gimbal motors with the internal resistance >10 Ωs. 
-   - Max current: 3A, 
-   - Max input voltage: 35V
-- **Small size**: 26x21 mm
-- **Open Source**: 
-   - Fully designed in **EasyEDA**: [EasyEDA project](https://easyeda.com/the.skuric/simplefocmini)
-   - Fully available fabrication files - [how to make it yourself](mini_fabrication)
-- **Low-cost**: 
-   - JLCPCB production cost ~3-5€
-   - Available in the [shop](https://www.simplefoc.com/shop): 7-15€ 
+- **What is it?**: A minimal BLDC and stepper motor driver designed for low-power applications.
+- **Driver and power**: DRV8316, 8-35V supply, up to 8A
+- **Current sensing**: Integrated three-phase low-side sensing
+- **Motor support**: BLDC and stepper motors above approximately 1Ω phase resistance
+- **Form factor**: Compact 24x25mm driver
+- **Project and availability**: [GitHub project](https://github.com/simplefoc/SimpleFOCMini) · [Shop](https://www.simplefoc.com/shop)
 
+[Read more in docs](simplefocmini){: .btn .btn-docs}
+
+</div>
+
+<div class="width40 inline_block_top" markdown="1">
+
+## <span class="simple">Simple<span class="foc">FOC</span> <b>Drive</b>Shield</span>
+
+<img src="https://raw.githubusercontent.com/simplefoc/SimpleFOC-DriveShield/main/images/top.png" class="img200" alt="SimpleFOC DriveShield"/>
+
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?color=blue)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/simplefoc/SimpleFOC-DriveShield)
+![GitHub Release Date](https://img.shields.io/github/release-date/simplefoc/SimpleFOC-DriveShield?color=blue)
+
+### Features
+- **What is it?**: An Arduino Shield for driving high-power BLDC and stepper motors
+- **Driver and power**: DRV8320H gate driver with BSZ0904NSI MOSFETs, 30V input
+- **Current sensing**: INA240 inline sensor, up to ±40A measurement range
+- **Motor support**: Higher-current BLDC  and stepper motors, 20A continuous and 30A peak measured
+- **Form factor**: Arduino UNO, MEGA, STM32 Nucleo, and compatible shield
+- **Project and availability**: [GitHub project](https://github.com/simplefoc/SimpleFOC-DriveShield) · [Makerfabs](https://www.makerfabs.com/simplefoc-driveshield.html)
+
+
+</div><div class="width40 inline_block_top" markdown="1">
+
+## <span class="simple">Simple<span class="foc">FOC</span>-microspora</span>
+
+<img src="https://raw.githubusercontent.com/simplefoc/SimpleFOC-microspora/main/images/top.png" class="img200" alt="SimpleFOC-microspora"/>
+
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?color=blue)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/simplefoc/SimpleFOC-microspora)
+![GitHub Release Date](https://img.shields.io/github/release-date/simplefoc/SimpleFOC-microspora?color=blue)
+
+### Features
+- **What is it?**: A compact all-in-one BLDC and stepper motor driver, based on STM32G431
+- **Driver and power**: DRV8316, 5-35V supply, up to 8A
+- **Current sensing**: Integrated phase-current and supply-voltage sensing
+- **Motor support**: BLDC and stepper motors
+- **Form factor**: Compact All-in-one 33x34mm controller 
+- **Project and availability**: [GitHub project](https://github.com/simplefoc/SimpleFOC-microspora) · [Makerfabs](https://www.makerfabs.com/simplefoc-microspora.html)
+
+[Read more in docs](microspora_landing){: .btn .btn-docs}
 </div>
 
 A short demo video for the <span class="simple">Simple<span class="foc">FOC</span>Shield</span> (its a bit outdated but still relevant)

@@ -19,21 +19,30 @@ has_toc: False
 
 Connecting the <span class="simple">Simple<span class="foc">FOC</span>Mini</span> to the microcontroller, BLDC motor and power-supply is very straight forward. 
 
-There are two versions of the <span class="simple">Simple<span class="foc">FOC</span>Mini</span> board, v1.0 and v1.1. The versions are functionally identical, but thy do differ in pin order. <br>They are easy to distinguish:
-- You can easily see the board version indicated on the silkscreen on the board.
-- v1.1 has double GND pins on the first line of the header, while v1.0 has a single GND pin on the first line of the header.
+There are two versions of the <span class="simple">Simple<span class="foc">FOC</span>Mini</span> board, v1 and v2. 
+- V1 - <span class="simple">Simple<span class="foc">FOC</span>Mini</span> v1 boards include v1.0 and v1.1, which are functionally identical, but thy do differ in pin order. <br>They are easy to distinguish:
+   - You can easily see the board version indicated on the silkscreen on the board.
+   - v1.1 has double GND pins on the first line of the header, while v1.0 has a single GND pin on the first line of the header.
+- V2 - <span class="simple">Simple<span class="foc">FOC</span>Mini</span> v2.3. They are using the DRV8316 driver and have the same PWM/enable pinout as v1.1 but allow for current-sensing and power supply sensing.
 
 <div class="image_icon width30" >
     <a href="mini_v1_connect_hardware" >
-        <img  src="extras/Images/miniv1.png" > 
+        <img  src="extras/Images/miniv1.png" style="max-height:250px"> 
         <i class="fa fa-external-link-square fa-2x"></i>
         <p> <span class="simple">Simple<span class="foc">FOC</span>Mini</span> v1</p>
     </a>
 </div>
 <div class="image_icon width30" >
     <a href="mini_v11_connect_hardware" >
-        <img src="extras/Images/miniv1.1.png" > 
+        <img src="extras/Images/miniv1.1.png"  style="max-height:250px"> 
         <i class="fa fa-external-link-square fa-2x"></i>
         <p> <span class="simple">Simple<span class="foc">FOC</span>Mini</span> v1.1</p>
+    </a>
+</div>
+<div class="image_icon width30" >
+    <a href="mini_v23_connect_hardware" >
+        <img src="https://raw.githubusercontent.com/simplefoc/SimpleFOCMini/main/images/top.png"  style="max-height:250px"> 
+        <i class="fa fa-external-link-square fa-2x"></i>
+        <p> <span class="simple">Simple<span class="foc">FOC</span>Mini</span> v2.3</p>
     </a>
 </div>

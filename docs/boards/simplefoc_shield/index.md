@@ -23,6 +23,8 @@ The <span class="simple">Simple<span class="foc">FOC</span>Shield</span>, in com
 
 <img src="extras/Images/top_botv3.jpg" class="img300 img_half">
 
+[Get started with your board](arduino_simplefoc_shield_installation){: .btn .btn-docs}
+
 ## YouTube demonstration video
 <iframe class="youtube" src="https://www.youtube.com/embed/G5pbo0C6ujE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
