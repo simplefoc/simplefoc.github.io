@@ -208,7 +208,7 @@ Where $$\hat{i}_q$$ is the actual q-axis current flowing through the motor, whil
 If we substitute the actual torque term with $$\hat{\tau}$$ and consider the steady-state assumption ($$\frac{d i}{dt} = 0$$) and field-oriented control ($$i_d = 0$$), the actual torque can be expressed as:
 
 $$
-\hat{\tau} = \tau - \frac{K_t}{R} \cdot U_{bemf} = \hat{\tau} - \frac{K_t}{R} \cdot K_e \cdot v
+\hat{\tau} = \tau - \frac{K_t}{R} \cdot U_{bemf} = \tau - \frac{K_t}{R} \cdot K_e \cdot v
 $$
 
 or equivalently:
