@@ -16,7 +16,7 @@ toc: true
 
 This guide shows how to switch from voltage-based to **current-based torque control**. This enables precise current limiting and the smoothest motor control.
 
-[Read more about FOC current torque mode](foc_current_mode){: .btn .btn-docs}
+[Read more about FOC current torque mode](foc_current_torque_mode){: .btn .btn-docs}
 
 ## Prerequisites
 

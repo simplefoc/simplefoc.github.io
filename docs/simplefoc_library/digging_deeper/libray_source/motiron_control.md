@@ -156,7 +156,7 @@ The actual torque control strategy (voltage, DC current, FOC current, estimated 
 For detailed information about torque control modes, see the <a href="torque_control_implementation">torque control implementation page</a>.
 </blockquote>
 
-[Torque control API documentation](voltage_loop){: .btn .btn-docs}
+[Torque control API documentation](voltage_torque_mode){: .btn .btn-docs}
 
 ## Velocity Control
 
@@ -293,7 +293,7 @@ motor.P_angle.I = 0.0;       // Usually very low or zero
 motor.P_angle.D = 0.0;       // Usually zero
 ```
 
-[Non-cascade angle control API documentation](angle_nocascade_loop){: .btn .btn-docs}
+[Non-cascade angle control API documentation](angle_nocascade_control){: .btn .btn-docs}
 [PID controller implementation](pid_implementation){: .btn .btn-docs}
 
 ### Additional Features

@@ -46,7 +46,7 @@ If you are not sure what your <code class="highlighter-rouge">pole_pairs</code> 
 ### Motor phase resistance, inductance and KV rating 
 
 Motor parameters in <span class="simple">Simple<span class="foc">FOC</span>library</span> are optional but they are used for:
-- [Estimated current torque mode](estimated_current_torque_mode) - to estimate the motor current based on the voltage command and motor parameters
+- [Estimated current torque mode](estimated_current_mode) - to estimate the motor current based on the voltage command and motor parameters
 - FOC current control
    - [Advanced FOC control features](foc_current_torque_mode#cross-coupling-and-lag-compensation-advanced) - to compensate for cross-coupling
    - [Auto-tunning current PI controllers](dc_current_torque_mode) - to set the PI controller gains based on the motor parameters
@@ -169,11 +169,11 @@ These parameters can also be measured using the `motor.characteriseMotor()` abov
 ### Step 5.5 Torque control mode
 There are 4 different torque control modes implemented in the Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>: 
 - [Voltage mode](voltage_torque_mode)
-- [Estimated current mode](estimated_current_torque_mode)
+- [Estimated current mode](estimated_current_mode)
 - [DC current](dc_current_torque_mode)
 - [FOC current](foc_current_torque_mode)
 
-[DC current](dc_current_torque_mode) and [FOC current](foc_current_torque_mode) require current sensing and are controlling current and limiting the real current the motor is drawing, whereas [estimated current mode](estimated_current_torque_mode) approximates the motor current using the motor parameters and does not use any current sensing. Finally, [voltage mode](voltage_torque_mode) is the most basic torque control mode which directly sets the voltage to the motor without any current control. Read more in [torque control docs](torque_control).
+[DC current](dc_current_torque_mode) and [FOC current](foc_current_torque_mode) require current sensing and are controlling current and limiting the real current the motor is drawing, whereas [estimated current mode](estimated_current_mode) approximates the motor current using the motor parameters and does not use any current sensing. Finally, [voltage mode](voltage_torque_mode) is the most basic torque control mode which directly sets the voltage to the motor without any current control. Read more in [torque control docs](torque_control).
 
 The torque mode can be set by changing the motor attribute `torque_controller`.
 ```cpp
@@ -196,7 +196,7 @@ There are 3 different closed loop control strategies implemented in the Arduino 
 - [Velocity motion control](velocity_loop)
 - Position/angle motion control
   - [Cascade position control](angle_loop) 
-  - [No-cascade position control](angle_loop_nocascade)
+  - [No-cascade position control](angle_nocascade_control)
 
 Additionally <span class="simple">Simple<span class="foc">FOC</span>library</span> implements two open loop control strategies as well:
 - [Velocity open-loop control](velocity_openloop)
@@ -270,7 +270,7 @@ This function does several things:
 - Checks/modifies current sense pinout and gains signs if one available to make sure it aligned with the driver 
 
 [See more info about the theory of alignment](alignment_procedure){: .btn .btn-docs}
-[See more info about implementation of initFOC()](foc_implementation#initFOC){: .btn .btn-docs}
+[See more info about implementation of initFOC()](foc_implementation#motor-and-sensor-alignment-initfoc){: .btn .btn-docs}
 
 If for some reason the `initFOC` fails this function will return `0` and it will disable your motor and display you a message what is wrong (when using the [monitoring](monitoring) ). If everything is well configured, the call of this function will return `1` and the our setup is done, FOC is ready to be used! So we suggest you to check if the init function was executed successfully before continuing:
 

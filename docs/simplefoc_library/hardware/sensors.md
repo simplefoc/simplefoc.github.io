@@ -77,7 +77,7 @@ Magnetic sensors usually come with several different communication protocols:
 - Analog (✔️ supported)
 - UVW (✔️ supported)  - *exactly the same as the Hall sensor interface* 
 - PWM (✔️ supported)  - **⚠️ NOT RECOMMENDED** - avoid at all cost
-- SSI - supported through [drivers library](additional_libraries#simplefocdrivers) for specific sensors, but not yet implemented in the main library.
+- SSI - supported through [drivers library](drivers_library) for specific sensors, but not yet implemented in the main library.
 
 Here are some of the supported magnetic sensors:
 

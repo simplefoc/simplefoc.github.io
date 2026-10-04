@@ -54,7 +54,7 @@ For example, if you wish to set the target angle in degrees:
 motor.target = my_target_in_degrees * _2PI/360;
 ```
 
-Or for example if you're using [commander interface](commander) to set the target angle in degrees:
+Or for example if you're using [commander interface](commander_interface) to set the target angle in degrees:
 
 ```cpp
 void onTarget(char* cmd){ 
@@ -101,7 +101,7 @@ For example, if you wish to set the target angle in turns:
 motor.target = my_target_in_turns / _2PI;
 ```
 
-Or for example if you're using [commander interface](commander) to set the target angle in turns:
+Or for example if you're using [commander interface](commander_interface) to set the target angle in turns:
 
 ```cpp
 void onTarget(char* cmd){ 
@@ -173,7 +173,7 @@ For example, if you wish to set the target velocity in RPM:
 motor.target = my_target_in_RPM * _2PI/60;
 ```
 
-Or for example if you're using [commander interface](commander) to set the target velocity in RPM:
+Or for example if you're using [commander interface](commander_interface) to set the target velocity in RPM:
 
 ```cpp
 void onTarget(char* cmd){ 
@@ -220,7 +220,7 @@ For example, if you wish to set the target velocity in turns per second:
 motor.target = my_target_in_tps / _2PI;
 ```
 
-Or for example if you're using [commander interface](commander) to set the target velocity in turns per second:
+Or for example if you're using [commander interface](commander_interface) to set the target velocity in turns per second:
 
 ```cpp
 void onTarget(char* cmd){ 
@@ -286,7 +286,7 @@ float Kt = ....; // datasheet value
 motor.target = my_target_in_Nm / Kt; // Nm / (Nm/A) = Amps
 ```
 
-Or for example if you're using [commander interface](commander) to set the target torque in Nm:
+Or for example if you're using [commander interface](commander_interface) to set the target torque in Nm:
 
 ```cpp
 void onTarget(char* cmd){ 

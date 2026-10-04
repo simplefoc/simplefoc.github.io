@@ -193,7 +193,7 @@ FOC Current mode is computationally heavy. There are a couple main reasons for t
 
 With all these factors in mind, it is recommended to use a more powerful MCU: stm32, Teensy or esp32. They have relatively higher clock speeds, efficient ADCs and in some cases even integrated floating point units, which can handle the computational load of FOC current control mode.
 
-For lower end MCUs, such as atmega328 or atmega2560 based boards, it is still possible to run FOC current control mode, but the performance may be limited. Another alternative would be to use the [estimated current control](estimated_current_torque_mode) mode, which is less computationally intensive and does not require a current sensor, but it is less accurate and robust than the FOC current control mode. Or if current limiting is the main concern, the [DC current control mode](dc_current_torque_mode) can be used, which is a simpler current control mode that does not require the Parke and Clarke transforms, but it is less efficient and smooth than the FOC current control mode.
+For lower end MCUs, such as atmega328 or atmega2560 based boards, it is still possible to run FOC current control mode, but the performance may be limited. Another alternative would be to use the [estimated current control](estimated_current_mode) mode, which is less computationally intensive and does not require a current sensor, but it is less accurate and robust than the FOC current control mode. Or if current limiting is the main concern, the [DC current control mode](dc_current_torque_mode) can be used, which is a simpler current control mode that does not require the Parke and Clarke transforms, but it is less efficient and smooth than the FOC current control mode.
 
 
 ## Torque control example code

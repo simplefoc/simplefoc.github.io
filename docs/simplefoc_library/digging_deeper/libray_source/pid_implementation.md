@@ -316,7 +316,7 @@ voltage_magnitude = PID_current_q(current_sp - current_magnitude);
 
 For detailed tuning procedures and practical guidance, see the dedicated tuning guide:
 
-[PID Controller Tuning Guide](tuning_pid){: .btn .btn-docs .btn-primary} 
+[PID Controller Tuning Guide](zn_tuning_pid){: .btn .btn-docs .btn-primary} 
 [Velocity Loop Tuning Guide](tuning_velocity_loop){: .btn .btn-docs}
 
 ## Related Documentation

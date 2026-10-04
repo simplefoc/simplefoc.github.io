@@ -339,7 +339,7 @@ Now that you have torque control working, you can switch to other motion control
 ```cpp
 motor.controller = MotionControlType::velocity;
 ```
-or using the [command interface](command_interface):
+or using the [command interface](commander_interface):
 ```sh
 MC1
 ```
@@ -389,7 +389,7 @@ Now you can also switch to angle control:
 ```cpp
 motor.controller = MotionControlType::angle;
 ```
-or using the [command interface](command_interface):
+or using the [command interface](commander_interface):
 ```sh
 MC2
 ```
@@ -401,7 +401,7 @@ Then you can test it by sending angle commands in radians:
 
 ### Troubleshooting
 **Motor oscilates and vibrates at low speeds?**
-- This usually means that the angle PID needs to be tuned. See the [angle control tuning guide](tuning_angle_loop) for how to do that.
+- This usually means that the angle PID needs to be tuned. See the [angle control tuning guide](angle_cascade_control#angle-loop-outer-loop-guidance) for how to do that.
 - If you want to move quickly without tuning, you can also try lowering the angle PID P and I gains to reduce oscillations. 
   - Read the P gain (typically the only one to set) with `MAP` command, and lower it gradually until the oscilations stop
 
