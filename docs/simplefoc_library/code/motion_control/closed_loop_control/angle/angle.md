@@ -104,13 +104,13 @@ The P gain is the most important parameter to tune and the one that will have th
 
 ### Motion control frequency
 
-By default, the motion control loop runs at the same frequency $$f_{MC}$$ as the torque control loop $$f_{TC}$$, which is typically around `1-10 kHz`. However, in some cases, you may want to run the motion control loop at a lower frequency than the torque control loop. In that case you can use the `motion_downsampling` parameter of the motor. 
+By default, the motion control loop runs at the same frequency $$f_{MC}$$ as the torque control loop $$f_{TC}$$, which is typically around `1-10 kHz`. However, in some cases, you may want to run the motion control loop at a lower frequency than the torque control loop. In that case you can use the `motion_downsample` parameter of the motor. 
 
-For example, setting `motion_downsampling` to `10` will run the velocity control loop at `100 Hz` while the torque control loop runs at `1 kHz`: 
+For example, setting `motion_downsample` to `10` will run the velocity control loop at `100 Hz` while the torque control loop runs at `1 kHz`: 
 ```cpp
-motor.motion_downsampling = 10; // run velocity loop at 10 times lower frequency than torque loop
+motor.motion_downsample = 10; // run velocity loop at 10 times lower frequency than torque loop
 ```
-In other words, the velocity control loop will run at a frequency of $$f_{MC} = \frac{f_{TC}}{\texttt{motion_downsampling}}$$, meaning that the `motor.move()` function will be called every `motion_downsampling` number of `motor.loopFOC()` calls.
+In other words, the velocity control loop will run at a frequency of $$f_{MC} = \frac{f_{TC}}{\texttt{motion_downsample}}$$, meaning that the `motor.move()` function will be called every `motion_downsample` number of `motor.loopFOC()` calls.
 
 ### Control parameters overview
 
@@ -123,7 +123,7 @@ In other words, the velocity control loop will run at a frequency of $$f_{MC} = 
 | Angle `P` | `motor.P_angle.P` | Responsiveness of position control. | 20.0 | $$\frac{1}{s}$$ |
 | Angle filter `Tf` | `motor.LPF_angle.Tf` | Low-pass filtering of angle. | 0.0 | $$s$$ |
 | Angle output ramp | `motor.P_angle.output_ramp` | Acceleration limit. | 1e6 | $$\frac{rad}{s^2}$$ |
-| Motion downsampling | `motor.motion_downsampling` | Run angle loop at lower frequency than torque loop. | 1 | - |
+| Motion downsampling | `motor.motion_downsample` | Run angle loop at lower frequency than torque loop. | 0 | - |
 
 For more theory about this approach and the source code documentation check the digging deeper section.
 

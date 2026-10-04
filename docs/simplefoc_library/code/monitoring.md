@@ -55,7 +55,7 @@ The monitoring function can output 7 different motor specific variables:
 - `shaft_velocity` - [rad/s] - motor velocity
 - `shaft_angle` - [rad] - motor position
 
-To set the preferred values to be monitored you can just change the `motor.monitoring_variables` parameter in the `setup()` function.:
+To set the preferred values to be monitored you can just change the `motor.monitor_variables` parameter in the `setup()` function.:
 ```cpp
 motor.monitor_variables = _MON_TARGET | _MON_VEL | _MON_ANGLE; // default _MON_TARGET | _MON_VOLT_Q | _MON_VEL | _MON_ANGLE
 ```
@@ -73,7 +73,7 @@ By default the monitored variables are `target`,`voltage.q`,`velocity`,`angle`. 
 Furthermore, outputting the real-time execution variables using `motor.monitor()` function can in many cases have a negative effect on the motor performance  therefore it is important to reduce the number of calls of this function as much as possible, especially if displaying many variables with lower baudrates. You can do this easily by setting the parameter `motor.monitor_downsample`:
 ```cpp
 // downsampling
-motor.monitor_downsample = 100; // default 10
+motor.monitor_downsample = 100; // default 100
 ```
 
 This variable tells `motor.monitor()` to output the variables to the serial each `monitor_downsample` number of calls. So in short, it will output the variables to the serial each `monitor_downsample` loop calls.
@@ -89,7 +89,7 @@ void setup(){
     //display variables
     motor.monitor_variables = _MON_TARGET | _MON_VEL | _MON_ANGLE; 
     // downsampling
-    motor.monitor_downsample = 100; // default 10
+    motor.monitor_downsample = 100; // default 100
     
     ...
 }

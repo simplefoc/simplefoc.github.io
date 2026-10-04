@@ -69,15 +69,15 @@ MCU performance	| **HIGHER:** More computational load due to feedback processing
 
 By default the motion control loop is running at the same frequency $$f_{MC}$$ as the torque control loop $$f_{TC}$$, which is usually around 1-10 kHz. However, in some cases you might want to run the motion control loop at a lower frequency than the torque control loop, for example if you have a very high pole pair motor and you want to reduce the noise in the velocity or position measurements. Or if you only run the motor at very low speeds you do not need such a high frequency for the motion control loop. 
 
-You can decrease the motion control frequency $$f_{MC}$$ by setting the `motion_downsampling` parameter of the motor, which will run the motion control loop at a lower frequency than the torque control loop. For example, if you set `motion_downsampling` to 10, the motion control loop will run at 100 Hz while the torque control loop will run at 1 kHz.
+You can decrease the motion control frequency $$f_{MC}$$ by setting the `motion_downsample` parameter of the motor, which will run the motion control loop at a lower frequency than the torque control loop. For example, if you set `motion_downsample` to 10, the motion control loop will run at 100 Hz while the torque control loop will run at 1 kHz.
 
 ```cpp
 // set motion control loop to run 10 times slower than the torque control loop
-motor.motion_downsampling = 10;
+motor.motion_downsample = 10;
 ```
 
-Or in other words, the motion control loop will run at a frequency of $$f_{MC} = \frac{f_{TC}}{\texttt{motion_downsampling}}$$.<br>
-Or more practically `motor.move()` function will be called every `motion_downsampling` number of `motor.loopFOC()` calls.
+Or in other words, the motion control loop will run at a frequency of $$f_{MC} = \frac{f_{TC}}{\texttt{motion_downsample}}$$.<br>
+Or more practically `motor.move()` function will be called every `motion_downsample` number of `motor.loopFOC()` calls.
 
 
 - If you are not sure what is the frequency of the torque control loop, you can check it by reading `motor.loopfoc_time_us` variable, which represents the time between two `motor.loopFOC()` calls in microseconds. The frequency of the torque control loop is then calculated as $$f_{TC} = \frac{1}{\texttt{motor.loopfoc_time_us} \cdot 10^{-6}}$$. 

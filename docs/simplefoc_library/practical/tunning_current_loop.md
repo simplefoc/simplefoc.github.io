@@ -192,7 +192,7 @@ void setup() {
   motor.phase_resistance = 0.5; // Ohms
   motor.axis_inductance = {0.001, 0.001}; // Henries
 
-  float bandwidth = _2PI*150.0; // Hz
+  float bandwidth = _2PI*150.0; // rad/s (150 Hz)
   // PID tunning
   motor.PID_current_q.P = motor.axis_inductance.q * bandwidth;
   motor.PID_current_q.I = motor.phase_resistance * bandwidth;

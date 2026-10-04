@@ -60,8 +60,8 @@ When using a standard callback for `BLDCMotor` and `StepperMotor` classes:`comma
   - `2` - foc_current 
   - `3` - estimated_current
 - **E** - Motor status (enable/disable) - [see motion control](commander_target)
-  - `0` - enable    
-  - `1` - disable  
+  - `0` - disable    
+  - `1` - enable  
 - **F** - Init and tunning actions <b><i>NEW</i>📢</b>  
   - **R** - rerun motor `initFOC` function
   - **P** - run `characteriseMotor` function with the voltage set in the command (ex. `MFP3.5` to run characterisation with 3.5V test voltage)
@@ -186,7 +186,7 @@ Finally once the motor is added to the commander interface the use will be able 
   - **C** - clear monitor        
   - **S** - set monitoring variables        
 
-Using these commands you can change the downsampling rate (`motor.monitor_downsampling`) of the `monitor()` function that will determine your output sampling frequency. For example if your `loop` time is around 1ms, then with downsampling of monitor function with the rate of 100, it will output the motor variables each 100ms.  
+Using these commands you can change the downsampling rate (`motor.monitor_downsample`) of the `monitor()` function that will determine your output sampling frequency. For example if your `loop` time is around 1ms, then with downsampling of monitor function with the rate of 100, it will output the motor variables each 100ms.  
 If monitor dowsampling is set to 0  the `monitor()` function is disabled. The same is true if the `motor.monitor_variables` bitmap is empty (equal to `0`). Therefore the command **C** effectively does:
 ```cpp
 // when command MC is called

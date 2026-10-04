@@ -91,7 +91,7 @@ void setup() {
 
   // enable current monitoring
   motor.useMonitoring(Serial);
-  motor.monitor_downsampling = 100;
+  motor.monitor_downsample = 100;
   motor.monitor_variables = _MON_CURR_Q | _MON_CURR_D;
 
   // initialize motor
@@ -178,7 +178,7 @@ void setup() {
 
   // Monitoring
   motor.useMonitoring(Serial);
-  motor.monitor_downsampling = 100;
+  motor.monitor_downsample = 100;
   motor.monitor_variables = _MON_CURR_Q | _MON_CURR_D;
 
   // Init motor
@@ -265,7 +265,7 @@ void setup() {
 
   // Monitoring
   motor.useMonitoring(Serial);
-  motor.monitor_downsampling = 100;
+  motor.monitor_downsample = 100;
   motor.monitor_variables = _MON_CURR_Q | _MON_CURR_D;
 
   // Init motor
@@ -387,7 +387,7 @@ Test that current measurements respond correctly to motor commands:
 
 **Motor movement is jittery or unstable?**
 - This probably means that there is too much serial output or the current values are too noisy
-- Try increasing `motor.monitor_downsampling` to 500 or 1000 to reduce serial output frequency
+- Try increasing `motor.monitor_downsample` to 500 or 1000 to reduce serial output frequency
 - You can also use the Commander interface without re-uploading (ex $MMD500$ to set monitor downsampling to 500)
 
 **Current values are noisy but respond correctly?**

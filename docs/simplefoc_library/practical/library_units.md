@@ -142,7 +142,7 @@ Some other standard units for the velocity are RPM (revolutions per minute) and 
 
 - `motor.shaft_velocity` - the current motor velocity in radians per second
 - `motor.velocity_limit` - the velocity limit in radians per second
-- `motor.feedback_velocity` - the current motor velocity in radians per second ( in closed-loop control)
+- `motor.shaft_velocity` - the current motor velocity in radians per second ( in closed-loop control)
 - `motor.target` - the target motor velocity in radians per second ( in closed-loop and open-loop velocity control)
 - `sensor.getVelocity()` - the current sensor velocity in radians per second ( in closed-loop control)
 
@@ -262,7 +262,7 @@ The motor torque or current is defined in Amperes. The torque is directly propor
 - `motor.currents.q` - the current motor currents in Amperes 
 - `motor.currents.q` - the current motor currents in Amperes
 - `current_sense.getFOCCurrents()` - the current motor currents in Amperes
-- `current_sense.getDCCurrents()` - the current measured current magnitude in Amperes
+- `current_sense.getDCCurrent()` - the current measured current magnitude in Amperes
 - `current_sense.getPhaseCurrents()` - the current motor phase currents in Amperes
 - `PhaseCurrent_s` - the structure that holds the motor phase currents in Amperes
 - `DQCurrent_s` - the structure that holds the D and Q motor currents in Amperes
