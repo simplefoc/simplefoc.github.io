@@ -28,7 +28,7 @@ Using BLDC motors is easy with this board, simply connect the three motor phases
 
 <img src="./extras/Images/microspora_m2.png" class="width40" alt="Microspora motor connection"/>
 
-For steppers, first indentify the phases A and B of the motor. Then connect the A+ and B+ to the outside motor terminals, while the A- and B- are connected together to the inside motor terminal.
+For steppers, first identify the phases A and B of the motor. Then connect the A+ and B+ to the outside motor terminals, while the A- and B- are connected together to the inside motor terminal.
 
 [Read a deeper dive in Hybrid Stepper mode](hybrid_stepper_theory){: .btn .btn-docs}
 

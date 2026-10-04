@@ -63,11 +63,11 @@ python simpleFOCStudio.py
 *Simple**FOC**Studio* has several useful features:
 - A simple approach to tuning your motor setup
   - Form view for fast motion control PID/LPF tuning
-  - TreeView for more in depth tunning and experimenting
+  - TreeView for more in depth tuning and experimenting
 - Code generation for transferring the found parameters into your arduino code
 - Serial terminal integrated with various commander features
 
-### Motion control tunning windows
+### Motion control tuning windows
 Once you have your application running add a device by clicking the  <img src="https://raw.githubusercontent.com/JorgeMaker/SimpleFOCStudio/main/src/gui/resources/add_motor.png" style="height:18px"> motor button in the toolbar. You can choose either the <img src="https://raw.githubusercontent.com/JorgeMaker/SimpleFOCStudio/main/src/gui/resources/tree.png" style="height:18px"> TreeView or the <img src="https://raw.githubusercontent.com/JorgeMaker/SimpleFOCStudio/main/src/gui/resources/form.png" style="height:18px">FormView.
 - To connect to your device first configure the serial port by clicking on <img src="https://raw.githubusercontent.com/JorgeMaker/SimpleFOCStudio/main/src/gui/resources/configure.png" style="height:18px">Configure button
 - Add your com port info and click OK

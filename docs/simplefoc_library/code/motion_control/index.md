@@ -58,7 +58,7 @@ All the motion control modes are completely transparent regardless if you decide
 Feature	| Closed-Loop | Open-Loop 
 --|---|---
 Efficiency	| **HIGH:** Only uses the current necessary to maintain state.	| **LOW:** Draws maximum current/voltage all the time.
-Accuracy	| **HIGH:** Real-time correction of disturbances and load changes.	| **LOW:** Assumes the motor follows the target; prone to posision loss under load.
+Accuracy	| **HIGH:** Real-time correction of disturbances and load changes.	| **LOW:** Assumes the motor follows the target; prone to position loss under load.
 Heat	| **COOLER:** Motor stays cool when idle or under light load.	| **HOT:** Motor runs hot even when stationary or spinning freely.
 Safety	| **HIGH:** Can detect stalls and limit velocity/current dynamically.	| **LOW:** No stall detection; can "runaway" or vibrate if overloaded.
 Hardware	| **REQUIRES a Position Sensor (Encoder, Magnetic, etc.).**	| **MINIMAL:** No sensor required.
@@ -91,7 +91,7 @@ To go a step further check out the guide in our docs<br> [Real-time loops with t
 There are three Closed-Loop control types implemented in the <span class="simple">Simple<span class="foc">FOC</span>library</span>:
 - Torque - `MotionControlType::torque`
 - Velocity - `MotionControlType::velocity`
-- Angle/Positon - two types: 
+- Angle/Position - two types: 
     - Cascade controlled: `MotionControlType::angle`
     - Non-cascade controlled: `MotionControlType::angle_nocascade`
 
@@ -161,7 +161,7 @@ The <span class="simple">Simple<span class="foc">FOC</span>library</span> also g
 // MotionControlType::custom - user defined control loop
 motor.controller = MotionControlType::custom;
 
-// link your custom control function that will be called in the main control loop  motor.move() funciton.
+// link your custom control function that will be called in the main control loop  motor.move() function.
 motor.linkCustomMotionControl(&myCustomControlFunction);
 ```
 

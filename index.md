@@ -37,7 +37,7 @@ Therefore this is an attempt to:
    - BG341 low-side current sense sync was lost in v2.3.5 - fixed [#482](https://github.com/simplefoc/Arduino-FOC/pull/482)
  - ESP32 
    - Many ESP32 safety optimisations by [@uLipe](https://github.com/uLipe): [#490](https://github.com/simplefoc/Arduino-FOC/pull/490),[#491](https://github.com/simplefoc/Arduino-FOC/pull/491),[#492](https://github.com/simplefoc/Arduino-FOC/pull/492),[#493](https://github.com/simplefoc/Arduino-FOC/pull/493),[#495](https://github.com/simplefoc/Arduino-FOC/pull/495)
-   - Better ADC-Timer alignement for more stable current sensing [See this commit](https://github.com/simplefoc/Arduino-FOC/commit/877699b4db4e6e3ecc16b16cc4337af928e746f4)
+   - Better ADC-Timer alignment for more stable current sensing [See this commit](https://github.com/simplefoc/Arduino-FOC/commit/877699b4db4e6e3ecc16b16cc4337af928e746f4)
    - Now compiles for all v3.x arduino-esp32 versions (v2.3.5 was compatible with v3.2.x) 
    - `adcRead` small refactor - no more magic numbers
  - Others
@@ -211,9 +211,9 @@ Find out more about the boards and how to make them yourself in the [boards](boa
 
 ## Alternative FOC supporting projects
 
-The focus of <span class="simple">Simple<span class="foc">FOC</span></span> is making the FOC simple (:D) and supporting as many motor + sensor + driver + mcu combinations as possible. If you are a bit less concerned with the firmware *simplicity* and don't mind trading-off cross-platform flexibility for performance, there are several other projects out there that also use FOC and could provide a more compact, more prefromant or more robust solutions for your applications. Many of these projects are open-source and have been our inspiration from the start, especially VESC and Odrive. Make sure to check them out if you are starting your FOC journey!
+The focus of <span class="simple">Simple<span class="foc">FOC</span></span> is making the FOC simple (:D) and supporting as many motor + sensor + driver + mcu combinations as possible. If you are a bit less concerned with the firmware *simplicity* and don't mind trading-off cross-platform flexibility for performance, there are several other projects out there that also use FOC and could provide a more compact, more performant or more robust solutions for your applications. Many of these projects are open-source and have been our inspiration from the start, especially VESC and Odrive. Make sure to check them out if you are starting your FOC journey!
 
-P.S. None of these projects uses <span class="simple">Simple<span class="foc">FOC</span>library</span>, but <span class="simple">Simple<span class="foc">FOC</span>library</span> can be used as a firware for several driver boards developed in these projects.
+P.S. None of these projects uses <span class="simple">Simple<span class="foc">FOC</span>library</span>, but <span class="simple">Simple<span class="foc">FOC</span>library</span> can be used as a firmware for several driver boards developed in these projects.
 
 Project | Open Source Hardware | Open source firmware | Simple to use | Low cost | Power rating | Stepper Support | SimpleFOC support
 --- | --- | --- | --- | ---  | ---  | --- | --- 

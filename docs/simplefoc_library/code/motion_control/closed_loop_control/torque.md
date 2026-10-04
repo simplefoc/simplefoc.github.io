@@ -56,7 +56,7 @@ This motion control mode does not have any additional parameters on its own. It 
 
 [View torque control parameters](torque_control){: .btn .btn-docs}
 
-The only real parameter of the torque control motion control is the limit enforeced on the target variable `motor.target ` and the actual voltage or current applied to the motor. This can be set by either limiting the voltage or the current, depending on the torque control mode used. For example if using voltage mode you can limit the voltage by setting
+The only real parameter of the torque control motion control is the limit enforced on the target variable `motor.target ` and the actual voltage or current applied to the motor. This can be set by either limiting the voltage or the current, depending on the torque control mode used. For example if using voltage mode you can limit the voltage by setting
 
 ```cpp
 motor.updateVoltageLimit(2.0); // set the voltage limit to 2 V
@@ -94,7 +94,7 @@ Both voltage and current do not represent the actual torque of the motor. The ac
 
 $$\tau = K_t \cdot i_q$$
 
-If using voltage mode, there is no simple way to corelate it with the actual torque, except for slow speeds where the back-EMF is negligible and the motor current can be calculated as $$i_q = \frac{u_q}{R}$$ ($$R$$ is the motor phase resistance), making the torque proportional to the voltage:
+If using voltage mode, there is no simple way to correlate it with the actual torque, except for slow speeds where the back-EMF is negligible and the motor current can be calculated as $$i_q = \frac{u_q}{R}$$ ($$R$$ is the motor phase resistance), making the torque proportional to the voltage:
 
 $$\tau \propto u_q$$
 
@@ -122,7 +122,7 @@ motor.feed_forward_current.d = 0.1; // add 0.1 A to the d-axis current
 motor.feed_forward_voltage.d = 0.1; // add 0.1 V to the d-axis voltage
 ```
 
-<blockquote class="warning" markdown="1"> <p class="heading">Be careful with feed-forward terms</p> The feed-forward terms can be very useful for improving the performance of the control loop, but they can also cause instability if not used carefully. They are intended for advanced users who have a good understanding of the system and the control loop. If you are not sure about how to use them, it is recomended not to use them.
+<blockquote class="warning" markdown="1"> <p class="heading">Be careful with feed-forward terms</p> The feed-forward terms can be very useful for improving the performance of the control loop, but they can also cause instability if not used carefully. They are intended for advanced users who have a good understanding of the system and the control loop. If you are not sure about how to use them, it is recommended not to use them.
 
 </blockquote>
 

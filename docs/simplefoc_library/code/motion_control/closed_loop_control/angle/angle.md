@@ -47,7 +47,7 @@ And if it is any of the current torque control modes (FOC current, DC current or
 The angle control loop is therefore created by adding one more control loop in cascade on the [velocity control loop](velocity_loop) like showed on the figure above. The loop is closed by using additional PID controller and an optional low pass filter. The controller reads the angle $$a$$ from the motor (filters is optionally) and determines which velocity $$v_d$$ the motor should move to reach the desired angle $$a_d$$ set by the user. And then the velocity controller reads the current filtered velocity from the motor $$v_f$$ and sets the torque target ($$u_q$$ voltage or $$i_q$$ current) to the torque control loop, needed to reach the velocity $$v_d$$, set by the angle loop. 
 
 ## Control parameters
-To tune this control loop, it is recomemended to start from the lowest level loop (torque control) and then move up to the velocity loop and then finish with the angle loop. The parameters of the lower level loops will affect the performance of the angle control loop, so it is important to have them tuned before tuning the angle loop.
+To tune this control loop, it is recommended to start from the lowest level loop (torque control) and then move up to the velocity loop and then finish with the angle loop. The parameters of the lower level loops will affect the performance of the angle control loop, so it is important to have them tuned before tuning the angle loop.
 
 ### Torque loop guidance
 The torque loop parameters are the same ones used in the torque control page. In many cases you will tune them once and will not need to change them again.
@@ -183,7 +183,7 @@ motor.feed_forward_current.q = 0.5; // add 0.5 A to the
 motor.feed_forward_voltage.q = 1.0; // add 1 V to the voltage
 ```
 
-<blockquote class="warning" markdown="1"> <p class="heading">Be careful with feed-forward terms</p> The feed-forward terms can be very useful for improving the performance of the control loop, but they can also cause instability if not used carefully. They are intended for advanced users who have a good understanding of the system and the control loop. If you are not sure about how to use them, it is recomended not to use them.
+<blockquote class="warning" markdown="1"> <p class="heading">Be careful with feed-forward terms</p> The feed-forward terms can be very useful for improving the performance of the control loop, but they can also cause instability if not used carefully. They are intended for advanced users who have a good understanding of the system and the control loop. If you are not sure about how to use them, it is recommended not to use them.
 
 </blockquote>
 

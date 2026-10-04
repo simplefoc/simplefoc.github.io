@@ -116,7 +116,7 @@ Sector | Electrical angle | Hall A | Hall B | Hall C
 
 The main benefit of these sensors is that they are really cheap and they can be added on just about any BLDC motor. But nowadays, with the emergence of magnetic sensors they are less and less used. One of the main disadvantages of these sensors is that the low speed operation is not smooth due to the relatively high quantization of the angle measurement. 
 
-The main area of application of these sensors are electrical motors in all kinds of transportation vehicles. Their motors are often very high-power and relying on any kind of communication (I2C, SPI, SSI ... ) with such high currents and magnetic fieds is just not an option. Another reason to use hall sensors is if you cannot access the shaft of the motor, or if you cannot mount the sensor coaxial to the motor shaft. Hall sensors are mounted around the motor rotor, which makes them very non-intrusive and easy to integrate. 
+The main area of application of these sensors are electrical motors in all kinds of transportation vehicles. Their motors are often very high-power and relying on any kind of communication (I2C, SPI, SSI ... ) with such high currents and magnetic fields is just not an option. Another reason to use hall sensors is if you cannot access the shaft of the motor, or if you cannot mount the sensor coaxial to the motor shaft. Hall sensors are mounted around the motor rotor, which makes them very non-intrusive and easy to integrate. 
 
 You can find hall sensor ICs at any electronics supplier, all the way from Ebay and Aliexpress to Mouser and Digikey but also in most local electronics shops.
 

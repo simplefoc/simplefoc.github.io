@@ -301,7 +301,7 @@ Copy this code to your application and fill in the `TODO` entries with your hard
 
 There are two current sense strategies implemented in SimpleFOC:
 - **Inline Current Sense** (`InlineCurrentSense`) - For inline current sensing techniques
-- **Lowside Current Sense** (`LowsideCurrentSense`) -  For lowside current sensing techniques (requires precide ADC & PWM timing)
+- **Lowside Current Sense** (`LowsideCurrentSense`) -  For lowside current sensing techniques (requires precise ADC & PWM timing)
 
 
 Both `InlineCurrentSense` and `LowsideCurrentSense` require accurate configuration of the current sense parameters to work correctly. Either shunt resistance and amplifier gain, or the overall current sense ratio can be used.
@@ -392,7 +392,7 @@ Test that current measurements respond correctly to motor commands:
 
 **Current values are noisy but respond correctly?**
 - Check motor connections and wiring
-- If current noicy a bit, but responds to commands correctly, try increasing current filtering:
+- If current noisy a bit, but responds to commands correctly, try increasing current filtering:
 ```cpp
 motor.LPF_current_q.Tf = 0.001; // increase low-pass filter for Iq - default is 0.0005s
 motor.LPF_current_d.Tf = 0.001; // increase low-pass filter for Id - default is 0.0005s

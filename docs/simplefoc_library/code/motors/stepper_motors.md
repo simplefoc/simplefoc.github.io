@@ -224,7 +224,7 @@ Additionally <span class="simple">Simple<span class="foc">FOC</span>library</spa
 - [Velocity open-loop control](velocity_openloop)
 - [Position open-loop control](angle_openloop)
 
-The user can also add thier own custom motion control strategy by implementing the motion control callback function. Read more about it in the [motion control docs](motion_control). This mode can be selected using the `MotionControlType::custom` value of the `motor.controller` variable and by linking the motion control callback function `motor.linkCustomMotionControl(&my_motion_control_function)`.
+The user can also add their own custom motion control strategy by implementing the motion control callback function. Read more about it in the [motion control docs](motion_control). This mode can be selected using the `MotionControlType::custom` value of the `motor.controller` variable and by linking the motion control callback function `motor.linkCustomMotionControl(&my_motion_control_function)`.
 
 You set it by changing the `motor.controller` variable. 
 ```cpp

@@ -134,7 +134,7 @@ $$
 K_i = L\omega_{bw}^2, \qquad K_p = \frac{L^2 \omega_{bw}^2}{R}
 $$
 
-These are the gains that would place the poles at the desired location while also canceling the plant pole. However, this can lead to gains that are very sensitive with respect to the bandwidth and the motor parameters (since gains depens on the square of the bandwidth $$\omega_{bw}^2$$ and the inductance $$L^2$$).
+These are the gains that would place the poles at the desired location while also canceling the plant pole. However, this can lead to gains that are very sensitive with respect to the bandwidth and the motor parameters (since gains depends on the square of the bandwidth $$\omega_{bw}^2$$ and the inductance $$L^2$$).
 
 In order to simplify the design and make it more robust, an assumption is made that the bandwidth is chosen such that $$L\omega_{bw} \approx R$$, which is a reasonable condition for typical motor control applications. Under this assumption, the gains simplify to:
 
@@ -193,12 +193,12 @@ void setup() {
   motor.axis_inductance = {0.001, 0.001}; // Henries
 
   float bandwidth = _2PI*150.0; // rad/s (150 Hz)
-  // PID tunning
+  // PID tuning
   motor.PID_current_q.P = motor.axis_inductance.q * bandwidth;
   motor.PID_current_q.I = motor.phase_resistance * bandwidth;
   motor.PID_current_d.P = motor.axis_inductance.d * bandwidth;
   motor.PID_current_d.I = motor.phase_resistance * bandwidth;
-  // LPF tunning
+  // LPF tuning
   motor.LPF_current_d.Tf = 1.0f / (bandwidth * 5.0f);
   motor.LPF_current_q.Tf = 1.0f / (bandwidth * 5.0f);
 

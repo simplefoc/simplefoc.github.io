@@ -34,7 +34,7 @@ Estimated current control relies on accurate motor parameters to estimate curren
 3. **Inductance** (**Optional and not critical for basic use, but improves high-speed performance**) 
 
 
-Phase resistance and KV rating are the most important parameters for basic estimated current control. They are often specified in the datasheet or can be measured with simple tests. Inductance is less critical for basic use but can improve performance at higher speeds by compensating for back-EMF. If not available, it can be omited for basic use, but consider adding it later for better performance.
+Phase resistance and KV rating are the most important parameters for basic estimated current control. They are often specified in the datasheet or can be measured with simple tests. Inductance is less critical for basic use but can improve performance at higher speeds by compensating for back-EMF. If not available, it can be omitted for basic use, but consider adding it later for better performance.
 
 [Read more about estimated current control parameters](estimated_current_mode){: .btn .btn-docs}
 
@@ -328,7 +328,7 @@ For detailed diagnostics of each parameter, see the [full motor parameter testin
 
 
 <blockquote class="info" markdown="1"> <p class="heading">Still having issues?</p> 
-Browse throught the [SimpleFOC community forum](https://community.simplefoc.com/), there might already be a solution for your specific hardware or issue. Also don't hesitate to ask for help there!
+Browse through the [SimpleFOC community forum](https://community.simplefoc.com/), there might already be a solution for your specific hardware or issue. Also don't hesitate to ask for help there!
 </blockquote>
 
 
@@ -362,7 +362,7 @@ Now to a quick test:
 **Motor doesn't reach the target velocity?**
 - Current limit is probably too low. 
    - Increase it with `motor.updateCurrentLimit(3.0);` 
-   - Using comand interface: `MCL3.0`
+   - Using command interface: `MCL3.0`
 - Voltage limit too low (if changed but the user)
    - Increase `motor.voltage_limit` to 50-60% of your supply voltage
    - Using command interface: ex. `MLU5.0` to set the `motor.voltage_limit` to 5V
@@ -406,7 +406,7 @@ Then you can test it by sending angle commands in radians:
   - Read the P gain (typically the only one to set) with `MAP` command, and lower it gradually until the oscilations stop
 
 <blockquote class="info" markdown="1"> <p class="heading">Still having issues?</p> 
-Browse throught the [SimpleFOC community forum](https://community.simplefoc.com/), there might already be a solution for your specific hardware or issue. Also don't hesitate to ask for help there!
+Browse through the [SimpleFOC community forum](https://community.simplefoc.com/), there might already be a solution for your specific hardware or issue. Also don't hesitate to ask for help there!
 </blockquote>
 
 

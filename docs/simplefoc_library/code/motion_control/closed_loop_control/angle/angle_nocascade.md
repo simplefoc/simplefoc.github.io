@@ -20,7 +20,7 @@ This control loop allows you to set the position/angle to your motor in real-tim
 motor.controller = MotionControlType::angle_nocascade;
 ```
 
-This control mode is a lot less standard than the [**Cascaded** mode](angle_cascade_control) which is recomended using <span class="simple">Simple<span class="foc">FOC</span>library</span> The Non-cascaded mode is intended for some specific used cases where the Cascaded position control loop is not performing well. 
+This control mode is a lot less standard than the [**Cascaded** mode](angle_cascade_control) which is recommended using <span class="simple">Simple<span class="foc">FOC</span>library</span> The Non-cascaded mode is intended for some specific used cases where the Cascaded position control loop is not performing well. 
 
 ## How it works
 
@@ -48,7 +48,7 @@ And if it is any of the current torque control modes ([FOC current](foc_current_
 The angle control loop is therefore created by closing the control loop around the torque control loop directly. The controller reads the angle $$a$$ from the motor (filters is optionally) and sets the torque target ($$u_q$$ voltage or $$i_q$$ current) to the torque control loop, needed to reach the velocity $$v_d$$, set by the angle loop. 
 
 ## Control parameters
-To tune this control loop, it is recomemended to start from the lowest level loop (torque control) and then approach the angle loop. The parameters of the lower level loops will affect the performance of the angle control loop, so it is important to have them tuned before tuning the angle loop.
+To tune this control loop, it is recommended to start from the lowest level loop (torque control) and then approach the angle loop. The parameters of the lower level loops will affect the performance of the angle control loop, so it is important to have them tuned before tuning the angle loop.
 
 ### Torque loop guidance
 The torque loop parameters are the same ones used in the torque control page. In many cases you will tune them once and will not need to change them again.

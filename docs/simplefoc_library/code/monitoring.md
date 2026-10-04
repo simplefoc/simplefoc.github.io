@@ -29,7 +29,7 @@ Note: you can also use other serial ports, e.g. Serial1, Serial2, as supported b
 <blockquote class="warning" markdown=1>
 At the moment, enabling monitoring using <code class="highlighter-rouge">motor.useMonitoring</code> will <i>also</i> enable debug output - see [debugging](debugging) for details.
 
-In a future release, debug output and telemetry output will be seperated and the <code class="highlighter-rouge">motor.useMonitoring</code> function will likely be deprecated.
+In a future release, debug output and telemetry output will be separated and the <code class="highlighter-rouge">motor.useMonitoring</code> function will likely be deprecated.
 
 If the debug output is undesired or causing you problems, you can disable debug output (but keep monitoring) like this:
 </blockquote>

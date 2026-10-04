@@ -90,7 +90,7 @@ MagneticSensorPWM sensor = MagneticSensorPWM(3, 4, 904);
 void doPWM(){sensor.handlePWM();}
 ```
 
-And then, in the `setup` function, user needs to call `init()` funciton and afterwards call the `attachInterrupt` function with the buffering function in the argument. Here is an example code: 
+And then, in the `setup` function, user needs to call `init()` function and afterwards call the `attachInterrupt` function with the buffering function in the argument. Here is an example code: 
 ```cpp
 // create the class
 MagneticSensorPWM sensor = MagneticSensorPWM(3, 4, 904);

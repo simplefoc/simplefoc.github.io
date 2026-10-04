@@ -61,7 +61,7 @@ The PID controller has three key parameters: proportional gain `P`, integral gai
   
 - **Integral Gain (`I`)**: A higher `I` value speeds up the motor's response to disturbances, but excessive values can also cause instability. Setting `I` to `0` disables this part.
 
-- **Derivative Gain (`D`)**: This parameter is often the most challenging to set. It’s recommended to start with `D` at `0`, tuning `P` and `I` first. If overshoot occurs, gradually increase `D` to mitigate it. **This parameter is often not neded and can be left at `0` for many applications.**
+- **Derivative Gain (`D`)**: This parameter is often the most challenging to set. It’s recommended to start with `D` at `0`, tuning `P` and `I` first. If overshoot occurs, gradually increase `D` to mitigate it. **This parameter is often not needed and can be left at `0` for many applications.**
 
 ``` cpp
 // velocity PID controller parameters
@@ -187,7 +187,7 @@ motor.feed_forward_current.q = 0.5; // add 0.5 A to the
 motor.feed_forward_voltage.q = 1.0; // add 1 V to the voltage
 ```
 
-<blockquote class="warning" markdown="1"> <p class="heading">Be careful with feed-forward terms</p> The feed-forward terms can be very useful for improving the performance of the control loop, but they can also cause instability if not used carefully. They are intended for advanced users who have a good understanding of the system and the control loop. If you are not sure about how to use them, it is recomended not to use them.
+<blockquote class="warning" markdown="1"> <p class="heading">Be careful with feed-forward terms</p> The feed-forward terms can be very useful for improving the performance of the control loop, but they can also cause instability if not used carefully. They are intended for advanced users who have a good understanding of the system and the control loop. If you are not sure about how to use them, it is recommended not to use them.
 
 </blockquote>
 

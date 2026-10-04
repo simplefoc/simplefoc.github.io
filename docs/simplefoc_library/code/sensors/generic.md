@@ -180,7 +180,7 @@ To setup the counters and all the hardware parameters here we use the library [E
 ESP32Encoder encoder;
 // define the sensor cpr (500x4)
 int64_t cpr = 2000;
-// function intialising the sensor
+// function initializing the sensor
 void initMySensorCallback(){
   // use pin 25 and 26 (Arduino pins 2,3) for the encoder
   encoder.attachFullQuad(25, 26);

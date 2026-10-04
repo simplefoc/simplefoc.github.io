@@ -90,7 +90,7 @@ The angles in the formula are in radians, the velocity limit is in radians per s
 
 ## Configuration and Limits
 
-Open-loop position control uses the `motor.target` variable as the desired angle entry, while the `motor.velocity_limit` variable sets the maximum velocity to be used for the desired movemebnt. This mode also and uses torque limits based on your chosen [torque control mode](torque_control).
+Open-loop position control uses the `motor.target` variable as the desired angle entry, while the `motor.velocity_limit` variable sets the maximum velocity to be used for the desired movement. This mode also and uses torque limits based on your chosen [torque control mode](torque_control).
 
 ```cpp
 // setting target velocity
