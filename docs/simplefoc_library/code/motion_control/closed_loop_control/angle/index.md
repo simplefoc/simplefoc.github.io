@@ -14,7 +14,7 @@ has_children: True
 
 
 # Position control loop
-This control loop allows you to move your motor to the desired angle in real-time. There are two different stategies for this control loop:
+This control loop allows you to move your motor to the desired angle in real-time. There are two different strategies for this control loop:
 - **Standard cascade angle control** 
   - angle control loop is closing the loop around the velocity control loop, which is closing the loop around the torque control loop.
   - [Cascade angle control loop (Recommended)](angle_cascade_control){: .btn .mr-2 .btn-docs}

@@ -16,7 +16,7 @@ toc: true
 <a href ="javascript:show('s','type');" class="btn btn-type btn-s"> Stepper motors</a>
 <a href ="javascript:show('h','type');" class="btn btn-type btn-h"> Hybrid Stepper motors</a>
 
-This torque control mode allows you to the true torque control of BLDC and stepper motors. This technique **relies on a combination of position and current sensing** to rotate the magnetic field vector of the stator in sync with the rotor magnetic field and procude optimal and smooth motor torque. 
+This torque control mode allows you to the true torque control of BLDC and stepper motors. This technique **relies on a combination of position and current sensing** to rotate the magnetic field vector of the stator in sync with the rotor magnetic field and produce optimal and smooth motor torque. 
 
 ```cpp
 // FOC current torque control mode
@@ -68,7 +68,7 @@ $$
 $$
 
 
-[See a deeper dive in motor dynamics and FOC control teory](voltage_torque_control#current-based-foc-control){: .btn .btn-docs}
+[See a deeper dive in motor dynamics and FOC control theory](voltage_torque_control#current-based-foc-control){: .btn .btn-docs}
 [See a deeper dive in the FOC transformations theory](foc_theory){: .btn .btn-docs}
 
 ### Cross-coupling and lag compensation (Advanced)
@@ -106,7 +106,7 @@ motor.axis_inductance.q = L_q; // set q-axis inductance
 motor.axis_inductance.d = L_d; // set d-axis inductance (if not set only L_q will be used for compensation)
 ```
 
-[See a deeper dive in motor dynamics and FOC control teory](voltage_torque_control#current-based-foc-control){: .btn .btn-docs}
+[See a deeper dive in motor dynamics and FOC control theory](voltage_torque_control#current-based-foc-control){: .btn .btn-docs}
 
 ## Configuration & Tuning
 
@@ -147,7 +147,7 @@ The FOC current torque control mode allows you to set the target current $$i_q$$
 ```cpp
 motor.current_sp = 0.5; // set target current to 0.5 A
 ```
-This varaible is set internally in the `FOCMotor` object and should not be modified by the user. If one wants to control the torque of the motor, they should use the motion control mode `torque` and set the `target` variable.
+This variable is set internally in the `FOCMotor` object and should not be modified by the user. If one wants to control the torque of the motor, they should use the motion control mode `torque` and set the `target` variable.
 
 ```cpp
 motor.torque_controller = TorqueControlType::foc_current;
@@ -155,7 +155,7 @@ motor.controller = MotionControlType::torque;
 motor.target = 0.5; // set target torque to 0.5 Amp
 ```
 
-This current contol mode aloows the user to specify the hard limits for the d and q-axis currents, which will be applied by the torque control loop. For example, if you want to limit the current to 1 A, you can set:
+This current control mode allows the user to specify the hard limits for the d and q-axis currents, which will be applied by the torque control loop. For example, if you want to limit the current to 1 A, you can set:
 
 ```cpp
 motor.current_limit = 1.0; // set current limit to 1 A
@@ -167,7 +167,7 @@ as well as for the d and q-axis voltages to prevent the controller from applying
 motor.voltage_limit = 6.0; // set voltage limit to 6 V
 ```
 
-The prefered way of setting these values is using the setter functions
+The preferred way of setting these values is using the setter functions
 ```cpp
 motor.updateCurrentLimit(1.0); // set current limit to 1 A
 motor.updateVoltageLimit(6.0); // set voltage limit to 6 V
@@ -193,7 +193,7 @@ FOC Current mode is computationally heavy. There are a couple main reasons for t
 
 With all these factors in mind, it is recommended to use a more powerful MCU: stm32, Teensy or esp32. They have relatively higher clock speeds, efficient ADCs and in some cases even integrated floating point units, which can handle the computational load of FOC current control mode.
 
-For lower end MCUs, such as atmega328 or atmega2560 based boards, it is still possible to run FOC current control mode, but the performance may be limited. Another alternative would be to use the [estimated current control](estimated_current_torque_mode) mode, which is less computationally intensive and does not require a current sensor, but it is less accurate and robust than the FOC current control mode. Or if current limiting is the main concern, the [DC current control mode](dc_current_torque_mode) can be used, which is a simpler current control mode that does not require the Parke and Clarke transforms, but it is less efficient and smooth than the FOC current control mode.
+For lower end MCUs, such as atmega328 or atmega2560 based boards, it is still possible to run FOC current control mode, but the performance may be limited. Another alternative would be to use the [estimated current control](estimated_current_mode) mode, which is less computationally intensive and does not require a current sensor, but it is less accurate and robust than the FOC current control mode. Or if current limiting is the main concern, the [DC current control mode](dc_current_torque_mode) can be used, which is a simpler current control mode that does not require the Parke and Clarke transforms, but it is less efficient and smooth than the FOC current control mode.
 
 
 ## Torque control example code

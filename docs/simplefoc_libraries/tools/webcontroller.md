@@ -38,9 +38,9 @@ This project is still in its early stage, we are counting on your patience and l
 
 <a href ="https://webcontroller.simplefoc.com/" class="btn btn-primary"><i class="fa fa-github"></i> Open <span class="simple">Simple<span class="foc">FOC</span>webcontroller</span></a>  
 
-*Simple**FOC**WebController* does not require any installation, its only requirement is that your browser has `WebSerial` support. Check the supportedd browsers [here](https://caniuse.com/web-serial).
+*Simple**FOC**WebController* does not require any installation, its only requirement is that your browser has `WebSerial` support. Check the supported browsers [here](https://caniuse.com/web-serial).
 
-### Motion control tunning  blocks
+### Motion control tuning  blocks
 Once you have your application running in your browser, connected to your microcontroller running the <span class="simple">Simple<span class="foc">FOC</span>library</span>. You can easily change most of the control parameters of different motion control loops and visualise different monitored variables.
 
 <img src="extras/Images/webcontroller_motor.png"  class="width80">

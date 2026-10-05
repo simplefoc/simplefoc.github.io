@@ -60,7 +60,7 @@ If you are stacking the shields and you wish to use the linear regulator, make s
 
 <img src="extras/Images/v2_adc.gif" class="width30">
 
-If your microcontroller has 5V logic the chances are that its ADC operates in 5V range nad if your mcu works on 3.3V it will most probably have a 3.3V ADC range. Please check the datasheet before soldering this pad. If the ADC range has been choses to be 3.3V the maximal current that can be measured will be 3.3A bidirectional and if the rage is 5V the maximal current will be 5V bidirectional.
+If your microcontroller has 5V logic the chances are that its ADC operates in 5V range nad if your mcu works on 3.3V it will most probably have a 3.3V ADC range. Please check the datasheet before soldering this pad. If the ADC range has been chosen to be 3.3V the maximal current that can be measured will be 3.3A bidirectional and if the rage is 5V the maximal current will be 5V bidirectional.
 
 <blockquote class="info"><p class="heading">RULE OF THUMB: 3.3V or 5V</p>
 Arduino UNO - 5V range<br>

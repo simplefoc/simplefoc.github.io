@@ -192,7 +192,7 @@ Appart from setting the current setpoint, this is the same as voltage mode. It s
 
 #### Torque generation
 
-Given the traget current $$i_q$$ and the [torque equation](#torque-production), we can express the torque in terms of the applied voltage $$u_q$$:
+Given the target current $$i_q$$ and the [torque equation](#torque-production), we can express the torque in terms of the applied voltage $$u_q$$:
 
 $$
 \tau = K_t i_q = \frac{K_t}{R} u_q
@@ -252,7 +252,7 @@ Where $$K_e =  \frac{30}{\pi}\frac{1}{KV\cdot k_{factor}}$$ and $$k_{factor} = \
 #### Torque generation
 {: #torque-generation-level-2}
 
-Given the traget current $$i_q$$ and the [torque equation](#torque-production), we can express the torque in terms of the applied voltage $$u_q$$ and back-EMF compensation:
+Given the target current $$i_q$$ and the [torque equation](#torque-production), we can express the torque in terms of the applied voltage $$u_q$$ and back-EMF compensation:
 
 $$
 \tau = K_t i_q = \frac{K_t}{R} (i_q R + U_{bemf}) = K_t i_q + \frac{K_t}{R} U_{bemf}
@@ -386,7 +386,7 @@ $$
 \Delta i_q = \frac{L_q}{R} \cdot \frac{di_q}{dt}
 $$
 
-This error decays with time electical constant $$\tau = L_q/R$$.
+This error decays with time electrical constant $$\tau = L_q/R$$.
 
 This factor could potentially be compensated for by adding a feedforward term based on the desired acceleration, but this is not currently implemented in the library. 
 
@@ -417,7 +417,7 @@ $$
 
 The q-axis voltage is calculated by a PI controller that takes the error between the desired q-axis current setpoint $$i_{q}$$ and the measured q-axis current $$\hat{i}_q$$. The output of this controller is the voltage command $$u_q$$ that will be applied to the motor to minise this error. Basically maintainig $$i_q = \hat{i}_q$$.
 
-This loop ensures that the actual current $$\hat{i}_q$$ (and therefore torque) closely follows the desired setpoint $$i_q$$, regardless of the motor's electrical characteristics (Back-EMF, cross-coupling and inductuve lags). This means that the actual torque output will closely match the target torque set by the user, even at high speeds and during rapid torque changes. 
+This loop ensures that the actual current $$\hat{i}_q$$ (and therefore torque) closely follows the desired setpoint $$i_q$$, regardless of the motor's electrical characteristics (Back-EMF, cross-coupling and inductive lags). This means that the actual torque output will closely match the target torque set by the user, even at high speeds and during rapid torque changes. 
 
 $$
 \hat{\tau} = K_t \cdot \hat{i}_q = K_t \cdot i_q = \tau
@@ -427,7 +427,7 @@ Of course the relationship $$i_q = \hat{i}_q$$ is not perfect due to the dynamic
 
 **D-axis loop:** Maintains zero d-axis current (field alignment)
 
-The d-axis controller hass a different role. The magnetic flux in d-axis is traditionally used to generate magnetic field in the rotor  (for AC motors which dont have permanent magnets). For steppers and BLDC motors, which have permanent magnets, there is no point of generating additional magnetic field, so the d-axis current $$i_d$$ is controlled to zero to maximize torque efficiency. 
+The d-axis controller has a different role. The magnetic flux in d-axis is traditionally used to generate magnetic field in the rotor  (for AC motors which don't have permanent magnets). For steppers and BLDC motors, which have permanent magnets, there is no point of generating additional magnetic field, so the d-axis current $$i_d$$ is controlled to zero to maximize torque efficiency. 
 
 $$
 u_d = \text{PI}_d(i_d - \hat{i}_d) = \text{PI}_d(-\hat{i}_d)
@@ -462,7 +462,7 @@ u_d &= \text{PI}_d(-\hat{i}_d) - v_e \cdot L_q \cdot i_q
 \end{align}
 $$
 
-This compensation allows for better torque control especially in highy dynamical applications. Where the requested torque changes rapidly and the motor operates at high speeds, the inductive lag and cross-coupling effects become more pronounced. By compensating for these effects, the controller can maintain accurate torque output even under demanding conditions.
+This compensation allows for better torque control especially in highly dynamical applications. Where the requested torque changes rapidly and the motor operates at high speeds, the inductive lag and cross-coupling effects become more pronounced. By compensating for these effects, the controller can maintain accurate torque output even under demanding conditions.
 
 If the motor inductance values are not provided, the library will still perform current control but without the feedforward compensation, which may result in reduced performance at high speeds. 
 

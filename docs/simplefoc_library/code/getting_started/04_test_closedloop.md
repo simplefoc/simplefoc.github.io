@@ -384,14 +384,14 @@ Then use `M<value>` to set target:
 
 
 <blockquote class="info" markdown="1"> <p class="heading">Still having issues?</p> 
-Browse throught the [SimpleFOC community forum](https://community.simplefoc.com/), there might already be a solution for your specific hardware or issue. Also don't hesitate to ask for help there!
+Browse through the [SimpleFOC community forum](https://community.simplefoc.com/), there might already be a solution for your specific hardware or issue. Also don't hesitate to ask for help there!
 </blockquote>
 
 
 
 ## What's Next?
 
-You now have a fully functional voltage based control system! If the perfrormance of this control mode is sufficient for your application, you can start building on top of it with motion profiles, trajectory planning, and higher level feedback loops.
+You now have a fully functional voltage based control system! If the performance of this control mode is sufficient for your application, you can start building on top of it with motion profiles, trajectory planning, and higher level feedback loops.
 
 ### For Robotics/Automation
 - See [Motion Control docs](closed_loop_motion_control)

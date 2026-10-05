@@ -129,8 +129,8 @@ The motion control interface enables user to control every aspect of the motion 
   - `2` - foc_current 
   - `3` - estimated_current
 - **E** - Motor status (enable/disable)
-  - `0` - enable    
-  - `1` - disable  
+  - `0` - disable    
+  - `1` - enable  
 - **else** - Target setting interface - [see motion control target](#target-setting-in-one-line) <br> 
     Depends of the motion control mode:
     - torque mode - torque target (ex. `M2.5`) 

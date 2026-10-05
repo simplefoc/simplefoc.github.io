@@ -25,7 +25,7 @@ Core concepts and math behind the Arduino <span class="simple">Simple<span class
 
 - [Low-pass filter theory](lpf_implementation#filter-equation) — filter equation and implementation.
 - [PID controller theory](pid_implementation#control-equation) — control equation and implementation.
-- [Tunning the current control loop](tuning_current_loop#suggested-tuning-strategy) — pole placement method for tuning current loop.
+- [Tuning the current control loop](tuning_current_loop#suggested-tuning-strategy) — pole placement method for tuning current loop.
 
 ## Alignment procedures
 

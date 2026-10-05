@@ -343,7 +343,7 @@ void loop() {
 This is an example initialisation of a 14 bit SPI based magnetic sensor such as the <a href="https://www.mouser.fr/ProductDetail/ams/AS5X47U-TS_EK_AB?qs=sGAEpiMZZMve4%2FbfQkoj%252BBDLPCj82ZLyYIPEtADg0FE%3D">AS5047u <i class="fa fa-external-link"></i></a>, connected to pin `10`.<br>
 Magnetic sensors using the SPI protocol are implemented in the class `MagneticSensorSPI` and are defined with their
  - `chip_select` pin: `10`
- - bit resoluion of the sensor overall `12`  the `CPR` can be calculated as `CPR = 2^14bit =16384`
+ - bit resolution of the sensor overall `12`  the `CPR` can be calculated as `CPR = 2^14bit =16384`
  - `angle` SPI register: `0x3FFF`
 
 </div>

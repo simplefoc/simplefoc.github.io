@@ -28,7 +28,7 @@ Here is an example of the connection scheme using the SimpleFOCShield and Nucleo
 
 
 ## Nema 17 stepper motor connection using 3 phases 
-As nema 17 steppers have 2 phases and 4 wires, we need to transform them to 3 phases to connect them to the <span class="simple">Simple<span class="foc">FOC</span>Shiled</span>. So we will connect one wire from each phase to the shield spearately and the third wire of each phase will be connected together to the common phase. 
+As nema 17 steppers have 2 phases and 4 wires, we need to transform them to 3 phases to connect them to the <span class="simple">Simple<span class="foc">FOC</span>Shield</span>. So we will connect one wire from each phase to the shield separately and the third wire of each phase will be connected together to the common phase. 
 
 Pin | Nema 17 wire | Shield phase
 --- | --- | ---

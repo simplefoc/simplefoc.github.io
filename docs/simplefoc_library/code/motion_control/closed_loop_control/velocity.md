@@ -61,7 +61,7 @@ The PID controller has three key parameters: proportional gain `P`, integral gai
   
 - **Integral Gain (`I`)**: A higher `I` value speeds up the motor's response to disturbances, but excessive values can also cause instability. Setting `I` to `0` disables this part.
 
-- **Derivative Gain (`D`)**: This parameter is often the most challenging to set. It’s recommended to start with `D` at `0`, tuning `P` and `I` first. If overshoot occurs, gradually increase `D` to mitigate it. **This parameter is often not neded and can be left at `0` for many applications.**
+- **Derivative Gain (`D`)**: This parameter is often the most challenging to set. It’s recommended to start with `D` at `0`, tuning `P` and `I` first. If overshoot occurs, gradually increase `D` to mitigate it. **This parameter is often not needed and can be left at `0` for many applications.**
 
 ``` cpp
 // velocity PID controller parameters
@@ -103,13 +103,13 @@ The PID gains and the low-pass filter time constant are the most important param
 ### Motion control frequency
 
 
-By default, the velocity control loop runs at the same frequency $$f_{MC}$$ as the torque control loop $$f_{TC}$$, which is typically around `1-10 kHz`. However, in some cases, you may want to run the velocity control loop at a lower frequency than the torque control loop. In that case you can use the `motion_downsampling` parameter of the motor. 
+By default, the velocity control loop runs at the same frequency $$f_{MC}$$ as the torque control loop $$f_{TC}$$, which is typically around `1-10 kHz`. However, in some cases, you may want to run the velocity control loop at a lower frequency than the torque control loop. In that case you can use the `motion_downsample` parameter of the motor. 
 
-For example, setting `motion_downsampling` to `10` will run the velocity control loop at `100 Hz` while the torque control loop runs at `1 kHz`: 
+For example, setting `motion_downsample` to `10` will run the velocity control loop at `100 Hz` while the torque control loop runs at `1 kHz`: 
 ```cpp
-motor.motion_downsampling = 10; // run velocity loop at 10 times lower frequency than torque loop
+motor.motion_downsample = 10; // run velocity loop at 10 times lower frequency than torque loop
 ```
-In other words, the velocity control loop will run at a frequency of $$f_{MC} = \frac{f_{TC}}{\texttt{motion_downsampling}}$$, meaning that the `motor.move()` function will be called every `motion_downsampling` number of `motor.loopFOC()` calls.
+In other words, the velocity control loop will run at a frequency of $$f_{MC} = \frac{f_{TC}}{\texttt{motion_downsample}}$$, meaning that the `motor.move()` function will be called every `motion_downsample` number of `motor.loopFOC()` calls.
 
 ### Control Parameters Overview
 
@@ -122,7 +122,7 @@ In other words, the velocity control loop will run at a frequency of $$f_{MC} = 
 | Output Ramp      | `motor.PID_velocity.output_ramp` | Limits how quickly the output can change.            | NOT_SET             | $$\frac{V}{s}$$ or $$\frac{A}{s}$$    |
 | Limit            | `motor.PID_velocity.limit` | Restricts the output of the PID controller.          | NOT_SET       | $$V$$ or $$A$$        |
 | Sampling Time    | `motor.PID_velocity.sampling_time` | Sets the sampling time for the PID controller.       | NOT_SET       | $$s$$            |
-| Motion downsampling | `motor.motion_downsampling` | Run velocity loop at lower frequency than torque loop. | 1 | - |
+| Motion downsampling | `motor.motion_downsample` | Run velocity loop at lower frequency than torque loop. | 0 | - |
 
 
 For more theoretical insights and source code documentation, refer to the [digging deeper section](digging_deeper).
@@ -187,7 +187,7 @@ motor.feed_forward_current.q = 0.5; // add 0.5 A to the
 motor.feed_forward_voltage.q = 1.0; // add 1 V to the voltage
 ```
 
-<blockquote class="warning" markdown="1"> <p class="heading">Be careful with feed-forward terms</p> The feed-forward terms can be very useful for improving the performance of the control loop, but they can also cause instability if not used carefully. They are intended for advanced users who have a good understanding of the system and the control loop. If you are not sure about how to use them, it is recomended not to use them.
+<blockquote class="warning" markdown="1"> <p class="heading">Be careful with feed-forward terms</p> The feed-forward terms can be very useful for improving the performance of the control loop, but they can also cause instability if not used carefully. They are intended for advanced users who have a good understanding of the system and the control loop. If you are not sure about how to use them, it is recommended not to use them.
 
 </blockquote>
 
@@ -228,7 +228,7 @@ void setup() {
   // set motion control loop to be used
   motor.controller = MotionControlType::velocity;
   // set torque control mode
-  motor.control_type = TorqueControlType::estimated_current; 
+  motor.torque_controller = TorqueControlType::estimated_current; 
 
   // velocity PID controller parameters
   // default P=0.5 I = 10 D =0
@@ -299,7 +299,7 @@ void setup() {
   // set motion control loop to be used
   motor.controller = MotionControlType::velocity;
   // set torque control mode
-  motor.control_type = TorqueControlType::estimated_current; 
+  motor.torque_controller = TorqueControlType::estimated_current; 
 
   // velocity PID controller parameters
   // default P=0.5 I = 10 D =0

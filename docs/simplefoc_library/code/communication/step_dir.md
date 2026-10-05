@@ -34,7 +34,7 @@ In order to do this in a more concise manner <span class="simple">Simple<span cl
 // - step_per_rotation - transformation variable from step count to your variable (ex. motor angle in radians)
 StepDirListener step_dir = StepDirListener( 2, 5, _2PI/200.0 );
 ```
-Once the `StepDirListener` class has been defined its hardware pins will be configured in the `init()` funciton which  needs to be added to the `setup()` function.
+Once the `StepDirListener` class has been defined its hardware pins will be configured in the `init()` function which  needs to be added to the `setup()` function.
 
 ```cpp
 // init step and dir pins
@@ -94,10 +94,10 @@ void setup() {
   // enable interrupts 
   step_dir.enableInterrupt(onStep);
   // attach the variable to be updated on each step (optional) 
-  // the same can be done asynchronously by caling step_dir.getValue();
+  // the same can be done asynchronously by calling step_dir.getValue();
   step_dir.attach(&received_angle);
     
-  Serial.println(F("Step/Dir listenning."));
+  Serial.println(F("Step/Dir listening."));
   _delay(1000);
 }
 

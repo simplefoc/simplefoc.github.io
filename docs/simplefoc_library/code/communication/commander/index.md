@@ -50,7 +50,7 @@ When the commander received the string:
 
 <img src="extras/Images/cmd1.png" class="width20">
 
-It first checks the command id, identifies its `M` and sends the remaining string to the motor handling callback. Then the motor callback checks what is the coommand id, finds `V` and sends the remaining string to the PID velocity callbacK. Then the PID velocity callback scans the command id and finds it is the `D`, so derivative gain and sets the value.
+It first checks the command id, identifies its `M` and sends the remaining string to the motor handling callback. Then the motor callback checks what is the command id, finds `V` and sends the remaining string to the PID velocity callbacK. Then the PID velocity callback scans the command id and finds it is the `D`, so derivative gain and sets the value.
 
 Commander | Motor callback (cmd id `M` )  | PID callback (cmd id `V` ) 
 --- | ---| ---
@@ -275,14 +275,14 @@ Once the commander interface is added to the code you will be able to communicat
 
 <img src="extras/Images/commander.png">
 
-Commander paramters in the serial monitor are the same as for every other Arduino code working with the `Serial`. 
+Commander parameters in the serial monitor are the same as for every other Arduino code working with the `Serial`. 
 Make sure to:
-- Set the baudrate number the same as in the `ino` file : for examle if in the `ino` file you have `Serial.begin(115200)`, the baud rate should be `115200`
+- Set the baudrate number the same as in the `ino` file : for example if in the `ino` file you have `Serial.begin(115200)`, the baud rate should be `115200`
 - Make sure to set the termination character to `newline`
 
 ## *Simple**FOC**Studio* by [@JorgeMaker](https://github.com/JorgeMaker)
 
-SimpleFOCStudio is an awesome application built by [@JorgeMaker](https://github.com/JorgeMaker) which we will try to keep up to date with out library. It is a python application that uses commander interface for tunning and configuring the motor. 
+SimpleFOCStudio is an awesome application built by [@JorgeMaker](https://github.com/JorgeMaker) which we will try to keep up to date with out library. It is a python application that uses commander interface for tuning and configuring the motor. 
 
 <img src="https://raw.githubusercontent.com/JorgeMaker/SimpleFOCStudio/main/DOC/new_gif.gif" class="width80">
 

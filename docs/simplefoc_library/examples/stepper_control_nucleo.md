@@ -128,7 +128,7 @@ void loop() {
 
   // iterative function setting the outter loop target
   // velocity, position or voltage
-  // if tatget not set in parameter uses motor.target variable
+  // if target not set in parameter uses motor.target variable
   motor.move();
 
   // user communication

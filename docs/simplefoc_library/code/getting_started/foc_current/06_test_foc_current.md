@@ -16,7 +16,7 @@ toc: true
 
 This guide shows how to switch from voltage-based to **current-based torque control**. This enables precise current limiting and the smoothest motor control.
 
-[Read more about FOC current torque mode](foc_current_mode){: .btn .btn-docs}
+[Read more about FOC current torque mode](foc_current_torque_mode){: .btn .btn-docs}
 
 ## Prerequisites
 
@@ -123,7 +123,7 @@ Test that the motor responds correctly to current commands.
 **Current control feels jerky or unstable?**
 - Check that `motor.initFOC()` completed successfully
 - Ensure current sensing is working well [(from Step 5)](test_current)
-- Reduce serial output frequency (e.g., `motor.monitor_downsampling = 500;` or in commander: `MMD500`)
+- Reduce serial output frequency (e.g., `motor.monitor_downsample = 500;` or in commander: `MMD500`)
 - If none of the other troubleshooting steps work, the issue are probably PID parameters 
    - Quick fix: Try lowering `motor.PID_current_q.P` and ``motor.PID_current_q.P` values (e.g., 5.0, 3.0, etc.) - using commande `MQP5` and `MDP5` 
    - For detailed tuning, see the [Current loop PID tuning guide](tuning_current_loop)

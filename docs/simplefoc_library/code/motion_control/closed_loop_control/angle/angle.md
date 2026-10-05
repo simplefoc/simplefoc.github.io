@@ -47,7 +47,7 @@ And if it is any of the current torque control modes (FOC current, DC current or
 The angle control loop is therefore created by adding one more control loop in cascade on the [velocity control loop](velocity_loop) like showed on the figure above. The loop is closed by using additional PID controller and an optional low pass filter. The controller reads the angle $$a$$ from the motor (filters is optionally) and determines which velocity $$v_d$$ the motor should move to reach the desired angle $$a_d$$ set by the user. And then the velocity controller reads the current filtered velocity from the motor $$v_f$$ and sets the torque target ($$u_q$$ voltage or $$i_q$$ current) to the torque control loop, needed to reach the velocity $$v_d$$, set by the angle loop. 
 
 ## Control parameters
-To tune this control loop, it is recomemended to start from the lowest level loop (torque control) and then move up to the velocity loop and then finish with the angle loop. The parameters of the lower level loops will affect the performance of the angle control loop, so it is important to have them tuned before tuning the angle loop.
+To tune this control loop, it is recommended to start from the lowest level loop (torque control) and then move up to the velocity loop and then finish with the angle loop. The parameters of the lower level loops will affect the performance of the angle control loop, so it is important to have them tuned before tuning the angle loop.
 
 ### Torque loop guidance
 The torque loop parameters are the same ones used in the torque control page. In many cases you will tune them once and will not need to change them again.
@@ -104,13 +104,13 @@ The P gain is the most important parameter to tune and the one that will have th
 
 ### Motion control frequency
 
-By default, the motion control loop runs at the same frequency $$f_{MC}$$ as the torque control loop $$f_{TC}$$, which is typically around `1-10 kHz`. However, in some cases, you may want to run the motion control loop at a lower frequency than the torque control loop. In that case you can use the `motion_downsampling` parameter of the motor. 
+By default, the motion control loop runs at the same frequency $$f_{MC}$$ as the torque control loop $$f_{TC}$$, which is typically around `1-10 kHz`. However, in some cases, you may want to run the motion control loop at a lower frequency than the torque control loop. In that case you can use the `motion_downsample` parameter of the motor. 
 
-For example, setting `motion_downsampling` to `10` will run the velocity control loop at `100 Hz` while the torque control loop runs at `1 kHz`: 
+For example, setting `motion_downsample` to `10` will run the velocity control loop at `100 Hz` while the torque control loop runs at `1 kHz`: 
 ```cpp
-motor.motion_downsampling = 10; // run velocity loop at 10 times lower frequency than torque loop
+motor.motion_downsample = 10; // run velocity loop at 10 times lower frequency than torque loop
 ```
-In other words, the velocity control loop will run at a frequency of $$f_{MC} = \frac{f_{TC}}{\texttt{motion_downsampling}}$$, meaning that the `motor.move()` function will be called every `motion_downsampling` number of `motor.loopFOC()` calls.
+In other words, the velocity control loop will run at a frequency of $$f_{MC} = \frac{f_{TC}}{\texttt{motion_downsample}}$$, meaning that the `motor.move()` function will be called every `motion_downsample` number of `motor.loopFOC()` calls.
 
 ### Control parameters overview
 
@@ -123,7 +123,7 @@ In other words, the velocity control loop will run at a frequency of $$f_{MC} = 
 | Angle `P` | `motor.P_angle.P` | Responsiveness of position control. | 20.0 | $$\frac{1}{s}$$ |
 | Angle filter `Tf` | `motor.LPF_angle.Tf` | Low-pass filtering of angle. | 0.0 | $$s$$ |
 | Angle output ramp | `motor.P_angle.output_ramp` | Acceleration limit. | 1e6 | $$\frac{rad}{s^2}$$ |
-| Motion downsampling | `motor.motion_downsampling` | Run angle loop at lower frequency than torque loop. | 1 | - |
+| Motion downsampling | `motor.motion_downsample` | Run angle loop at lower frequency than torque loop. | 0 | - |
 
 For more theory about this approach and the source code documentation check the digging deeper section.
 
@@ -183,7 +183,7 @@ motor.feed_forward_current.q = 0.5; // add 0.5 A to the
 motor.feed_forward_voltage.q = 1.0; // add 1 V to the voltage
 ```
 
-<blockquote class="warning" markdown="1"> <p class="heading">Be careful with feed-forward terms</p> The feed-forward terms can be very useful for improving the performance of the control loop, but they can also cause instability if not used carefully. They are intended for advanced users who have a good understanding of the system and the control loop. If you are not sure about how to use them, it is recomended not to use them.
+<blockquote class="warning" markdown="1"> <p class="heading">Be careful with feed-forward terms</p> The feed-forward terms can be very useful for improving the performance of the control loop, but they can also cause instability if not used carefully. They are intended for advanced users who have a good understanding of the system and the control loop. If you are not sure about how to use them, it is recommended not to use them.
 
 </blockquote>
 

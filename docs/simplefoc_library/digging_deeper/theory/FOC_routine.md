@@ -80,7 +80,7 @@ The motor rotor has permanent magnets that generate stationary magnetic field wh
 
 <img src="extras/Images/frames.png" >
 
-Then we can define three different reference frames that will be used in the FOC control. One signle current vector with magnitude $$I$$ and angle $$\theta$$ can be represented in any of them. See the image below.
+Then we can define three different reference frames that will be used in the FOC control. One single current vector with magnitude $$I$$ and angle $$\theta$$ can be represented in any of them. See the image below.
 
 <img src="extras/Images/curr_frame.png" >
 

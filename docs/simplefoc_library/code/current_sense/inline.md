@@ -194,7 +194,7 @@ else{
   return;
 }
 ```
-Once when your current sense has been intialised and calibrated you can start measuring the currents!
+Once when your current sense has been initialized and calibrated you can start measuring the currents!
 
 ### Enable debugging output
 If you wish to see a more verbose debugging output of the current sense configuration during the `current_sense.init()` and see more details about the configuration and possible errors, you can use the `SimpleFOCDebug` class. 
@@ -295,7 +295,7 @@ void loop(){
   motor.initFOC();
 }
 ```
-Function `initFOC()` will make sure that the `driver` and `current_sense` classes are both aligned, it is very important that the phase `A` of the current sense is exactly the phase `A` of the driver etc. To verify this, the `initFOC` will be calling the current sense's funciton `current_sense.driverAlign(...)`.
+Function `initFOC()` will make sure that the `driver` and `current_sense` classes are both aligned, it is very important that the phase `A` of the current sense is exactly the phase `A` of the driver etc. To verify this, the `initFOC` will be calling the current sense's function `current_sense.driverAlign(...)`.
 
 
 ### Alignment with the driver phases `driverAlign(...)`

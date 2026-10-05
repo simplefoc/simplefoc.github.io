@@ -127,4 +127,4 @@ BLDCDriver3PWM driver1 = BLDCDriver3PWM(9, 10, 6, 8);
 BLDCDriver3PWM driver2 = BLDCDriver3PWM(3, 5, 13, 7);
 ```
 
-<blockquote class="info"><p class="heading">Pin 13 or pin 11</p> We advise you to try first with the  pin 13 configured and then with pin 11 if this does not work. Tested boards are Nucleo-F401RE - pin 13 works / pin 11 doesn't and  Nucleo-F466RE pin 11 works/ pin 13 doesnt.</blockquote>
+<blockquote class="info"><p class="heading">Pin 13 or pin 11</p> We advise you to try first with the  pin 13 configured and then with pin 11 if this does not work. Tested boards are Nucleo-F401RE - pin 13 works / pin 11 doesn't and  Nucleo-F466RE pin 11 works/ pin 13 doesn't.</blockquote>
