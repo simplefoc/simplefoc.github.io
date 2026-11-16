@@ -37,6 +37,41 @@ This driver is not suitable for very low resistance BLDC motors, typically those
 This driver's max current is around 8A, so take this in consideration when selecting motors and operating conditions.
 </blockquote>
 
+## Magnet and mounting
+
+The MT6701 magnetic encoder sits on the **bottom side** of the board, in the centre. The board mounts on the back of the motor with the sensor facing the motor shaft, and a magnet on the end of the shaft gives the position of the rotor.
+
+### The magnet
+
+Use a **6mm diametrically magnetized magnet**: the north and south poles are on the two halves of the round face, so the field rotates as the shaft turns.
+
+<blockquote class="warning" markdown="1"><p class="heading">Diametric, not axial</p>
+Axially magnetized magnets (poles on the two flat faces) look exactly the same, but they won't work: the field doesn't change as the magnet turns, so the sensor can't measure the angle. Always check the magnetization when buying magnets.
+</blockquote>
+
+Fix the magnet to the end of the motor shaft, for example with a drop of glue or with a 3D-printed holder. Steel shafts hold the magnet magnetically, but glue is still recommended so it can't move during operation.
+
+### Air gap and centring
+
+- **Air gap**: keep **1-2mm** between the magnet and the sensor chip. Too far, and the field is too weak for a reliable reading. Too close, and the magnet may touch the board when the motor heats up or vibrates.
+- **Centring**: the magnet should be centred right under the sensor. A small offset adds a periodic error to the measured angle, which shows up as torque ripple and noise in velocity control.
+
+Small leftover centring errors can be compensated in software with the `CalibratedSensor` from the SimpleFOCDrivers library, see [calibrating the sensor](microspora_code#calibrating-the-sensor).
+
+If the sensor reads nothing or `initFOC()` fails, check the magnet first: wrong magnetization, too large a gap or a badly centred magnet are the most common causes. Use the [sensor test](microspora_code#step-1-testing-the-sensor) to check the readings before running the motor.
+
+### Mounting the board
+
+<img src="https://raw.githubusercontent.com/simplefoc/SimpleFOC-microspora/main/images/holes.png" class="width50" alt="Microspora mounting holes"/>
+
+The board can be mounted using the three mounting slots, which accept M2 and M3 screws. They allow the board to be attached directly to the back of many common motors, at a distance that sets the air gap to the magnet. If the hole distances do not match your motor, a simple 3D-printed adapter can be used instead.
+
+The minimal hole distance is 22mm (corresponding to the holes of GM2804 and GM5208 motors), and the maximal hole distance is 28mm (corresponding to the holes of GM4108 motors).
+
+<img style="height:200px" src="https://raw.githubusercontent.com/simplefoc/SimpleFOC-microspora/main/images/gim_big.jpg" alt="Microspora on a large gimbal motor"/><img style="height:200px" src="https://raw.githubusercontent.com/simplefoc/SimpleFOC-microspora/main/images/gim_med.jpg" alt="Microspora on a medium gimbal motor"/><img style="height:200px" src="https://raw.githubusercontent.com/simplefoc/SimpleFOC-microspora/main/images/nema.jpg" alt="Microspora on a NEMA17 stepper"/>
+
+When designing an adapter or enclosure, you can use the [3D model of the board](https://github.com/simplefoc/SimpleFOC-microspora/tree/main/3d%20model) (STEP format) to get the sensor position and the air gap right.
+
 ## Power supply
 
 The board allows a range of power-supply voltage from **8-35V DC**. 
@@ -103,20 +138,6 @@ The board has the following LEDs:
 - **User LED**: A LED on PC6, can be controlled by the user.
 
 But you can also add many more using auxiliary JST connectors, especially if using STEMMA QT or Qwiic compatible devices.
-
-## Mounting the board
-
-<img src="https://raw.githubusercontent.com/simplefoc/SimpleFOC-microspora/main/images/holes.png" class="width50" alt="Microspora mounting holes"/>
-
-The board can be mounted using the three mounting slots that are made to accept M2 and M3 screws. They allow the board to be securely attached to a surface or enclosure of many common motors. And if the hole distances do not match your motor, a simple 3d printed adapter can be used to align the mounting holes properly.
-
-The minimal hole distance is 22mm (corresponding to the holes of GM2804 and GM5208 motors), and the maximal hole distance is 28mm (corresponding to the holes of GM4108 motors).
-
-
-<img style="height:200px" src="https://raw.githubusercontent.com/simplefoc/SimpleFOC-microspora/main/images/gim_big.jpg" /><img style="height:200px" src="https://raw.githubusercontent.com/simplefoc/SimpleFOC-microspora/main/images/gim_med.jpg" /><img style="height:200px" src="https://raw.githubusercontent.com/simplefoc/SimpleFOC-microspora/main/images/nema.jpg" />
-
-You can find a 3d model of the board in the github repository [here](https://github.com/simplefoc/SimpleFOC-microspora).
-
 
 ## Programming the board
 

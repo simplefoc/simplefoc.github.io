@@ -54,7 +54,7 @@ void loop() {
 }
 ```
 
-Turn the motor by hand. The angle should change smoothly and increase by about 6.28 (2π) per turn. Make sure there is a diametrically magnetized magnet on the motor shaft, centred above the sensor.
+Turn the motor by hand. The angle should change smoothly and increase by about 6.28 (2π) per turn. Make sure there is a 6mm diametrically magnetized magnet on the motor shaft, centred under the sensor with a 1-2mm gap, see [magnet and mounting](microspora_connection#magnet-and-mounting).
 
 [Read more about testing the sensor](test_sensor){: .btn .btn-docs}
 
