@@ -24,7 +24,7 @@ The board is a fork of the [MicroSpora board by RamBros](https://github.com/ramb
 
 📢 Available now from **Makerfabs**: [See more on makerfabs.com](https://www.makerfabs.com/simplefoc-microspora.html)
 
-[Get started with your microspora board](microspora_connection){: .btn .btn-primary}
+[Get started with your microspora board](microspora_connection){: .btn .btn-docs}
 
 ## Features
 
