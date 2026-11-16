@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Fabrication
+title: Mini Fabrication
 description: "Arduino SimpleFOCMini board fabrication"
 parent: <span class="simple">Simple<span class="foc">FOC</span>Mini</span>
 grand_parent: <span class="simple">Simple<span class="foc">FOC</span> Boards</span>

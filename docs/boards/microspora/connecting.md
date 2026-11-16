@@ -20,7 +20,7 @@ toc: true
 
 ## Motor connection
 
-The board supports both BLDC motors and stepper motors through the hybris stepper mode. 
+The board supports both BLDC motors and stepper motors through the hybrid stepper mode. 
 
 <img src="./extras/Images/microspora_m1.png" class="width40" alt="Microspora motor connection"/>
 
@@ -28,12 +28,12 @@ Using BLDC motors is easy with this board, simply connect the three motor phases
 
 <img src="./extras/Images/microspora_m2.png" class="width40" alt="Microspora motor connection"/>
 
-For steppers, first indentify the phases A and B of the motor. Then connect the A+ and B+ to the outside motor terminals, while the A- and B- are connected together to the inside motor terminal.
+For steppers, first identify the phases A and B of the motor. Then connect the A+ and B+ to the outside motor terminals, while the A- and B- are connected together to the inside motor terminal.
 
 [Read a deeper dive in Hybrid Stepper mode](hybrid_stepper_theory){: .btn .btn-docs}
 
 <blockquote class="warning"> <p class="heading">Motor phase resistance considerations.</p> 
-This driver is not suitable for very low resistance BLDC motors, typically those below 0.1Ω. The RDS(on) of the DRV8316 MOSFETs can is around 100mΩ which is comparable to the high-power BLDC motors and can cause significant heating and power loss.
+This driver is not suitable for very low resistance BLDC motors, typically those below 0.1Ω. The RDS(on) of the DRV8316 MOSFETs is around 100mΩ which is comparable to the high-power BLDC motors and can cause significant heating and power loss.
 This driver's max current is around 8A, so take this in consideration when selecting motors and operating conditions.
 </blockquote>
 
@@ -55,7 +55,7 @@ The board has two 3-pin JST connectors for CAN daisy chaining. They are electric
 | 2 | CAN_H |
 | 3 | CAN_L |
 
-Use a 120Ω termination resistor at the physical ends of the CAN network. To disable the termination resistor, use a sharp exact o knife to cut the trace connecting the resistor. You can always re-enable it by soldering the solder pad back together.
+Use a 120Ω termination resistor at the physical ends of the CAN network. To disable the termination resistor, use a sharp hobby knife (e.g. X-Acto) to cut the trace connecting the resistor. You can always re-enable it by soldering the solder pad back together.
 
 The firmware examples use a 1Mbps CAN bus and include Python scripts for scanning the bus and sending motor commands. See the [CAN scripts](https://github.com/simplefoc/microspora_simplefoc_firmware/tree/main/can_scripts).
 
@@ -76,11 +76,11 @@ The 6-pin JST header exposes SPI3. This bus is shared with the DRV8316 driver, s
 | Pin | Signal | Function |
 | --- | --- | --- |
 | 1 | GND | Ground |
-| 2 | PB5 | MOSI |
-| 3 | PB4 | MISO |
-| 4 | PC10 | SCK |
-| 5 | PC11 | CS |
-| 6 | 3.3V | 3.3V output |
+| 2 | 3.3V | 3.3V output |
+| 3 | PB5 | MOSI |
+| 4 | PB4 | MISO |
+| 5 | PC10 | SCK |
+| 6 | PC11 | CS |
 
 ## 5-pin multifunction header
 
@@ -118,17 +118,8 @@ The minimal hole distance is 22mm (corresponding to the holes of GM2804 and GM52
 You can find a 3d model of the board in the github repository [here](https://github.com/simplefoc/SimpleFOC-microspora).
 
 
-## Programming the board in DFU mode
+## Programming the board
 
-<img src="./extras/Images/dfu_btns.png" class="width60" alt="Microspora  DFU buttons"/>
+The board is programmed over USB-C in DFU mode, no external programmer needed. See the toolchain guide for PlatformIO and Arduino IDE setup and the DFU steps.
 
-The board firmware can be built with [PlatformIO](https://platformio.org/) and or Arduino IDE. But in order to flash the 
-firmware the board needs to be in the DFU mode. To do so follow these steps:
-
-1. Connect the board to the computer using USB-C.
-2. Enter DFU mode: hold **BOOT**, press and release **RESET**, wait one or two seconds, then release **BOOT**.
-3. Upload the firmware from PlatformIO.
-
-An example firmware for the Microspora board can be found in the [Microspora firmware repository](https://github.com/simplefoc/microspora_simplefoc_firmware). The reference firmware runs the FOC loop from a 10kHz hardware-timer interrupt. Serial monitoring uses 250000 baud. The board also exposes the SimpleFOC Commander interface and optional SimpleFOC CAN communication.
-
-[Write your own firmware for the Microspora board](microspora_code){: .btn .btn-docs}
+[Toolchain and flashing](microspora_setup){: .btn .btn-docs} [Write your own firmware](microspora_code){: .btn .btn-docs}

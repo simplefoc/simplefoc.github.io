@@ -5,7 +5,7 @@ parent: Microspora Code
 grand_parent: <span class="simple">Simple<span class="foc">FOC</span>-microspora</span>
 grand_grand_parent: <span class="simple">Simple<span class="foc">FOC</span> Boards</span>
 description: "Microspora board showcase and getting started information."
-nav_order: 1
+nav_order: 4
 permalink: /microspora_pinout
 has_children: false
 has_toc: false
@@ -90,8 +90,8 @@ Number | Pin|    Function
 --- | -- | ---
 1| GND | GND
 2| 3.3V | 3.3V
-3| PB5 | MISO
-4| PB4 | MOSI 
+3| PB5 | MOSI
+4| PB4 | MISO
 5| PC10|  SCK 
 6| PC11 | CS 
 
@@ -111,5 +111,5 @@ Finally, the board has a 5-pin JST connector for I2C, encoder, and GPIO. The pin
 | 4 | PA15 | SCL (I2C1) | TX (UART2) | TIM8_CH1 | PWM input (TIM8_CH1) | Direction (PA15) |
 | 5 | PB6 | - | - | TIM8_ETR | Direction (PB6) | Step input (TIM8_ETR) |
 
-So this connector can be used for I2C, encoder, or GPIO depending on your application. Qwiic / Stemma-style cables can be used to connect to this connector, even though it is 5-pin instead of the usual 4-pin. For most cases teh 4-pin stemma cable will work fine.
+So this connector can be used for I2C, encoder, or GPIO depending on your application. Qwiic / Stemma-style cables can be used to connect to this connector, even though it is 5-pin instead of the usual 4-pin. For most cases the 4-pin stemma cable will work fine.
 
