@@ -11,9 +11,9 @@ has_toc: False
 
 
 # Built-in communication interfaces
-<span class="simple">Simple<span class="foc">FOC</span>library</span> implements a simple communication solution for fast and easy prototyping, tunning and monitoring of your setup:
+<span class="simple">Simple<span class="foc">FOC</span>library</span> implements a simple communication solution for fast and easy prototyping, tuning and monitoring of your setup:
 - 📈 Supervision and variable monitoring - [Monitoring](monitoring) 
-- ⚙️ Tunning and Configuration interface - [Commander interface](commander_interface)
+- ⚙️ Tuning and Configuration interface - [Commander interface](commander_interface)
 
 [Set up Monitoring](monitoring){: .btn .btn-docs .mr-2}
 [Configure Commander interface](commander_interface){: .btn .btn-docs}

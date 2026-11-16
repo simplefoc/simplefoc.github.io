@@ -15,7 +15,7 @@ MCU | 2 PWM mode | 4 PWM mode | 3 PWM mode | 6 PWM mode | pwm frequency config
 --- | --- |--- |--- |--- |--- 
 (RP2040) RPI Pico | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ 
 
-Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> recently started supporting the Raspberry pi Pico board due to a lot of effort put in by [@runger1101001](https://github.com/runger1101001). The support is stil in its intial stage but most of the PWM related features are already implemented. 
+Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> recently started supporting the Raspberry pi Pico board due to a lot of effort put in by [@runger1101001](https://github.com/runger1101001). The support is still in its initial stage but most of the PWM related features are already implemented. 
 
  Board | Name | Specifications | Link | Price
 ---- | --- | --- | --- | --- | ---
@@ -29,7 +29,7 @@ Raspberry Pi Pico's ADC features are not sufficient for low-side current sensing
 ## Arduino IDE support package
 In order to use the Pico boards in the Arduino IDE please install the Arduino MBED OS RP2040 boards support package using Arduino IDE board manager.
 
-If using windows you might have to do a bit of acrobatics with the USB driver, but the soluion is reasonably fast and straingth forward. Here is [the link](https://arduino-pico.readthedocs.io/en/latest/install.html#uploading-sketches) with a bit of info how to do it.
+If using windows you might have to do a bit of acrobatics with the USB driver, but the solution is reasonably fast and straight forward. Here is [the link](https://arduino-pico.readthedocs.io/en/latest/install.html#uploading-sketches) with a bit of info how to do it.
 
 Here is quick video showing how to do it:
 <iframe class="youtube" src="https://www.youtube.com/embed/5YOEauk9bLo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

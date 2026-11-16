@@ -35,7 +35,7 @@ void loop() {
 }
 ```
 
-However, depending on the application, it might be necessary to run the FOC loop in hard real-time, rather than in the main loop where its execution time might be delayed by othe code. One very simple way to achieve this is to use the hardware timers of the microcontroller to call the `motor.loopFOC()` and `motor.move()` functions at a fixed frequency. But, this requires a bit more advanced knowledge of the microcontroller and its hardware timers, and is usually very specific to the microcontroller family you are using.
+However, depending on the application, it might be necessary to run the FOC loop in hard real-time, rather than in the main loop where its execution time might be delayed by other code. One very simple way to achieve this is to use the hardware timers of the microcontroller to call the `motor.loopFOC()` and `motor.move()` functions at a fixed frequency. But, this requires a bit more advanced knowledge of the microcontroller and its hardware timers, and is usually very specific to the microcontroller family you are using.
 
 In this guide we will focus on the STM32 and ESP32 families, as they are the most commonly used microcontrollers in the SimpleFOC community.
 
@@ -84,7 +84,7 @@ void loop() {
 
 <blockquote class="info">
   <p class="heading">ℹ️ Which timer to use?</p>
-  You can use any timer that is available on the microcontroller, but make sure not to use the timers that are used by the motor driver or the position sensor. For the STM32 family, the timers used with the PWM will be displayed in the serial monitor when you run the `motor.init()` function. You can aslo see the timers used by the pins in the docs (find your mcufamily and pins) [see here](https://docs.simplefoc.com/stm32pinouts/)
+  You can use any timer that is available on the microcontroller, but make sure not to use the timers that are used by the motor driver or the position sensor. For the STM32 family, the timers used with the PWM will be displayed in the serial monitor when you run the `motor.init()` function. You can also see the timers used by the pins in the docs (find your mcufamily and pins) [see here](https://docs.simplefoc.com/stm32pinouts/)
 </blockquote>
 
 

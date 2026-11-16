@@ -36,7 +36,7 @@ Typical values:
 
 This value is very commonly provided in the datasheet, and it is also very easy to measure with a multimeter. If you don't have the datasheet, or if you want to verify the value, you can measure it with a multimeter by measuring the resistance between two of the motor wires (phases). The value should be similar for all pairs of wires.
 
-[See a guide to manual mesuring phase resistance](phase_resistance){: .btn .btn-docs}
+[See a guide to manual measuring phase resistance](phase_resistance){: .btn .btn-docs}
 
 ### KV Rating (in rpm/V)
 
@@ -151,7 +151,7 @@ $ M1.0
 
 ### KV rating testing
 
-Once you tested the phase resitance, you can test the KV rating. Testing the KV rating is a bit more tricky, but here are some tips to check if the KV rating is set correctly:
+Once you tested the phase resistance, you can test the KV rating. Testing the KV rating is a bit more tricky, but here are some tips to check if the KV rating is set correctly:
 - Set the KV value
 ```cpp
 motor.phase_resistance = 1.234; // verified value from the previous test
@@ -174,7 +174,7 @@ $ M0
 - The ideal behavior is as if the motor is disconnected. Try spinning the unconnected motor by hand, and set the KV value so that the motor feels similar to the unconnected motor when you set $i_q = 0$.
 
 **Potential issues**
-1. If you feel almost no resistance and the motor **continues totating freely after you spin it** initally. This proabably means that the KV rating is set too high and the back-EMF compensation is overcompensating. In this case, decrease the `KV` value. The ideal behavior is as if the motor is disconnected, but if you feel that the motor is actually helping you to turn it, then the KV value is probably too high. Try spinning the unconnected motor by hand, and set the KV value so that the motor feels similar to the unconnected motor when you set $$i_q = 0$$.
+1. If you feel almost no resistance and the motor **continues rotating freely after you spin it** initially. This probably means that the KV rating is set too high and the back-EMF compensation is overcompensating. In this case, decrease the `KV` value. The ideal behavior is as if the motor is disconnected, but if you feel that the motor is actually helping you to turn it, then the KV value is probably too high. Try spinning the unconnected motor by hand, and set the KV value so that the motor feels similar to the unconnected motor when you set $$i_q = 0$$.
 2. If you **feel a lot of resistance**, similar resistance as for voltage mode, then the KV rating is probably set too low and the back-EMF compensation is undercompensating. In this case, increase the `KV` value. 
 
 ### Inductance value testing
@@ -202,7 +202,7 @@ or in commander interface:
 $ M1.0
 ```
 - The motor should be able to reach higher speeds than without the lag compensation, especially with load.
-  - Try setting the inducrance to 0 or `NOT_SET` and check the maximum speed you can reach.
+  - Try setting the inductance to 0 or `NOT_SET` and check the maximum speed you can reach.
     ```sh
     $ MIQ0 
     ```

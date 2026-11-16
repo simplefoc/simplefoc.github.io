@@ -85,7 +85,7 @@ Stepper motor implementation for standard 2-phase stepper motors:
 - Can be paired with any Stepper driver (2PWM or 4PWM) only
 
 ### `HybridStepperMotor.cpp/h`
-Hybrid stepper motor implementation for standard 2-phase stepper motors used wiht BLDC drivers:
+Hybrid stepper motor implementation for standard 2-phase stepper motors used with BLDC drivers:
 - FOC-based stepper control (SinePWM and SpaceVectorPWM)
 - Can be paired with any position sensor and current sense implementation
 - Can be paired with any BLDC driver (3PWM or 6PWM) only
@@ -293,7 +293,7 @@ You can also create your own current sensing strategy by either:
 [See library source code for more details (Advanced)](current_sense_support){: .btn .btn-docs}
 -  Implementing the `GenericCurrentSense` callbacks. This approach allows you to use the `GenericCurrentSense` class without creating a new class **(Recommended for most users)**
 
-[Generic Current Sense Guide (Recomended)](generic_current_sense){: .btn .btn-docs}
+[Generic Current Sense Guide (Recommended)](generic_current_sense){: .btn .btn-docs}
 
 
 

@@ -91,7 +91,7 @@ void setup() {
 
   // enable current monitoring
   motor.useMonitoring(Serial);
-  motor.monitor_downsampling = 100;
+  motor.monitor_downsample = 100;
   motor.monitor_variables = _MON_CURR_Q | _MON_CURR_D;
 
   // initialize motor
@@ -178,7 +178,7 @@ void setup() {
 
   // Monitoring
   motor.useMonitoring(Serial);
-  motor.monitor_downsampling = 100;
+  motor.monitor_downsample = 100;
   motor.monitor_variables = _MON_CURR_Q | _MON_CURR_D;
 
   // Init motor
@@ -265,7 +265,7 @@ void setup() {
 
   // Monitoring
   motor.useMonitoring(Serial);
-  motor.monitor_downsampling = 100;
+  motor.monitor_downsample = 100;
   motor.monitor_variables = _MON_CURR_Q | _MON_CURR_D;
 
   // Init motor
@@ -301,7 +301,7 @@ Copy this code to your application and fill in the `TODO` entries with your hard
 
 There are two current sense strategies implemented in SimpleFOC:
 - **Inline Current Sense** (`InlineCurrentSense`) - For inline current sensing techniques
-- **Lowside Current Sense** (`LowsideCurrentSense`) -  For lowside current sensing techniques (requires precide ADC & PWM timing)
+- **Lowside Current Sense** (`LowsideCurrentSense`) -  For lowside current sensing techniques (requires precise ADC & PWM timing)
 
 
 Both `InlineCurrentSense` and `LowsideCurrentSense` require accurate configuration of the current sense parameters to work correctly. Either shunt resistance and amplifier gain, or the overall current sense ratio can be used.
@@ -387,12 +387,12 @@ Test that current measurements respond correctly to motor commands:
 
 **Motor movement is jittery or unstable?**
 - This probably means that there is too much serial output or the current values are too noisy
-- Try increasing `motor.monitor_downsampling` to 500 or 1000 to reduce serial output frequency
+- Try increasing `motor.monitor_downsample` to 500 or 1000 to reduce serial output frequency
 - You can also use the Commander interface without re-uploading (ex $MMD500$ to set monitor downsampling to 500)
 
 **Current values are noisy but respond correctly?**
 - Check motor connections and wiring
-- If current noicy a bit, but responds to commands correctly, try increasing current filtering:
+- If current noisy a bit, but responds to commands correctly, try increasing current filtering:
 ```cpp
 motor.LPF_current_q.Tf = 0.001; // increase low-pass filter for Iq - default is 0.0005s
 motor.LPF_current_d.Tf = 0.001; // increase low-pass filter for Id - default is 0.0005s

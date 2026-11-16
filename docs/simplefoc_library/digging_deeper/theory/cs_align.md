@@ -36,7 +36,7 @@ The procedure is simple and is based on the view of the motor as an electrical c
 
 Also the assumption taken by the align is that the phase resistances of the motor are equal. This is a common assumption for the BLDC and Stepper motors and it is a good starting point for the current sense alignment.
 
-The alignment procedure then applies phase volatges on one phase and keeps the other phases connected to the ground. Then by knowing the phase voltages applied and abstarcting the motor as a simple three resistance circuit, we can calculate the currents that should flow through the motor phases and compare them to the currents measured by the current sense. If the currents are not the same, the current sense is not aligned and the procedure will try to align it.
+The alignment procedure then applies phase voltages on one phase and keeps the other phases connected to the ground. Then by knowing the phase voltages applied and abstracting the motor as a simple three resistance circuit, we can calculate the currents that should flow through the motor phases and compare them to the currents measured by the current sense. If the currents are not the same, the current sense is not aligned and the procedure will try to align it.
 
 
 As the architecture of Stepper and BLDC motors is different the alignment procedure is also different.

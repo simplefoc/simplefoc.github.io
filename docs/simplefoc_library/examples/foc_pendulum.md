@@ -156,7 +156,7 @@ Next we need to define the `BLDCDriver3PWM` class with the PWM pin numbers and t
 BLDCDriver3PWM driver  = BLDCDriver3PWM(9, 10, 11, 8);
 ```
 
-Then in the `setup()` we configure first the voltage of the power supply if it is not `12` Volts and intialise the driver.
+Then in the `setup()` we configure first the voltage of the power supply if it is not `12` Volts and initialize the driver.
 ```cpp
 // power supply voltage
 // default 12V
@@ -221,7 +221,7 @@ Also maybe interesting to say is that for a system like this one there is really
 
 #### Swing-up
 
-The swingup implemented in this example is the simples one possible, that is always good, it means that the hardware is well designed so you dont need to make some fancy algorithm to make it work :D
+The swingup implemented in this example is the simples one possible, that is always good, it means that the hardware is well designed so you don't need to make some fancy algorithm to make it work :D
 
 This is hte code of the swing-up:
 ```cpp
@@ -233,7 +233,7 @@ The voltage value you are setting is something you will tune. I have found that 
 
 #### The integration
 
-Now we jsut need to decide when do we do the swing up and when do we do the stabilization. Basically we need to decide the angle from which we decide that it is not possible to recover and we should proceed with the swing-up. 
+Now we just need to decide when do we do the swing up and when do we do the stabilization. Basically we need to decide the angle from which we decide that it is not possible to recover and we should proceed with the swing-up. 
 I my case I have decided it is `0.5 radians`, `~30degrees`. 
 
 So the full control algorithm code looks like this:

@@ -94,7 +94,7 @@ The `motor.PID_velocity.I` gain ensures the motor actually reaches the target sp
 | **D Gain** | `0` | No effect. | Motor runs hot and noisy. |
 
 
-## Tunning with hardware
+## Tuning with hardware
 
 There are two main ways to tune the velocity loop - with hardware and without hardware.
 
@@ -142,7 +142,7 @@ void setup() {
   // set torque control type to voltage
   motor.torque_controller = TorqueControlType::voltage;
 
-  // contoller configuration based on the control type 
+  // controller configuration based on the control type 
   motor.PID_velocity.P = 0;
   motor.PID_velocity.I = 0;
   motor.PID_velocity.D = 0;
@@ -221,7 +221,7 @@ Current LPF Tf: 0.00200
 ```
 
 And then you can update the PID parameters using the commander interface - see the [commander documentation](commander_interface) for more details on how to use the commander interface and the available commands.
-- For PID paramerter - [see here](commander_pid)
+- For PID parameter - [see here](commander_pid)
     - P gain - `VP` (read) , `VP0.1` (write)
     - I gain - `VI` (read) , `VI0.01` (write)
     - D gain - `VD` (read) , `VD0.001` (write)

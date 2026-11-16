@@ -15,7 +15,7 @@ has_children: true
 
 FOC current control provides **precise torque control using current sensing**. This is the most accurate current control method and enables advanced features like current limiting, automatic compensation of Back-EMF, and cross-coupling compensation.
 
-[Read more about FOC current control](foc_current_mode){: .btn .btn-docs}
+[Read more about FOC current control](foc_current_torque_mode){: .btn .btn-docs}
 
 ## What you need
 
@@ -43,6 +43,6 @@ This guide follows a 2-step process:
 
 ## Related references
 
-- [FOC current torque mode](foc_current_mode)
+- [FOC current torque mode](foc_current_torque_mode)
 - [Current sensing hardware](current_sense)
 - [Choosing ADC pins](choosing_adc_pins)

@@ -58,7 +58,7 @@ There are two ways you can run encoders with Simple FOC library.
 
 ### Hardware external interrupt
 Arduino UNO has two hardware external interrupt pins, pin `2` and `3`,  Arduino Mega has 6 interrupt pins, pins `2`, `3`, `18`, `19`, `20`and `2` whereas STM32 boards such as Nucleo and Bluepill can use all their digital pins as interrupt pins, which makes implementation much easier.
-For Arduino Uno, the encoder channels `A` and `B` will have to be connected exactly to the pisn `2` and `3`, in order to use hardware interrupts.
+For Arduino Uno, the encoder channels `A` and `B` will have to be connected exactly to the pins `2` and `3`, in order to use hardware interrupts.
 
 Simple FOC `Encoder` class already has implemented initialization and encoder `A` and `B` channel callbacks. 
 All you need to do is define two functions `doA()` and `doB()`, the buffering functions of encoder callback functions `encoder.handleA()` and `encoder.handleB()`. 

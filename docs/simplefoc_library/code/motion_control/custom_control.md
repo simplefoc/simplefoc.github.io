@@ -36,7 +36,7 @@ motor.controller = MotionControlType::custom;
 
 You can find some examples in `examples/motion_control/custom_motion_control/` folder.
 
-This `custom` motion control requires the user to provide their own implentation of the motion control:
+This `custom` motion control requires the user to provide their own implementation of the motion control:
 
 ```cpp
 // custom motion control function
@@ -59,7 +59,7 @@ motor.linkCustomMotionControl(custom_motion_control);
 
 ## Target and limits
 
-The custom motion control uses the `motor.target` variable as the desired user defied target entry, and the user can choose to respect or ignore the velocity limits `motor.velocity_limit`. The torque limits are enforeced by the underlying torque control loop, so they will be respected regardless if the 
+The custom motion control uses the `motor.target` variable as the desired user defied target entry, and the user can choose to respect or ignore the velocity limits `motor.velocity_limit`. The torque limits are enforced by the underlying torque control loop, so they will be respected regardless if the 
 user chooses to use them in their custom control or not. (If the user code returns a target torque that is higher than the limits set by the user, the library is going to limit it to the set limits before applying it to the motor).
 
 The units of the target variable is completely user defined, so it can represent any physical quantity that the user wants to control. 
@@ -174,7 +174,7 @@ void setup() {
   motor.monitor_variables = _MON_TARGET | _MON_VEL | _MON_ANGLE; // monitor target velocity and angle
 
   // subscribe motor to the commander
-  //command.add('T', doMotion, "motion control"); // a bit less resouce intensive
+  //command.add('T', doMotion, "motion control"); // a bit less resource intensive
   command.add('M', doMotor, "motor");
   command.add('C', doPID, "custom PID");
 
@@ -268,7 +268,7 @@ void setup() {
   motor.monitor_variables = _MON_TARGET | _MON_VEL | _MON_ANGLE; // monitor target velocity and angle
 
   // subscribe motor to the commander
-  //command.add('T', doMotion, "motion control"); // a bit less resouce intensive
+  //command.add('T', doMotion, "motion control"); // a bit less resource intensive
   command.add('M', doMotor, "motor");
   command.add('C', doPID, "custom PID");
 

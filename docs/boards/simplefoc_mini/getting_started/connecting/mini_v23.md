@@ -53,7 +53,7 @@ The second row of pins contains the phase current and power-supply voltage sensi
 
 ### PWM pins
 
-There are 4 pins that are required to be connected: IN1, IN2, IN3 and EN. Additionally, the GND pin is required to be connected to the microcontroller's GND pin. <span class="simple">Simple<span class="foc">FOC</span>Mini</span> v2.3 has two GND pins exposed in first line of the header to malke it easier to connect to the microcontroler. You can choose the one which is more convenient to your application. 
+There are 4 pins that are required to be connected: IN1, IN2, IN3 and EN. Additionally, the GND pin is required to be connected to the microcontroller's GND pin. <span class="simple">Simple<span class="foc">FOC</span>Mini</span> v2.3 has two GND pins exposed in first line of the header to make it easier to connect to the microcontroller. You can choose the one which is more convenient to your application. 
 
 Pin Name | Description 
 --- | --- 
@@ -108,7 +108,7 @@ Current sensing pins (CS1, CS2, CS3) are used to measure the current flowing thr
 DRV8316 comes with the 3.3V voltage regulator and it is connected to the <span class="simple">Simple<span class="foc">FOC</span>Mini</span>'s 3.3V pin. However it has a limitation of 20mA, which is in general not enough to power a microcontroller. But it might be enough to power a LED light or some position sensors.
 </blockquote>
 
-For BLDC motors your current sensing will look somthing like this:
+For BLDC motors your current sensing will look something like this:
 
 ```cpp
 LowsideCurrentSense cs = LowsideCurrentSense(150.0f, CS1, CS2, CS3); 

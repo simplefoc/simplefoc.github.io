@@ -56,7 +56,7 @@ $$
 a_c = a_c + v_d dt;
 $$
 
-The sample time  $$dt$$ of the algorithm is adaptively calculated upon every algorithm execution (`motor.move()` call) and it is equal to the time passed since the last execution of the algorithm (time between two `motor.move()` calls). This means that the algorithm is going to be very stable even if the `motor.move()` calls are not happening at a constant frequency. You can check sampling time of the algorithm by checking `motor.move_time.us` (representing the time between two `motor.move()` calls in microseconds) variable.
+The sample time  $$dt$$ of the algorithm is adaptively calculated upon every algorithm execution (`motor.move()` call) and it is equal to the time passed since the last execution of the algorithm (time between two `motor.move()` calls). This means that the algorithm is going to be very stable even if the `motor.move()` calls are not happening at a constant frequency. You can check sampling time of the algorithm by checking `motor.move_time_us` (representing the time between two `motor.move()` calls in microseconds) variable.
 
 
 <blockquote class="warning" markdown="1"> <p class="heading">Efficiency Warning</p>

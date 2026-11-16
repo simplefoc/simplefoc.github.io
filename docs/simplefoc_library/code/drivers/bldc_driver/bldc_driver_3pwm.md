@@ -137,7 +137,7 @@ On the other hand, having higher PWM frequency will produce smoother operation, 
 
 <blockquote class="info">
 <p class="heading">RULE OF THUMB: PWM frequency</p>
-The rule of thumb is to stay arround 20kHz.
+The rule of thumb is to stay around 20kHz.
 
 <code class="highlighter-rouge">
 driver.pwm_frequency = 20000;

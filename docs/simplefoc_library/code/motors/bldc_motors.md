@@ -46,14 +46,14 @@ If you are not sure what your <code class="highlighter-rouge">pole_pairs</code> 
 ### Motor phase resistance, inductance and KV rating 
 
 Motor parameters in <span class="simple">Simple<span class="foc">FOC</span>library</span> are optional but they are used for:
-- [Estimated current torque mode](estimated_current_torque_mode) - to estimate the motor current based on the voltage command and motor parameters
+- [Estimated current torque mode](estimated_current_mode) - to estimate the motor current based on the voltage command and motor parameters
 - FOC current control
    - [Advanced FOC control features](foc_current_torque_mode#cross-coupling-and-lag-compensation-advanced) - to compensate for cross-coupling
-   - [Auto-tunning current PI controllers](dc_current_torque_mode) - to set the PI controller gains based on the motor parameters
+   - [Auto-tuning current PI controllers](dc_current_torque_mode) - to set the PI controller gains based on the motor parameters
 
 If you need some of these features and you do not have the motor parameters there are a couple of options:
 - Try to find them in the datasheet and verify them using this [guide](motor_params_test).
-- Manually measure [phase resitance](phase_resistance) and [KV rating](kv_rating_measure) using the guides in the [practical section](practical_guides#motor-parameters-and-characterization)
+- Manually measure [phase resistance](phase_resistance) and [KV rating](kv_rating_measure) using the guides in the [practical section](practical_guides#motor-parameters-and-characterization)
 - Automatically measure them using the `characteriseMotor()` function - [guide here](motor_characterisation).
 
 [Go here fore more practical guides](practical_guides){: .btn .btn-docs}
@@ -69,7 +69,7 @@ Method `linkSensor` is able to link the motor to any sensor implemented in this 
 [See position sensor documentation](sensors){: .btn .btn-docs}
   
 <blockquote class="info" markdown="1"><p class="heading">Pro Tip</p>
-If sensor velocity too noisy, increase the time between veclocity calculations by setting the `sensor.min_elapsed_time` variable. For example:
+If sensor velocity too noisy, increase the time between velocity calculations by setting the `sensor.min_elapsed_time` variable. For example:
 ```cpp
 sensor.min_elapsed_time = 0.001; // seconds - default 0.0001s - 100us
 ```
@@ -99,7 +99,7 @@ This linking step is only necessary if you have a current sense supported by thi
 
 [See current sense documentation](current_sense){: .btn .btn-docs}
 
-## Step 5. Configuration paramters
+## Step 5. Configuration parameters
 
 If you choose not to set some of the configuration parameters they will take values defined in the `defaults.h` file.
 Check the [library source code](source_code) to dig deeper.
@@ -153,7 +153,7 @@ This parameter can be changed in real-time.
 
 ### Step 5.4 Motor parameters - phase resistance, inductance and KV rating
 
-Motor phase resistance, inductance and KV rating are optional parameters which are used for current based torque modes. These variables can used to estimate the motor current in the estimated torque mode and to tune PI control loops. If user specifies the `motor.phase_resistance`,  `motor.axis_inductance` (or before v2.4.0 `motor.phase_inductance`) `motor.KV_rating` (either in constructor or in the `setup()` function) the library will use these valus. In the setup function you can change this parameter by setting:
+Motor phase resistance, inductance and KV rating are optional parameters which are used for current based torque modes. These variables can used to estimate the motor current in the estimated torque mode and to tune PI control loops. If user specifies the `motor.phase_resistance`,  `motor.axis_inductance` (or before v2.4.0 `motor.phase_inductance`) `motor.KV_rating` (either in constructor or in the `setup()` function) the library will use these values. In the setup function you can change this parameter by setting:
 ```cpp
 // motor phase resistance [Ohms]
 motor.phase_resistance = 2.54; // Ohms - default not set
@@ -169,11 +169,11 @@ These parameters can also be measured using the `motor.characteriseMotor()` abov
 ### Step 5.5 Torque control mode
 There are 4 different torque control modes implemented in the Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>: 
 - [Voltage mode](voltage_torque_mode)
-- [Estimated current mode](estimated_current_torque_mode)
+- [Estimated current mode](estimated_current_mode)
 - [DC current](dc_current_torque_mode)
 - [FOC current](foc_current_torque_mode)
 
-[DC current](dc_current_torque_mode) and [FOC current](foc_current_torque_mode) require current sensing and are controlling current and limiting the real current the motor is drawing, whereas [estimated current mode](estimated_current_torque_mode) approximates the motor current using the motor parameters and does not use any current sensing. Finally, [voltage mode](voltage_torque_mode) is the most basic torque control mode which directly sets the voltage to the motor without any current control. Read more in [torque control docs](torque_control).
+[DC current](dc_current_torque_mode) and [FOC current](foc_current_torque_mode) require current sensing and are controlling current and limiting the real current the motor is drawing, whereas [estimated current mode](estimated_current_mode) approximates the motor current using the motor parameters and does not use any current sensing. Finally, [voltage mode](voltage_torque_mode) is the most basic torque control mode which directly sets the voltage to the motor without any current control. Read more in [torque control docs](torque_control).
 
 The torque mode can be set by changing the motor attribute `torque_controller`.
 ```cpp
@@ -196,13 +196,13 @@ There are 3 different closed loop control strategies implemented in the Arduino 
 - [Velocity motion control](velocity_loop)
 - Position/angle motion control
   - [Cascade position control](angle_loop) 
-  - [No-cascade position control](angle_loop_nocascade)
+  - [No-cascade position control](angle_nocascade_control)
 
 Additionally <span class="simple">Simple<span class="foc">FOC</span>library</span> implements two open loop control strategies as well:
 - [Velocity open-loop control](velocity_openloop)
 - [Position open-loop control](angle_openloop)
 
-The user can also add thier own custom motion control strategy by implementing the motion control callback function. Read more about it in the [motion control docs](motion_control). This mode can be selected using the `MotionControlType::custom` value of the `motor.controller` variable and by linking the motion control callback function `motor.linkCustomMotionControl(&my_motion_control_function)`.
+The user can also add their own custom motion control strategy by implementing the motion control callback function. Read more about it in the [motion control docs](motion_control). This mode can be selected using the `MotionControlType::custom` value of the `motor.controller` variable and by linking the motion control callback function `motor.linkCustomMotionControl(&my_motion_control_function)`.
 
 You set it by changing the `motor.controller` variable. 
 ```cpp
@@ -270,7 +270,7 @@ This function does several things:
 - Checks/modifies current sense pinout and gains signs if one available to make sure it aligned with the driver 
 
 [See more info about the theory of alignment](alignment_procedure){: .btn .btn-docs}
-[See more info about implementation of initFOC()](foc_implementation#initFOC){: .btn .btn-docs}
+[See more info about implementation of initFOC()](foc_implementation#motor-and-sensor-alignment-initfoc){: .btn .btn-docs}
 
 If for some reason the `initFOC` fails this function will return `0` and it will disable your motor and display you a message what is wrong (when using the [monitoring](monitoring) ). If everything is well configured, the call of this function will return `1` and the our setup is done, FOC is ready to be used! So we suggest you to check if the init function was executed successfully before continuing:
 
@@ -308,7 +308,7 @@ For encoders, the `zero_electric_offset` cannot be known in advance, but the `se
 
 ### Step 6.2 Skip alignment - current sense
 
-For the current sensors it is as well possible to avoid the calibration procedure an that is done by specifying the curren sense flag called `skip_align`:
+For the current sensors it is as well possible to avoid the calibration procedure an that is done by specifying the current sense flag called `skip_align`:
 ```cpp
 current_sense.skip_align  = true; // default false
 ```

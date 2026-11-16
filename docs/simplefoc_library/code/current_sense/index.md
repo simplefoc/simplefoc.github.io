@@ -25,7 +25,7 @@ up to this moment ( [check the releases <i class="fa fa-tag"></i>](https://githu
 
 Each one of the current sensing classes will implement all the necessary functionalities for simple and robust implementation of FOC algorithm:
 - Hardware config
-  - ADC resoluton and frequency
+  - ADC resolution and frequency
   - Automatic zero offset finding
 - Driver synchronisation
   - ADC acquisition events triggering

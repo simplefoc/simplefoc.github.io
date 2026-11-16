@@ -38,7 +38,7 @@ Examples:
 
 </div>
 
-6 PWM control mode gives much more freedom for BLDC motor control than 3PWM control since each of the 6 half-bride mosfets can be controlled separately. 
+6 PWM control mode gives much more freedom for BLDC motor control than 3PWM control since each of the 6 half-bridge mosfets can be controlled separately. 
 
 ## Step 1. Hardware setup
 To create the interface to the BLDC driver you need to specify the 6 `PWM` pin numbers for each motor phase and optionally `enable` pin.
@@ -124,7 +124,7 @@ BLDCDriver6PWM driver = BLDCDriver6PWM(PA8, PB13, PA9, PB14, PA10, PB15);
 ```
 
 ####  Software 6 PWM mode
-If it is not possible to use the hardware 6 PWM mode with your board  <span class="simple">Simple<span class="foc">FOC</span>library</span> enables you to use any two channels of any of the timers as your high/low side PWM pair. Basically, the library will automatically configure the complementary channels on the provided low side pins. The only requirement for this code to work properly is exatcly the same as for the Arudino UNO, each phase high/low PWM pair needs to belong to the same timer. 
+If it is not possible to use the hardware 6 PWM mode with your board  <span class="simple">Simple<span class="foc">FOC</span>library</span> enables you to use any two channels of any of the timers as your high/low side PWM pair. Basically, the library will automatically configure the complementary channels on the provided low side pins. The only requirement for this code to work properly is exactly the same as for the Arudino UNO, each phase high/low PWM pair needs to belong to the same timer. 
 For example, if we take STM32 Nucleo F401RE board we can take for example:
 ```cpp
 //  BLDCDriver6PWM( int phA_h, int phA_l, int phB_h, int phB_l, int phC_h, int phC_l, int en)
@@ -192,7 +192,7 @@ On the other hand, having higher PWM frequency will produce smoother operation, 
 
 <blockquote class="info">
 <p class="heading">RULE OF THUMB: PWM frequency</p>
-The rule of thumb is to stay arround 20kHz.
+The rule of thumb is to stay around 20kHz.
 
 <code class="highlighter-rouge">
 driver.pwm_frequency = 20000;
@@ -210,7 +210,7 @@ driver.pwm_frequency = 20000;
 // dead_zone [0,1] - default 0.02 - 2%
 driver.dead_zone = 0.05;
 ```
-The dead zone parameter is defined as the amount of the duty cycle that is reserved in between changing the active mosfet. Each time the high/low side is deacitvated and low/high side is activated half of the `dead_zone` is injected. This parameter is equivalent to the dead time, dead_time can be calculated as:
+The dead zone parameter is defined as the amount of the duty cycle that is reserved in between changing the active mosfet. Each time the high/low side is deactivated and low/high side is activated half of the `dead_zone` is injected. This parameter is equivalent to the dead time, dead_time can be calculated as:
 ```cpp
 dead_time = 1/pwm_frequency*dead_zone
 ```

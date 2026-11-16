@@ -45,7 +45,7 @@ But in most of cases it will always boil down to the price :)
 This is probably the proffered choice for making this board in lower quantities. You can order the PCBs from your manufacturer, buy the components from your supplier of choice and solder the boards yourself. The board has been designed to be relatively easy to solder.
 
 ### PCB fabrication
-Download the [<i class="fa fa-file"></i> gerber files](https://github.com/simplefoc/Arduino-SimpleFOCShield) and provide them to your PCB manufacturer of choice. So far I have used [seeedstrudio](https://www.seeedstudio.com/) and [JLCPCB](https://jlcpcb.com/). The price of 10 PCBs is around 5\$ but the shipping was around 20\$. 
+Download the [<i class="fa fa-file"></i> gerber files](https://github.com/simplefoc/Arduino-SimpleFOCShield) and provide them to your PCB manufacturer of choice. So far I have used [seeedstudio](https://www.seeedstudio.com/) and [JLCPCB](https://jlcpcb.com/). The price of 10 PCBs is around 5\$ but the shipping was around 20\$. 
 
 Quantity | SeedStudio |  JLCPCB
 ---- | ---- | ---- | ---

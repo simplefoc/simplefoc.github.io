@@ -72,7 +72,7 @@ $$
 Where $$K_t$$ is the torque constant of the motor.
 
 
-[See a deeper dive in motor dynamics and FOC control teory](voltage_torque_control#current-based-foc-control){: .btn .btn-docs}
+[See a deeper dive in motor dynamics and FOC control theory](voltage_torque_control#current-based-foc-control){: .btn .btn-docs}
 [See a deeper dive in the FOC transformations theory](foc_theory){: .btn .btn-docs}
 
 ### Inductive lag compensation (Advanced)
@@ -91,7 +91,7 @@ Where $$K_t$$ is the torque constant of the motor.
  <a name="foc_image"></a><img class="width60" src="extras/Images/torque_control/dc0_h.png">
 </div>
 
-As discussed in [FOC theory corner](voltage_torque_control#lag-compensation) mode, the d-axis current is not only proportional to the volatge $$u_d$$, but also to the q-axis current $$i_q$$ and the velocity of the motor through the cross-coupling term.
+As discussed in [FOC theory corner](voltage_torque_control#lag-compensation) mode, the d-axis current is not only proportional to the voltage $$u_d$$, but also to the q-axis current $$i_q$$ and the velocity of the motor through the cross-coupling term.
 
 $$
 i_d = \frac{1}{R}(u_d + L_q i_q  v_e)
@@ -127,7 +127,7 @@ To enable this mode provide the phase inductance values in the motor constructor
 motor.axis_inductance.q = L_q; // set q-axis inductance
 ```
 
-[See a deeper dive in motor dynamics and FOC control teory](voltage_torque_control#current-based-foc-control){: .btn .btn-docs}
+[See a deeper dive in motor dynamics and FOC control theory](voltage_torque_control#current-based-foc-control){: .btn .btn-docs}
 
 
 ## Configuration & Tuning

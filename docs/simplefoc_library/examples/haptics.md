@@ -202,7 +202,7 @@ This control strategy basically says that the target velocity of the `motor2` wi
 
 Constant `5` is the scaling gain with the same role as in the previous example. It will just make the `motor1` be more or less responsive while following the `motor2` velocity and it will want to maintain the difference in 0. 
 
-Constant `10` is a bit different. It is a scaling factor which helps to better map velocity to the positon. For example in the example we are using the `motor2` has maximal velocity of `60rad/s`, but we don't want our gauge to rotate 10 rotations to show this velocity. we would like it to rotate maximally 1 rotation `~6rad` therefore the constant `10`. But in your case maybe you will be running a drone motor, which turns with thousands of RPM  and you might want to have even larger scaling 100 or even a 1000. 
+Constant `10` is a bit different. It is a scaling factor which helps to better map velocity to the position. For example in the example we are using the `motor2` has maximal velocity of `60rad/s`, but we don't want our gauge to rotate 10 rotations to show this velocity. we would like it to rotate maximally 1 rotation `~6rad` therefore the constant `10`. But in your case maybe you will be running a drone motor, which turns with thousands of RPM  and you might want to have even larger scaling 100 or even a 1000. 
 On the other hand, maybe you will want to have a very precise slow moving motor which will go under 1 radian/s. And you will want to go to the values of `~0.1` or even less. Therefore this will depend on 
 your application and the precisions you will need to have. 
 

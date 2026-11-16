@@ -79,7 +79,7 @@ next_angle = past_angle + d_angle;
 </details>
 </blockquote>
 
-The sample time  $$dt$$ of the algorithm is adaptively calculated upon every algorithm execution (`motor.move()` call) and it is equal to the time passed since the last execution of the algorithm (time between two `motor.move()` calls). This means that the algorithm is going to be very stable even if the `motor.move()` calls are not happening at a constant frequency. You can check sampling time of the algorithm by checking `motor.move_time.us` (representing the time between two `motor.move()` calls in microseconds) variable.
+The sample time  $$dt$$ of the algorithm is adaptively calculated upon every algorithm execution (`motor.move()` call) and it is equal to the time passed since the last execution of the algorithm (time between two `motor.move()` calls). This means that the algorithm is going to be very stable even if the `motor.move()` calls are not happening at a constant frequency. You can check sampling time of the algorithm by checking `motor.move_time_us` (representing the time between two `motor.move()` calls in microseconds) variable.
 
 <blockquote class="info" markdown="1"> <p class="heading">Units</p>
 The angles in the formula are in radians, the velocity limit is in radians per second and the time is in seconds. Make sure to use the correct units when setting the target angle and velocity limits.
@@ -90,7 +90,7 @@ The angles in the formula are in radians, the velocity limit is in radians per s
 
 ## Configuration and Limits
 
-Open-loop position control uses the `motor.target` variable as the desired angle entry, while the `motor.velocity_limit` variable sets the maximum velocity to be used for the desired movemebnt. This mode also and uses torque limits based on your chosen [torque control mode](torque_control).
+Open-loop position control uses the `motor.target` variable as the desired angle entry, while the `motor.velocity_limit` variable sets the maximum velocity to be used for the desired movement. This mode also and uses torque limits based on your chosen [torque control mode](torque_control).
 
 ```cpp
 // setting target velocity

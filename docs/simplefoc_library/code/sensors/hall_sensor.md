@@ -29,7 +29,7 @@ HallSensor sensor = HallSensor(2, 3, 4, 11);
 
 ## Step 2. Configuration
 
-Additionally the hall senso has one more optional parameter you may set, the pullup location. Hall sensors usually require pullups and in cases when your sensor needs one and you don't have one on your hands you can use Arduino pullups. That is set by changing the value of the `sensor.pullup` variable. The default value is set to `Pullup::USE_EXTERN` but if you would like to change it to use the MCU ones do:
+Additionally the hall sensor has one more optional parameter you may set, the pullup location. Hall sensors usually require pullups and in cases when your sensor needs one and you don't have one on your hands you can use Arduino pullups. That is set by changing the value of the `sensor.pullup` variable. The default value is set to `Pullup::USE_EXTERN` but if you would like to change it to use the MCU ones do:
 ```cpp
 // use internal pullups
 sensor.pullup = Pullup::USE_INTERN;

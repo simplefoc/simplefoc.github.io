@@ -34,7 +34,7 @@ See the link <a href="https://community.simplefoc.com/t/low-side-current-sensing
 
 <blockquote class="info" markdown="1">
 <p class="heading"  markdown="1">Using `LowsideCurrentSense` class with inline current sensing hardware</p>
-In the <span class="simple">Simple<span class="foc">FOC</span>library</span> the low-side current sensing is implemented in the `LowsideCurrentSense` class. This class is designed to work with the `BLDCDriver` and `StepperDriver` classes and it is used to measure the phase currents of the motor where the ADC conversions are synchoronised with the PWM generation of the driver. The `LowsideCurrentSense` class is impletmets this synchonisation, and even though it is primarily designed to be used with the low-side current sensing hardware, it can also be used with the inline current sensing hardware. And in some cases it is even suggested to use it with the inline current sensing hardware such as for stm32 architecture, as it has much better performance since it is using DMA for ADC conversions. 
+In the <span class="simple">Simple<span class="foc">FOC</span>library</span> the low-side current sensing is implemented in the `LowsideCurrentSense` class. This class is designed to work with the `BLDCDriver` and `StepperDriver` classes and it is used to measure the phase currents of the motor where the ADC conversions are synchronised with the PWM generation of the driver. The `LowsideCurrentSense` class is implements this synchronisation, and even though it is primarily designed to be used with the low-side current sensing hardware, it can also be used with the inline current sensing hardware. And in some cases it is even suggested to use it with the inline current sensing hardware such as for stm32 architecture, as it has much better performance since it is using DMA for ADC conversions. 
 </blockquote>
 
 
@@ -42,7 +42,7 @@ In the <span class="simple">Simple<span class="foc">FOC</span>library</span> the
 
 Low side current sensing is currently supported for several MCU architectures supported by the <span class="simple">Simple<span class="foc">FOC</span>library</span>. ESP32 architecture has the most generic support, supporting multiple motors per chip. Stm32 families f1, f4, l4, g4 and f7 are supported and support low-side sensing for only one motor. A special case of the STM32 board is the B-G431-ESC1 development kit which has very specific low-side implementation for its hardware configuration, and it is fully supported by the library. Samd21 architecture is under development, it has an initial support for only one motor, but for now as it has not been extensively tested, we suggest not to rely on our implementation. Teensy4 has an initial support for low-side sensing for one motor as well.
 
-MCU | Low-side  Current sensing | ADC conversion type | Max PWM freqeuncy | supported ADC
+MCU | Low-side  Current sensing | ADC conversion type | Max PWM frequency | supported ADC
 --- | --- | --- | --- | --- 
 Arduino (8-bit) |  ❌ | - | -| -
 Arduino DUE  |  ❌ | - | -| -
@@ -74,7 +74,7 @@ Low-side current sensing requires very high synchronisation of the PWM generated
 3. Appropriate PWM and ADC pin considerations
 
 
-See more info about driver paramers in the [driver docs](drivers_config)!
+See more info about driver parameters in the [driver docs](drivers_config)!
 
 ### 1. ADC conversion type
 
@@ -95,7 +95,7 @@ On the other hand, having higher PWM frequency will produce smoother operation, 
 
 <blockquote class="info">
 <p class="heading">RULE OF THUMB: PWM frequency</p>
-The rule of thumb is to stay arround 20kHz.
+The rule of thumb is to stay around 20kHz.
 
 <code class="highlighter-rouge">
 driver.pwm_frequency = 20000;
@@ -273,7 +273,7 @@ else{
 }
 ```
 
-When your current sense has been intialised and calibrated you can start measuring the currents!
+When your current sense has been initialized and calibrated you can start measuring the currents!
 
 
 ### Enable debugging output
@@ -377,7 +377,7 @@ void setup(){
   motor.initFOC();
 }
 ```
-Function `initFOC()` will make sure that the `BLDCDriver` and `LowsideCurrentSense` classes are both well aligned, it is very important that the phase `A` of the current sense is exactly the phase `A` of the driver, phase `B` of the current sense exactly pahse `B` of the driver and the same for the phase `C`. To verify this, the `initFOC` will be calling the current sense's function `current_sense.driverAlign(...)`.
+Function `initFOC()` will make sure that the `BLDCDriver` and `LowsideCurrentSense` classes are both well aligned, it is very important that the phase `A` of the current sense is exactly the phase `A` of the driver, phase `B` of the current sense exactly phase `B` of the driver and the same for the phase `C`. To verify this, the `initFOC` will be calling the current sense's function `current_sense.driverAlign(...)`.
 
 ### Alignment with the motor phases `driverAlign(...)`
 
@@ -453,7 +453,7 @@ See the full example for the Aliexpress DRB8302 based board in the library examp
 <a href="javascript:show('bldc','type');" id="btn-bldc" class="btn btn-type btn-bldc btn-primary">BLDC motors</a> 
 <a href ="javascript:show('stepper','type');" id="btn-stepper" class="btn btn-type  btn-stepper"> Stepper motors</a>
 
-Since the low-side current sense has to be synchornised with PWM of a driver of interest it does not make sense to use it as a stand-alone sensor.
+Since the low-side current sense has to be synchronised with PWM of a driver of interest it does not make sense to use it as a stand-alone sensor.
 But once you have linked the current sense with the `driver` you can use it to read your phase currents, overall current magnitude and DQ currents.
 
 Reading the phase currents can be done by calling:
