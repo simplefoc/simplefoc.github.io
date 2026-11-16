@@ -21,6 +21,10 @@ For this example of the Sensorless FOC control we are going to be using this har
 
 This is just an example of how to use the <span class="simple">Simple<span class="foc">FOC</span>library</span> to control a motor without any sensors. You can use any other motor (BLDC, stepper or hybrid stepper) and any other driver or microcontroller. As long as the driver has enough current capacity to drive the motor and the microcontroller has enough processing power to run the FOC algorithm, you can use it. The only real constraint is that you need to be able to measure the phase current of the motor. This is because the sensorless observer uses the phase current to estimate the rotor position and velocity.
 
+<blockquote class="info" markdown="1"><p class="heading">Sensorless flux observer guide</p>
+This example shows the hardware and the code for one specific setup. For how the observer works, which motor parameters it needs, how to start the motor and how to tune the current loop, see the [sensorless flux observer guide](drivers_sensorless).
+</blockquote>
+
 
 # Connecting everything together
 For a bit more in depth explanation of how to connect Nucleo board and <span class="simple">Simple<span class="foc">FOC</span>Shield</span> connection please check the [connection examples](nucleo_connection).
@@ -164,7 +168,7 @@ BLDCMotor motor = BLDCMotor(11, 5.94, 100, 0.0005);
 
 
 ## Sensorless observer
-Next we need to define the sensorless observer class. The observer is used to estimate the rotor position and velocity without using any sensors. The observer is based on the [MXLEMMING_observer](https://github.com/simplefoc/Arduino-FOC-drivers/tree/dev/src/encoders/MXLEMMING_observer)
+Next we need to define the sensorless observer class. The observer is used to estimate the rotor position and velocity without using any sensors. The observer is based on the [MXLEMMING_observer](https://github.com/simplefoc/Arduino-FOC-drivers/tree/dev/src/encoders/MXLEMMING_observer). See the [sensorless flux observer guide](drivers_sensorless) for the requirements, the motor parameters and tips for starting and tuning.
 
 ```cpp
 // define sensorless observer

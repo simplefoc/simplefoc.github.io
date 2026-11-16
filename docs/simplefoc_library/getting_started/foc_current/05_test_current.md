@@ -5,9 +5,10 @@ nav_order: 1
 description: "Setup current sensing and validate d/q current feedback"
 permalink: /test_current
 parent: FOC Current Control
-grand_parent: Writing the Code
+grand_parent: Getting Started
 great_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> 
 toc: true
+grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 ---
 
 # Current Sense Testing and Validation

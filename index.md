@@ -28,6 +28,14 @@ Therefore this is an attempt to:
    - For official driver boards see [<span class="simple">Simple<span class="foc">FOC</span>Boards</span>](https://docs.simplefoc.com/boards)
    - Many many more boards developed by the community members, see [<span class="simple">Simple<span class="foc">FOC</span> Community</span>](https://community.simplefoc.com/)
 
+## New here? Start here
+
+1. **[Install the library](installation)** in the Arduino IDE or PlatformIO
+2. **[Follow the getting started guide](example_from_scratch)** to get your motor spinning in about an hour, step by step
+3. **[See supported hardware](supported_hardware)** if you don't have a driver board yet, or check some of the official **[Boards](boards)**
+
+[Getting started guide](example_from_scratch){: .btn .btn-primary} [Installation](installation){: .btn .btn-docs} [Boards](boards){: .btn .btn-docs}
+
 <blockquote class="info" markdown="1">
    <p class="heading">NEW RELEASE 📢: <span class="simple">Simple<span class="foc">FOC</span>library</span> v2.4.0 <a href="https://github.com/simplefoc/Arduino-FOC/releases/tag/v2.4.0">see release</a></p>
 

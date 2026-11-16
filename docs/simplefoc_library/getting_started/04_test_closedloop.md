@@ -4,8 +4,8 @@ title: Closing the Loop Test
 nav_order: 4
 description: "Test closed-loop control with voltage-based torque mode"
 permalink: /test_closedloop
-parent: Getting Started Guide
-grand_parent: Writing the Code
+parent: Getting Started
+grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 great_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> 
 toc: true
 ---

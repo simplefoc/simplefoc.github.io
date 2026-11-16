@@ -4,8 +4,8 @@ title: Test Your Driver
 nav_order: 2
 description: "Verify your motor driver is working correctly"
 permalink: /test_driver
-parent: Getting Started Guide
-grand_parent: Writing the Code
+parent: Getting Started
+grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 great_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> 
 toc: true
 ---

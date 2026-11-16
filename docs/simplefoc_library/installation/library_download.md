@@ -35,3 +35,10 @@ cd #arduino libraries folder
 git clone https://github.com/simplefoc/Arduino-FOC.git
 ```
 - Reopen Arduino IDE and you should have the library examples in `File > Examples > Simple FOC`.
+
+
+## Next: get your motor spinning
+
+The library is installed. Follow the [getting started guide](example_from_scratch) to test your sensor, driver and motor step by step, and have closed-loop control running in about an hour.
+
+[Getting started guide](example_from_scratch){: .btn .btn-primary}

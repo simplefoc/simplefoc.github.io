@@ -37,6 +37,15 @@ Each one of the current sensing classes will implement all the necessary functio
 Each of the implemented classes can be used as stand-alone classes and they can be used to read current values on BLDC or Stepper driver outputs out of scope of the Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>, see example codes in `utils > current_sense_test`.
 In order for FOC algorithm to work the current sense classes are linked to a `BLDCMotor`, `StepperMotor` or `HybridStepperMotor` class which uses the driver to read the FOC currents.   
 
+## What current sensing enables
+
+Adding current sensing to your setup unlocks several features of the library:
+
+- [**FOC current control**](foc_current_torque_mode): precise control of the motor torque, with real current limiting
+- [**Motor characterisation**](motor_characterisation): measure the phase resistance and inductance automatically
+- [**Current loop auto-tuning**](tuning_current_loop): tune the current PI controllers from the measured motor parameters
+- [**Sensorless control**](drivers_sensorless): run FOC without a position sensor, estimating the rotor angle from the phase currents
+
 ## 🎯 Our implementation goals
 The current sense code will be written in a way to support as many different drivers out there as possible and in a way to be fully interchangeable. Due to the very hardware specific implementations of the ADC acquisition for different MCU architectures and due to very different driver/adc synchronisation requirements for different current sensing approaches this task is probably one of the most complex challenges for the <span class="simple">Simple<span class="foc">FOC</span>library</span> so far. Therefore the work will be done in iterations and each release will better and better support.  Please make sure to follow out github and [check the releases <i class="fa fa-tag"></i>](https://github.com/simplefoc/Arduino-FOC/releases).
 

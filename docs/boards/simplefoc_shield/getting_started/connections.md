@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Connecting the hardware
-parent: Getting Started
+parent: Starting with Shield
 description: "Connecting SimpleFOCShield with your hardware."
 nav_order: 2
 permalink: /foc_shield_connect_hardware

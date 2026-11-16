@@ -2,7 +2,7 @@
 layout: default
 title: Soldering Pads v3.x
 parent: Soldering pads
-grand_parent: Getting Started
+grand_parent: Starting with Shield
 description: "Configuring your SimpleFOCShield by soldering the pads."
 nav_order: 3
 permalink: /pads_soldering_v3

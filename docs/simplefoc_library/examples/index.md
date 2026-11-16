@@ -2,7 +2,7 @@
 layout: default
 title: Example projects
 description: "Arduino Simple Field Oriented Control (FOC) library ."
-nav_order: 4
+nav_order: 5
 permalink: /examples
 has_children: true
 has_toc: false

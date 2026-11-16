@@ -48,8 +48,13 @@ This library supports these types of *off-the-shelf* position sensors:
 | **[Magnetic Sensor](magnetic_sensor)** | Measures magnetic field | SPI, I2C, Analog, PWM, ABI, UVW | [AS5048A](https://www.ebay.com/itm/AS5048-Magnetic-Encoder-PWM-SPI-Interface-14-Bit-Precision-For-Brushless-Motor/153636871434?hash=item23c5789d0a:g:oOMAAOSwd-5ddaWQ), [AS5047U](https://www.mouser.fr/ProductDetail/ams/AS5X47U-TS_EK_AB?qs=sGAEpiMZZMve4%2FbfQkoj%252BBDLPCj82ZLyYIPEtADg0FE%3D), [AS5600](https://www.ebay.com/itm/1PC-New-AS5600-magnetic-encoder-sensor-module-12bit-high-precision/303401254431?hash=item46a41fbe1f:g:nVwAAOSwTJJd8zRK) | Absolute position |
 | **[Hall Sensor](hall_sensors)** | Detects magnet poles | UVW (3 digital inputs) | [49E Hall Sensor](https://fr.aliexpress.com/item/32590021901.html?spm=a2g0o.productlist.0.0.6eec671cZA32JT&algo_pvid=5729f98b-72a0-4cf8-b80a-adac9ecbbd2a&algo_expid=5729f98b-72a0-4cf8-b80a-adac9ecbbd2a-58&btsid=0b8b035915993735716435630eb78b&ws_ab_test=searchweb0_0,searchweb201602_,searchweb201603_), [105 Hall Sensor](https://fr.aliexpress.com/item/32968973849.html?spm=a2g0o.productlist.0.0.2727671c1QF3Xc&algo_pvid=701cd77d-e484-49ca-8ee8-35a76ed246a1&algo_expid=701cd77d-e484-49ca-8ee8-35a76ed246a1-12&btsid=0b8b034e15993753711202685ed51b&ws_ab_test=searchweb0_0,searchweb201602_,searchweb201603_) | Low cost |
 | **[Generic Sensor](generic_sensor)** | Custom implementation | Your choice | Any custom sensor | Maximum flexibility |
+| **[Sensorless (flux observer)](drivers_sensorless)** | Estimates the angle from the phase currents | None, requires current sensing | - | No sensor hardware |
 
 All sensor classes are implemented in a generic way to support as many sensor variants as possible.
+
+<blockquote class="info" markdown="1"><p class="heading">No position sensor?</p>
+If you have [current sensing](current_sense), the [sensorless flux observer](drivers_sensorless) from the <span class="simple">Simple<span class="foc">FOC</span>Drivers</span> library can estimate the rotor angle from the phase currents, and is used like any other sensor. It works well at medium and high speeds (fans, wheels, spindles), but not at standstill or very low speeds, so it is not suited for position control. Without current sensing, you can still run the motor in [open-loop](open_loop_motion_control) mode.
+</blockquote>
 
 
 ## Supporting additional sensors

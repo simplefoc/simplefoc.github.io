@@ -27,7 +27,7 @@ These examples demonstrate the basic usage of the library with:
   - Encoders (hardware and software interrupts)
   - Magnetic sensors (SPI, I2C, Analog)
   - Hall sensors
-  - Open-loop control (sensorless)
+  - Open-loop control (no sensor)
 - **different BLDC/Stepper drivers**: 
   - <span class="simple">Simple<span class="foc">FOC</span>Shield</span> (v1, v2, v3)
   - <span class="simple">Simple<span class="foc">FOC</span>Mini</span>

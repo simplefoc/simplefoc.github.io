@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Getting Started
+title: Starting with Shield
 description: "Getting started with Arduino SimpleFOCShield"
 parent: <span class="simple">Simple<span class="foc">FOC</span>Shield</span>
 grand_parent: <span class="simple">Simple<span class="foc">FOC</span> Boards</span>

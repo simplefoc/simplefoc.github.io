@@ -3,7 +3,7 @@ layout: default
 title: Practical guides
 parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 description: "Arduino Simple Field Oriented Control (FOC) library ."
-nav_order: 5
+nav_order: 6
 permalink: /practical_guides
 has_children: True
 has_toc: False

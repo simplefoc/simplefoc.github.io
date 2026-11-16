@@ -5,9 +5,10 @@ nav_order: 2
 description: "Enable current-based torque control with closed-loop current feedback"
 permalink: /test_foc_current
 parent: FOC Current Control
-grand_parent: Writing the Code
+grand_parent: Getting Started
 great_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> 
 toc: true
+grand_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 ---
 
 # Full FOC Current Control

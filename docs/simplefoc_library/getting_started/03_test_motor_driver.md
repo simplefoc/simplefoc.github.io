@@ -4,8 +4,8 @@ title: Open-Loop (Motor + Driver)
 nav_order: 3
 description: "Test motor and driver together with open-loop control"
 permalink: /test_motor_driver
-parent: Getting Started Guide
-grand_parent: Writing the Code
+parent: Getting Started
+grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 great_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> 
 toc: true
 ---

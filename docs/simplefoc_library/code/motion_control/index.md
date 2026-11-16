@@ -61,7 +61,7 @@ Efficiency	| **HIGH:** Only uses the current necessary to maintain state.	| **LO
 Accuracy	| **HIGH:** Real-time correction of disturbances and load changes.	| **LOW:** Assumes the motor follows the target; prone to position loss under load.
 Heat	| **COOLER:** Motor stays cool when idle or under light load.	| **HOT:** Motor runs hot even when stationary or spinning freely.
 Safety	| **HIGH:** Can detect stalls and limit velocity/current dynamically.	| **LOW:** No stall detection; can "runaway" or vibrate if overloaded.
-Hardware	| **REQUIRES a Position Sensor (Encoder, Magnetic, etc.).**	| **MINIMAL:** No sensor required.
+Hardware	| **REQUIRES a Position Sensor (Encoder, Magnetic, etc.)**, or a [sensorless observer](drivers_sensorless) with current sensing.	| **MINIMAL:** No sensor required.
 MCU performance	| **HIGHER:** More computational load due to feedback processing.	| **LOW:** Simpler calculations; less CPU usage; suitable for low-end MCUs.
 | [Go to Closed-loop control docs](closed_loop_motion_control){: .btn .mr-2 .btn-docs} | [Go to Open-loop control docs](open_loop_motion_control){: .btn .mr-2 .btn-docs} 
 

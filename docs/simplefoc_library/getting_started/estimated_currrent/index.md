@@ -4,8 +4,8 @@ title: Estimated Current Control
 nav_order: 7
 description: "Model-based current control without sensors"
 permalink: /estimated_current_guide
-parent: Getting Started Guide
-grand_parent: Writing the Code
+parent: Getting Started
+grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 great_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> 
 toc: true
 ---

@@ -141,3 +141,10 @@ Windows:<br/>
 `% mklink /J Arduino-FOC C:\path\to\Arduino-FOC`
 
 Note: If you had previously added the release version of the library to the project using PlatformIO's library management, you will have to remove this reference from the platformio.ini file
+
+
+## Next: get your motor spinning
+
+The library is installed. Follow the [getting started guide](example_from_scratch) to test your sensor, driver and motor step by step, and have closed-loop control running in about an hour.
+
+[Getting started guide](example_from_scratch){: .btn .btn-primary}

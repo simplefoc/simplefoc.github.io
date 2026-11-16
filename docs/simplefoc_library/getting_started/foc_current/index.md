@@ -4,8 +4,8 @@ title: FOC Current Control
 nav_order: 8
 description: "Sensor-based current control with hardware current sensing"
 permalink: /foc_current
-parent: Getting Started Guide
-grand_parent: Writing the Code
+parent: Getting Started
+grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 great_grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> 
 toc: true
 has_children: true

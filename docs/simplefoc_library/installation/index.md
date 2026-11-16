@@ -52,3 +52,9 @@ There are two ways to install this Arduino library, depending on your plans with
     </a>
 </div>
 
+
+## Next: get your motor spinning
+
+Once the library is installed, follow the [getting started guide](example_from_scratch) to test your sensor, driver and motor step by step, and have closed-loop control running in about an hour.
+
+[Getting started guide](example_from_scratch){: .btn .btn-primary}

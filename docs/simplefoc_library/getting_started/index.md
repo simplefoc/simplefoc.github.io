@@ -1,11 +1,10 @@
 ---
 layout: default
-title: Getting Started Guide
-nav_order: 1
+title: Getting Started
+nav_order: 2
 description: "Step-by-step guides to get your SimpleFOC motor control working"
 permalink: /example_from_scratch
-parent: Writing the Code
-grand_parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> 
+parent: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 toc: true
 has_children: true
 ---
@@ -20,9 +19,17 @@ Here is an attempt to guide you through testing and configuring your motor contr
 - You are [familiar with the library structure](code)  
 - You have [the necessary hardware](supported_hardware)  
 
+<blockquote class="info" markdown="1"><p class="heading">No position sensor?</p>
+These guides assume a position sensor. Without one, you have two options:
+- **[Open-loop control](open_loop_motion_control)**: works with any driver, but is inefficient and can lose steps under load. Do steps 2 and 3 below.
+- **[Sensorless FOC](drivers_sensorless)**: if you have [current sensing](current_sense), a flux observer estimates the rotor angle from the phase currents. Efficient, but only works at medium and high speeds. Do steps 2 and 3 below, then follow the [sensorless guide](drivers_sensorless).
+</blockquote>
+
 ## Foundation Steps (All Users)
 
 Follow these 4 guides in order. Each takes **10-15 minutes** and builds on the previous one:
+
+[Start with step 1: Test your sensor →](test_sensor){: .btn .btn-primary}
 
 ### [1. Test Your Sensor](test_sensor) 
 **~10 min** - Validate that your position sensor is working  

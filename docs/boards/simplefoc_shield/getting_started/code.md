@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Writing the code
-parent: Getting Started
+parent: Starting with Shield
 description: "Writing the Arduino program for your SimpleFOCShield."
 nav_order: 3
 permalink: /foc_shield_code
