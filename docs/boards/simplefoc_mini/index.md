@@ -3,7 +3,7 @@ layout: default
 title: <span class="simple">Simple<span class="foc">FOC</span>Mini</span>
 parent: <span class="simple">Simple<span class="foc">FOC</span> Boards</span>
 description: "SimpleFOCMini board showcase and getting started information."
-nav_order: 2
+nav_order: 3
 permalink: /simplefocmini
 has_children: true
 has_toc: false

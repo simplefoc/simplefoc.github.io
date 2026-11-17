@@ -22,7 +22,7 @@ The SimpleFOC board range includes Arduino-compatible shields, compact driver bo
 | Format | Arduino shield | Arduino shield | Compact driver | Integrated controller |
 | Key hardware | DRV8316, inline current sensing, voltage sensing | DRV8320H, inline current sensing | DRV8316, three-phase low-side current sensing | STM32G431, DRV8316, MT6701 encoder, CAN |
 | Intended use | Low and mid-power FOC with an external MCU (R3 headers) | Higher-current applications with an external MCU (R3 headers) | Small BLDC or stepper setups with an external MCU | Compact standalone BLDC and stepper control |
-| |[Find out more](arduino_simplefoc_shield_showcase){: .btn .btn-docs}|[Find out more](https://github.com/simplefoc/SimpleFOC-DriveShield){: .btn .btn-docs}|[Find out more](simplefocmini){: .btn .btn-docs}|[Find out more](microspora_landing){: .btn .btn-docs}|
+| |[Find out more](arduino_simplefoc_shield_showcase){: .btn .btn-docs}|[Find out more](driveshield){: .btn .btn-docs}|[Find out more](simplefocmini){: .btn .btn-docs}|[Find out more](microspora_landing){: .btn .btn-docs}|
 
 Other compatible boards are listed in the [supported hardware guide](supported_hardware), and community designs can be found on the [SimpleFOC forum](https://community.simplefoc.com/).
 
@@ -32,7 +32,7 @@ Other compatible boards are listed in the [supported hardware guide](supported_h
 
 These boards are designed to be compatible with the Arduino UNO R3 headers, enabling an easy to start experience with the <span class="simple">Simple<span class="foc">FOC</span>library</span> and the Arduino IDE. The boards can be used with any board with the standard Arduino headers, such as the Arduino MEGA, STM32 Nucleo boards, Adafruit Metro, ESP32 D1 R3, Arudino UNO R4 and many others. This format enables user to easily exchange the microcontrollers and find the best solution for their application. The boards are fully open-source and the fabrication files are available in the respective repositories, as well as detailed guides on how to fabricate the boards yourself. 
 
-| Feature | <span id="simplefocshield"></span>[SimpleFOCShield v4.1](arduino_simplefoc_shield_showcase) | <span id="driveshield"></span>[SimpleFOC DriveShield v1.8](https://github.com/simplefoc/SimpleFOC-DriveShield) |
+| Feature | <span id="simplefocshield"></span>[SimpleFOCShield v4.1](arduino_simplefoc_shield_showcase) | <span id="driveshield"></span>[SimpleFOC DriveShield v1.8](driveshield) |
 | --- | --- | --- |
 | Board | <img src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/master/images/top.png" style="height:250px" alt="SimpleFOCShield" /> | <img src="https://raw.githubusercontent.com/simplefoc/SimpleFOC-DriveShield/main/images/top.png" style="height:250px" alt="SimpleFOC DriveShield" /> |
 | Motor driver | DRV8316 | DRV8320H gate driver with BSZ0904NSI MOSFETs |
@@ -51,9 +51,9 @@ These boards are designed to be compatible with the Arduino UNO R3 headers, enab
 | Open-Source | [GitHub](https://github.com/simplefoc/Arduino-SimpleFOCShield) | [GitHub and fabrication files](https://github.com/simplefoc/SimpleFOC-DriveShield)|
 |**Available**: | [SimpleFOC shop](https://simplefoc.com/simplefoc_shield_product) | [Makerfabs](https://www.makerfabs.com/simplefoc-driveshield.html)|
 
-For currents above 15A, the DriveShield may need a heatsink or thicker PCB copper. See its [thermal measurements](https://github.com/simplefoc/SimpleFOC-DriveShield#temperature-characteristics-study).
+For currents above 15A, the DriveShield may need a heatsink or thicker PCB copper. See its [thermal measurements](driveshield#thermal-performance).
 
-[Read more about SimpleFOC Shield board](arduino_simplefoc_shield_showcase){: .btn .btn-docs}
+[Read more about SimpleFOC Shield board](arduino_simplefoc_shield_showcase){: .btn .btn-docs} [Read more about the DriveShield](driveshield){: .btn .btn-docs}
 
 ## Mini boards
 

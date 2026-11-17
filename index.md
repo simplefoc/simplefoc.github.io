@@ -190,6 +190,8 @@ Here are some of the official boards developed by the <span class="simple">Simpl
 - **Form factor**: Arduino UNO, MEGA, STM32 Nucleo, and compatible shield
 - **Project and availability**: [GitHub project](https://github.com/simplefoc/SimpleFOC-DriveShield) · [Makerfabs](https://www.makerfabs.com/simplefoc-driveshield.html)
 
+[Read more in docs](driveshield){: .btn .btn-docs}
+
 
 </div><div class="width40 inline_block_top" markdown="1">
 
