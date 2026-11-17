@@ -32,6 +32,7 @@ It is also meant as a **template project** for the community: a relatively simpl
    - Protections: undervoltage lockout, charge pump fault, MOSFET overcurrent and short circuit, gate driver fault, overtemperature
    - Fault LED, and an optional fault output to the microcontroller
 - **MOSFETs**: [BSZ0904NSI](https://www.infineon.com/dgdl/Infineon-BSZ0904NSI-DataSheet-v02_04-EN.pdf?fileId=db3a30432f29829e012f2a1ec7d90032), 30V / 75A, standard 3x3mm footprint, easy to replace
+- **Cooling**: 2oz copper outer layers on the Makerfabs boards, room for an optional 23 x 23mm [heatsink](#heatsink) on the power stage
 - **Inline current sensing**: [INA240A1](https://www.ti.com/lit/ds/symlink/ina240.pdf) amplifiers (gain 20) with 2mΩ shunts, ±40A range at 3.3V
 - **Power supply voltage sensing**: voltage divider (1/11)
 - **Integrated 8V regulator**: powers the microcontroller board through `VIN` (v1.8+)
@@ -84,11 +85,24 @@ Current | MOSFETs, standard | MOSFETs, thick | DRV8320H, standard | DRV8320H, th
 
 The MOSFETs are rated up to 150°C and the DRV8320H up to 125°C, so the board can run at 20A without extra cooling, but with little margin.
 
+The boards made by [Makerfabs](https://www.makerfabs.com/simplefoc-driveshield.html) use the thick PCB, with 2oz copper on the outer layers. If you make the board yourself, choose 2oz outer copper when ordering the PCB.
+
 <blockquote class="warning" markdown="1"><p class="heading">Above 15A continuous</p>
-Use a heatsink on the MOSFETs, or order the PCB with thick copper (2oz outer layers).
+Use a [heatsink](#heatsink) on the power stage, and a PCB with thick copper (2oz outer layers).
 </blockquote>
 
 <img src="https://raw.githubusercontent.com/simplefoc/SimpleFOC-DriveShield/v1.8/images/experiment/1oz%20(1).jpg" class="width30"> <img src="https://raw.githubusercontent.com/simplefoc/SimpleFOC-DriveShield/v1.8/images/experiment/2oz%20(1).jpg" class="width30">
+
+### Heatsink
+
+The board is designed to take a **23 x 23mm heatsink** on top of the power stage, covering the six MOSFETs and the DRV8320H, if your application needs it (the white area below).
+
+<img src="https://raw.githubusercontent.com/simplefoc/SimpleFOC-DriveShield/main/images/schema.png" class="width50" alt="DriveShield heatsink placement, 23 x 23mm over the MOSFETs and the DRV8320H">
+
+A small adhesive aluminium heatsink is enough, for example the RS PRO [750-0894](https://fr.rs-online.com/web/p/dissipateurs-de-chaleur/7500894): 23 x 23 x 6mm, 22K/W, with adhesive thermal foil.
+
+- Make sure the heatsink doesn't touch any of the exposed pads or components around the power stage.
+- A small fan blowing over the board helps a lot more than a bigger heatsink.
 
 ## Release history
 
@@ -103,5 +117,5 @@ v1.7 | 02/26 | STEMMA QT and SPI connectors, INA240 current sensing, power suppl
 
 ## How to get one
 
-- **Order the assembled board** from [Makerfabs](https://www.makerfabs.com/simplefoc-driveshield.html).
+- **Order the assembled board** from [Makerfabs](https://www.makerfabs.com/simplefoc-driveshield.html). Makerfabs makes the board with 2oz outer copper layers, the thick version from the [thermal measurements](#thermal-performance).
 - **Make it yourself**: the Gerber, BOM and pick and place files are in the [GitHub repository](https://github.com/simplefoc/SimpleFOC-DriveShield), and the [EasyEDA project](https://oshwlab.com/the.skuric/SimpleFOC-Drive) can be ordered directly from JLCPCB. The process is the same as for the [Shield v4](arduino_simplefoc_shield_fabrication_v4).

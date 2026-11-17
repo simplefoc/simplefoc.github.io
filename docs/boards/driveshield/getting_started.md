@@ -97,7 +97,7 @@ Terminal | Driven by | Current sense
 The motor phase order only changes the direction of rotation, which `initFOC()` detects automatically. The table matters when you're debugging, for example when measuring the current of one phase.
 
 <blockquote class="warning" markdown="1"><p class="heading">Thermal limits</p>
-For currents above 15A continuous, use a heatsink or a thick-copper PCB, see the [thermal measurements](driveshield#thermal-performance). Always set `motor.current_limit` in the code.
+For currents above 15A continuous, add a 23 x 23mm heatsink on the power stage, see the [thermal measurements](driveshield#thermal-performance) and the [heatsink](driveshield#heatsink) section. Always set `motor.current_limit` in the code.
 </blockquote>
 
 ### Sensors

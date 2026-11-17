@@ -152,7 +152,7 @@ These boards are designed to be compatible with the Arduino UNO R3 headers, enab
 | Open-Source | [GitHub](https://github.com/simplefoc/Arduino-SimpleFOCShield) | [GitHub and fabrication files](https://github.com/simplefoc/SimpleFOC-DriveShield)|
 |**Available**: | [SimpleFOC shop](https://simplefoc.com/simplefoc_shield_product), Makerfabs (coming soon) | [Makerfabs](https://www.makerfabs.com/simplefoc-driveshield.html)|
 
-For currents above 15A, the DriveShield may need a heatsink or thicker PCB copper. See its [thermal measurements](driveshield#thermal-performance).
+The DriveShield made by Makerfabs uses 2oz outer copper layers, and the board has room for a 23 x 23mm heatsink for currents above 15A. See its [thermal measurements](driveshield#thermal-performance).
 
 [Read more about SimpleFOC Shield board](arduino_simplefoc_shield_showcase){: .btn .btn-docs} [Read more about the DriveShield](driveshield){: .btn .btn-docs}
 
