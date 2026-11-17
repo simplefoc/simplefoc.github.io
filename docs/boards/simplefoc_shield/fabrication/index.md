@@ -10,8 +10,18 @@ has_children: true
 has_toc: false
 ---
 # Fabrication guide for <span class="simple">Simple<span class="foc">FOC</span>Shield</span> 
-Here is a quick guide how to fabricate the Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> check the most [recent versions <i class="fa fa-tag"></i>](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases). Here we will showcase the two most recent releases of <span class="simple">Simple<span class="foc">FOC</span>Shield</span> v1, <span class="simple">Simple<span class="foc">FOC</span>Shield</span> v2 and <span class="simple">Simple<span class="foc">FOC</span>Shield</span> v3.
+Here is a quick guide how to fabricate the Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> check the most [recent versions <i class="fa fa-tag"></i>](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases). Here we showcase all the major versions, from v1 to the latest v4.
     
+<div class="image_icon width30" >
+    <a href="arduino_simplefoc_shield_fabrication_v4" >
+        <img style="margin-left:3%;margin-right:3%;width:42%;display:inline" src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/v4.1/images/top.png" > <img style="margin-left:3%;margin-right:3%;width:42%;display:inline" src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/v4.1/images/bottom.png" >
+        <i class="fa fa-external-link-square fa-2x"></i>
+        <p > <span class="simple">Simple<span class="foc">FOC</span>Shield</span> v4 <small>(latest)</small></p>
+    </a>
+</div>
+
+### Older versions
+
 <div class="image_icon width30" >
     <a href="arduino_simplefoc_shield_fabrication_v1" >
         <img style="width:50%;display:inline" src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/v1.3.3/images/top.png" > <img style="width:50%;display:inline" src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/v1.3.3/images/bottom.png" >
@@ -52,6 +62,7 @@ Version  |link | Release date | Comment
 *Simple**FOC**Shield* v2.0.4 |[release v2.0.4](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases/tag/v2.0.4) | 09/21 | - Pullup config simplified <br> - Max input voltage 35V <br> - removed CAP2 for a CL1 <br> - Easy EDA version of the project
 *Simple**FOC**Shield* v3.1 |release v3.1 | 10/22 | - Complete redesign <br> - Transition to DRV8313 <br> - Transition to ACS712 <br> - Smaller footprint: 56mm x 53mm<br> - Fault and reset pins exposed (optional) <br> - Fault led indication <br>- Fully developed using EasyEDA
 *Simple**FOC**Shield* **v3.2** |[release v3.2](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases/tag/v3.2) | 04/24 | - Official release <br> - Resolved the bug [#9](https://github.com/simplefoc/Arduino-SimpleFOCShield/issues/9)
+*Simple**FOC**Shield* **v4.1** |[release v4.1](https://github.com/simplefoc/Arduino-SimpleFOCShield/releases/tag/v4.1) | 04/26 | - Official v4 release <br> - Transition to DRV8316 <br> - Transition to INA240 amplifiers <br> - Power supply voltage sensing <br> - QWIIC/STEMMA QT and SPI JST connectors
 
 
 

@@ -329,6 +329,10 @@ current_sense.skip_align = true;
 
 <div class="type type-bldc"  markdown="1">
 
+<blockquote class="info" markdown="1">
+For the <span class="simple">Simple<span class="foc">FOC</span>Shield</span> v4 (5mΩ shunts, INA240A2 with gain 50), use `InlineCurrentSense(0.005f, 50.0f, A2, _NC, A0)` with the default pads. See the [Shield v4 code guide](foc_shield_code#step-4-current-sensing-and-foc-current-control).
+</blockquote>
+
 For example, Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> v2, you would have a code similar to this:
 ```cpp
 // one possible combination of current sensing pins for SimpleFOCShield v2

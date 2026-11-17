@@ -16,6 +16,16 @@ One of the very important features of the Arduino <span class="simple">Simple<sp
 
 
 <div class="image_icon width30" >
+    <a href="pads_soldering_v4" >
+        <img src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/v4.1/images/bottom.png" style="width:82%;padding:1px;margin-left:7%">
+        <i class="fa fa-external-link-square fa-2x"></i>
+        <p> <span class="simple">Simple<span class="foc">FOC</span>Shield</span> v4 <small>(latest)</small></p>
+    </a>
+</div>
+
+### Older versions
+
+<div class="image_icon width30" >
     <a href="pads_soldering_v1" >
         <img src="extras/Images/shield_bot_v131_pinout.gif" > 
         <i class="fa fa-external-link-square fa-2x"></i>

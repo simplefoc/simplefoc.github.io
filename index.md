@@ -131,7 +131,7 @@ Here are some of the official boards developed by the <span class="simple">Simpl
 
 <div class="width40 inline_block_top" markdown="1">
 
-## <span class="simple">Simple<span class="foc">FOC</span>Shield</span>
+## <span class="simple">Simple<span class="foc">FOC</span>Shield</span> <small>v4.1</small>
 
 <img src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/master/images/top.png"  class="img200"/>
 
@@ -140,10 +140,11 @@ Here are some of the official boards developed by the <span class="simple">Simpl
 ![GitHub Release Date](https://img.shields.io/github/release-date/simplefoc/arduino-simplefocshield?color=blue)
 
 ### Features
-- **What is it?**: An Arduino Shield for driving low-power BLDC and stepper motors
-- **Driver and power**: DRV8313, 8-35V supply, 2A per phase (3A peak)
-- **Current sensing**: ACS712 inline sensor, up to ±5A
-- **Motor support**: Low-power BLDC and stepper motors
+- **What is it?**: An Arduino Shield for driving low and mid-power BLDC motors
+- **Driver and power**: DRV8316, up to 35V supply, 3-5A continuous (8A peak)
+- **Current sensing**: INA240 inline amplifiers, up to ±10A, plus supply voltage sensing
+- **Connectors**: QWIIC/STEMMA QT and SPI JST connectors for sensors
+- **Motor support**: Gimbal and small/mid-size drone BLDC motors
 - **Form factor**: Stackable Arduino UNO, MEGA, STM32 Nucleo, and compatible boards
 - **Project and availability**: [GitHub project](https://github.com/simplefoc/Arduino-SimpleFOCShield) · [Shop](https://www.simplefoc.com/shop)
 

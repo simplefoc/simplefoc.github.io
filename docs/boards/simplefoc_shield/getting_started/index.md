@@ -30,7 +30,7 @@ Each board has a set of solder pads on the bottom side which are used for config
 
 <img src="extras/Images/connection.gif" class="width50">
 
-Connecting the Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> to the microcontroller, BLDC motor, power-supply and the sensors is very straight forward. 
+Connecting the Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> to the microcontroller, BLDC/Stepper motor, power-supply and the sensors is very straight forward. 
 
 [Read more](foc_shield_connect_hardware)
 
