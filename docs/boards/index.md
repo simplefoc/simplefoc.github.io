@@ -52,42 +52,55 @@ Answer a couple of questions and we'll point you to the board that fits your pro
 .bq-res p{margin:.4em 0;}
 .bq-nav{margin-top:12px;font-size:.9em;}
 .bq-nav button{background:none;border:none;color:#44a8fa;cursor:pointer;padding:0;margin-right:16px;font:inherit;}
+.bq-nav{display:flex;flex-wrap:wrap;align-items:center;gap:4px;}
+.bq-other{margin-left:auto;color:#686969 !important;}
 </style>
 <div class="bq" id="board-quiz"><noscript>Enable JavaScript to use the board finder, or see the comparison tables below.</noscript></div>
 <script>
 (function(){
 var R='https://raw.githubusercontent.com/simplefoc/';
 var B={
- microspora:{n:'SimpleFOC-microspora',img:R+'SimpleFOC-microspora/main/images/top.png',why:'Microcontroller, driver, magnetic encoder and CAN on one 33 x 34mm board. Plug in USB and a motor and you are ready to go.',spec:'STM32G431 · DRV8316 · 5-35V · 8A peak · BLDC and stepper',docs:'microspora_landing',cmp:'#microspora'},
+ microspora:{n:'SimpleFOC-microspora',img:R+'SimpleFOC-microspora/main/images/top.png',why:'Microcontroller, driver, magnetic encoder and CAN on one 33 x 34mm board, for small and medium motors. Plug in USB and a motor and you are ready to go.',spec:'STM32G431 · DRV8316 · 5-35V · 8A peak · BLDC and stepper',docs:'microspora_landing',cmp:'#microspora'},
  shield:{n:'SimpleFOCShield v4.1',img:R+'Arduino-SimpleFOCShield/master/images/top.png',why:'Stacks on your board, configured with solder pads, with inline current sensing. Stack two for two motors.',spec:'DRV8316 · up to 35V · 3-5A continuous, 8A peak · BLDC and stepper',docs:'arduino_simplefoc_shield_showcase',cmp:'#simplefocshield'},
  drive:{n:'SimpleFOC DriveShield',img:R+'SimpleFOC-DriveShield/main/images/top.png',why:'Same footprint and configuration as the Shield, with a gate driver and MOSFETs for bigger motors.',spec:'DRV8320H · 8-30V · 20A continuous, 30A peak · BLDC and stepper',docs:'driveshield',cmp:'#driveshield'},
  qtfoc:{n:'QtFOC',img:R+'QtFOC/master/images/top.png',why:'Plug in your XIAO or QT Py, the board powers it from the motor supply. SPI sensor connector and low-side current sensing.',spec:'DRV8316 · 8-35V · 8A peak · BLDC and stepper',docs:'qtfoc',cmp:'#qtfoc'},
  nano:{n:'SimpleFOCNano',img:'extras/Images/nanoshield.png',why:'Stacks with any Arduino Nano and powers it from the motor supply. SPI and STEMMA QT connectors for sensors.',spec:'DRV8313 · 8-30V · 2.5A · BLDC and stepper',docs:'simplefocnano',cmp:'#simplefocnano'},
- mini:{n:'SimpleFOCMini v2.3',img:R+'SimpleFOCMini/main/images/top.png',why:'A tiny driver you wire to any microcontroller, with low-side current sensing on all three phases.',spec:'DRV8316 · 5-35V · 8A peak · BLDC and stepper',docs:'simplefocmini',cmp:'#simplefocmini'}
+ mini:{n:'SimpleFOCMini v2.3',img:R+'SimpleFOCMini/main/images/top.png',why:'A tiny driver you wire to any microcontroller, with low-side current sensing on all three phases.',spec:'DRV8316 · 5-35V · 8A peak · BLDC and stepper',docs:'simplefocmini',cmp:'#simplefocmini'},
+ hp:{n:'Other high-performance boards',why:'Our boards go up to about 20A continuous. For bigger motors, have a look at the high-performance drivers and all-in-one boards that work with the SimpleFOC library, such as the ODrive-based boards.',docs:'bldc_drivers#high-performance-boards',l1:'High-performance boards',cmp:'supported_hardware',l2:'All supported hardware'},
+ hp_aio:{n:'A high-performance all-in-one board',why:'Our all-in-one board, the microspora, is made for small and medium motors. For bigger motors, see the high-performance all-in-one boards that work with the SimpleFOC library, such as the B-G431B-ESC1 or the ODrive-based boards. Or use the DriveShield with a microcontroller board of your choice.',docs:'bldc_drivers#all-in-one-boards-1',l1:'All-in-one boards',cmp:'#driveshield',l2:'DriveShield'}
 };
+var WIRE='The DriveShield has Arduino UNO headers, but you can also wire it to any microcontroller: it needs 3 PWM pins, an enable pin and two analog pins for the current sensing.';
 var Q={
- start:{q:'Do you already have a microcontroller board you want to use?',o:[
-  ['No, I want everything on one board','The quickest way to get a motor turning','r:microspora'],
-  ['Yes','Arduino, STM32, ESP32, ...','mcu']]},
- mcu:{q:'Which one?',o:[
-  ['Arduino UNO, Nucleo-64 or similar','Any board with Arduino UNO headers','current'],
+ start:{q:'What motor do you want to drive?',o:[
+  ['Small','Gimbal motors, small steppers: up to ~2.5A, phase resistance above ~5Ω','mcu_s'],
+  ['Medium','Small drone motors, NEMA 17 steppers: up to ~5A','mcu_m'],
+  ['Big','Drone motors, robot joints: 5-20A, phase resistance below ~1Ω','mcu_b'],
+  ['Very big','More than 20A continuous','r:hp'],
+  ['Not sure','Check the motor datasheet for the rated current, or start with a small or medium motor','mcu_m']]},
+ mcu_s:{q:'Which microcontroller do you want to use?',o:[
+  ['None, I want everything on one board','The quickest way to get a motor turning','r:microspora'],
+  ['Arduino UNO, Nucleo-64 or similar','Any board with Arduino UNO headers','r:shield'],
   ['Seeed XIAO or Adafruit QT Py','','r:qtfoc'],
-  ['Arduino Nano','Any Nano: classic, Every, 33, RP2040, ESP32','nanocur'],
+  ['Arduino Nano','Any Nano: classic, Every, 33, RP2040, ESP32','r:nano'],
   ['Something else','I will connect it with wires','r:mini']]},
- current:{q:'How much current does your motor need?',o:[
-  ['Up to about 5A','Gimbal motors, small drone motors, steppers','r:shield'],
-  ['More than 5A','Larger drone motors, robot joints, phase resistance below ~1Ω','r:drive'],
-  ['Not sure','','r:shield:Start with the Shield. If your motor has a phase resistance well below 1Ω or needs more than a few Amps, go for the DriveShield.']]},
- nanocur:{q:'How much current does your motor need?',o:[
-  ['Up to about 2.5A','Gimbal motors, small steppers','r:nano'],
-  ['More','','r:mini:The Nano shield is limited to 2.5A. The Mini handles up to 8A peak and can be wired to your Nano.']]}
+ mcu_m:{q:'Which microcontroller do you want to use?',o:[
+  ['None, I want everything on one board','The quickest way to get a motor turning','r:microspora'],
+  ['Arduino UNO, Nucleo-64 or similar','Any board with Arduino UNO headers','r:shield'],
+  ['Seeed XIAO or Adafruit QT Py','','r:qtfoc'],
+  ['Arduino Nano','Any Nano: classic, Every, 33, RP2040, ESP32','r:mini:The Nano shield is limited to 2.5A. The Mini handles up to 8A peak and can be wired to your Nano.'],
+  ['Something else','I will connect it with wires','r:mini']]},
+ mcu_b:{q:'Which microcontroller do you want to use?',o:[
+  ['None, I want everything on one board','','r:hp_aio'],
+  ['Arduino UNO, Nucleo-64 or similar','Any board with Arduino UNO headers','r:drive'],
+  ['Seeed XIAO, QT Py or Arduino Nano','','r:drive:'+WIRE],
+  ['Something else','I will connect it with wires','r:drive:'+WIRE]]}
 };
 var el=document.getElementById('board-quiz'),hist=[];
 function esc(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML;}
-function nav(){return '<div class="bq-nav">'+(hist.length>1?'<button data-a="back">← Back</button>':'')+(hist.length>1?'<button data-a="restart">Start over</button>':'')+'</div>';}
+function nav(){return '<div class="bq-nav">'+(hist.length>1?'<button data-a="back">← Back</button>':'')+(hist.length>1?'<button data-a="restart">Start over</button>':'')+'<a class="bq-other" href="supported_hardware">None of these fit? See other supported hardware →</a></div>';}
 function show(key){
  if(key.indexOf('r:')===0){var p=key.split(':'),b=B[p[1]],note=p.slice(2).join(':');
-  el.innerHTML='<div class="bq-step">Our suggestion</div><div class="bq-res"><img src="'+b.img+'" alt=""><div style="flex:1;min-width:220px"><div class="bq-name">'+esc(b.n)+'</div><p>'+esc(b.why)+'</p>'+(note?'<p><i>'+esc(note)+'</i></p>':'')+'<p><small>'+esc(b.spec)+'</small></p><a class="btn btn-primary" href="'+b.docs+'">Read more</a> <a class="btn btn-docs" href="'+b.cmp+'">Compare</a></div></div>'+nav();
+  el.innerHTML='<div class="bq-step">Our suggestion</div><div class="bq-res">'+(b.img?'<img src="'+b.img+'" alt="">':'')+'<div style="flex:1;min-width:220px"><div class="bq-name">'+esc(b.n)+'</div><p>'+esc(b.why)+'</p>'+(note?'<p><i>'+esc(note)+'</i></p>':'')+(b.spec?'<p><small>'+esc(b.spec)+'</small></p>':'')+'<a class="btn btn-primary" href="'+b.docs+'">'+(b.l1||'Read more')+'</a> <a class="btn btn-docs" href="'+b.cmp+'">'+(b.l2||'Compare')+'</a></div></div>'+nav();
  } else {var s=Q[key],h='<div class="bq-step">Question '+hist.length+'</div><div class="bq-q">'+esc(s.q)+'</div><div class="bq-opts">';
   s.o.forEach(function(o){h+='<button class="bq-opt" data-go="'+o[2].replace(/"/g,'&quot;')+'">'+esc(o[0])+(o[1]?'<small>'+esc(o[1])+'</small>':'')+'</button>';});
   el.innerHTML=h+'</div>'+nav();}
@@ -101,9 +114,13 @@ go('start');
 })();
 </script>
 
-The sections below compare similar boards side by side.
+<blockquote class="info" markdown="1"><p class="heading">None of these boards fit your project?</p>
+The <span class="simple">Simple<span class="foc">FOC</span>library</span> works with many other driver boards and microcontrollers: 3PWM and 6PWM BLDC drivers, stepper drivers, gimbal controllers, ODrive-like boards and more. See the [supported hardware](supported_hardware) section for drivers, microcontrollers, motors and sensors, and the [community forum](https://community.simplefoc.com/) for community designs.
 
-Other compatible boards are listed in the [supported hardware guide](supported_hardware), and community designs can be found on the [SimpleFOC forum](https://community.simplefoc.com/).
+[Supported hardware](supported_hardware){: .btn .btn-docs} [BLDC drivers](bldc_drivers){: .btn .btn-docs} [Stepper drivers](stepper_drivers){: .btn .btn-docs}
+</blockquote>
+
+The sections below compare similar boards side by side.
 
 
 

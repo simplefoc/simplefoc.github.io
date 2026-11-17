@@ -150,7 +150,7 @@ Here are the official boards developed by the <span class="simple">Simple<span c
 <a class="board-tile" href="simplefocnano"><img src="extras/Images/nanoshield.png" alt="" loading="lazy"><span class="bt-name"><span class="simple">Simple<span class="foc">FOC</span>Nano</span></span><span class="bt-desc">Driver shield for Arduino Nano</span><span class="bt-spec">BLDC + stepper · 2.5A</span></a>
 </div>
 
-[Which board should I use?](boards#which-board-should-i-use){: .btn .btn-primary} [Compare all boards](boards){: .btn .btn-docs}
+[Which board should I use?](boards#which-board-should-i-use){: .btn .btn-primary} [Compare all boards](boards){: .btn .btn-docs} [Other supported hardware](supported_hardware){: .btn .btn-docs}
 
 A short demo video for the <span class="simple">Simple<span class="foc">FOC</span>Shield</span> (its a bit outdated but still relevant)
 
