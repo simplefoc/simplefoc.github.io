@@ -146,7 +146,7 @@ Here are some of the official boards developed by the <span class="simple">Simpl
 - **Connectors**: QWIIC/STEMMA QT and SPI JST connectors for sensors
 - **Motor support**: Gimbal and small/mid-size drone BLDC motors
 - **Form factor**: Stackable Arduino UNO, MEGA, STM32 Nucleo, and compatible boards
-- **Project and availability**: [GitHub project](https://github.com/simplefoc/Arduino-SimpleFOCShield) · [Shop](https://www.simplefoc.com/shop)
+- **Project and availability**: [GitHub project](https://github.com/simplefoc/Arduino-SimpleFOCShield) · [Shop](https://www.simplefoc.com/shop) · Makerfabs (coming soon)
 
 [Read more in docs](arduino_simplefoc_shield_showcase){: .btn .btn-docs}
 
@@ -212,6 +212,24 @@ Here are some of the official boards developed by the <span class="simple">Simpl
 - **Project and availability**: [GitHub project](https://github.com/simplefoc/SimpleFOC-microspora) · [Makerfabs](https://www.makerfabs.com/simplefoc-microspora.html)
 
 [Read more in docs](microspora_landing){: .btn .btn-docs}
+</div><div class="width40 inline_block_top" markdown="1">
+
+## <span class="simple">Simple<span class="foc">FOC</span> <b>Qt</b>FOC</span>
+
+<img src="https://raw.githubusercontent.com/simplefoc/QtFOC/master/images/top.png" class="img200" alt="QtFOC"/>
+
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?color=blue)
+
+### Features
+- **What is it?**: A tiny BLDC and stepper motor driver for Seeed Studio XIAO and Adafruit QT Py boards
+- **Driver and power**: DRV8316, 8-35V supply, up to 8A peak
+- **Current sensing**: Two-phase low-side current sensing and supply-voltage sensing
+- **Motor support**: BLDC and stepper motors
+- **Form factor**: 25x45mm carrier, powers the microcontroller with its 5V buck converter
+- **Project and availability**: [GitHub project](https://github.com/simplefoc/QtFOC) · Makerfabs (coming soon)
+
+[Read more in docs](qtfoc){: .btn .btn-docs}
+
 </div>
 
 A short demo video for the <span class="simple">Simple<span class="foc">FOC</span>Shield</span> (its a bit outdated but still relevant)

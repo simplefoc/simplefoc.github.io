@@ -29,7 +29,7 @@ Version | Link | Release date | Comment
 The [<i class="fa fa-github"></i> GitHub repository](https://github.com/simplefoc/Arduino-SimpleFOCShield) contains:
 - <b><i class="fa fa-file"></i> Schematic</b> - PDF file
 - <b><i class="fa fa-file"></i> Gerber</b> - Gerber and NC drill files
-- <b><i class="fa fa-file"></i> Bill Of Materials (BOM)</b> - Excel sheet, with LCSC part numbers
+- <b><i class="fa fa-file"></i> Bill Of Materials (BOM)</b> - CSV file, with LCSC part numbers
 - <b><i class="fa fa-file"></i> Pick and place</b> - CSV and Excel files
 - <b><i class="fa fa-file"></i> 3D model</b> - STEP and OBJ files
 - <b><i class="fa fa-file"></i> PCB design project</b> - EasyEDA Pro
@@ -45,7 +45,6 @@ The design is made in EasyEDA Pro and all the components in the BOM have [LCSC](
 3. Enable **PCB Assembly**, on the **top side**.
 4. Upload the BOM and the pick and place file, and check the component placement in the preview, especially the orientation of the DRV8316, the INA240s and the LEDs.
    - The pick and place file also lists the configuration solder pads (`SC...` designators) on the bottom side. They are only copper pads, not components, so don't place any parts for them.
-   - A few passives in the BOM have no LCSC part number (`CL1` 100nF, `C_AVDD1` 22uF, `R4` 1kΩ, `R_MODE1` 47kΩ). Pick any 0603 part with the same value from the JLCPCB library.
 5. Place the order.
 
 Other PCBA services work as well, using the Gerber, BOM and pick and place files, but you may need to find replacements for the LCSC parts.

@@ -122,5 +122,5 @@ You already have your own <span class="simple">Simple<span class="foc">FOC</span
 
 ## How to get hold of the <span class="simple">Simple<span class="foc">FOC</span>Shield</span> 
 - **Fabricate the board yourself**:  Please visit the [board fabrication](arduino_simplefoc_shield_fabrication) to find out how to manufacture the board yourself!<br>
-- **Order the finished and tested board**:  Check out our [shop](https://simplefoc.com/simplefoc_shield_product).
+- **Order the finished and tested board**:  Check out our [shop](https://simplefoc.com/simplefoc_shield_product). The v4.1 will also be available from Makerfabs soon.
 
