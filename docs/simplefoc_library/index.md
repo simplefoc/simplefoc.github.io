@@ -2,7 +2,7 @@
 layout: default
 title: Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 description: "Arduino Simple Field Oriented Control (FOC) library ."
-nav_order: 3
+nav_order: 2
 permalink: /arduino_simplefoc_library_showcase
 has_children: True
 has_toc: False

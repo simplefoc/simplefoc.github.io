@@ -2,7 +2,7 @@
 layout: default
 title: <span class="simple">Simple<span class="foc">FOC</span> Boards</span>
 description: "SimpleFOC boards"
-nav_order: 2
+nav_order: 3
 permalink: /boards
 has_children: true
 has_toc: false
