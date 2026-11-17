@@ -127,110 +127,30 @@ One of the goals of the  <span class="simple">Simple<span class="foc">FOC</span>
 
 In addition to the official boards, there are many other boards compatible with <span class="simple">Simple<span class="foc">FOC</span>library</span>  that you can explore, see the [docs](supported_hardware). Additionally, some other cool hardware designs have been proposed by the community. Check out our [community forum](https://community.simplefoc.com/) for more info.
 
-Here are some of the official boards developed by the <span class="simple">Simple<span class="foc">FOC</span></span> team:
+Here are the official boards developed by the <span class="simple">Simple<span class="foc">FOC</span></span> team:
 
-<div class="width40 inline_block_top" markdown="1">
+<style>
+.board-tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:1em 0;}
+@media (min-width:800px){.board-tiles{grid-template-columns:repeat(3,minmax(0,1fr));}}
+.board-tile{display:flex;flex-direction:column;border:1px solid #c0bfca;border-radius:6px;padding:10px;text-decoration:none !important;color:inherit !important;transition:border-color .15s,box-shadow .15s;}
+.board-tile:hover{border-color:#44a8fa;box-shadow:0 2px 8px rgba(68,168,250,.2);}
+.board-tile img{height:110px;width:100%;object-fit:contain;margin-bottom:8px;}
+.board-tile .bt-name{font-weight:bold;font-size:1.05em;}
+.board-tile span{white-space:normal;}
+.board-tile .bt-desc{font-size:.9em;margin:4px 0 6px;flex-grow:1;}
+.board-tile .bt-spec{font-size:.8em;color:#686969;}
+</style>
 
-## <span class="simple">Simple<span class="foc">FOC</span>Shield</span> <small>v4.1</small>
-
-<img src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/master/images/top.png"  class="img200"/>
-
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?color=blue)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/simplefoc/arduino-simplefocshield)
-![GitHub Release Date](https://img.shields.io/github/release-date/simplefoc/arduino-simplefocshield?color=blue)
-
-### Features
-- **What is it?**: An Arduino Shield for driving low and mid-power BLDC motors
-- **Driver and power**: DRV8316, up to 35V supply, 3-5A continuous (8A peak)
-- **Current sensing**: INA240 inline amplifiers, up to ±10A, plus supply voltage sensing
-- **Connectors**: QWIIC/STEMMA QT and SPI JST connectors for sensors
-- **Motor support**: Gimbal and small/mid-size drone BLDC motors
-- **Form factor**: Stackable Arduino UNO, MEGA, STM32 Nucleo, and compatible boards
-- **Project and availability**: [GitHub project](https://github.com/simplefoc/Arduino-SimpleFOCShield) · [Shop](https://www.simplefoc.com/shop) · Makerfabs (coming soon)
-
-[Read more in docs](arduino_simplefoc_shield_showcase){: .btn .btn-docs}
-
-</div><div class="width40 inline_block_top" style  markdown="1">
-
-## <span class="simple">Simple<span class="foc">FOC</span>Mini</span>
-
-<img src="https://raw.githubusercontent.com/simplefoc/SimpleFOCMini/main/images/top.png" class="img200"/>
-
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?color=blue)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/simplefoc/simplefocmini)
-![GitHub Release Date](https://img.shields.io/github/release-date/simplefoc/simplefocmini?color=blue)
-
-### Features
-- **What is it?**: A minimal BLDC and stepper motor driver designed for low-power applications.
-- **Driver and power**: DRV8316, 8-35V supply, up to 8A
-- **Current sensing**: Integrated three-phase low-side sensing
-- **Motor support**: BLDC and stepper motors above approximately 1Ω phase resistance
-- **Form factor**: Compact 24x25mm driver
-- **Project and availability**: [GitHub project](https://github.com/simplefoc/SimpleFOCMini) · [Shop](https://www.simplefoc.com/shop)
-
-[Read more in docs](simplefocmini){: .btn .btn-docs}
-
+<div class="board-tiles">
+<a class="board-tile" href="microspora_landing"><img src="https://raw.githubusercontent.com/simplefoc/SimpleFOC-microspora/main/images/top.png" alt="" loading="lazy"><span class="bt-name"><span class="simple">Simple<span class="foc">FOC</span>-microspora</span></span><span class="bt-desc">All-in-one: STM32, driver, encoder and CAN on one board</span><span class="bt-spec">BLDC + stepper · 8A peak</span></a>
+<a class="board-tile" href="arduino_simplefoc_shield_showcase"><img src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/master/images/top.png" alt="" loading="lazy"><span class="bt-name"><span class="simple">Simple<span class="foc">FOC</span>Shield</span> <small>v4.1</small></span><span class="bt-desc">Arduino UNO / Nucleo shield with current sensing</span><span class="bt-spec">BLDC + stepper ·8A peak </span></a>
+<a class="board-tile" href="driveshield"><img src="https://raw.githubusercontent.com/simplefoc/SimpleFOC-DriveShield/main/images/top.png" alt="" loading="lazy"><span class="bt-name"><span class="simple">Simple<span class="foc">FOC</span> <b>Drive</b>Shield</span></span><span class="bt-desc">High-current Arduino shield</span><span class="bt-spec">BLDC + stepper · 20A</span></a>
+<a class="board-tile" href="simplefocmini"><img src="https://raw.githubusercontent.com/simplefoc/SimpleFOCMini/main/images/top.png" alt="" loading="lazy"><span class="bt-name"><span class="simple">Simple<span class="foc">FOC</span>Mini</span> <small>v2.3</small></span><span class="bt-desc">Tiny driver for any microcontroller</span><span class="bt-spec">BLDC + stepper · 8A peak</span></a>
+<a class="board-tile" href="qtfoc"><img src="https://raw.githubusercontent.com/simplefoc/QtFOC/master/images/top.png" alt="" loading="lazy"><span class="bt-name"><span class="simple"><b>Qt</b>FOC</span></span><span class="bt-desc">Driver for Seeed XIAO and Adafruit QT Py</span><span class="bt-spec">BLDC + stepper · 8A peak</span></a>
+<a class="board-tile" href="simplefocnano"><img src="extras/Images/nanoshield.png" alt="" loading="lazy"><span class="bt-name"><span class="simple">Simple<span class="foc">FOC</span>Nano</span></span><span class="bt-desc">Driver shield for Arduino Nano</span><span class="bt-spec">BLDC + stepper · 2.5A</span></a>
 </div>
 
-<div class="width40 inline_block_top" markdown="1">
-
-## <span class="simple">Simple<span class="foc">FOC</span> <b>Drive</b>Shield</span>
-
-<img src="https://raw.githubusercontent.com/simplefoc/SimpleFOC-DriveShield/main/images/top.png" class="img200" alt="SimpleFOC DriveShield"/>
-
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?color=blue)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/simplefoc/SimpleFOC-DriveShield)
-![GitHub Release Date](https://img.shields.io/github/release-date/simplefoc/SimpleFOC-DriveShield?color=blue)
-
-### Features
-- **What is it?**: An Arduino Shield for driving high-power BLDC and stepper motors
-- **Driver and power**: DRV8320H gate driver with BSZ0904NSI MOSFETs, 30V input
-- **Current sensing**: INA240 inline sensor, up to ±40A measurement range
-- **Motor support**: Higher-current BLDC  and stepper motors, 20A continuous and 30A peak measured
-- **Form factor**: Arduino UNO, MEGA, STM32 Nucleo, and compatible shield
-- **Project and availability**: [GitHub project](https://github.com/simplefoc/SimpleFOC-DriveShield) · [Makerfabs](https://www.makerfabs.com/simplefoc-driveshield.html)
-
-[Read more in docs](driveshield){: .btn .btn-docs}
-
-
-</div><div class="width40 inline_block_top" markdown="1">
-
-## <span class="simple">Simple<span class="foc">FOC</span>-microspora</span>
-
-<img src="https://raw.githubusercontent.com/simplefoc/SimpleFOC-microspora/main/images/top.png" class="img200" alt="SimpleFOC-microspora"/>
-
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?color=blue)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/simplefoc/SimpleFOC-microspora)
-![GitHub Release Date](https://img.shields.io/github/release-date/simplefoc/SimpleFOC-microspora?color=blue)
-
-### Features
-- **What is it?**: A compact all-in-one BLDC and stepper motor driver, based on STM32G431
-- **Driver and power**: DRV8316, 5-35V supply, up to 8A
-- **Current sensing**: Integrated phase-current and supply-voltage sensing
-- **Motor support**: BLDC and stepper motors
-- **Form factor**: Compact All-in-one 33x34mm controller 
-- **Project and availability**: [GitHub project](https://github.com/simplefoc/SimpleFOC-microspora) · [Makerfabs](https://www.makerfabs.com/simplefoc-microspora.html)
-
-[Read more in docs](microspora_landing){: .btn .btn-docs}
-</div><div class="width40 inline_block_top" markdown="1">
-
-## <span class="simple">Simple<span class="foc">FOC</span> <b>Qt</b>FOC</span>
-
-<img src="https://raw.githubusercontent.com/simplefoc/QtFOC/master/images/top.png" class="img200" alt="QtFOC"/>
-
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?color=blue)
-
-### Features
-- **What is it?**: A tiny BLDC and stepper motor driver for Seeed Studio XIAO and Adafruit QT Py boards
-- **Driver and power**: DRV8316, 8-35V supply, up to 8A peak
-- **Current sensing**: Two-phase low-side current sensing and supply-voltage sensing
-- **Motor support**: BLDC and stepper motors
-- **Form factor**: 25x45mm carrier, powers the microcontroller with its 5V buck converter
-- **Project and availability**: [GitHub project](https://github.com/simplefoc/QtFOC) · Makerfabs (coming soon)
-
-[Read more in docs](qtfoc){: .btn .btn-docs}
-
-</div>
+[Which board should I use?](boards#which-board-should-i-use){: .btn .btn-primary} [Compare all boards](boards){: .btn .btn-docs}
 
 A short demo video for the <span class="simple">Simple<span class="foc">FOC</span>Shield</span> (its a bit outdated but still relevant)
 

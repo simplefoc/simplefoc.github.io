@@ -14,19 +14,120 @@ toc: true
 One of the goals of the  <span class="simple">Simple<span class="foc">FOC</span>project</span> is to develop low-cost easy to use BLDC and Stepper driver boards compatible with the <span class="simple">Simple<span class="foc">FOC</span>library</span>and completely open source! Therefore, <span class="simple">Simple<span class="foc">FOC</span></span> team members have developed a set of boards, designed specifically for ease of use, to help you kickstart your FOC journey. In addition to being easy to use, the goal of these boards is serve as a reference design for the community to build upon. And finally, even though some of these boards are available in our [shop](https://www.simplefoc.com/shop), our docs provide a lot of documentation and step-by-step guides on how to fabricate the boards yourself.
 
 
-The SimpleFOC board range includes Arduino-compatible shields, compact driver boards, and boards with an integrated microcontroller. The table below is a quick guide; follow the board links for full specifications, setup, and fabrication information.
+The <span class="simple">Simple<span class="foc">FOC</span></span> board range includes boards with an integrated microcontroller, Arduino-compatible shields, and compact driver boards. The table below is a quick guide, follow the board links for full specifications, setup, and fabrication information.
 
-|  | [SimpleFOCShield](#simplefocshield) | [SimpleFOC DriveShield](#driveshield) | [SimpleFOCMini](#simplefocmini) | [QtFOC](#qtfoc) | [SimpleFOC-microspora](#microspora) |
-| --- | --- | --- | --- | --- | --- |
-| Board | <img src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/master/images/top.png" style="width:100%;height:90px;object-fit:contain" alt="SimpleFOCShield"/> | <img src="https://raw.githubusercontent.com/simplefoc/SimpleFOC-DriveShield/main/images/top.png" style="width:100%;height:90px;object-fit:contain" alt="SimpleFOC DriveShield"/> | <img src="https://raw.githubusercontent.com/simplefoc/SimpleFOCMini/main/images/top.png" style="width:100%;height:90px;object-fit:contain" alt="SimpleFOCMini"/> | <img src="https://raw.githubusercontent.com/simplefoc/QtFOC/master/images/top.png" style="width:100%;height:90px;object-fit:contain" alt="QtFOC"/> | <img src="https://raw.githubusercontent.com/simplefoc/SimpleFOC-microspora/main/images/top.png" style="width:100%;height:90px;object-fit:contain" alt="SimpleFOC-microspora"/> |
-| Format | Arduino shield | Arduino shield | Compact driver | XIAO / QT Py shield | Integrated controller |
-| Key hardware | DRV8316, inline current sensing, voltage sensing | DRV8320H, inline current sensing | DRV8316, three-phase low-side current sensing | DRV8316, two-phase low-side current sensing, 5V buck for the MCU | STM32G431, DRV8316, MT6701 encoder, CAN |
-| Intended use | Low and mid-power FOC with an external MCU (R3 headers) | Higher-current applications with an external MCU (R3 headers) | Small BLDC or stepper setups with an external MCU | Tiny all-in-one setups with a XIAO or QT Py | Compact standalone BLDC and stepper control |
-| |[Find out more](arduino_simplefoc_shield_showcase){: .btn .btn-docs}|[Find out more](driveshield){: .btn .btn-docs}|[Find out more](simplefocmini){: .btn .btn-docs}|[Find out more](qtfoc){: .btn .btn-docs}|[Find out more](microspora_landing){: .btn .btn-docs}|
+<style>
+.boards-overview table{font-size:.85em;}
+.boards-overview th,.boards-overview td{padding:6px 6px !important;min-width:0 !important;}
+.boards-overview .btn{font-size:.9em;padding:2px 6px;}
+</style>
+
+<div class="boards-overview" markdown="1">
+
+|  | [SimpleFOC-microspora](#microspora) | [SimpleFOCShield](#simplefocshield) | [SimpleFOC DriveShield](#driveshield) | [SimpleFOCMini](#simplefocmini) | [QtFOC](#qtfoc) | [SimpleFOCNano](#simplefocnano) |
+| --- | --- | --- | --- | --- | --- | --- |
+| Board | <img src="https://raw.githubusercontent.com/simplefoc/SimpleFOC-microspora/main/images/top.png" style="width:100%;height:90px;object-fit:contain" alt="SimpleFOC-microspora"/> | <img src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/master/images/top.png" style="width:100%;height:90px;object-fit:contain" alt="SimpleFOCShield"/> | <img src="https://raw.githubusercontent.com/simplefoc/SimpleFOC-DriveShield/main/images/top.png" style="width:100%;height:90px;object-fit:contain" alt="SimpleFOC DriveShield"/> | <img src="https://raw.githubusercontent.com/simplefoc/SimpleFOCMini/main/images/top.png" style="width:100%;height:90px;object-fit:contain" alt="SimpleFOCMini"/> | <img src="https://raw.githubusercontent.com/simplefoc/QtFOC/master/images/top.png" style="width:100%;height:90px;object-fit:contain" alt="QtFOC"/> | <img src="extras/Images/nanoshield.png" style="width:100%;height:90px;object-fit:contain" alt="SimpleFOCNano"/> |
+| Format | Integrated controller | Arduino shield | Arduino shield | Compact driver | XIAO / QT Py shield | Arduino Nano shield |
+| Key hardware | STM32G431, DRV8316, MT6701 encoder, CAN | DRV8316, inline current sensing, voltage sensing | DRV8320H, inline current sensing | DRV8316, three-phase low-side current sensing | DRV8316, two-phase low-side current sensing, 5V buck for the MCU | DRV8313, supply-voltage sensing, 8V buck for the Nano |
+| Intended use | Compact standalone BLDC and stepper control | Low and mid-power FOC with an external MCU (R3 headers) | Higher-current applications with an external MCU (R3 headers) | Small BLDC or stepper setups with an external MCU | Tiny all-in-one setups with a XIAO or QT Py | Small BLDC (gimbal) or stepper setups with an Arduino Nano |
+| |[Find out more](microspora_landing){: .btn .btn-docs}|[Find out more](arduino_simplefoc_shield_showcase){: .btn .btn-docs}|[Find out more](driveshield){: .btn .btn-docs}|[Find out more](simplefocmini){: .btn .btn-docs}|[Find out more](qtfoc){: .btn .btn-docs}|[Find out more](simplefocnano){: .btn .btn-docs}|
+
+</div>
+
+## Which board should I use?
+
+Answer a couple of questions and we'll point you to the board that fits your project.
+
+<style>
+.bq{border:1px solid #c0bfca;border-radius:8px;padding:16px;margin:1em 0 1.5em;max-width:760px;}
+.bq-step{font-size:.8em;color:#686969;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;}
+.bq-q{font-size:1.15em;font-weight:500;margin-bottom:12px;}
+.bq-opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;}
+.bq-opt{text-align:left;border:1px solid #c0bfca;border-radius:6px;background:#fff;padding:10px 12px;cursor:pointer;font:inherit;color:inherit;line-height:1.3;}
+.bq-opt:hover,.bq-opt:focus-visible{border-color:#44a8fa;box-shadow:0 2px 8px rgba(68,168,250,.2);outline:none;}
+.bq-opt small{display:block;color:#686969;margin-top:3px;}
+.bq-res{display:flex;gap:16px;align-items:center;flex-wrap:wrap;}
+.bq-res img{width:160px;height:120px;object-fit:contain;}
+.bq-res .bq-name{font-size:1.3em;font-weight:500;}
+.bq-res p{margin:.4em 0;}
+.bq-nav{margin-top:12px;font-size:.9em;}
+.bq-nav button{background:none;border:none;color:#44a8fa;cursor:pointer;padding:0;margin-right:16px;font:inherit;}
+</style>
+<div class="bq" id="board-quiz"><noscript>Enable JavaScript to use the board finder, or see the comparison tables below.</noscript></div>
+<script>
+(function(){
+var R='https://raw.githubusercontent.com/simplefoc/';
+var B={
+ microspora:{n:'SimpleFOC-microspora',img:R+'SimpleFOC-microspora/main/images/top.png',why:'Microcontroller, driver, magnetic encoder and CAN on one 33 x 34mm board. Plug in USB and a motor and you are ready to go.',spec:'STM32G431 · DRV8316 · 5-35V · 8A peak · BLDC and stepper',docs:'microspora_landing',cmp:'#microspora'},
+ shield:{n:'SimpleFOCShield v4.1',img:R+'Arduino-SimpleFOCShield/master/images/top.png',why:'Stacks on your board, configured with solder pads, with inline current sensing. Stack two for two motors.',spec:'DRV8316 · up to 35V · 3-5A continuous, 8A peak · BLDC and stepper',docs:'arduino_simplefoc_shield_showcase',cmp:'#simplefocshield'},
+ drive:{n:'SimpleFOC DriveShield',img:R+'SimpleFOC-DriveShield/main/images/top.png',why:'Same footprint and configuration as the Shield, with a gate driver and MOSFETs for bigger motors.',spec:'DRV8320H · 8-30V · 20A continuous, 30A peak · BLDC and stepper',docs:'driveshield',cmp:'#driveshield'},
+ qtfoc:{n:'QtFOC',img:R+'QtFOC/master/images/top.png',why:'Plug in your XIAO or QT Py, the board powers it from the motor supply. SPI sensor connector and low-side current sensing.',spec:'DRV8316 · 8-35V · 8A peak · BLDC and stepper',docs:'qtfoc',cmp:'#qtfoc'},
+ nano:{n:'SimpleFOCNano',img:'extras/Images/nanoshield.png',why:'Stacks with any Arduino Nano and powers it from the motor supply. SPI and STEMMA QT connectors for sensors.',spec:'DRV8313 · 8-30V · 2.5A · BLDC and stepper',docs:'simplefocnano',cmp:'#simplefocnano'},
+ mini:{n:'SimpleFOCMini v2.3',img:R+'SimpleFOCMini/main/images/top.png',why:'A tiny driver you wire to any microcontroller, with low-side current sensing on all three phases.',spec:'DRV8316 · 5-35V · 8A peak · BLDC and stepper',docs:'simplefocmini',cmp:'#simplefocmini'}
+};
+var Q={
+ start:{q:'Do you already have a microcontroller board you want to use?',o:[
+  ['No, I want everything on one board','The quickest way to get a motor turning','r:microspora'],
+  ['Yes','Arduino, STM32, ESP32, ...','mcu']]},
+ mcu:{q:'Which one?',o:[
+  ['Arduino UNO, Nucleo-64 or similar','Any board with Arduino UNO headers','current'],
+  ['Seeed XIAO or Adafruit QT Py','','r:qtfoc'],
+  ['Arduino Nano','Any Nano: classic, Every, 33, RP2040, ESP32','nanocur'],
+  ['Something else','I will connect it with wires','r:mini']]},
+ current:{q:'How much current does your motor need?',o:[
+  ['Up to about 5A','Gimbal motors, small drone motors, steppers','r:shield'],
+  ['More than 5A','Larger drone motors, robot joints, phase resistance below ~1Ω','r:drive'],
+  ['Not sure','','r:shield:Start with the Shield. If your motor has a phase resistance well below 1Ω or needs more than a few Amps, go for the DriveShield.']]},
+ nanocur:{q:'How much current does your motor need?',o:[
+  ['Up to about 2.5A','Gimbal motors, small steppers','r:nano'],
+  ['More','','r:mini:The Nano shield is limited to 2.5A. The Mini handles up to 8A peak and can be wired to your Nano.']]}
+};
+var el=document.getElementById('board-quiz'),hist=[];
+function esc(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML;}
+function nav(){return '<div class="bq-nav">'+(hist.length>1?'<button data-a="back">← Back</button>':'')+(hist.length>1?'<button data-a="restart">Start over</button>':'')+'</div>';}
+function show(key){
+ if(key.indexOf('r:')===0){var p=key.split(':'),b=B[p[1]],note=p.slice(2).join(':');
+  el.innerHTML='<div class="bq-step">Our suggestion</div><div class="bq-res"><img src="'+b.img+'" alt=""><div style="flex:1;min-width:220px"><div class="bq-name">'+esc(b.n)+'</div><p>'+esc(b.why)+'</p>'+(note?'<p><i>'+esc(note)+'</i></p>':'')+'<p><small>'+esc(b.spec)+'</small></p><a class="btn btn-primary" href="'+b.docs+'">Read more</a> <a class="btn btn-docs" href="'+b.cmp+'">Compare</a></div></div>'+nav();
+ } else {var s=Q[key],h='<div class="bq-step">Question '+hist.length+'</div><div class="bq-q">'+esc(s.q)+'</div><div class="bq-opts">';
+  s.o.forEach(function(o){h+='<button class="bq-opt" data-go="'+o[2].replace(/"/g,'&quot;')+'">'+esc(o[0])+(o[1]?'<small>'+esc(o[1])+'</small>':'')+'</button>';});
+  el.innerHTML=h+'</div>'+nav();}
+}
+function go(k){hist.push(k);show(k);}
+el.addEventListener('click',function(e){var t=e.target.closest('button');if(!t)return;
+ if(t.dataset.go){go(t.dataset.go);}
+ else if(t.dataset.a==='back'){hist.pop();show(hist[hist.length-1]);}
+ else if(t.dataset.a==='restart'){hist=[];go('start');}});
+go('start');
+})();
+</script>
+
+The sections below compare similar boards side by side.
 
 Other compatible boards are listed in the [supported hardware guide](supported_hardware), and community designs can be found on the [SimpleFOC forum](https://community.simplefoc.com/).
 
 
+
+## Integrated controller boards
+
+### <span class="simple">Simple<span class="foc">FOC</span>-microspora</span> <small>v1.7</small> - <small>[Find out more](microspora_landing)</small> {#microspora}
+{: .no_toc }
+
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?color=blue)
+
+<img src="https://raw.githubusercontent.com/simplefoc/SimpleFOC-microspora/main/images/top.png" class="width40" alt="SimpleFOC-microspora board"/>
+
+SimpleFOC-microspora combines a motor driver and microcontroller on one compact board. It is designed for low-power BLDC and stepper projects that benefit from an integrated controller, onboard magnetic encoder, and CAN connectivity.
+
+- **MCU**: STM32G431CBU6
+- **Motor driver**: DRV8316, 5-35V supply, up to 8A
+- **Sensing**: MT6701 magnetic encoder, three-phase current sensing, and supply-voltage sensing
+- **Connectivity**: CAN daisy-chain connectors, SPI, and a multi-purpose I2C/encoder/GPIO connector
+- **Size**: 33 x 34 mm
+- **Open hardware**: [EasyEDA project](https://oshwlab.com/the.skuric/microspora-simplefoc-antun)
+- **Firmware and examples**: [SimpleFOC Microspora firmware](https://github.com/simplefoc/microspora_simplefoc_firmware)
+- **Availability**: [Makerfabs](https://www.makerfabs.com/simplefoc-microspora.html)
+
+[Read more about the Microspora board](microspora_landing){: .btn .btn-docs}
 
 ## Shield boards
 
@@ -59,42 +160,22 @@ For currents above 15A, the DriveShield may need a heatsink or thicker PCB coppe
 
 This is a set of miniature boards designed to be small, low-cost, and easy to use. They are intended for low power applications and are designed to be compatible with the <span class="simple">Simple<span class="foc">FOC</span>library</span>. The boards are created as minimal working examples and are intended to be used as a reference design for the community to build upon. The boards are fully open-source and the fabrication files are available in the respective repositories, as well as detailed guides on how to fabricate the boards yourself. 
 
-| Feature | <span id="simplefocmini"></span>[SimpleFOCMini v2.3](simplefocmini) | <span id="qtfoc"></span>[QtFOC v1.6](qtfoc) | <span id="stepmini"></span>[SimpleFOC StepMini v1.0](https://github.com/simplefoc/SimpleFOC-StepMini) |
+The Mini is a standalone driver you wire to any microcontroller. QtFOC and SimpleFOCNano are boards that a small microcontroller board plugs into: a Seeed Studio XIAO or Adafruit QT Py for QtFOC, an Arduino Nano for SimpleFOCNano. Both power the microcontroller from the motor supply and have JST connectors for the sensors.
+
+| Feature | <span id="simplefocmini"></span>[SimpleFOCMini v2.3](simplefocmini) | <span id="qtfoc"></span>[QtFOC v1.6](qtfoc) | <span id="simplefocnano"></span>[SimpleFOCNano](simplefocnano) |
 | --- | --- | --- | --- |
-| Board | <img src="https://raw.githubusercontent.com/simplefoc/SimpleFOCMini/main/images/top.png" style="height:200px" alt="SimpleFOCMini" /> | <img src="https://raw.githubusercontent.com/simplefoc/QtFOC/master/images/top.png" style="height:200px" alt="QtFOC" /> | <img src="https://raw.githubusercontent.com/simplefoc/SimpleFOC-StepMini/main/docs/top.png" style="height:200px" alt="SimpleFOC StepMini" /> |
-| Format | Standalone BLDC driver, wired to any MCU | BLDC driver shield for Seeed Studio XIAO / Adafruit QT Py | Standalone stepper driver, wired to any MCU |
-| Motors | BLDC and stepper | BLDC and stepper | Stepper |
-| Motor driver | DRV8316, 3-PWM | DRV8316, 3-PWM | DRV8844, 4-PWM |
-| Power supply | 5-35V | 8-35V | 8-35V |
+| Board | <img src="https://raw.githubusercontent.com/simplefoc/SimpleFOCMini/main/images/top.png" style="height:200px" alt="SimpleFOCMini" /> | <img src="https://raw.githubusercontent.com/simplefoc/QtFOC/master/images/top.png" style="height:200px" alt="QtFOC" /> | <img src="extras/Images/nanoshield.png" style="height:200px" alt="SimpleFOCNano" /> |
+| Format | Standalone driver, wired to any MCU | Driver shield for Seeed Studio XIAO / Adafruit QT Py | Driver shield for Arduino Nano |
+| Motors | BLDC and stepper | BLDC and stepper | BLDC and stepper |
+| Motor driver | DRV8316, 3-PWM | DRV8316, 3-PWM | DRV8313, 3-PWM + 3 enable |
+| Power supply | 5-35V | 8-35V | 8-30V |
 | Maximum current | 8A peak | 8A peak | 2.5A per phase |
 | Current sensing | Three-phase low-side, 150mV/A | Two-phase low-side, 150mV/A | - |
-| Supply voltage sensing | Yes | Yes, `A2` | - |
-| Power for the MCU / sensor | 3.3V LDO, up to 20mA | 5V buck, up to 200mA | 3.3V LDO, up to 10mA |
-| Sensor connector | - | SPI (JST SH, 6-pin) | - |
-| Board size | 24 x 25 mm | 25 x 45 mm | 26 x 21 mm |
-| Open-Source | [GitHub](https://github.com/simplefoc/SimpleFOCMini), [EasyEDA](https://oshwlab.com/the.skuric/simplefocmini_copy_copy) | [GitHub](https://github.com/simplefoc/QtFOC), [EasyEDA](https://oshwlab.com/the.skuric/simplefocmini_copy_copy_copy_copy) | [GitHub](https://github.com/simplefoc/SimpleFOC-StepMini), [EasyEDA](https://easyeda.com/the.skuric/simplefocmini_copy) |
-|**Available**: | [Makerfabs](https://www.makerfabs.com/simplefocmini.html) | Makerfabs (coming soon), or [fabricate it yourself](mini_fabrication) | Fabricate it yourself, JLCPCB cost ~3-5€ |
+| Supply voltage sensing | Yes | Yes, `A2` | Yes, `A0` |
+| Power output | 3.3V LDO for the sensor, up to 20mA | 5V buck for the MCU, up to 200mA | 8V buck to the Nano's `VIN` |
+| Sensor connector | - | SPI (JST SH, 6-pin) | SPI and STEMMA QT (JST SH) |
+| Board size | 24 x 25 mm | 25 x 45 mm | Arduino Nano size |
+| Open-Source | [GitHub](https://github.com/simplefoc/SimpleFOCMini), [EasyEDA](https://oshwlab.com/the.skuric/simplefocmini_copy_copy) | [GitHub](https://github.com/simplefoc/QtFOC), [EasyEDA](https://oshwlab.com/the.skuric/simplefocmini_copy_copy_copy_copy) | [GitHub](https://github.com/simplefoc/SimpleFOCNano) (KiCad) |
+|**Available**: | [Makerfabs](https://www.makerfabs.com/simplefocmini.html) | Makerfabs (coming soon), or [fabricate it yourself](mini_fabrication) | [Tindie](https://www.tindie.com/products/smallrobots/simplefoc-nano-shield/) |
 
-[Read more about Mini board](simplefocmini){: .btn .btn-docs} [Read more about QtFOC](qtfoc){: .btn .btn-docs} [StepMini on GitHub](https://github.com/simplefoc/SimpleFOC-StepMini){: .btn .btn-docs}
-
-## Integrated controller boards
-
-### <span class="simple">Simple<span class="foc">FOC</span>-microspora</span> <small>v1.7</small> - <small>[Find out more](microspora_landing)</small> {#microspora}
-{: .no_toc }
-
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?color=blue)
-
-<img src="https://raw.githubusercontent.com/simplefoc/SimpleFOC-microspora/main/images/top.png" class="width40" alt="SimpleFOC-microspora board"/>
-
-SimpleFOC-microspora combines a motor driver and microcontroller on one compact board. It is designed for low-power BLDC and stepper projects that benefit from an integrated controller, onboard magnetic encoder, and CAN connectivity.
-
-- **MCU**: STM32G431CBU6
-- **Motor driver**: DRV8316, 5-35V supply, up to 8A
-- **Sensing**: MT6701 magnetic encoder, three-phase current sensing, and supply-voltage sensing
-- **Connectivity**: CAN daisy-chain connectors, SPI, and a multi-purpose I2C/encoder/GPIO connector
-- **Size**: 33 x 34 mm
-- **Open hardware**: [EasyEDA project](https://oshwlab.com/the.skuric/microspora-simplefoc-antun)
-- **Firmware and examples**: [SimpleFOC Microspora firmware](https://github.com/simplefoc/microspora_simplefoc_firmware)
-- **Availability**: [Makerfabs](https://www.makerfabs.com/simplefoc-microspora.html)
-
-[Read more about the Microspora board](microspora_landing){: .btn .btn-docs}
+[Read more about Mini board](simplefocmini){: .btn .btn-docs} [Read more about QtFOC](qtfoc){: .btn .btn-docs} [Read more about SimpleFOCNano](simplefocnano){: .btn .btn-docs}

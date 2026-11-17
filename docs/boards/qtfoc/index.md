@@ -3,7 +3,7 @@ layout: default
 title: <span class="simple">Simple<span class="foc">FOC</span> <b>Qt</b>FOC</span>
 parent: <span class="simple">Simple<span class="foc">FOC</span> Boards</span>
 description: "QtFOC: a tiny open-source BLDC and stepper driver for Seeed Studio XIAO and Adafruit QT Py boards, with low-side current sensing and an onboard 5V buck converter."
-nav_order: 4
+nav_order: 5
 permalink: /qtfoc
 has_children: true
 has_toc: false
@@ -47,7 +47,7 @@ The XIAO / QT Py format has few pins, but enough for a complete FOC setup:
 - **SPI connector**: 6-pin JST SH for SPI position sensors (AS5047, AS5048A, MT6701, MT6835, ...)
 - **UART / GPIO header**: `3V3`, `GND`, `RX`, `TX`
 - **Fault LED** and **power LED**
-- **Compact**: 25 x 45mm
+- **Compact**: 25 x 45mm, with 4 [mounting holes](#mounting-holes) for M2 screws
 - **Open source**: designed in **EasyEDA** - [EasyEDA project](https://oshwlab.com/the.skuric/simplefocmini_copy_copy_copy_copy), all fabrication files on [GitHub](https://github.com/simplefoc/QtFOC)
 - **Low cost**: about the same as the <span class="simple">Simple<span class="foc">FOC</span>Mini</span>, around 10$
 
@@ -59,6 +59,22 @@ The XIAO / QT Py format has few pins, but enough for a complete FOC setup:
    - An encoder needs both `D6` and `D7`, so it can't be used together with an SPI sensor or the UART header.
    - The I2C pins of the header (`D4` / `D5`) drive the motor. I2C sensors can be connected to the [STEMMA QT connector](qtfoc_getting_started#i2c-sensors-on-the-stemma-qt-connector) of QT Py boards that have a separate I2C bus.
 - **5V buck converter**: up to 200mA, enough for the MCU and the sensor, but not for the WiFi / BLE radio of ESP32 boards. If you use WiFi or BLE, also power the MCU board from USB.
+
+## Mounting holes
+
+The board has four 2mm mounting holes, for M2 screws or standoffs, in the corners of a **21 x 36mm** rectangle:
+
+<img src="https://raw.githubusercontent.com/simplefoc/QtFOC/master/images/holes.png" class="width40" alt="QtFOC mounting hole dimensions">
+
+- **Board size**: 25 x 43mm, plus about 2mm for the SPI connector tab
+- **Hole diameter**: 2mm, plated
+- **Hole spacing**: 21mm across the board, 36mm along it
+
+The spacing across the board (21mm) is the same as on the [<span class="simple">Simple<span class="foc">FOC</span>Mini</span>](simplefocmini#mounting-holes), so both boards fit the same rail or bracket width.
+
+<blockquote class="warning" markdown="1"><p class="heading">The holes are connected to GND</p>
+The plated mounting holes are connected to the board's ground. If you mount the board on a metal frame, the frame is connected to GND too, so make sure nothing else on the frame is at a different potential.
+</blockquote>
 
 ## Compatible boards
 

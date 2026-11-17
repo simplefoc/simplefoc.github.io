@@ -3,7 +3,7 @@ layout: default
 title: <span class="simple">Simple<span class="foc">FOC</span>Mini</span>
 parent: <span class="simple">Simple<span class="foc">FOC</span> Boards</span>
 description: "SimpleFOCMini board showcase and getting started information."
-nav_order: 3
+nav_order: 4
 permalink: /simplefocmini
 has_children: true
 has_toc: false
@@ -52,7 +52,7 @@ The v2.3 board is a complete redesign, but retains the v1.1 PWM and enable pinou
   - 3x Low-side current sensing (150mV/A)
   - Power supply voltage sensing (Scale 0.101V/V)
 - **Onboard 3.3V LDO**: Up to 20mA output
-- **Small size**: 24x25 mm
+- **Small size**: 24x25 mm, with 4 [mounting holes](#mounting-holes) for M2 screws
 - **Fully open-source**:
   - [EasyEDA](https://oshwlab.com/the.skuric/simplefocmini_copy_copy)
   - [GitHub](https://github.com/simplefoc/SimpleFOCMini) 
@@ -67,8 +67,24 @@ The v2.3 board is a complete redesign, but retains the v1.1 PWM and enable pinou
 Mini v2 uses low-side current sensing. Not all supported microcontrollers can use this sensing method; check the [microcontroller support guide](microcontrollers) before relying on current control. Observe the board's voltage and current ratings when selecting a motor and power supply.
 </blockquote>
 
+## Mounting holes
 
-### Release log
+The v2.3 board has four 2mm mounting holes, for M2 screws or standoffs, in the corners of a **21 x 20mm** rectangle:
+
+<img src="https://raw.githubusercontent.com/simplefoc/SimpleFOCMini/main/images/schema.png" class="img300" alt="SimpleFOCMini v2.3 mounting hole dimensions">
+
+- **Board size**: 25 x 24mm
+- **Hole diameter**: 2mm, plated
+- **Hole spacing**: 21mm by 20mm
+- **Distance from the board edges**: about 2mm (hole centres)
+
+The spacing across the board (21mm) is the same as on [<span class="simple"><b>Qt</b>FOC</span>](qtfoc#mounting-holes).
+
+<blockquote class="warning" markdown="1"><p class="heading">The holes are connected to GND</p>
+The plated mounting holes are connected to the board's ground. If you mount the board on a metal frame, the frame is connected to GND too, so make sure nothing else on the frame is at a different potential.
+</blockquote>
+
+## Release log
 
 Release | Date | Description
 --- | --- | ---
@@ -77,7 +93,7 @@ v2.0 | 2025-01 | Redesigned around the DRV8316 with three-phase low-side current
 v1.1 | 2024-04 | A quick iteration with a few changes:<br> 1. Aligned motor output header with the input header so that it can be stacked in the protoboard<br>2. Input header updated to be easier to use with arduino UNO, nucleos, but also with qtpy...<br> - Changed the order of the IN1,IN2,IN3 and EN:<br> - Added an additional GND pin <br>
 v1.0 | 2022-04 | Initial release
 
-### Connection schematic
+## Connection schematic
 An electrical connection example of a BLDC motor with an encoder as position sensor. 
 <p><img src="extras/Images/connection_mini.jpg" class="width60"></p>
 For the v1.1 pinout and a connection example, see [connecting the Mini](mini_example). The v2 board retains the v1.1 PWM and enable pinout.

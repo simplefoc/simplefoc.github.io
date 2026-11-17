@@ -3,7 +3,7 @@ layout: default
 title: <span class="simple">Simple<span class="foc">FOC</span> <b>Drive</b>Shield</span>
 parent: <span class="simple">Simple<span class="foc">FOC</span> Boards</span>
 description: "SimpleFOC DriveShield: an open-source Arduino shield BLDC driver for currents up to 20A continuous, with inline current sensing."
-nav_order: 2
+nav_order: 3
 permalink: /driveshield
 has_children: true
 has_toc: false

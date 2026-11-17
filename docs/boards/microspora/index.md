@@ -3,7 +3,7 @@ layout: default
 title: <span class="simple">Simple<span class="foc">FOC</span>-microspora</span>
 parent: <span class="simple">Simple<span class="foc">FOC</span> Boards</span>
 description: "SimpleFOC-microspora: an all-in-one BLDC and stepper motor controller with MCU, driver, encoder, current sensing and CAN on a 33x34mm board."
-nav_order: 5
+nav_order: 1
 permalink: /microspora_landing
 has_children: true
 has_toc: false

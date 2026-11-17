@@ -83,7 +83,7 @@ Drivers for ICs with an SPI or I2C configuration and status interface. They exte
 | [DRV8320 / DRV8323](https://github.com/simplefoc/Arduino-FOC-drivers/tree/master/src/drivers/drv832x) | TI DRV832x gate drivers, SPI |
 | [TMC6200](https://github.com/simplefoc/Arduino-FOC-drivers/tree/master/src/drivers/tmc6200) | Trinamic TMC6200 gate driver, SPI |
 | [STSPIN32G4](https://github.com/simplefoc/Arduino-FOC-drivers/tree/master/src/drivers/stspin32g4) | ST STSPIN32G4 gate driver with integrated STM32G4 MCU, I2C |
-| [SimpleFOCNano](https://github.com/simplefoc/Arduino-FOC-drivers/tree/master/src/drivers/simplefocnano) | Driver preconfigured for the SimpleFOCNano board |
+| [SimpleFOCNano](https://github.com/simplefoc/Arduino-FOC-drivers/tree/master/src/drivers/simplefocnano) | Driver preconfigured for the [SimpleFOCNano](simplefocnano) board |
 
 ### Position sensors
 
