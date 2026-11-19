@@ -128,6 +128,7 @@ void setup() {
 }
 
 void loop() {
+  motor.loopFOC();
   motor.move();
   command.run();
 }
