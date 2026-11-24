@@ -65,7 +65,7 @@ stm32l4 family | ✔️ | ✔️ |  ❌
 stm32f7 family | ✔️ | ✔️  |  ❌
 stm32h7 family | ✔️ | ✔️  |  ❌
 stm32 B_G431B_ESC1 | ❌ | ✔️ (one motor) |  ❌
-esp32/esp32s3 | ✔️ | ✔️ |  ❌
+esp32/esp32s3/esp32c6 | ✔️ | ✔️ |  ❌
 esp32s2/esp32c3 |  ✔️ | ❌ |  ❌ 
 esp8266 | ❌ | ❌ |  ❌ 
 samd21 | ✔️ | ✔️ (one motor) |  ❌ 
