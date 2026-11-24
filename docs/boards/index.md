@@ -167,9 +167,9 @@ These boards are designed to be compatible with the Arduino UNO R3 headers, enab
 | Additional connectors | STEMMA QT and SPI | STEMMA QT and SPI |
 | Board size | 56 x 53 mm | 56 x 53 mm |
 | Open-Source | [GitHub](https://github.com/simplefoc/Arduino-SimpleFOCShield) | [GitHub and fabrication files](https://github.com/simplefoc/SimpleFOC-DriveShield)|
-|**Available**: | [SimpleFOC shop](https://simplefoc.com/simplefoc_shield_product), Makerfabs (coming soon) | [Makerfabs](https://www.makerfabs.com/simplefoc-driveshield.html)|
+|**Available**: | [Makerfabs](https://www.makerfabs.com/simplefocshield-for-arduino.html), [SimpleFOC shop](https://simplefoc.com/simplefoc_shield_product) | [Makerfabs](https://www.makerfabs.com/simplefoc-driveshield.html)|
 
-The DriveShield made by Makerfabs uses 2oz outer copper layers, and the board has room for a 23 x 23mm heatsink for currents above 15A. See its [thermal measurements](driveshield#thermal-performance).
+The DriveShield made by [Makerfabs](https://www.makerfabs.com/simplefoc-driveshield.html) uses 2oz outer copper layers, and the board has room for a 23 x 23mm heatsink for currents above 15A. See its [thermal measurements](driveshield#thermal-performance).
 
 [Read more about SimpleFOC Shield board](arduino_simplefoc_shield_showcase){: .btn .btn-docs} [Read more about the DriveShield](driveshield){: .btn .btn-docs}
 
@@ -193,6 +193,6 @@ The Mini is a standalone driver you wire to any microcontroller. QtFOC and Simpl
 | Sensor connector | - | SPI (JST SH, 6-pin) | SPI and STEMMA QT (JST SH) |
 | Board size | 24 x 25 mm | 25 x 45 mm | Arduino Nano size |
 | Open-Source | [GitHub](https://github.com/simplefoc/SimpleFOCMini), [EasyEDA](https://oshwlab.com/the.skuric/simplefocmini_copy_copy) | [GitHub](https://github.com/simplefoc/QtFOC), [EasyEDA](https://oshwlab.com/the.skuric/simplefocmini_copy_copy_copy_copy) | [GitHub](https://github.com/simplefoc/SimpleFOCNano) (KiCad) |
-|**Available**: | [Makerfabs](https://www.makerfabs.com/simplefocmini.html) | Makerfabs (coming soon), or [fabricate it yourself](mini_fabrication) | [Tindie](https://www.tindie.com/products/smallrobots/simplefoc-nano-shield/) |
+|**Available**: | [Makerfabs](https://www.makerfabs.com/simplefocmini.html) | [Makerfabs](https://www.makerfabs.com/simplefoc-qtfoc.html), or [fabricate it yourself](mini_fabrication) | [Tindie](https://www.tindie.com/products/smallrobots/simplefoc-nano-shield/) |
 
 [Read more about Mini board](simplefocmini){: .btn .btn-docs} [Read more about QtFOC](qtfoc){: .btn .btn-docs} [Read more about SimpleFOCNano](simplefocnano){: .btn .btn-docs}

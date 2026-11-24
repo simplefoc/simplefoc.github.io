@@ -144,4 +144,4 @@ bool writeMyValue(RegisterIO& io, FOCMotor* motor) {
 
 See the [CAN page](drivers_can#custom-registers) for registering them with the commander.
 
-[Communication sources on GitHub](https://github.com/simplefoc/Arduino-FOC-drivers/tree/master/src/comms){: .btn .btn-docs}
+[Communication sources on GitHub](https://github.com/simplefoc/Arduino-FOC-drivers/tree/master/src/comms){: .btn .btn-github}

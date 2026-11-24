@@ -38,14 +38,14 @@ The [<i class="fa fa-github"></i> GitHub repository](https://github.com/simplefo
 
 The v4 is not well suited for hand assembly. The DRV8316 comes in a 0.5mm pitch VQFN-40 package with an exposed thermal pad underneath, which needs a reflow oven or a hot-air station, and the passive components are 0603. A PCB fabrication and assembly (PCBA) service is the easiest way to get the board made.
 
-The design is made in EasyEDA Pro and all the components in the BOM have [LCSC](https://www.lcsc.com/) part numbers, so the simplest way is to order from [JLCPCB](https://jlcpcb.com/):
+The design is made in EasyEDA Pro and all the components in the BOM have [LCSC](https://www.lcsc.com/) part numbers, so the simplest way is to order it from [JLCPCB](https://jlcpcb.com/), straight from the [EasyEDA project](https://oshwlab.com/the.skuric/project_mzcekczw). The [JLCPCB ordering guide](board_fabrication) shows the process step by step. The Shield specific settings:
 
-1. Download the Gerber files, the BOM and the pick and place file from the [GitHub repository](https://github.com/simplefoc/Arduino-SimpleFOCShield), or open the [EasyEDA project](https://oshwlab.com/the.skuric/project_mzcekczw) and order directly from it.
-2. Upload the Gerber files (as a zip) on JLCPCB. The board has **4 layers**, the default settings are fine for the rest.
-3. Enable **PCB Assembly**, on the **top side**.
-4. Upload the BOM and the pick and place file, and check the component placement in the preview, especially the orientation of the DRV8316, the INA240s and the LEDs.
-   - The pick and place file also lists the configuration solder pads (`SC...` designators) on the bottom side. They are only copper pads, not components, so don't place any parts for them.
-5. Place the order.
+- **4 layers**, the default settings are fine for the rest.
+- **PCB Assembly** on the **top side**.
+- In the placement preview, check the orientation of the DRV8316, the INA240s and the LEDs.
+- The pick and place file also lists the configuration solder pads (`SC...` designators) on the bottom side. They are only copper pads, not components, so don't place any parts for them.
+
+[Step by step guide: ordering from JLCPCB](board_fabrication){: .btn .btn-docs}
 
 Other PCBA services work as well, using the Gerber, BOM and pick and place files, but you may need to find replacements for the LCSC parts.
 
@@ -70,4 +70,4 @@ The full list with all the passives is in the BOM file in the [repository](https
 
 ## Fully assembled versions
 
-Order your own fully tested and assembled Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> from our [shop](https://simplefoc.com/simplefoc_shield_product).
+Order your own fully tested and assembled Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span> from [Makerfabs](https://www.makerfabs.com/simplefocshield-for-arduino.html) or from our [shop](https://simplefoc.com/simplefoc_shield_product).

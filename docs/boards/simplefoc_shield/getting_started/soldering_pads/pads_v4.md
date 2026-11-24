@@ -38,7 +38,6 @@ The solder pads let you:
 The PWM, enable, encoder and current sense pads offer the **same pin options as v3**, so v3 pinouts and code carry over. The differences are:
 - New **power supply voltage sensing** pad (`A3` or `A4`)
 - **No fault and reset pads**: the DRV8316 fault output only drives the on-board LED
-- The **enable pin is required**: it wakes the driver from sleep
 - New current sense amplifiers, with a different gain in the code, see [current sensing](#configuring-the-current-sensing-pinout)
 </blockquote>
 

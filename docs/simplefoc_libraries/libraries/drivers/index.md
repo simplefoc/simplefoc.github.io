@@ -26,7 +26,7 @@ The <span class="simple">Simple<span class="foc">FOC</span>library</span> is kep
 - **Settings storage**: save the motor calibration and tuning to flash or EEPROM
 - **Utilities**: STM32 CORDIC acceleration, PWM input, motion planning
 
-[Source on GitHub](https://github.com/simplefoc/Arduino-FOC-drivers){: .btn .btn-docs}
+[Source on GitHub](https://github.com/simplefoc/Arduino-FOC-drivers){: .btn .btn-github}
 
 ## Guides
 

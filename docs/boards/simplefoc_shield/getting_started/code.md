@@ -136,7 +136,7 @@ void loop() {
 
 Upload it and open the serial monitor at 115200 baud. The motor should spin smoothly. Send `T-6.28` to reverse, or `T0` to stop.
 
-- **The motor doesn't move**: check the enable pin. On v4, the driver sleeps until the enable pin is high, so it must be soldered and match the code.
+- **The motor doesn't move**: check the enable pin. The driver stays off until the enable pin is high, so it must be soldered and match the code.
 - **The motor vibrates but doesn't turn**: one phase is not connected, or a PWM pin in the code doesn't match the solder pads.
 - **The motor gets hot**: lower `motor.voltage_limit`. In open loop the motor draws current all the time, even without load. Stepper motors have a low resistance, so start with a `voltage_limit` of about 1V for them.
 

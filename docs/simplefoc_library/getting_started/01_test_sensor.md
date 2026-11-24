@@ -250,4 +250,4 @@ You should see continuous output of angle and velocity values in the serial term
 
 Once your sensor is reading correctly, proceed to
 
-[Test Your Driver](test_driver){: .btn .btn-step}
+[Step 2: Test your driver](test_driver){: .btn .btn-step}

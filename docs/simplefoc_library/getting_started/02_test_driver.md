@@ -265,4 +265,4 @@ Alternatively you could even connect your motor and observe it rotating, just ma
 
 Once driver initializes successfully, proceed to 
 
-[Motor + Driver Test](test_motor_driver){: .btn .btn-step}
+[Step 3: Open-loop motor + driver test](test_motor_driver){: .btn .btn-step}

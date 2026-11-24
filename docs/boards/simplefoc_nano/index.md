@@ -17,7 +17,7 @@ toc: true
 
 The board was designed by [runger](https://github.com/runger1101001) and comes with its own driver class, `SimpleFOCNanoDriver`, in the [<span class="simple">Simple<span class="foc">FOC</span>drivers</span>](drivers_library) library, so you don't have to set any pins.
 
-[Write the code](#writing-the-code){: .btn .btn-primary} [GitHub project](https://github.com/simplefoc/SimpleFOCNano){: .btn .btn-docs} [Order on Tindie](https://www.tindie.com/products/smallrobots/simplefoc-nano-shield/){: .btn .btn-docs}
+[Write the code](#writing-the-code){: .btn .btn-primary} [GitHub project](https://github.com/simplefoc/SimpleFOCNano){: .btn .btn-github} [Order on Tindie](https://www.tindie.com/products/smallrobots/simplefoc-nano-shield/){: .btn .btn-external}
 
 ## Features
 

@@ -24,14 +24,14 @@ The board is a fork of the [MicroSpora board by RamBros](https://github.com/ramb
 
 📢 Available now from **Makerfabs**: [See more on makerfabs.com](https://www.makerfabs.com/simplefoc-microspora.html)
 
-[Get started with your microspora board](microspora_connection){: .btn .btn-docs}
+[Get started with your microspora board](microspora_connection){: .btn .btn-docs} [Order from Makerfabs](https://www.makerfabs.com/simplefoc-microspora.html){: .btn .btn-makerfabs} [GitHub project](https://github.com/simplefoc/SimpleFOC-microspora){: .btn .btn-github}
 
 ## Features
 
 - **Plug & play** with the Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span>
 - **MCU**: STM32G431CBU6 (Cortex-M4, 170MHz, FPU)
 - **Motor driver**: DRV8316C
-  - Power supply: 8-35V
+  - Power supply: 5-35V
   - Maximum current: ~8A
   - 6-PWM mode, configured over SPI
 - **BLDC and stepper motors** (stepper in [hybrid stepper mode](hybrid_stepper_theory))

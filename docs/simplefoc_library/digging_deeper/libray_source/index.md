@@ -231,7 +231,7 @@ To implement a custom sensor there are two approaches:
 
 - Implement the `GenericSensor` callbacks. This approach allows you to use the `GenericSensor` class without creating a new class **(Recommended for most users)**
 
-[See a quick guide how use Generic Sensor class (Recommended)](generic_sensor){.: .btn .btn-docs}
+[See a quick guide how use Generic Sensor class (Recommended)](generic_sensor){: .btn .btn-docs}
 
 
 

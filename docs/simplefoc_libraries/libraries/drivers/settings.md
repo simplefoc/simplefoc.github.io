@@ -16,7 +16,7 @@ Every time a <span class="simple">Simple<span class="foc">FOC</span></span> moto
 
 Settings storage is based on the [registers](drivers_registers), so any register that can be both read and written can be saved.
 
-[Source and README](https://github.com/simplefoc/Arduino-FOC-drivers/tree/master/src/settings){: .btn .btn-docs}
+[Source and README](https://github.com/simplefoc/Arduino-FOC-drivers/tree/master/src/settings){: .btn .btn-github}
 
 ## Supported storage
 

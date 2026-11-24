@@ -168,7 +168,7 @@ Turn the motor by hand: the angle should change by 6.28 radians per turn. For ot
 
 ### Step 3. Current sensing
 
-The DRV8316 measures the currents of phases A and B on the low side, with a gain of 150mV/A. Use them with `LowsideCurrentSense`:
+The DRV8316 measures the currents of phases A and B on the low side, with a gain of 150mV/A or 300mV/A, selected with a solder pad on the bottom of the board. The examples use 150mV/A; if your board is set to 300mV/A, use `300.0f` instead. Use them with `LowsideCurrentSense`:
 
 ```cpp
 // DRV8316 low-side current sensing: 150mV/A, phases A and B

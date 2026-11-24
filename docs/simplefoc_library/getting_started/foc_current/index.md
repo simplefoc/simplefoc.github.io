@@ -36,9 +36,9 @@ Before enabling FOC current control, you need:
 This guide follows a 2-step process:
 
 1. **Setup and verify current sensing** - Configure hardware and validate current measurements<br>
-[Start with step 1: Setup and verify current sensing](test_current){:.btn .btn-step}
+[Step 1: Set up current sensing](test_current){: .btn .btn-step}
 2. **Enable full current control** - Switch from voltage to current-based torque control<br>
-[Continue to step 2: Enable full current control](test_foc_current){:.btn .btn-step}
+[Step 2: Full FOC current control](test_foc_current){: .btn .btn-step}
 
 
 ## Related references

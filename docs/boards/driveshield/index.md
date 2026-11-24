@@ -22,7 +22,7 @@ It is also meant as a **template project** for the community: a relatively simpl
 
 <img src="https://raw.githubusercontent.com/simplefoc/SimpleFOC-DriveShield/v1.8/images/top.png" class="width30"> <img src="https://raw.githubusercontent.com/simplefoc/SimpleFOC-DriveShield/v1.8/images/bottom.png" class="width30"> 
 
-[Get started with your board](driveshield_getting_started){: .btn .btn-primary} [Order from Makerfabs](https://www.makerfabs.com/simplefoc-driveshield.html){: .btn .btn-docs} [GitHub project](https://github.com/simplefoc/SimpleFOC-DriveShield){: .btn .btn-docs}
+[Get started with your board](driveshield_getting_started){: .btn .btn-primary} [Order from Makerfabs](https://www.makerfabs.com/simplefoc-driveshield.html){: .btn .btn-makerfabs} [GitHub project](https://github.com/simplefoc/SimpleFOC-DriveShield){: .btn .btn-github}
 
 ## Features
 
@@ -32,7 +32,7 @@ It is also meant as a **template project** for the community: a relatively simpl
    - Protections: undervoltage lockout, charge pump fault, MOSFET overcurrent and short circuit, gate driver fault, overtemperature
    - Fault LED, and an optional fault output to the microcontroller
 - **MOSFETs**: [BSZ0904NSI](https://www.infineon.com/dgdl/Infineon-BSZ0904NSI-DataSheet-v02_04-EN.pdf?fileId=db3a30432f29829e012f2a1ec7d90032), 30V / 75A, standard 3x3mm footprint, easy to replace
-- **Cooling**: 2oz copper outer layers on the Makerfabs boards, room for an optional 23 x 23mm [heatsink](#heatsink) on the power stage
+- **Cooling**: 2oz copper outer layers on the [Makerfabs](https://www.makerfabs.com/simplefoc-driveshield.html) boards, room for an optional 23 x 23mm [heatsink](#heatsink) on the power stage
 - **Inline current sensing**: [INA240A1](https://www.ti.com/lit/ds/symlink/ina240.pdf) amplifiers (gain 20) with 2mΩ shunts, ±40A range at 3.3V
 - **Power supply voltage sensing**: voltage divider (1/11)
 - **Integrated 8V regulator**: powers the microcontroller board through `VIN` (v1.8+)
@@ -118,4 +118,4 @@ v1.7 | 02/26 | STEMMA QT and SPI connectors, INA240 current sensing, power suppl
 ## How to get one
 
 - **Order the assembled board** from [Makerfabs](https://www.makerfabs.com/simplefoc-driveshield.html). Makerfabs makes the board with 2oz outer copper layers, the thick version from the [thermal measurements](#thermal-performance).
-- **Make it yourself**: the Gerber, BOM and pick and place files are in the [GitHub repository](https://github.com/simplefoc/SimpleFOC-DriveShield), and the [EasyEDA project](https://oshwlab.com/the.skuric/SimpleFOC-Drive) can be ordered directly from JLCPCB. The process is the same as for the [Shield v4](arduino_simplefoc_shield_fabrication_v4).
+- **Make it yourself**: the Gerber, BOM and pick and place files are in the [GitHub repository](https://github.com/simplefoc/SimpleFOC-DriveShield), and the [EasyEDA project](https://oshwlab.com/the.skuric/SimpleFOC-Drive) can be ordered directly from JLCPCB. Choose **2oz outer copper** when ordering. See the [JLCPCB ordering guide](board_fabrication){: .btn .btn-docs}

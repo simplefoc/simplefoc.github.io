@@ -29,7 +29,7 @@ These guides assume a position sensor. Without one, you have two options:
 
 Follow these 4 guides in order. Each takes **10-15 minutes** and builds on the previous one:
 
-[Start with step 1: Test your sensor →](test_sensor){: .btn .btn-primary}
+[Step 1: Test your sensor](test_sensor){: .btn .btn-step}
 
 ### [1. Test Your Sensor](test_sensor) 
 **~10 min** - Validate that your position sensor is working  

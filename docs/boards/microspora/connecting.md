@@ -74,7 +74,7 @@ When designing an adapter or enclosure, you can use the [3D model of the board](
 
 ## Power supply
 
-The board allows a range of power-supply voltage from **8-35V DC**. 
+The board allows a range of power-supply voltage from **5-35V DC**. 
 The DRV8316 provides an onboard 5V buck output for the board and supported peripherals. But the maximal current it can supply is limited to around 200mA. Which is typically sufficient for sensors and low-power peripherals. Only 3.3V output is available for peripherals using the JST connectors.
 
 ## CAN connection

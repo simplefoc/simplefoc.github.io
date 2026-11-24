@@ -16,7 +16,7 @@ FOC needs to know the rotor position. Usually it comes from a position sensor, b
 
 The observer is ported from the [MESC firmware](https://github.com/davidmolony/MESC_Firmware) by David Molony, and is also the default flux observer in the VESC firmware. The [MESC documentation](https://davidmolony.github.io/MESC_Firmware/operation/CONTROL.html#the-sensorless-observer) explains the maths behind it.
 
-[Source and README](https://github.com/simplefoc/Arduino-FOC-drivers/tree/master/src/encoders/MXLEMMING_observer){: .btn .btn-docs} [Full example project](sensorless_foc_nucleo_example){: .btn .btn-docs}
+[Source and README](https://github.com/simplefoc/Arduino-FOC-drivers/tree/master/src/encoders/MXLEMMING_observer){: .btn .btn-github} [Full example project](sensorless_foc_nucleo_example){: .btn .btn-docs}
 
 ## When to use it
 

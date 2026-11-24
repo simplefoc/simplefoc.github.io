@@ -67,5 +67,5 @@ Version  |link | Release date | Comment
 
 
 ## Fully assembled versions
-Order your own fully tested and assembled Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span>  from our [shop](https://simplefoc.com/simplefoc_shield_product).
+Order your own fully tested and assembled Arduino <span class="simple">Simple<span class="foc">FOC</span>Shield</span>  from [Makerfabs](https://www.makerfabs.com/simplefocshield-for-arduino.html) or from our [shop](https://simplefoc.com/simplefoc_shield_product).
 

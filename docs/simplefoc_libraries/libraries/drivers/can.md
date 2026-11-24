@@ -14,7 +14,7 @@ toc: true
 
 CAN is a robust bus for connecting several motor controllers with just two wires, which makes it the natural choice for robots and multi-axis machines. The `CANCommander` from the <span class="simple">Simple<span class="foc">FOC</span>Drivers</span> library gives every <span class="simple">Simple<span class="foc">FOC</span></span> node an address on the bus, and lets you read and write any motor value using the same [registers](drivers_registers) as the serial protocols.
 
-[Source and protocol README](https://github.com/simplefoc/Arduino-FOC-drivers/tree/master/src/comms/can){: .btn .btn-docs} [Examples](https://github.com/simplefoc/Arduino-FOC-drivers/tree/master/examples/comms/can){: .btn .btn-docs}
+[Source and protocol README](https://github.com/simplefoc/Arduino-FOC-drivers/tree/master/src/comms/can){: .btn .btn-github} [Examples](https://github.com/simplefoc/Arduino-FOC-drivers/tree/master/examples/comms/can){: .btn .btn-github}
 
 ## Requirements
 

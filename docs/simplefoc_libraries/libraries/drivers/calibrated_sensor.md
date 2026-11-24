@@ -16,7 +16,7 @@ toc: true
 
 Originally implemented by [@MarethyuPrefect](https://github.com/MarethyuPrefect), see the [forum thread](https://community.simplefoc.com/t/simplefoc-sensor-eccentricity-calibration/2212) for the background.
 
-[Source and README](https://github.com/simplefoc/Arduino-FOC-drivers/tree/master/src/encoders/calibrated){: .btn .btn-docs} [Example](https://github.com/simplefoc/Arduino-FOC-drivers/blob/master/examples/encoders/calibrated/sensor_calibration.ino){: .btn .btn-docs}
+[Source and README](https://github.com/simplefoc/Arduino-FOC-drivers/tree/master/src/encoders/calibrated){: .btn .btn-github} [Example](https://github.com/simplefoc/Arduino-FOC-drivers/blob/master/examples/encoders/calibrated/sensor_calibration.ino){: .btn .btn-github}
 
 ## Why calibrate?
 

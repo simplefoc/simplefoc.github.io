@@ -307,7 +307,7 @@ There are two current sense strategies implemented in SimpleFOC:
 
 Both `InlineCurrentSense` and `LowsideCurrentSense` require accurate configuration of the current sense parameters to work correctly. Either shunt resistance and amplifier gain, or the overall current sense ratio can be used.
 
-<a href="javascript:show('inline','cs');" class="btn bts-cs btn-inline btn-primary">Inline Current Sense Parameters</a>
+<a href="javascript:show('inline','cs');" class="btn btn-cs btn-inline btn-primary">Inline Current Sense Parameters</a>
 <a href="javascript:show('lowside','cs');" class="btn btn-cs btn-lowside ">Lowside Current Sense Parameters</a>
 
 <div class="cs cs-inline" markdown="1">
@@ -428,7 +428,7 @@ current_sense.skip_align = true; // before initFOC()
 
 Once you've validated that current sensing works and d/q currents are visible:
 
-[Start the step 2: Full FOC Current Control](test_foc_current){: .btn .btn-step}
+[Step 2: Full FOC current control](test_foc_current){: .btn .btn-step}
 
 ## Related references
 

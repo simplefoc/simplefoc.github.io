@@ -23,7 +23,7 @@ The <span class="simple">Simple<span class="foc">FOC</span>Shield</span>, in com
 
 <img src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/v4.1/images/top.png" class="width30"> <img src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/v4.1/images/bottom.png" class="width30"> <img src="https://raw.githubusercontent.com/simplefoc/Arduino-SimpleFOCShield/v4.1/images/side.png" class="width30">
 
-[Get started with your board](arduino_simplefoc_shield_installation){: .btn .btn-primary} [Fabricate the board](arduino_simplefoc_shield_fabrication){: .btn .btn-docs}
+[Get started with your board](arduino_simplefoc_shield_installation){: .btn .btn-primary} [Order from Makerfabs](https://www.makerfabs.com/simplefocshield-for-arduino.html){: .btn .btn-makerfabs} [Fabricate the board](arduino_simplefoc_shield_fabrication){: .btn .btn-docs} [GitHub project](https://github.com/simplefoc/Arduino-SimpleFOCShield){: .btn .btn-github}
 
 ### Features
 - **Plug & play**: In combination with Arduino <span class="simple">Simple<span class="foc">FOC</span>library</span> - [github](https://github.com/simplefoc/Arduino-FOC)
@@ -122,5 +122,5 @@ You already have your own <span class="simple">Simple<span class="foc">FOC</span
 
 ## How to get hold of the <span class="simple">Simple<span class="foc">FOC</span>Shield</span> 
 - **Fabricate the board yourself**:  Please visit the [board fabrication](arduino_simplefoc_shield_fabrication) to find out how to manufacture the board yourself!<br>
-- **Order the finished and tested board**:  Check out our [shop](https://simplefoc.com/simplefoc_shield_product). The v4.1 will also be available from Makerfabs soon.
+- **Order the finished and tested board**:  available from [Makerfabs](https://www.makerfabs.com/simplefocshield-for-arduino.html) and from our [shop](https://simplefoc.com/simplefoc_shield_product).
 

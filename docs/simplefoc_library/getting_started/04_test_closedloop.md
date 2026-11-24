@@ -414,9 +414,9 @@ With voltage-based torque control working, you have a solid foundation! For more
 
 Once this works:
 - **You don't have current sensing?** : <br>
-[Estimated current control setup guide](estimated_current_guide){:.btn .btn-step}
+[A. Estimated current control](estimated_current_guide){: .btn .btn-step}
 - **You have current sensing?** : <br>
-[FOC control setup guide](test_current){:.btn .btn-step}
+[B. FOC current control](foc_current){: .btn .btn-step}
 
 ## Relevant Documentation
 

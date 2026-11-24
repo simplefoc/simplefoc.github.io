@@ -22,7 +22,7 @@ toc: true
 
 <span class="simple">Simple<span class="foc">FOC</span>Mini</span> is a compact BLDC driver for use with the <span class="simple">Simple<span class="foc">FOC</span>library</span>. Version 2 replaces the DRV8313 with a DRV8316 and adds three-phase low-side current sensing and supply-voltage sensing. Its PWM and enable pinout remains compatible with Mini v1.1, so existing control code can be reused.
 
-[Get started with your mini board](mini_getting_started){: .btn .btn-docs}
+[Get started with your mini board](mini_getting_started){: .btn .btn-docs} [Order from Makerfabs](https://www.makerfabs.com/simplefocmini.html){: .btn .btn-makerfabs} [GitHub project](https://github.com/simplefoc/SimpleFOCMini){: .btn .btn-github}
 
 ## Version features comparison
 
@@ -33,7 +33,7 @@ toc: true
 | Power supply | 8-35V | 5-35V |
 | Maximum current | 2.5A per phase | 8A |
 | Current sensing | Not integrated | Three-phase low-side (150mV/A) |
-| Supply-voltage sensing | Not integrated | Integrated (0.101V/V scale) |
+| Supply-voltage sensing | Not integrated | Integrated (VIN/11) |
 | 3.3V regulator output | Up to 10mA | Up to 20mA |
 | Board size | 20 x 26mm | 24 x 25mm |
 | PWM and enable pinout | Original layout | Compatible with v1.1 |
@@ -50,7 +50,7 @@ The v2.3 board is a complete redesign, but retains the v1.1 PWM and enable pinou
   - 3-PWM mode
 - **Sensing**: 
   - 3x Low-side current sensing (150mV/A)
-  - Power supply voltage sensing (Scale 0.101V/V)
+  - Power supply voltage sensing (VIN/11, 47k / 4.7k divider)
 - **Onboard 3.3V LDO**: Up to 20mA output
 - **Small size**: 24x25 mm, with 4 [mounting holes](#mounting-holes) for M2 screws
 - **Fully open-source**:
@@ -138,5 +138,5 @@ You already have your own <span class="simple">Simple<span class="foc">FOC</span
 
 ## How to get hold of the <span class="simple">Simple<span class="foc">FOC</span>Mini</span> 
 - **Fabricate the board yourself**:  [Board fabrication docs](mini_fabrication){: .btn .btn-docs}
-- **Order the finished and tested board**:  Check out our [shop](https://simplefoc.com/shop).
+- **Order the finished and tested board**:  available from [Makerfabs](https://www.makerfabs.com/simplefocmini.html).
 

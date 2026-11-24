@@ -654,4 +654,4 @@ Once you've confirmed:
 
 Proceed to:
 
-[Closed-Loop Control](test_closedloop){: .btn .btn-step}
+[Step 4: Closed-loop control](test_closedloop){: .btn .btn-step}

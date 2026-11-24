@@ -20,7 +20,7 @@ toc: true
 
 The board generates its own 5V from the motor power supply and powers the microcontroller from it, so once the board is programmed it doesn't need a USB cable or an extra regulator.
 
-[Get started with your board](qtfoc_getting_started){: .btn .btn-primary} [GitHub project](https://github.com/simplefoc/QtFOC){: .btn .btn-docs}
+[Get started with your board](qtfoc_getting_started){: .btn .btn-primary} [Order from Makerfabs](https://www.makerfabs.com/simplefoc-qtfoc.html){: .btn .btn-makerfabs} [GitHub project](https://github.com/simplefoc/QtFOC){: .btn .btn-github}
 
 <img src="https://raw.githubusercontent.com/simplefoc/QtFOC/master/images/side_real1.jpg" class="img300" alt="QtFOC with a XIAO board"> <img src="https://raw.githubusercontent.com/simplefoc/QtFOC/master/images/spi_motor.jpg" class="img300" alt="QtFOC with a motor and an SPI sensor">
 
@@ -41,7 +41,7 @@ The XIAO / QT Py format has few pins, but enough for a complete FOC setup:
    - Protections: undervoltage lockout, charge pump fault, overcurrent (~16A), overtemperature
 - **Input voltage**: 8-35V
 - **Current**: up to 8A peak (DRV8316 limit), the continuous current depends on cooling
-- **Current sensing**: low-side, phases A and B, 150mV/A, about ±11A range with a 3.3V ADC
+- **Current sensing**: low-side, phases A and B, 150mV/A (about ±11A with a 3.3V ADC) or 300mV/A (about ±5.5A), selected with a solder pad on the bottom of the board
 - **Power supply voltage sensing**: VIN/11 on `A2`
 - **Onboard 5V buck converter**: powers the XIAO / QT Py from VIN through a diode, so USB and VIN can be connected at the same time (200mA max)
 - **SPI connector**: 6-pin JST SH for SPI position sensors (AS5047, AS5048A, MT6701, MT6835, ...)
@@ -120,5 +120,5 @@ v1.6 | 02/26 | First public release: MCU powered from the DRV8316 buck converter
 
 ## How to get one
 
-- **Order the assembled board**: coming soon from Makerfabs.
-- **Make it yourself**: the board is fully open source: the Gerber, BOM and pick and place files are in the [GitHub repository](https://github.com/simplefoc/QtFOC), and the [EasyEDA project](https://oshwlab.com/the.skuric/simplefocmini_copy_copy_copy_copy) can be ordered directly from JLCPCB. The process is the same as for the [<span class="simple">Simple<span class="foc">FOC</span>Mini</span>](mini_fabrication), see the [Mini fabrication guide](mini_fabrication){: .btn .btn-docs}
+- **Order the assembled board**: available from [Makerfabs](https://www.makerfabs.com/simplefoc-qtfoc.html).
+- **Make it yourself**: the board is fully open source: the Gerber, BOM and pick and place files are in the [GitHub repository](https://github.com/simplefoc/QtFOC), and the [EasyEDA project](https://oshwlab.com/the.skuric/simplefocmini_copy_copy_copy_copy) can be ordered directly from JLCPCB. See the [JLCPCB ordering guide](board_fabrication){: .btn .btn-docs}

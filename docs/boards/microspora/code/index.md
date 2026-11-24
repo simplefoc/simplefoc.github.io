@@ -523,7 +523,7 @@ void setup() {
 }
 ```
 
-[CalibratedSensor documentation](https://github.com/simplefoc/Arduino-FOC-drivers/tree/master/src/encoders/calibrated){: .btn .btn-docs}
+[CalibratedSensor documentation](https://github.com/simplefoc/Arduino-FOC-drivers/tree/master/src/encoders/calibrated){: .btn .btn-github}
 
 ### CAN and the reference firmware
 
@@ -531,4 +531,4 @@ To control the board over CAN as well, add the code from the [CAN communication]
 
 The [Microspora firmware repository](https://github.com/simplefoc/microspora_simplefoc_firmware) contains the reference firmware with CAN, motor characterisation and sensor calibration.
 
-[Get the reference firmware on GitHub](https://github.com/simplefoc/microspora_simplefoc_firmware){: .btn .btn-primary}
+[Get the reference firmware on GitHub](https://github.com/simplefoc/microspora_simplefoc_firmware){: .btn .btn-github}
